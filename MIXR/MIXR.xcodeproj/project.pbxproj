@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5C92A1441BC5785A00EB6B9E /* User.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5C92A1431BC5785A00EB6B9E /* User.storyboard */; };
+		5C92A1461BC57AD500EB6B9E /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C92A1451BC57AD500EB6B9E /* LoginViewController.swift */; };
 		806122201BBF2D7400EFF35E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8061221F1BBF2D7400EFF35E /* AppDelegate.swift */; };
 		806122221BBF2D7400EFF35E /* VenueFeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 806122211BBF2D7400EFF35E /* VenueFeedViewController.swift */; };
 		806122241BBF2D7400EFF35E /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 806122231BBF2D7400EFF35E /* MapViewController.swift */; };
@@ -35,6 +37,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		5C92A1431BC5785A00EB6B9E /* User.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = User.storyboard; sourceTree = "<group>"; };
+		5C92A1451BC57AD500EB6B9E /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		8061221A1BBF2D7400EFF35E /* MIXR.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MIXR.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8061221E1BBF2D7400EFF35E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8061221F1BBF2D7400EFF35E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -108,6 +112,8 @@
 				806122281BBF2D7400EFF35E /* Images.xcassets */,
 				8061222A1BBF2D7400EFF35E /* LaunchScreen.xib */,
 				8061221D1BBF2D7400EFF35E /* Supporting Files */,
+				5C92A1431BC5785A00EB6B9E /* User.storyboard */,
+				5C92A1451BC57AD500EB6B9E /* LoginViewController.swift */,
 			);
 			path = MIXR;
 			sourceTree = "<group>";
@@ -228,6 +234,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				806122271BBF2D7400EFF35E /* Main.storyboard in Resources */,
+				5C92A1441BC5785A00EB6B9E /* User.storyboard in Resources */,
 				8061222C1BBF2D7400EFF35E /* LaunchScreen.xib in Resources */,
 				806122291BBF2D7400EFF35E /* Images.xcassets in Resources */,
 			);
@@ -247,6 +254,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5C92A1461BC57AD500EB6B9E /* LoginViewController.swift in Sources */,
 				806122241BBF2D7400EFF35E /* MapViewController.swift in Sources */,
 				806122461BBF2EDF00EFF35E /* UserProfileViewController.swift in Sources */,
 				806122441BBF2ECF00EFF35E /* VenueProfileViewController.swift in Sources */,
@@ -449,6 +457,7 @@
 				8061223D1BBF2D7500EFF35E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		8061223E1BBF2D7500EFF35E /* Build configuration list for PBXNativeTarget "MIXRTests" */ = {
 			isa = XCConfigurationList;
@@ -457,6 +466,7 @@
 				806122401BBF2D7500EFF35E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
