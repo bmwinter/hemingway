@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5C6F92061BC6C9680037373B /* SignUpTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C6F92051BC6C9680037373B /* SignUpTableViewController.swift */; };
 		5C92A1441BC5785A00EB6B9E /* User.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5C92A1431BC5785A00EB6B9E /* User.storyboard */; };
 		5C92A1461BC57AD500EB6B9E /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C92A1451BC57AD500EB6B9E /* LoginViewController.swift */; };
 		806122201BBF2D7400EFF35E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8061221F1BBF2D7400EFF35E /* AppDelegate.swift */; };
@@ -37,6 +38,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		5C6F92051BC6C9680037373B /* SignUpTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpTableViewController.swift; sourceTree = "<group>"; };
 		5C92A1431BC5785A00EB6B9E /* User.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = User.storyboard; sourceTree = "<group>"; };
 		5C92A1451BC57AD500EB6B9E /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		8061221A1BBF2D7400EFF35E /* MIXR.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MIXR.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -114,6 +116,7 @@
 				8061221D1BBF2D7400EFF35E /* Supporting Files */,
 				5C92A1431BC5785A00EB6B9E /* User.storyboard */,
 				5C92A1451BC57AD500EB6B9E /* LoginViewController.swift */,
+				5C6F92051BC6C9680037373B /* SignUpTableViewController.swift */,
 			);
 			path = MIXR;
 			sourceTree = "<group>";
@@ -255,6 +258,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5C92A1461BC57AD500EB6B9E /* LoginViewController.swift in Sources */,
+				5C6F92061BC6C9680037373B /* SignUpTableViewController.swift in Sources */,
 				806122241BBF2D7400EFF35E /* MapViewController.swift in Sources */,
 				806122461BBF2EDF00EFF35E /* UserProfileViewController.swift in Sources */,
 				806122441BBF2ECF00EFF35E /* VenueProfileViewController.swift in Sources */,

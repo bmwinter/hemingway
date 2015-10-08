@@ -24,6 +24,10 @@ class LoginViewController: UIViewController {
         super.viewDidAppear(animated)
     }
 
+    @IBAction func signupButtonTapped(sender: AnyObject){
+        self.performSegueWithIdentifier("SignUpSegue", sender: nil)
+    }
+    
     @IBAction func loginButtonTapped(sender: AnyObject){
         
         let email = userEmailTextField.text.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
