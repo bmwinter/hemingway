@@ -136,14 +136,6 @@
                                                 <outlet property="delegate" destination="NlB-pM-1Gi" id="a4x-Rm-IZR"/>
                                             </connections>
                                         </textField>
-                                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Date of birth" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="3eK-Gf-DIf">
-                                            <rect key="frame" x="10" y="318" width="302" height="30"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                            <textInputTraits key="textInputTraits"/>
-                                            <connections>
-                                                <outlet property="delegate" destination="NlB-pM-1Gi" id="p78-mI-pRn"/>
-                                            </connections>
-                                        </textField>
                                         <segmentedControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="jBq-tl-R4i">
                                             <rect key="frame" x="100" y="365" width="123" height="29"/>
                                             <segments>
@@ -172,6 +164,16 @@
                                                 <action selector="signupButtonTapped:" destination="NlB-pM-1Gi" eventType="touchUpInside" id="u2J-2s-01q"/>
                                             </connections>
                                         </button>
+                                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mgK-mc-LC9">
+                                            <rect key="frame" x="10" y="313" width="302" height="30"/>
+                                            <inset key="contentEdgeInsets" minX="5" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                            <state key="normal" title="Date of birth">
+                                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                            </state>
+                                            <connections>
+                                                <action selector="datePickerTapped:" destination="NlB-pM-1Gi" eventType="touchUpInside" id="MmY-Q8-b33"/>
+                                            </connections>
+                                        </button>
                                     </subviews>
                                 </scrollView>
                             </subviews>
@@ -184,12 +186,14 @@
                     </tableView>
                     <navigationItem key="navigationItem" id="5Qx-Tx-OeC"/>
                     <connections>
-                        <outlet property="conformPassword" destination="3eK-Gf-DIf" id="ilm-cy-aQi"/>
+                        <outlet property="checkmark" destination="dy4-Xv-H7q" id="7aw-1F-5rR"/>
+                        <outlet property="conformPassword" destination="2er-sE-zh9" id="OdQ-hn-Vkd"/>
+                        <outlet property="dob" destination="mgK-mc-LC9" id="ccK-tg-oRQ"/>
                         <outlet property="email" destination="P2R-qH-8xR" id="WMQ-3m-qsJ"/>
                         <outlet property="firstname" destination="k0B-3i-7C8" id="4dr-vY-hvs"/>
                         <outlet property="gender" destination="jBq-tl-R4i" id="0yn-pa-l7v"/>
                         <outlet property="lastname" destination="Did-XK-Rh0" id="CAH-8e-UII"/>
-                        <outlet property="password" destination="2er-sE-zh9" id="Cy6-tl-hvV"/>
+                        <outlet property="password" destination="E7w-xt-lJo" id="rDa-hi-UMD"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jho-Jk-vVy" userLabel="First Responder" sceneMemberID="firstResponder"/>

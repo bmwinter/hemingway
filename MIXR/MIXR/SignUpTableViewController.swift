@@ -7,6 +7,42 @@
 //
 import UIKit
 
+extension NSDate {
+    func yearsFrom(date:NSDate) -> Int{
+        return NSCalendar.currentCalendar().components(NSCalendarUnit.CalendarUnitYear, fromDate: date, toDate: self, options: nil).year
+    }
+    func monthsFrom(date:NSDate) -> Int{
+        return NSCalendar.currentCalendar().components(NSCalendarUnit.CalendarUnitMonth, fromDate: date, toDate: self, options: nil).month
+    }
+    func weeksFrom(date:NSDate) -> Int{
+        return NSCalendar.currentCalendar().components(NSCalendarUnit.CalendarUnitWeekOfYear, fromDate: date, toDate: self, options: nil).weekOfYear
+    }
+    func daysFrom(date:NSDate) -> Int{
+        return NSCalendar.currentCalendar().components(NSCalendarUnit.CalendarUnitDay, fromDate: date, toDate: self, options: nil).day
+    }
+    func hoursFrom(date:NSDate) -> Int{
+        return NSCalendar.currentCalendar().components(NSCalendarUnit.CalendarUnitHour, fromDate: date, toDate: self, options: nil).hour
+    }
+    func minutesFrom(date:NSDate) -> Int{
+        return NSCalendar.currentCalendar().components(NSCalendarUnit.CalendarUnitMinute, fromDate: date, toDate: self, options: nil).minute
+    }
+    func secondsFrom(date:NSDate) -> Int{
+        return NSCalendar.currentCalendar().components(NSCalendarUnit.CalendarUnitSecond, fromDate: date, toDate: self, options: nil).second
+    }
+    func offsetFrom(date:NSDate) -> Int {
+        if yearsFrom(date)   > 0 { return yearsFrom(date)   }
+        if monthsFrom(date)  > 0 { return monthsFrom(date)  }
+        if weeksFrom(date)   > 0 { return weeksFrom(date)   }
+        if daysFrom(date)    > 0 { return daysFrom(date)    }
+        if hoursFrom(date)   > 0 { return hoursFrom(date)   }
+        if minutesFrom(date) > 0 { return minutesFrom(date) }
+        if secondsFrom(date) > 0 { return secondsFrom(date) }
+        return 0
+    }
+}
+
+
+
 class SignUpTableViewController: UITableViewController {
     
     
@@ -15,7 +51,11 @@ class SignUpTableViewController: UITableViewController {
     @IBOutlet weak var email: UITextField!
     @IBOutlet weak var password: UITextField!
     @IBOutlet weak var conformPassword: UITextField!
+    @IBOutlet weak var dob: UIButton!
     @IBOutlet weak var gender: UISegmentedControl!
+    @IBOutlet weak var checkmark: UIButton!
+    
+    var selectedDate : NSDate?
     
     /*
     // Table View delegate methods
@@ -62,7 +102,39 @@ class SignUpTableViewController: UITableViewController {
             self.displayCommonAlert("Please enter valid email")
         }
 
+        if !compareTwoPassword(passwordString, conformPassword: confirmPasswordString){
+            self.displayCommonAlert("Password and confirm password must be same")
+        }
 
+        let years = NSDate().yearsFrom(self.selectedDate!)
+        
+        if(years<=18){
+            self.displayCommonAlert("To use this application, Your age should be greather that 18 years")
+        }
+        
+    }
+    
+    /* IBActions */
+    @IBAction func datePickerTapped(sender: AnyObject) {
+        DatePickerDialog().show("Date of birth", doneButtonTitle: "Done", cancelButtonTitle: "Cancel", datePickerMode: .Date) {
+            (date) -> Void in
+            self.selectedDate = date
+            var dateFormatter = NSDateFormatter()
+            
+            dateFormatter.dateFormat = "dd/MM/yyyy"
+            
+            let strDate = dateFormatter.stringFromDate(date)
+            
+            self.dob?.setTitle("\(strDate)", forState: UIControlState.Normal)
+        }
+    }
+
+    /*
+    // Compare two password
+    */
+    
+    func compareTwoPassword (password: String, conformPassword : NSString) -> Bool{
+        return (password == conformPassword)
     }
     
     /*

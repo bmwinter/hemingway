@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5C6E2C4A1BC90B940036259A /* DatePickerDialog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C6E2C491BC90B940036259A /* DatePickerDialog.swift */; };
 		5C6F92061BC6C9680037373B /* SignUpTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C6F92051BC6C9680037373B /* SignUpTableViewController.swift */; };
 		5C92A1441BC5785A00EB6B9E /* User.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5C92A1431BC5785A00EB6B9E /* User.storyboard */; };
 		5C92A1461BC57AD500EB6B9E /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C92A1451BC57AD500EB6B9E /* LoginViewController.swift */; };
@@ -38,6 +39,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		5C6E2C491BC90B940036259A /* DatePickerDialog.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DatePickerDialog.swift; sourceTree = "<group>"; };
 		5C6F92051BC6C9680037373B /* SignUpTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpTableViewController.swift; sourceTree = "<group>"; };
 		5C92A1431BC5785A00EB6B9E /* User.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = User.storyboard; sourceTree = "<group>"; };
 		5C92A1451BC57AD500EB6B9E /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
@@ -80,6 +82,22 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		5C6E2C471BC90B940036259A /* Library */ = {
+			isa = PBXGroup;
+			children = (
+				5C6E2C481BC90B940036259A /* DatePicker */,
+			);
+			path = Library;
+			sourceTree = "<group>";
+		};
+		5C6E2C481BC90B940036259A /* DatePicker */ = {
+			isa = PBXGroup;
+			children = (
+				5C6E2C491BC90B940036259A /* DatePickerDialog.swift */,
+			);
+			path = DatePicker;
+			sourceTree = "<group>";
+		};
 		806122111BBF2D7400EFF35E = {
 			isa = PBXGroup;
 			children = (
@@ -101,6 +119,7 @@
 		8061221C1BBF2D7400EFF35E /* MIXR */ = {
 			isa = PBXGroup;
 			children = (
+				5C6E2C471BC90B940036259A /* Library */,
 				8061221F1BBF2D7400EFF35E /* AppDelegate.swift */,
 				806122211BBF2D7400EFF35E /* VenueFeedViewController.swift */,
 				806122231BBF2D7400EFF35E /* MapViewController.swift */,
@@ -262,6 +281,7 @@
 				806122241BBF2D7400EFF35E /* MapViewController.swift in Sources */,
 				806122461BBF2EDF00EFF35E /* UserProfileViewController.swift in Sources */,
 				806122441BBF2ECF00EFF35E /* VenueProfileViewController.swift in Sources */,
+				5C6E2C4A1BC90B940036259A /* DatePickerDialog.swift in Sources */,
 				806122421BBF2E8100EFF35E /* UserFeedViewController.swift in Sources */,
 				806122201BBF2D7400EFF35E /* AppDelegate.swift in Sources */,
 				806122221BBF2D7400EFF35E /* VenueFeedViewController.swift in Sources */,
