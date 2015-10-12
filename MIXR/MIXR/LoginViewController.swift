@@ -40,25 +40,37 @@ class LoginViewController: UIViewController {
     
     @IBAction func loginButtonTapped(sender: AnyObject){
         
-        let email = userEmailTextField.text.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
-        let password = userPasswordTextField.text.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
+        let email = userEmailTextField.text!.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
+        let password = userPasswordTextField.text!.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
         
         if email.isEmpty{
-            let alertController = UIAlertController (title: "MIXR", message: "Please enter email", preferredStyle:.Alert)
-            let okayAction: UIAlertAction = UIAlertAction(title: "Ok", style: .Cancel) { action -> Void in
-                //Just dismiss the action sheet
+            if #available(iOS 8.0, *) {
+                let alertController = UIAlertController (title: "MIXR", message: "Please enter email", preferredStyle:.Alert)
+                let okayAction: UIAlertAction = UIAlertAction(title: "Ok", style: .Cancel) { action -> Void in
+                    //Just dismiss the action sheet
+                }
+                alertController.addAction(okayAction)
+                self.presentViewController(alertController, animated: true, completion: nil)
+
+            } else {
+                let alert = UIAlertView(title: "MIXR", message:"Please enter password" , delegate: nil, cancelButtonTitle:"Ok")
+                alert.show()
             }
-            alertController.addAction(okayAction)
-            self.presentViewController(alertController, animated: true, completion: nil)
         }
         
         if password.isEmpty{
-            let alertController = UIAlertController (title: "MIXR", message: "Please enter password", preferredStyle:.Alert)
-            let okayAction: UIAlertAction = UIAlertAction(title: "Ok", style: .Cancel) { action -> Void in
-                //Just dismiss the action sheet
+            if #available(iOS 8.0, *) {
+                let alertController = UIAlertController (title: "MIXR", message: "Please enter password", preferredStyle:.Alert)
+                let okayAction: UIAlertAction = UIAlertAction(title: "Ok", style: .Cancel) { action -> Void in
+                    //Just dismiss the action sheet
+                }
+                alertController.addAction(okayAction)
+                self.presentViewController(alertController, animated: true, completion: nil)
+
+            } else {
+                let alert = UIAlertView(title: "MIXR", message:"Please enter password" , delegate: nil, cancelButtonTitle:"Ok")
+                alert.show()
             }
-            alertController.addAction(okayAction)
-            self.presentViewController(alertController, animated: true, completion: nil)
         }
         
         if !isValidEmail(email){
@@ -73,13 +85,22 @@ class LoginViewController: UIViewController {
 
     func displayCommonAlert(alertMesage : NSString){
         
-        let alertController = UIAlertController (title: "MIXR", message: alertMesage as String?, preferredStyle:.Alert)
-        let okayAction: UIAlertAction = UIAlertAction(title: "Ok", style: .Cancel) { action -> Void in
-            //Just dismiss the action sheet
+        if #available(iOS 8.0, *) {
+            let alertController = UIAlertController (title: "MIXR", message: alertMesage as String?, preferredStyle:.Alert)
+            let okayAction: UIAlertAction = UIAlertAction(title: "Ok", style: .Cancel) { action -> Void in
+                //Just dismiss the action sheet
+            }
+            alertController.addAction(okayAction)
+            self.presentViewController(alertController, animated: true, completion: nil)
+
+        } else {
+            let alert = UIAlertView(title: "MIXR", message:alertMesage as String? , delegate: nil, cancelButtonTitle:"Ok")
+            alert.show()
+
+            // Fallback on earlier versions
         }
-        alertController.addAction(okayAction)
-        self.presentViewController(alertController, animated: true, completion: nil)
     }
+    
     
     
     /*
@@ -87,11 +108,11 @@ class LoginViewController: UIViewController {
     */
 
     func isValidEmail(testStr:String) -> Bool {
-        println("validate calendar: \(testStr)")
+        print("validate calendar: \(testStr)")
         let emailRegEx = "^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$"
         
-        var emailTest = NSPredicate(format:"SELF MATCHES %@", emailRegEx)
-        var result = emailTest.evaluateWithObject(testStr)
+        let emailTest = NSPredicate(format:"SELF MATCHES %@", emailRegEx)
+        let result = emailTest.evaluateWithObject(testStr)
         return result
     }
     

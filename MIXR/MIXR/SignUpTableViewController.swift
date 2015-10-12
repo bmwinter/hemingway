@@ -9,25 +9,25 @@ import UIKit
 
 extension NSDate {
     func yearsFrom(date:NSDate) -> Int{
-        return NSCalendar.currentCalendar().components(NSCalendarUnit.CalendarUnitYear, fromDate: date, toDate: self, options: nil).year
+        return NSCalendar.currentCalendar().components(NSCalendarUnit.Year, fromDate: date, toDate: self, options: []).year
     }
     func monthsFrom(date:NSDate) -> Int{
-        return NSCalendar.currentCalendar().components(NSCalendarUnit.CalendarUnitMonth, fromDate: date, toDate: self, options: nil).month
+        return NSCalendar.currentCalendar().components(NSCalendarUnit.Month, fromDate: date, toDate: self, options: []).month
     }
     func weeksFrom(date:NSDate) -> Int{
-        return NSCalendar.currentCalendar().components(NSCalendarUnit.CalendarUnitWeekOfYear, fromDate: date, toDate: self, options: nil).weekOfYear
+        return NSCalendar.currentCalendar().components(NSCalendarUnit.WeekOfYear, fromDate: date, toDate: self, options: []).weekOfYear
     }
     func daysFrom(date:NSDate) -> Int{
-        return NSCalendar.currentCalendar().components(NSCalendarUnit.CalendarUnitDay, fromDate: date, toDate: self, options: nil).day
+        return NSCalendar.currentCalendar().components(NSCalendarUnit.Day, fromDate: date, toDate: self, options: []).day
     }
     func hoursFrom(date:NSDate) -> Int{
-        return NSCalendar.currentCalendar().components(NSCalendarUnit.CalendarUnitHour, fromDate: date, toDate: self, options: nil).hour
+        return NSCalendar.currentCalendar().components(NSCalendarUnit.Hour, fromDate: date, toDate: self, options: []).hour
     }
     func minutesFrom(date:NSDate) -> Int{
-        return NSCalendar.currentCalendar().components(NSCalendarUnit.CalendarUnitMinute, fromDate: date, toDate: self, options: nil).minute
+        return NSCalendar.currentCalendar().components(NSCalendarUnit.Minute, fromDate: date, toDate: self, options: []).minute
     }
     func secondsFrom(date:NSDate) -> Int{
-        return NSCalendar.currentCalendar().components(NSCalendarUnit.CalendarUnitSecond, fromDate: date, toDate: self, options: nil).second
+        return NSCalendar.currentCalendar().components(NSCalendarUnit.Second, fromDate: date, toDate: self, options: []).second
     }
     func offsetFrom(date:NSDate) -> Int {
         if yearsFrom(date)   > 0 { return yearsFrom(date)   }
@@ -69,18 +69,27 @@ class SignUpTableViewController: UITableViewController {
         return 0
     }
     
+    
+    /*
+    //  Check mark button method
+    */
+    
+    @IBAction func checkmarkButtonTapped(sender: AnyObject){
+        checkmark.selected = !checkmark.selected
+    }
+    
     /*
     // Custom button methods..
     */
 
     @IBAction func signupButtonTapped(sender: AnyObject){
         
-        let firstnameString = firstname.text.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
-        let lastnameString = lastname.text.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
+        let firstnameString = firstname.text!.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
+        let lastnameString = lastname.text!.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
         
-        let emailString = email.text.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
-        let passwordString = password.text.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
-        let confirmPasswordString = conformPassword.text.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
+        let emailString = email.text!.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
+        let passwordString = password.text!.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
+        let confirmPasswordString = conformPassword.text!.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
 
         if firstnameString.isEmpty{
             self.displayCommonAlert("Please enter firstname")
@@ -112,6 +121,10 @@ class SignUpTableViewController: UITableViewController {
             self.displayCommonAlert("To use this application, Your age should be greather that 18 years")
         }
         
+        if !checkmark.selected{
+            self.displayCommonAlert("Please accept terms & condition!")
+        }
+        
     }
     
     /* IBActions */
@@ -119,7 +132,7 @@ class SignUpTableViewController: UITableViewController {
         DatePickerDialog().show("Date of birth", doneButtonTitle: "Done", cancelButtonTitle: "Cancel", datePickerMode: .Date) {
             (date) -> Void in
             self.selectedDate = date
-            var dateFormatter = NSDateFormatter()
+            let dateFormatter = NSDateFormatter()
             
             dateFormatter.dateFormat = "dd/MM/yyyy"
             
@@ -143,11 +156,11 @@ class SignUpTableViewController: UITableViewController {
 
     
     func isValidEmail(testStr:String) -> Bool {
-        println("validate calendar: \(testStr)")
+        print("validate calendar: \(testStr)")
         let emailRegEx = "^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$"
         
-        var emailTest = NSPredicate(format:"SELF MATCHES %@", emailRegEx)
-        var result = emailTest.evaluateWithObject(testStr)
+        let emailTest = NSPredicate(format:"SELF MATCHES %@", emailRegEx)
+        let result = emailTest.evaluateWithObject(testStr)
         return result
     }
 
@@ -158,13 +171,32 @@ class SignUpTableViewController: UITableViewController {
 
     func displayCommonAlert(alertMesage : NSString){
         
-        let alertController = UIAlertController (title: "MIXR", message: alertMesage as String?, preferredStyle:.Alert)
-        let okayAction: UIAlertAction = UIAlertAction(title: "Ok", style: .Cancel) { action -> Void in
-            //Just dismiss the action sheet
+        if #available(iOS 8.0, *) {
+            let alertController = UIAlertController (title: "MIXR", message: alertMesage as String?, preferredStyle:.Alert)
+            let okayAction: UIAlertAction = UIAlertAction(title: "Ok", style: .Cancel) { action -> Void in
+                //Just dismiss the action sheet
+            }
+            alertController.addAction(okayAction)
+            self.presentViewController(alertController, animated: true, completion: nil)
+
+        } else {
+            let alert = UIAlertView(title: "MIXR", message:alertMesage as String? , delegate: nil, cancelButtonTitle:"Ok")
+            alert.show()
         }
-        alertController.addAction(okayAction)
-        self.presentViewController(alertController, animated: true, completion: nil)
     }
+    
+    /*
+    // Alert view delegate methods..
+    */
+    
+    func alertView(View: UIAlertView!, clickedButtonAtIndex buttonIndex: Int){
+        switch buttonIndex{
+        case 1: print("Test 1")
+        case 0: print("Test 1")
+        default: print("Test 1")
+        }
+    }
+
     
     /*
     // Text field delegate methods..
