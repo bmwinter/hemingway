@@ -222,7 +222,7 @@
                                 </imageView>
                                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fgV-yZ-sir">
                                     <rect key="frame" x="8" y="31" width="191" height="30"/>
-                                    <state key="normal" title="Follow"/>
+                                    <state key="normal" title="Settings"/>
                                 </button>
                                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TBf-GR-2F2">
                                     <rect key="frame" x="8" y="68" width="191" height="30"/>

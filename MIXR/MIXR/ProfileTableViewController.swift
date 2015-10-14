@@ -9,6 +9,15 @@
 import UIKit
 class ProfileTableViewController: UITableViewController {
 
+    @IBOutlet weak var userProfilePic: UIImageView!
+    @IBOutlet weak var settings: UIButton!
+    @IBOutlet weak var status: UIButton!
+    @IBOutlet weak var followers: UIButton!
+    @IBOutlet weak var following: UIButton!
+    @IBOutlet weak var biography: UITextView!
+    @IBOutlet weak var favBars: UITextView!
+
+    
     /*
     // Table View delegate methods
     */
