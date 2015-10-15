@@ -7,6 +7,12 @@
 //
 
 import UIKit
+
+enum tags:Int {
+    case biography
+    case favBar
+}
+
 class ProfileTableViewController: UITableViewController {
 
     @IBOutlet weak var userProfilePic: UIImageView!
@@ -16,7 +22,9 @@ class ProfileTableViewController: UITableViewController {
     @IBOutlet weak var following: UIButton!
     @IBOutlet weak var biography: UITextView!
     @IBOutlet weak var favBars: UITextView!
-
+    
+    @IBOutlet weak var biographyLabel: UILabel!
+    @IBOutlet weak var favBarsLabel: UILabel!
     
     /*
     // Table View delegate methods
@@ -29,5 +37,65 @@ class ProfileTableViewController: UITableViewController {
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 0
     }
+    
+    /*
+    // IBAction methods
+    */
 
+    /*
+    // Setting button method
+    */
+
+    @IBAction func settingsButtontapped(sender: AnyObject) {
+    }
+    
+    /*
+    // Status button method
+    */
+    @IBAction func statusButtontapped(sender: AnyObject) {
+    }
+    
+    /*
+    // Follower button method
+    */
+    @IBAction func followerButtontapped(sender: AnyObject) {
+    }
+    
+    /*
+    // Following button method
+    */
+    @IBAction func followingButtontapped(sender: AnyObject) {
+    }
+
+    /*
+    // Text View Delegate Method
+    */
+    func textViewDidBeginEditing(textView: UITextView){
+        
+    }
+    func textViewDidEndEditing(textView: UITextView){
+        
+    }
+    func textView(textView: UITextView, shouldChangeTextInRange range: NSRange, replacementText text: String) -> Bool{
+        return true;
+    }
+    func textViewDidChange(textView: UITextView){
+        
+        switch (textView.tag){
+            case tags.biography:
+                print("Fizz")
+            case tags.favBar:
+                print("Fizz")
+            default:
+                print("Fizz")
+        }
+        
+        
+        if !textView.hasText(){
+            favBarsLabel.hidden = false;
+        }else{
+            favBarsLabel.hidden = true;
+        }
+    }
+    
 }

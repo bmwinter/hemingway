@@ -236,6 +236,28 @@
                                     <rect key="frame" x="160" y="154" width="160" height="30"/>
                                     <state key="normal" title="Following(10)"/>
                                 </button>
+                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="jqU-tD-Sms">
+                                    <rect key="frame" x="15" y="229" width="140" height="200"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                </textView>
+                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="M1u-QW-2k4">
+                                    <rect key="frame" x="165" y="229" width="140" height="200"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                </textView>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="bio" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Nb2-hV-bmS">
+                                    <rect key="frame" x="51" y="246" width="70" height="21"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="favorite bar" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="30a-QR-rwm">
+                                    <rect key="frame" x="180" y="246" width="120" height="21"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
                             </subviews>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         </view>
@@ -244,6 +266,17 @@
                             <outlet property="delegate" destination="P1O-Pj-TnB" id="de9-7S-Tkh"/>
                         </connections>
                     </tableView>
+                    <connections>
+                        <outlet property="biography" destination="jqU-tD-Sms" id="uhL-um-SJ5"/>
+                        <outlet property="biographyLabel" destination="Nb2-hV-bmS" id="3bt-Vc-ekz"/>
+                        <outlet property="favBars" destination="M1u-QW-2k4" id="o4u-PP-VWx"/>
+                        <outlet property="favBarsLabel" destination="30a-QR-rwm" id="f0S-5s-yQs"/>
+                        <outlet property="followers" destination="Go7-jh-AwP" id="Rc3-tx-GmV"/>
+                        <outlet property="following" destination="TFh-Vp-f5X" id="IU6-5X-QgD"/>
+                        <outlet property="settings" destination="fgV-yZ-sir" id="WXU-xM-d1c"/>
+                        <outlet property="status" destination="TBf-GR-2F2" id="KE4-qX-IHS"/>
+                        <outlet property="userProfilePic" destination="ftR-vD-muC" id="xEn-ao-rex"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6cz-dj-zxH" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
