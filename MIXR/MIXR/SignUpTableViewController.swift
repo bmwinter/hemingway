@@ -92,37 +92,37 @@ class SignUpTableViewController: UITableViewController {
         let confirmPasswordString = conformPassword.text!.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
 
         if firstnameString.isEmpty{
-            self.displayCommonAlert("Please enter firstname")
+            self.displayCommonAlert(globalConstants.kfirstnameError)
         }
         if lastnameString.isEmpty{
-            self.displayCommonAlert("Please enter lastname")
+            self.displayCommonAlert(globalConstants.klastnameError)
         }
         if emailString.isEmpty{
-            self.displayCommonAlert("Please enter email")
+            self.displayCommonAlert(globalConstants.kEmailError)
         }
         if passwordString.isEmpty{
-            self.displayCommonAlert("Please enter password")
+            self.displayCommonAlert(globalConstants.kpasswordError)
         }
         if confirmPasswordString.isEmpty{
-            self.displayCommonAlert("Please enter confirm password")
+            self.displayCommonAlert(globalConstants.kconfirmPasswordError)
         }
         
-        if !isValidEmail(emailString){
-            self.displayCommonAlert("Please enter valid email")
+        if !globalConstants.isValidEmail(emailString){
+            self.displayCommonAlert(globalConstants.kValidEmailError)
         }
 
         if !compareTwoPassword(passwordString, conformPassword: confirmPasswordString){
-            self.displayCommonAlert("Password and confirm password must be same")
+            self.displayCommonAlert(globalConstants.kpasswordconfirmPasswordError)
         }
 
         let years = NSDate().yearsFrom(self.selectedDate!)
         
         if(years<=18){
-            self.displayCommonAlert("To use this application, Your age should be greather that 18 years")
+            self.displayCommonAlert(globalConstants.kageRestrictionError)
         }
         
         if !checkmark.selected{
-            self.displayCommonAlert("Please accept terms & condition!")
+            self.displayCommonAlert(globalConstants.ktermsandConditionError)
         }
         
     }
@@ -150,20 +150,6 @@ class SignUpTableViewController: UITableViewController {
         return (password == conformPassword)
     }
     
-    /*
-    // Method to check wether email is valid or not.
-    */
-
-    
-    func isValidEmail(testStr:String) -> Bool {
-        print("validate calendar: \(testStr)")
-        let emailRegEx = "^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$"
-        
-        let emailTest = NSPredicate(format:"SELF MATCHES %@", emailRegEx)
-        let result = emailTest.evaluateWithObject(testStr)
-        return result
-    }
-
 
     /*
     // Common alert method need to be used to display alert, by passing alert string as parameter to it.
@@ -172,7 +158,7 @@ class SignUpTableViewController: UITableViewController {
     func displayCommonAlert(alertMesage : NSString){
         
         if #available(iOS 8.0, *) {
-            let alertController = UIAlertController (title: "MIXR", message: alertMesage as String?, preferredStyle:.Alert)
+            let alertController = UIAlertController (title: globalConstants.kAppName, message: alertMesage as String?, preferredStyle:.Alert)
             let okayAction: UIAlertAction = UIAlertAction(title: "Ok", style: .Cancel) { action -> Void in
                 //Just dismiss the action sheet
             }
@@ -180,7 +166,7 @@ class SignUpTableViewController: UITableViewController {
             self.presentViewController(alertController, animated: true, completion: nil)
 
         } else {
-            let alert = UIAlertView(title: "MIXR", message:alertMesage as String? , delegate: nil, cancelButtonTitle:"Ok")
+            let alert = UIAlertView(title: globalConstants.kAppName, message:alertMesage as String? , delegate: nil, cancelButtonTitle:"Ok")
             alert.show()
         }
     }

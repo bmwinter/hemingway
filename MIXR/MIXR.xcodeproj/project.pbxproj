@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		5C17F0061BCC097600E027E0 /* ProfileTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C17F0051BCC097600E027E0 /* ProfileTableViewController.swift */; settings = {ASSET_TAGS = (); }; };
+		5C22FB611BD1314000FF9C98 /* CollectionViewWaterfallLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C22FB601BD1314000FF9C98 /* CollectionViewWaterfallLayout.swift */; settings = {ASSET_TAGS = (); }; };
+		5C26612F1BD0B4E100413257 /* GlobalConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C26612E1BD0B4E100413257 /* GlobalConstants.swift */; settings = {ASSET_TAGS = (); }; };
+		5C2A9E941BD2063E008669AB /* RecentPhotoVidoeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C2A9E931BD2063E008669AB /* RecentPhotoVidoeController.swift */; settings = {ASSET_TAGS = (); }; };
 		5C6E2C4A1BC90B940036259A /* DatePickerDialog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C6E2C491BC90B940036259A /* DatePickerDialog.swift */; };
 		5C6F92061BC6C9680037373B /* SignUpTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C6F92051BC6C9680037373B /* SignUpTableViewController.swift */; };
 		5C92A1441BC5785A00EB6B9E /* User.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5C92A1431BC5785A00EB6B9E /* User.storyboard */; };
@@ -42,6 +45,9 @@
 
 /* Begin PBXFileReference section */
 		5C17F0051BCC097600E027E0 /* ProfileTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ProfileTableViewController.swift; path = MIXR/ProfileTableViewController.swift; sourceTree = SOURCE_ROOT; };
+		5C22FB601BD1314000FF9C98 /* CollectionViewWaterfallLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionViewWaterfallLayout.swift; sourceTree = "<group>"; };
+		5C26612E1BD0B4E100413257 /* GlobalConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GlobalConstants.swift; path = MIXR/GlobalConstants.swift; sourceTree = SOURCE_ROOT; };
+		5C2A9E931BD2063E008669AB /* RecentPhotoVidoeController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecentPhotoVidoeController.swift; sourceTree = "<group>"; };
 		5C6E2C491BC90B940036259A /* DatePickerDialog.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DatePickerDialog.swift; sourceTree = "<group>"; };
 		5C6F92051BC6C9680037373B /* SignUpTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpTableViewController.swift; sourceTree = "<group>"; };
 		5C92A1431BC5785A00EB6B9E /* User.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = User.storyboard; sourceTree = "<group>"; };
@@ -97,10 +103,20 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		5C22FB5F1BD1314000FF9C98 /* CollectionView */ = {
+			isa = PBXGroup;
+			children = (
+				5C22FB601BD1314000FF9C98 /* CollectionViewWaterfallLayout.swift */,
+			);
+			path = CollectionView;
+			sourceTree = "<group>";
+		};
 		5C6E2C471BC90B940036259A /* Library */ = {
 			isa = PBXGroup;
 			children = (
+				5C22FB5F1BD1314000FF9C98 /* CollectionView */,
 				5C6E2C481BC90B940036259A /* DatePicker */,
+				5C26612E1BD0B4E100413257 /* GlobalConstants.swift */,
 			);
 			path = Library;
 			sourceTree = "<group>";
@@ -163,6 +179,7 @@
 				5C92A1451BC57AD500EB6B9E /* LoginViewController.swift */,
 				5C6F92051BC6C9680037373B /* SignUpTableViewController.swift */,
 				5C17F0051BCC097600E027E0 /* ProfileTableViewController.swift */,
+				5C2A9E931BD2063E008669AB /* RecentPhotoVidoeController.swift */,
 			);
 			path = MIXR;
 			sourceTree = "<group>";
@@ -251,7 +268,7 @@
 			attributes = {
 				LastSwiftMigration = 0700;
 				LastSwiftUpdateCheck = 0700;
-				LastUpgradeCheck = 0610;
+				LastUpgradeCheck = 0700;
 				ORGANIZATIONNAME = "MIXR LLC";
 				TargetAttributes = {
 					806122191BBF2D7400EFF35E = {
@@ -364,12 +381,15 @@
 				5C6E2C4A1BC90B940036259A /* DatePickerDialog.swift in Sources */,
 				5C17F0061BCC097600E027E0 /* ProfileTableViewController.swift in Sources */,
 				806122421BBF2E8100EFF35E /* UserFeedViewController.swift in Sources */,
+				5C2A9E941BD2063E008669AB /* RecentPhotoVidoeController.swift in Sources */,
 				806122201BBF2D7400EFF35E /* AppDelegate.swift in Sources */,
 				806122221BBF2D7400EFF35E /* VenueFeedViewController.swift in Sources */,
 				8061224D1BBF3CB000EFF35E /* VenueFeedNavigationController.swift in Sources */,
 				806122481BBF2EF200EFF35E /* PersonalProfileViewController.swift in Sources */,
+				5C22FB611BD1314000FF9C98 /* CollectionViewWaterfallLayout.swift in Sources */,
 				806122511BBF3CCC00EFF35E /* UserFeedNavigationController.swift in Sources */,
 				8061224F1BBF3CB800EFF35E /* MapNavigationController.swift in Sources */,
+				5C26612F1BD0B4E100413257 /* GlobalConstants.swift in Sources */,
 				8061224A1BBF2F1400EFF35E /* FeedPageViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -432,6 +452,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -446,7 +467,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -482,7 +503,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
@@ -497,6 +518,7 @@
 				INFOPLIST_FILE = MIXR/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.mixr.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -509,6 +531,7 @@
 				INFOPLIST_FILE = MIXR/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.mixr.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
@@ -527,6 +550,7 @@
 				);
 				INFOPLIST_FILE = MIXRTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.mixr.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MIXR.app/MIXR";
 			};
@@ -542,6 +566,7 @@
 				);
 				INFOPLIST_FILE = MIXRTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.mixr.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MIXR.app/MIXR";
 			};

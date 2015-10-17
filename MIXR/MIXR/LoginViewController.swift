@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import IQKeyboardManagerSwift
 
 class LoginViewController: UIViewController {
     
@@ -40,12 +41,18 @@ class LoginViewController: UIViewController {
     
     @IBAction func loginButtonTapped(sender: AnyObject){
         
+        userEmailTextField.resignFirstResponder()
+        userPasswordTextField.resignFirstResponder()
+        
+//        self.performSegueWithIdentifier("ProfileScreenSegue", sender: nil)
+//        return;
+        
         let email = userEmailTextField.text!.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
         let password = userPasswordTextField.text!.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
         
         if email.isEmpty{
             if #available(iOS 8.0, *) {
-                let alertController = UIAlertController (title: "MIXR", message: "Please enter email", preferredStyle:.Alert)
+                let alertController = UIAlertController (title: globalConstants.kAppName , message:globalConstants.kEmailError , preferredStyle:.Alert)
                 let okayAction: UIAlertAction = UIAlertAction(title: "Ok", style: .Cancel) { action -> Void in
                     //Just dismiss the action sheet
                 }
@@ -53,14 +60,14 @@ class LoginViewController: UIViewController {
                 self.presentViewController(alertController, animated: true, completion: nil)
 
             } else {
-                let alert = UIAlertView(title: "MIXR", message:"Please enter password" , delegate: nil, cancelButtonTitle:"Ok")
+                let alert = UIAlertView(title: globalConstants.kAppName, message:globalConstants.kpasswordError , delegate: nil, cancelButtonTitle:"Ok")
                 alert.show()
             }
         }
         
         if password.isEmpty{
             if #available(iOS 8.0, *) {
-                let alertController = UIAlertController (title: "MIXR", message: "Please enter password", preferredStyle:.Alert)
+                let alertController = UIAlertController (title: globalConstants.kAppName, message: "Please enter password", preferredStyle:.Alert)
                 let okayAction: UIAlertAction = UIAlertAction(title: "Ok", style: .Cancel) { action -> Void in
                     //Just dismiss the action sheet
                 }
@@ -68,13 +75,13 @@ class LoginViewController: UIViewController {
                 self.presentViewController(alertController, animated: true, completion: nil)
 
             } else {
-                let alert = UIAlertView(title: "MIXR", message:"Please enter password" , delegate: nil, cancelButtonTitle:"Ok")
+                let alert = UIAlertView(title: globalConstants.kAppName, message:globalConstants.kpasswordError , delegate: nil, cancelButtonTitle:"Ok")
                 alert.show()
             }
         }
         
-        if !isValidEmail(email){
-            self.displayCommonAlert("Please enter valid email")
+        if !globalConstants.isValidEmail(email){
+            self.displayCommonAlert(globalConstants.kValidEmailError)
         }
         
     }
@@ -86,7 +93,7 @@ class LoginViewController: UIViewController {
     func displayCommonAlert(alertMesage : NSString){
         
         if #available(iOS 8.0, *) {
-            let alertController = UIAlertController (title: "MIXR", message: alertMesage as String?, preferredStyle:.Alert)
+            let alertController = UIAlertController (title: globalConstants.kAppName, message: alertMesage as String?, preferredStyle:.Alert)
             let okayAction: UIAlertAction = UIAlertAction(title: "Ok", style: .Cancel) { action -> Void in
                 //Just dismiss the action sheet
             }
@@ -94,26 +101,11 @@ class LoginViewController: UIViewController {
             self.presentViewController(alertController, animated: true, completion: nil)
 
         } else {
-            let alert = UIAlertView(title: "MIXR", message:alertMesage as String? , delegate: nil, cancelButtonTitle:"Ok")
+            let alert = UIAlertView(title: globalConstants.kAppName, message:alertMesage as String? , delegate: nil, cancelButtonTitle:"Ok")
             alert.show()
 
             // Fallback on earlier versions
         }
-    }
-    
-    
-    
-    /*
-    // Method to check wether email is valid or not.
-    */
-
-    func isValidEmail(testStr:String) -> Bool {
-        print("validate calendar: \(testStr)")
-        let emailRegEx = "^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$"
-        
-        let emailTest = NSPredicate(format:"SELF MATCHES %@", emailRegEx)
-        let result = emailTest.evaluateWithObject(testStr)
-        return result
     }
     
     /*

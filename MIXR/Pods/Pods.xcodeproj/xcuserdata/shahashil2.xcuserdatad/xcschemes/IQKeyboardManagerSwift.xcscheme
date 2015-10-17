@@ -14,9 +14,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "33CBBE8009C574157E9B96DA5EE22CA3"
-               BuildableName = "Pods_MIXR.framework"
-               BlueprintName = "Pods-MIXR"
+               BlueprintIdentifier = "192C8C2413796E089B0A00D1D53C6C09"
+               BuildableName = "IQKeyboardManagerSwift.framework"
+               BlueprintName = "IQKeyboardManagerSwift"
                ReferencedContainer = "container:Pods.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -45,9 +45,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "33CBBE8009C574157E9B96DA5EE22CA3"
-            BuildableName = "Pods_MIXR.framework"
-            BlueprintName = "Pods-MIXR"
+            BlueprintIdentifier = "192C8C2413796E089B0A00D1D53C6C09"
+            BuildableName = "IQKeyboardManagerSwift.framework"
+            BlueprintName = "IQKeyboardManagerSwift"
             ReferencedContainer = "container:Pods.xcodeproj">
          </BuildableReference>
       </MacroExpansion>

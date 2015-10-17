@@ -35,6 +35,7 @@
                         <subviews>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Email" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="zkM-Vo-nfK">
                                 <rect key="frame" x="16" y="180" width="288" height="30"/>
+                                <color key="tintColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                                 <connections>
@@ -76,6 +77,7 @@
                         <outlet property="userEmailTextField" destination="zkM-Vo-nfK" id="wBX-a0-Gs8"/>
                         <outlet property="userPasswordTextField" destination="6CW-ij-aRa" id="pKp-Z5-zEb"/>
                         <segue destination="NlB-pM-1Gi" kind="push" identifier="SignUpSegue" id="T8N-qv-962"/>
+                        <segue destination="P1O-Pj-TnB" kind="push" identifier="ProfileScreenSegue" id="dcn-jg-FQv"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5Tv-ky-wkD" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -203,7 +205,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jho-Jk-vVy" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="528" y="398"/>
+            <point key="canvasLocation" x="561" y="231"/>
         </scene>
         <!--Profile Table View Controller-->
         <scene sceneID="8b8-Dm-vnz">
@@ -223,39 +225,57 @@
                                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fgV-yZ-sir">
                                     <rect key="frame" x="8" y="31" width="191" height="30"/>
                                     <state key="normal" title="Settings"/>
+                                    <connections>
+                                        <action selector="settingsButtontapped:" destination="P1O-Pj-TnB" eventType="touchUpInside" id="Upv-WV-VCL"/>
+                                    </connections>
                                 </button>
                                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TBf-GR-2F2">
                                     <rect key="frame" x="8" y="68" width="191" height="30"/>
                                     <state key="normal" title="Single"/>
+                                    <connections>
+                                        <action selector="statusButtontapped:" destination="P1O-Pj-TnB" eventType="touchUpInside" id="mqg-Ie-RPo"/>
+                                    </connections>
                                 </button>
                                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Go7-jh-AwP">
                                     <rect key="frame" x="1" y="154" width="160" height="30"/>
                                     <state key="normal" title="Followers(5)"/>
+                                    <connections>
+                                        <action selector="followerButtontapped:" destination="P1O-Pj-TnB" eventType="touchUpInside" id="uO4-qE-Jr2"/>
+                                    </connections>
                                 </button>
                                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TFh-Vp-f5X">
                                     <rect key="frame" x="160" y="154" width="160" height="30"/>
                                     <state key="normal" title="Following(10)"/>
+                                    <connections>
+                                        <action selector="followingButtontapped:" destination="P1O-Pj-TnB" eventType="touchUpInside" id="qgN-Tw-P8a"/>
+                                    </connections>
                                 </button>
                                 <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="jqU-tD-Sms">
                                     <rect key="frame" x="15" y="229" width="140" height="200"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                    <connections>
+                                        <outlet property="delegate" destination="P1O-Pj-TnB" id="Luk-TY-zxZ"/>
+                                    </connections>
                                 </textView>
-                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="M1u-QW-2k4">
+                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" tag="1" contentMode="scaleToFill" fixedFrame="YES" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="M1u-QW-2k4">
                                     <rect key="frame" x="165" y="229" width="140" height="200"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                    <connections>
+                                        <outlet property="delegate" destination="P1O-Pj-TnB" id="CBH-Lu-rfx"/>
+                                    </connections>
                                 </textView>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="bio" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Nb2-hV-bmS">
                                     <rect key="frame" x="51" y="246" width="70" height="21"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="favorite bar" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="30a-QR-rwm">
                                     <rect key="frame" x="180" y="246" width="120" height="21"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                             </subviews>
@@ -266,6 +286,7 @@
                             <outlet property="delegate" destination="P1O-Pj-TnB" id="de9-7S-Tkh"/>
                         </connections>
                     </tableView>
+                    <navigationItem key="navigationItem" id="FXz-M5-9El"/>
                     <connections>
                         <outlet property="biography" destination="jqU-tD-Sms" id="uhL-um-SJ5"/>
                         <outlet property="biographyLabel" destination="Nb2-hV-bmS" id="3bt-Vc-ekz"/>
@@ -274,13 +295,19 @@
                         <outlet property="followers" destination="Go7-jh-AwP" id="Rc3-tx-GmV"/>
                         <outlet property="following" destination="TFh-Vp-f5X" id="IU6-5X-QgD"/>
                         <outlet property="settings" destination="fgV-yZ-sir" id="WXU-xM-d1c"/>
+                        <outlet property="showLatestVideos" destination="nqK-LU-Ydp" id="GZb-BT-Oi6"/>
                         <outlet property="status" destination="TBf-GR-2F2" id="KE4-qX-IHS"/>
                         <outlet property="userProfilePic" destination="ftR-vD-muC" id="xEn-ao-rex"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6cz-dj-zxH" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <barButtonItem title="Videos" id="nqK-LU-Ydp">
+                    <connections>
+                        <action selector="showLatestVideosButtonTapped:" destination="P1O-Pj-TnB" id="x5B-tO-GdP"/>
+                    </connections>
+                </barButtonItem>
             </objects>
-            <point key="canvasLocation" x="893" y="398"/>
+            <point key="canvasLocation" x="561" y="1102"/>
         </scene>
     </scenes>
     <resources>

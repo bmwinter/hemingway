@@ -26,6 +26,17 @@ class ProfileTableViewController: UITableViewController {
     @IBOutlet weak var biographyLabel: UILabel!
     @IBOutlet weak var favBarsLabel: UILabel!
     
+    @IBOutlet weak var showLatestVideos: UIBarButtonItem!
+    
+    override func viewDidLoad() {
+        
+        self.navigationItem.rightBarButtonItem = showLatestVideos;
+        super.viewDidLoad()
+        
+        // Do any additional setup after loading the view, typically from a nib.
+    }
+
+    
     /*
     // Table View delegate methods
     */
@@ -41,6 +52,14 @@ class ProfileTableViewController: UITableViewController {
     /*
     // IBAction methods
     */
+
+    /*
+    // Show past 72 hours videos/photos
+    */
+
+    @IBAction func showLatestVideosButtonTapped(sender: AnyObject){
+        
+    }
 
     /*
     // Setting button method
@@ -82,20 +101,23 @@ class ProfileTableViewController: UITableViewController {
     func textViewDidChange(textView: UITextView){
         
         switch (textView.tag){
-            case tags.biography:
-                print("Fizz")
-            case tags.favBar:
-                print("Fizz")
-            default:
+            case tags.biography.rawValue :
+                if !textView.hasText(){
+                    biographyLabel.hidden = false;
+                }else{
+                    biographyLabel.hidden = true;
+            }
+            case tags.favBar.rawValue :
+                if !textView.hasText(){
+                    favBarsLabel.hidden = false;
+                }else{
+                    favBarsLabel.hidden = true;
+            }
+            default :
                 print("Fizz")
         }
         
         
-        if !textView.hasText(){
-            favBarsLabel.hidden = false;
-        }else{
-            favBarsLabel.hidden = true;
-        }
     }
     
 }
