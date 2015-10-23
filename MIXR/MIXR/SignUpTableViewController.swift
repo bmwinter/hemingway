@@ -57,6 +57,13 @@ class SignUpTableViewController: UITableViewController {
     
     var selectedDate : NSDate?
     
+    
+    override func viewDidLoad() {
+        
+        self.title = "Sign Up"
+        // Do any additional setup after loading the view, typically from a nib.
+    }
+
     /*
     // Table View delegate methods
     */

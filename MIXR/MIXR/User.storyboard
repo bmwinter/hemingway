@@ -12,6 +12,8 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="bu1-uN-QdZ">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <color key="tintColor" red="0.035294117647058823" green="0.035294117647058823" blue="0.035294117647058823" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="barTintColor" red="0.90588235294117647" green="0.90588235294117647" blue="0.90588235294117647" alpha="1" colorSpace="calibratedRGB"/>
                     </navigationBar>
                     <connections>
                         <segue destination="ObV-wh-fIs" kind="relationship" relationship="rootViewController" id="DgR-ek-fOT"/>
@@ -74,7 +76,7 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <segue destination="zlY-7z-E3l" kind="push" identifier="RecentPhotoSegue" id="QXq-2g-jev"/>
+                                    <segue destination="MNN-eG-nUK" kind="push" identifier="RecentPhotoSegue" id="3JU-kr-hxK"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -388,7 +390,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ZdB-rB-lMx" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="120" y="1145"/>
+            <point key="canvasLocation" x="-208" y="1097"/>
         </scene>
         <!--Venue Profile Table View Controller-->
         <scene sceneID="k5M-yK-fdj">
@@ -411,31 +413,31 @@
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="100 fills" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3dl-e1-rHZ">
                                     <rect key="frame" x="72" y="32" width="83" height="36"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="10:00 AM - 2:00 AM" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IHA-dS-jIE">
                                     <rect key="frame" x="10" y="118" width="145" height="45"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="300 Main St Manayunk PA, 18901" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DSx-4p-ZXf">
                                     <rect key="frame" x="164" y="120" width="145" height="45"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Specials" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OLs-Pd-EHp">
                                     <rect key="frame" x="10" y="186" width="145" height="36"/>
                                     <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="20"/>
-                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Events" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ieC-Qa-roP">
                                     <rect key="frame" x="165" y="186" width="145" height="36"/>
                                     <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="20"/>
-                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9Bi-6s-ie5">
@@ -468,6 +470,7 @@
                             <outlet property="delegate" destination="MNN-eG-nUK" id="VIg-eQ-qr9"/>
                         </connections>
                     </tableView>
+                    <navigationItem key="navigationItem" id="reU-gt-g9D"/>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO" prompted="NO"/>
                     <connections>
                         <outlet property="barTiming" destination="IHA-dS-jIE" id="9Fo-pF-llJ"/>
@@ -482,7 +485,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="NXf-LD-mYz" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="182" y="1942"/>
+            <point key="canvasLocation" x="197" y="1145"/>
         </scene>
     </scenes>
     <resources>

@@ -29,7 +29,8 @@ class ProfileTableViewController: UITableViewController {
     @IBOutlet weak var showLatestVideos: UIBarButtonItem!
     
     override func viewDidLoad() {
-        
+        self.title = "Pete Dewitt"
+
         self.navigationItem.rightBarButtonItem = showLatestVideos;
         super.viewDidLoad()
         

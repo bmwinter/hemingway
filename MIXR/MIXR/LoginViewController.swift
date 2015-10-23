@@ -14,7 +14,11 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var userEmailTextField: UITextField!
     @IBOutlet weak var userPasswordTextField: UITextField!
     
+    
     override func viewDidLoad() {
+        self.title = "Login"
+        self.navigationItem.backBarButtonItem = UIBarButtonItem(title:"", style:.Plain, target:nil, action:nil)
+
         super.viewDidLoad()
 
         // Do any additional setup after loading the view, typically from a nib.

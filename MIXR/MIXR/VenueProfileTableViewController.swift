@@ -25,6 +25,7 @@ class VenueProfileTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         
+        self.title = "Spanky's"
         self.navigationItem.rightBarButtonItem = showLatestVideos;
         super.viewDidLoad()
         loadDummyScrollViewData()
@@ -33,12 +34,15 @@ class VenueProfileTableViewController: UITableViewController {
     }
     
     func loadDummyScrollViewData(){
-        self.eventsScrollView.contentSize = CGSizeMake( 145, 200);
-        let test:UILabel
-        test = UILabel()
-        
-        test.frame = CGRectMake(10, 10, 130, 20);
-        self.eventsScrollView.addSubview(test)
+        self.eventsScrollView.contentSize = CGSizeMake( 145, 20*51);
+        for i in 1...50{
+            let test:UILabel
+            test = UILabel()
+            test.textAlignment = NSTextAlignmentFromCTTextAlignment(CTTextAlignment.Center)
+            test.text = "Test Data"
+            test.frame = CGRectMake(0, (CGFloat)(i * 20), self.eventsScrollView.frame.size.width, 20);
+            self.eventsScrollView.addSubview(test)
+        }
         
     }
     
