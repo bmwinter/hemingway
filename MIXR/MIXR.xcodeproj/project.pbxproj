@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		5C17F0061BCC097600E027E0 /* ProfileTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C17F0051BCC097600E027E0 /* ProfileTableViewController.swift */; settings = {ASSET_TAGS = (); }; };
+		5C1CF1701BDBB45700B863F6 /* BorderedTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C1CF16F1BDBB45700B863F6 /* BorderedTextField.swift */; settings = {ASSET_TAGS = (); }; };
+		5C1CF1731BDBC5CC00B863F6 /* BorderedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C1CF1721BDBC5CC00B863F6 /* BorderedButton.swift */; settings = {ASSET_TAGS = (); }; };
 		5C22FB611BD1314000FF9C98 /* CollectionViewWaterfallLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C22FB601BD1314000FF9C98 /* CollectionViewWaterfallLayout.swift */; settings = {ASSET_TAGS = (); }; };
 		5C26612F1BD0B4E100413257 /* GlobalConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C26612E1BD0B4E100413257 /* GlobalConstants.swift */; settings = {ASSET_TAGS = (); }; };
 		5C27231D1BD899D7007227AA /* VenueProfileTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C27231C1BD899D7007227AA /* VenueProfileTableViewController.swift */; settings = {ASSET_TAGS = (); }; };
@@ -46,6 +48,8 @@
 
 /* Begin PBXFileReference section */
 		5C17F0051BCC097600E027E0 /* ProfileTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ProfileTableViewController.swift; path = MIXR/ProfileTableViewController.swift; sourceTree = SOURCE_ROOT; };
+		5C1CF16F1BDBB45700B863F6 /* BorderedTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BorderedTextField.swift; sourceTree = "<group>"; };
+		5C1CF1721BDBC5CC00B863F6 /* BorderedButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BorderedButton.swift; sourceTree = "<group>"; };
 		5C22FB601BD1314000FF9C98 /* CollectionViewWaterfallLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionViewWaterfallLayout.swift; sourceTree = "<group>"; };
 		5C26612E1BD0B4E100413257 /* GlobalConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GlobalConstants.swift; path = MIXR/GlobalConstants.swift; sourceTree = SOURCE_ROOT; };
 		5C27231C1BD899D7007227AA /* VenueProfileTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VenueProfileTableViewController.swift; sourceTree = "<group>"; };
@@ -105,6 +109,22 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		5C1CF16E1BDBB44700B863F6 /* BorderedTextField */ = {
+			isa = PBXGroup;
+			children = (
+				5C1CF16F1BDBB45700B863F6 /* BorderedTextField.swift */,
+			);
+			path = BorderedTextField;
+			sourceTree = "<group>";
+		};
+		5C1CF1711BDBC5B800B863F6 /* BorderedButton */ = {
+			isa = PBXGroup;
+			children = (
+				5C1CF1721BDBC5CC00B863F6 /* BorderedButton.swift */,
+			);
+			path = BorderedButton;
+			sourceTree = "<group>";
+		};
 		5C22FB5F1BD1314000FF9C98 /* CollectionView */ = {
 			isa = PBXGroup;
 			children = (
@@ -116,6 +136,8 @@
 		5C6E2C471BC90B940036259A /* Library */ = {
 			isa = PBXGroup;
 			children = (
+				5C1CF1711BDBC5B800B863F6 /* BorderedButton */,
+				5C1CF16E1BDBB44700B863F6 /* BorderedTextField */,
 				5C22FB5F1BD1314000FF9C98 /* CollectionView */,
 				5C6E2C481BC90B940036259A /* DatePicker */,
 				5C26612E1BD0B4E100413257 /* GlobalConstants.swift */,
@@ -395,7 +417,9 @@
 				806122511BBF3CCC00EFF35E /* UserFeedNavigationController.swift in Sources */,
 				8061224F1BBF3CB800EFF35E /* MapNavigationController.swift in Sources */,
 				5C26612F1BD0B4E100413257 /* GlobalConstants.swift in Sources */,
+				5C1CF1701BDBB45700B863F6 /* BorderedTextField.swift in Sources */,
 				8061224A1BBF2F1400EFF35E /* FeedPageViewController.swift in Sources */,
+				5C1CF1731BDBC5CC00B863F6 /* BorderedButton.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

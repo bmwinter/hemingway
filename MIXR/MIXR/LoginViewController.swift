@@ -26,6 +26,7 @@ class LoginViewController: UIViewController {
     
     
     override func viewDidAppear(animated: Bool) {
+        self.navigationController?.navigationBarHidden = true
         super.viewDidAppear(animated)
     }
     
@@ -35,6 +36,7 @@ class LoginViewController: UIViewController {
 
 
     @IBAction func signupButtonTapped(sender: AnyObject){
+        self.navigationController?.navigationBarHidden = false
         self.performSegueWithIdentifier("SignUpSegue", sender: nil)
     }
     
