@@ -36,7 +36,7 @@ class LoginViewController: UIViewController {
 
 
     @IBAction func signupButtonTapped(sender: AnyObject){
-        self.navigationController?.navigationBarHidden = false
+        self.navigationController?.navigationBarHidden = true
         self.performSegueWithIdentifier("SignUpSegue", sender: nil)
     }
     
