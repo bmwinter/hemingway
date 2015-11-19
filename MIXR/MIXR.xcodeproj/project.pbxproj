@@ -7,6 +7,20 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5C17F0061BCC097600E027E0 /* ProfileTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C17F0051BCC097600E027E0 /* ProfileTableViewController.swift */; settings = {ASSET_TAGS = (); }; };
+		5C1CF1701BDBB45700B863F6 /* BorderedTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C1CF16F1BDBB45700B863F6 /* BorderedTextField.swift */; settings = {ASSET_TAGS = (); }; };
+		5C1CF1731BDBC5CC00B863F6 /* BorderedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C1CF1721BDBC5CC00B863F6 /* BorderedButton.swift */; settings = {ASSET_TAGS = (); }; };
+		5C218AC21BEA769800F7DA82 /* ChangePassword.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C218AC11BEA769800F7DA82 /* ChangePassword.swift */; settings = {ASSET_TAGS = (); }; };
+		5C218AC41BEA7EA900F7DA82 /* SMSVerification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C218AC31BEA7EA900F7DA82 /* SMSVerification.swift */; settings = {ASSET_TAGS = (); }; };
+		5C22FB611BD1314000FF9C98 /* CollectionViewWaterfallLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C22FB601BD1314000FF9C98 /* CollectionViewWaterfallLayout.swift */; settings = {ASSET_TAGS = (); }; };
+		5C26612F1BD0B4E100413257 /* GlobalConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C26612E1BD0B4E100413257 /* GlobalConstants.swift */; settings = {ASSET_TAGS = (); }; };
+		5C27231D1BD899D7007227AA /* VenueProfileTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C27231C1BD899D7007227AA /* VenueProfileTableViewController.swift */; settings = {ASSET_TAGS = (); }; };
+		5C2A9E941BD2063E008669AB /* RecentPhotoVidoeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C2A9E931BD2063E008669AB /* RecentPhotoVidoeController.swift */; settings = {ASSET_TAGS = (); }; };
+		5C3408121BE4F411006CB35C /* SettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C3408111BE4F411006CB35C /* SettingsTableViewController.swift */; settings = {ASSET_TAGS = (); }; };
+		5C6E2C4A1BC90B940036259A /* DatePickerDialog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C6E2C491BC90B940036259A /* DatePickerDialog.swift */; };
+		5C6F92061BC6C9680037373B /* SignUpTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C6F92051BC6C9680037373B /* SignUpTableViewController.swift */; };
+		5C92A1441BC5785A00EB6B9E /* User.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5C92A1431BC5785A00EB6B9E /* User.storyboard */; };
+		5C92A1461BC57AD500EB6B9E /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C92A1451BC57AD500EB6B9E /* LoginViewController.swift */; };
 		806122201BBF2D7400EFF35E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8061221F1BBF2D7400EFF35E /* AppDelegate.swift */; };
 		806122221BBF2D7400EFF35E /* VenueFeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 806122211BBF2D7400EFF35E /* VenueFeedViewController.swift */; };
 		806122241BBF2D7400EFF35E /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 806122231BBF2D7400EFF35E /* MapViewController.swift */; };
@@ -22,6 +36,7 @@
 		8061224D1BBF3CB000EFF35E /* VenueFeedNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8061224C1BBF3CB000EFF35E /* VenueFeedNavigationController.swift */; };
 		8061224F1BBF3CB800EFF35E /* MapNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8061224E1BBF3CB800EFF35E /* MapNavigationController.swift */; };
 		806122511BBF3CCC00EFF35E /* UserFeedNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 806122501BBF3CCC00EFF35E /* UserFeedNavigationController.swift */; };
+		F3B565B4B07FC51D1A04C946 /* Pods_MIXR.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CCB483A3B820ED5B04645C4E /* Pods_MIXR.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -35,6 +50,21 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		5C17F0051BCC097600E027E0 /* ProfileTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ProfileTableViewController.swift; path = MIXR/ProfileTableViewController.swift; sourceTree = SOURCE_ROOT; };
+		5C1CF16F1BDBB45700B863F6 /* BorderedTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BorderedTextField.swift; sourceTree = "<group>"; };
+		5C1CF1721BDBC5CC00B863F6 /* BorderedButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BorderedButton.swift; sourceTree = "<group>"; };
+		5C218AC11BEA769800F7DA82 /* ChangePassword.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChangePassword.swift; sourceTree = "<group>"; };
+		5C218AC31BEA7EA900F7DA82 /* SMSVerification.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SMSVerification.swift; path = MIXR/SMSVerification.swift; sourceTree = SOURCE_ROOT; };
+		5C22FB601BD1314000FF9C98 /* CollectionViewWaterfallLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionViewWaterfallLayout.swift; sourceTree = "<group>"; };
+		5C26612E1BD0B4E100413257 /* GlobalConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GlobalConstants.swift; path = MIXR/GlobalConstants.swift; sourceTree = SOURCE_ROOT; };
+		5C27231C1BD899D7007227AA /* VenueProfileTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VenueProfileTableViewController.swift; sourceTree = "<group>"; };
+		5C2A9E931BD2063E008669AB /* RecentPhotoVidoeController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecentPhotoVidoeController.swift; sourceTree = "<group>"; };
+		5C3408111BE4F411006CB35C /* SettingsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsTableViewController.swift; sourceTree = "<group>"; };
+		5C6E2C491BC90B940036259A /* DatePickerDialog.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DatePickerDialog.swift; sourceTree = "<group>"; };
+		5C6F92051BC6C9680037373B /* SignUpTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpTableViewController.swift; sourceTree = "<group>"; };
+		5C92A1431BC5785A00EB6B9E /* User.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = User.storyboard; sourceTree = "<group>"; };
+		5C92A1451BC57AD500EB6B9E /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		608155550307965E8EC9C7BD /* Pods-MIXR.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MIXR.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MIXR/Pods-MIXR.debug.xcconfig"; sourceTree = "<group>"; };
 		8061221A1BBF2D7400EFF35E /* MIXR.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MIXR.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8061221E1BBF2D7400EFF35E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8061221F1BBF2D7400EFF35E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -54,6 +84,8 @@
 		8061224C1BBF3CB000EFF35E /* VenueFeedNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VenueFeedNavigationController.swift; sourceTree = "<group>"; };
 		8061224E1BBF3CB800EFF35E /* MapNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapNavigationController.swift; sourceTree = "<group>"; };
 		806122501BBF3CCC00EFF35E /* UserFeedNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserFeedNavigationController.swift; sourceTree = "<group>"; };
+		CCB483A3B820ED5B04645C4E /* Pods_MIXR.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MIXR.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		EC28065CB75E450F3A075861 /* Pods-MIXR.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MIXR.release.xcconfig"; path = "Pods/Target Support Files/Pods-MIXR/Pods-MIXR.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -61,6 +93,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F3B565B4B07FC51D1A04C946 /* Pods_MIXR.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -74,12 +107,75 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		14B036E93F4C01FE0876251F /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				CCB483A3B820ED5B04645C4E /* Pods_MIXR.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		5C1CF16E1BDBB44700B863F6 /* BorderedTextField */ = {
+			isa = PBXGroup;
+			children = (
+				5C1CF16F1BDBB45700B863F6 /* BorderedTextField.swift */,
+			);
+			path = BorderedTextField;
+			sourceTree = "<group>";
+		};
+		5C1CF1711BDBC5B800B863F6 /* BorderedButton */ = {
+			isa = PBXGroup;
+			children = (
+				5C1CF1721BDBC5CC00B863F6 /* BorderedButton.swift */,
+			);
+			path = BorderedButton;
+			sourceTree = "<group>";
+		};
+		5C22FB5F1BD1314000FF9C98 /* CollectionView */ = {
+			isa = PBXGroup;
+			children = (
+				5C22FB601BD1314000FF9C98 /* CollectionViewWaterfallLayout.swift */,
+			);
+			path = CollectionView;
+			sourceTree = "<group>";
+		};
+		5C6E2C471BC90B940036259A /* Library */ = {
+			isa = PBXGroup;
+			children = (
+				5C1CF1711BDBC5B800B863F6 /* BorderedButton */,
+				5C1CF16E1BDBB44700B863F6 /* BorderedTextField */,
+				5C22FB5F1BD1314000FF9C98 /* CollectionView */,
+				5C6E2C481BC90B940036259A /* DatePicker */,
+				5C26612E1BD0B4E100413257 /* GlobalConstants.swift */,
+			);
+			path = Library;
+			sourceTree = "<group>";
+		};
+		5C6E2C481BC90B940036259A /* DatePicker */ = {
+			isa = PBXGroup;
+			children = (
+				5C6E2C491BC90B940036259A /* DatePickerDialog.swift */,
+			);
+			path = DatePicker;
+			sourceTree = "<group>";
+		};
+		7D022D3DCAC350459339E920 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				608155550307965E8EC9C7BD /* Pods-MIXR.debug.xcconfig */,
+				EC28065CB75E450F3A075861 /* Pods-MIXR.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		806122111BBF2D7400EFF35E = {
 			isa = PBXGroup;
 			children = (
 				8061221C1BBF2D7400EFF35E /* MIXR */,
 				806122341BBF2D7500EFF35E /* MIXRTests */,
 				8061221B1BBF2D7400EFF35E /* Products */,
+				7D022D3DCAC350459339E920 /* Pods */,
+				14B036E93F4C01FE0876251F /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -95,6 +191,7 @@
 		8061221C1BBF2D7400EFF35E /* MIXR */ = {
 			isa = PBXGroup;
 			children = (
+				5C6E2C471BC90B940036259A /* Library */,
 				8061221F1BBF2D7400EFF35E /* AppDelegate.swift */,
 				806122211BBF2D7400EFF35E /* VenueFeedViewController.swift */,
 				806122231BBF2D7400EFF35E /* MapViewController.swift */,
@@ -108,6 +205,15 @@
 				806122281BBF2D7400EFF35E /* Images.xcassets */,
 				8061222A1BBF2D7400EFF35E /* LaunchScreen.xib */,
 				8061221D1BBF2D7400EFF35E /* Supporting Files */,
+				5C92A1431BC5785A00EB6B9E /* User.storyboard */,
+				5C92A1451BC57AD500EB6B9E /* LoginViewController.swift */,
+				5C6F92051BC6C9680037373B /* SignUpTableViewController.swift */,
+				5C17F0051BCC097600E027E0 /* ProfileTableViewController.swift */,
+				5C2A9E931BD2063E008669AB /* RecentPhotoVidoeController.swift */,
+				5C27231C1BD899D7007227AA /* VenueProfileTableViewController.swift */,
+				5C3408111BE4F411006CB35C /* SettingsTableViewController.swift */,
+				5C218AC11BEA769800F7DA82 /* ChangePassword.swift */,
+				5C218AC31BEA7EA900F7DA82 /* SMSVerification.swift */,
 			);
 			path = MIXR;
 			sourceTree = "<group>";
@@ -154,9 +260,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 8061223B1BBF2D7500EFF35E /* Build configuration list for PBXNativeTarget "MIXR" */;
 			buildPhases = (
+				9EA08510F6CC711C21D494CA /* Check Pods Manifest.lock */,
 				806122161BBF2D7400EFF35E /* Sources */,
 				806122171BBF2D7400EFF35E /* Frameworks */,
 				806122181BBF2D7400EFF35E /* Resources */,
+				A453A1A56BB193A12D01EB70 /* Embed Pods Frameworks */,
+				3902E85B90FD1801CC6C9896 /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -191,11 +300,14 @@
 		806122121BBF2D7400EFF35E /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0610;
+				LastSwiftMigration = 0700;
+				LastSwiftUpdateCheck = 0700;
+				LastUpgradeCheck = 0700;
 				ORGANIZATIONNAME = "MIXR LLC";
 				TargetAttributes = {
 					806122191BBF2D7400EFF35E = {
 						CreatedOnToolsVersion = 6.1.1;
+						DevelopmentTeam = 64YZ8DVRAW;
 					};
 					806122301BBF2D7500EFF35E = {
 						CreatedOnToolsVersion = 6.1.1;
@@ -228,6 +340,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				806122271BBF2D7400EFF35E /* Main.storyboard in Resources */,
+				5C92A1441BC5785A00EB6B9E /* User.storyboard in Resources */,
 				8061222C1BBF2D7400EFF35E /* LaunchScreen.xib in Resources */,
 				806122291BBF2D7400EFF35E /* Images.xcassets in Resources */,
 			);
@@ -242,22 +355,83 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		3902E85B90FD1801CC6C9896 /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-MIXR/Pods-MIXR-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		9EA08510F6CC711C21D494CA /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		A453A1A56BB193A12D01EB70 /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-MIXR/Pods-MIXR-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		806122161BBF2D7400EFF35E /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5C92A1461BC57AD500EB6B9E /* LoginViewController.swift in Sources */,
+				5C6F92061BC6C9680037373B /* SignUpTableViewController.swift in Sources */,
 				806122241BBF2D7400EFF35E /* MapViewController.swift in Sources */,
 				806122461BBF2EDF00EFF35E /* UserProfileViewController.swift in Sources */,
+				5C27231D1BD899D7007227AA /* VenueProfileTableViewController.swift in Sources */,
 				806122441BBF2ECF00EFF35E /* VenueProfileViewController.swift in Sources */,
+				5C6E2C4A1BC90B940036259A /* DatePickerDialog.swift in Sources */,
+				5C17F0061BCC097600E027E0 /* ProfileTableViewController.swift in Sources */,
 				806122421BBF2E8100EFF35E /* UserFeedViewController.swift in Sources */,
+				5C2A9E941BD2063E008669AB /* RecentPhotoVidoeController.swift in Sources */,
 				806122201BBF2D7400EFF35E /* AppDelegate.swift in Sources */,
 				806122221BBF2D7400EFF35E /* VenueFeedViewController.swift in Sources */,
 				8061224D1BBF3CB000EFF35E /* VenueFeedNavigationController.swift in Sources */,
 				806122481BBF2EF200EFF35E /* PersonalProfileViewController.swift in Sources */,
+				5C218AC21BEA769800F7DA82 /* ChangePassword.swift in Sources */,
+				5C3408121BE4F411006CB35C /* SettingsTableViewController.swift in Sources */,
+				5C22FB611BD1314000FF9C98 /* CollectionViewWaterfallLayout.swift in Sources */,
 				806122511BBF3CCC00EFF35E /* UserFeedNavigationController.swift in Sources */,
 				8061224F1BBF3CB800EFF35E /* MapNavigationController.swift in Sources */,
+				5C26612F1BD0B4E100413257 /* GlobalConstants.swift in Sources */,
+				5C1CF1701BDBB45700B863F6 /* BorderedTextField.swift in Sources */,
 				8061224A1BBF2F1400EFF35E /* FeedPageViewController.swift in Sources */,
+				5C218AC41BEA7EA900F7DA82 /* SMSVerification.swift in Sources */,
+				5C1CF1731BDBC5CC00B863F6 /* BorderedButton.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -319,6 +493,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -333,7 +508,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -369,7 +544,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
@@ -378,21 +553,31 @@
 		};
 		8061223C1BBF2D7500EFF35E /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 608155550307965E8EC9C7BD /* Pods-MIXR.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer: Nilesh Patel (278E5L4YVH)";
 				INFOPLIST_FILE = MIXR/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.nil.lockscreen;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "91ea8f7d-a7be-4d01-b308-0d3485539df0";
 			};
 			name = Debug;
 		};
 		8061223D1BBF2D7500EFF35E /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = EC28065CB75E450F3A075861 /* Pods-MIXR.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer: Nilesh Patel (278E5L4YVH)";
 				INFOPLIST_FILE = MIXR/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.nil.lockscreen;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "91ea8f7d-a7be-4d01-b308-0d3485539df0";
 			};
 			name = Release;
 		};
@@ -410,6 +595,7 @@
 				);
 				INFOPLIST_FILE = MIXRTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.mixr.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MIXR.app/MIXR";
 			};
@@ -425,6 +611,7 @@
 				);
 				INFOPLIST_FILE = MIXRTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.mixr.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MIXR.app/MIXR";
 			};
@@ -449,6 +636,7 @@
 				8061223D1BBF2D7500EFF35E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		8061223E1BBF2D7500EFF35E /* Build configuration list for PBXNativeTarget "MIXRTests" */ = {
 			isa = XCConfigurationList;
@@ -457,6 +645,7 @@
 				806122401BBF2D7500EFF35E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
