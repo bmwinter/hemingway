@@ -100,28 +100,36 @@ class SignUpTableViewController: UITableViewController {
         
         if firstnameString.isEmpty{
             self.displayCommonAlert(globalConstants.kfirstnameError)
+            return
         }
         if lastnameString.isEmpty{
             self.displayCommonAlert(globalConstants.klastnameError)
+            return
         }
         if emailString.isEmpty{
             self.displayCommonAlert(globalConstants.kEmailError)
+            return
         }
         if passwordString.isEmpty{
             self.displayCommonAlert(globalConstants.kpasswordError)
+            return
         }
         if confirmPasswordString.isEmpty{
             self.displayCommonAlert(globalConstants.kconfirmPasswordError)
+            return
         }
         
         if !globalConstants.isValidEmail(emailString){
             self.displayCommonAlert(globalConstants.kValidEmailError)
+            return
         }
         
         if !compareTwoPassword(passwordString, conformPassword: confirmPasswordString){
             self.displayCommonAlert(globalConstants.kpasswordconfirmPasswordError)
+            return
         }
         
+<<<<<<< HEAD
         if(self.selectedDate != nil)
         {
             let years = NSDate().yearsFrom(self.selectedDate!)
@@ -129,11 +137,17 @@ class SignUpTableViewController: UITableViewController {
             if(years<=18){
                 self.displayCommonAlert(globalConstants.kageRestrictionError)
             }
+=======
+        if(years<=18){
+            self.displayCommonAlert(globalConstants.kageRestrictionError)
+            return
+>>>>>>> dev
         }
         
         if !checkmark.selected
         {
             self.displayCommonAlert(globalConstants.ktermsandConditionError)
+            return
         }
         
     }

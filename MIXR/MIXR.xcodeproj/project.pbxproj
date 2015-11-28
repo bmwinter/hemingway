@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+<<<<<<< HEAD
 		156BCC9D1C05B8CE00AB88A6 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 156BCC9C1C05B8CE00AB88A6 /* libz.tbd */; };
 		156BCCAA1C05E6BF00AB88A6 /* UserFeedCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 156BCCA91C05E6BF00AB88A6 /* UserFeedCell.swift */; };
 		15B85A091C0983E900831BCB /* backgroundWhiteDrediant.png in Resources */ = {isa = PBXBuildFile; fileRef = 15B85A031C0983E900831BCB /* backgroundWhiteDrediant.png */; };
@@ -37,10 +38,26 @@
 		5C27231D1BD899D7007227AA /* VenueProfileTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C27231C1BD899D7007227AA /* VenueProfileTableViewController.swift */; };
 		5C2A9E941BD2063E008669AB /* RecentPhotoVidoeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C2A9E931BD2063E008669AB /* RecentPhotoVidoeController.swift */; };
 		5C3408121BE4F411006CB35C /* SettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C3408111BE4F411006CB35C /* SettingsTableViewController.swift */; };
+=======
+		5C1663081C01E7A100146B70 /* PromotionsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C1663071C01E7A100146B70 /* PromotionsCell.swift */; settings = {ASSET_TAGS = (); }; };
+		5C17F0061BCC097600E027E0 /* ProfileTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C17F0051BCC097600E027E0 /* ProfileTableViewController.swift */; settings = {ASSET_TAGS = (); }; };
+		5C1CF1701BDBB45700B863F6 /* BorderedTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C1CF16F1BDBB45700B863F6 /* BorderedTextField.swift */; settings = {ASSET_TAGS = (); }; };
+		5C1CF1731BDBC5CC00B863F6 /* BorderedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C1CF1721BDBC5CC00B863F6 /* BorderedButton.swift */; settings = {ASSET_TAGS = (); }; };
+		5C218AC21BEA769800F7DA82 /* ChangePassword.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C218AC11BEA769800F7DA82 /* ChangePassword.swift */; settings = {ASSET_TAGS = (); }; };
+		5C218AC41BEA7EA900F7DA82 /* SMSVerification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C218AC31BEA7EA900F7DA82 /* SMSVerification.swift */; settings = {ASSET_TAGS = (); }; };
+		5C22FB611BD1314000FF9C98 /* CollectionViewWaterfallLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C22FB601BD1314000FF9C98 /* CollectionViewWaterfallLayout.swift */; settings = {ASSET_TAGS = (); }; };
+		5C26612F1BD0B4E100413257 /* GlobalConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C26612E1BD0B4E100413257 /* GlobalConstants.swift */; settings = {ASSET_TAGS = (); }; };
+		5C27231D1BD899D7007227AA /* VenueProfileTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C27231C1BD899D7007227AA /* VenueProfileTableViewController.swift */; settings = {ASSET_TAGS = (); }; };
+		5C2A9E941BD2063E008669AB /* RecentPhotoVidoeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C2A9E931BD2063E008669AB /* RecentPhotoVidoeController.swift */; settings = {ASSET_TAGS = (); }; };
+		5C3408121BE4F411006CB35C /* SettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C3408111BE4F411006CB35C /* SettingsTableViewController.swift */; settings = {ASSET_TAGS = (); }; };
+		5C6B78521C01798B00B30166 /* Notifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C6B78511C01798B00B30166 /* Notifications.swift */; settings = {ASSET_TAGS = (); }; };
+		5C6B78551C017A9A00B30166 /* NotificationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C6B78541C017A9A00B30166 /* NotificationCell.swift */; settings = {ASSET_TAGS = (); }; };
+>>>>>>> dev
 		5C6E2C4A1BC90B940036259A /* DatePickerDialog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C6E2C491BC90B940036259A /* DatePickerDialog.swift */; };
 		5C6F92061BC6C9680037373B /* SignUpTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C6F92051BC6C9680037373B /* SignUpTableViewController.swift */; };
 		5C92A1441BC5785A00EB6B9E /* User.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5C92A1431BC5785A00EB6B9E /* User.storyboard */; };
 		5C92A1461BC57AD500EB6B9E /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C92A1451BC57AD500EB6B9E /* LoginViewController.swift */; };
+		5C95FD2D1C05FFFB00077C0F /* PromotionDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C95FD2C1C05FFFB00077C0F /* PromotionDetail.swift */; settings = {ASSET_TAGS = (); }; };
 		806122201BBF2D7400EFF35E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8061221F1BBF2D7400EFF35E /* AppDelegate.swift */; };
 		806122221BBF2D7400EFF35E /* VenueFeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 806122211BBF2D7400EFF35E /* VenueFeedViewController.swift */; };
 		806122241BBF2D7400EFF35E /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 806122231BBF2D7400EFF35E /* MapViewController.swift */; };
@@ -69,6 +86,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+<<<<<<< HEAD
 		156BCC9C1C05B8CE00AB88A6 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		156BCCA91C05E6BF00AB88A6 /* UserFeedCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserFeedCell.swift; sourceTree = "<group>"; };
 		15B85A031C0983E900831BCB /* backgroundWhiteDrediant.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = backgroundWhiteDrediant.png; sourceTree = "<group>"; };
@@ -89,6 +107,9 @@
 		15B85A191C09871900831BCB /* venueImage9.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = venueImage9.jpg; sourceTree = "<group>"; };
 		15B85A241C0987E500831BCB /* SearchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		15B85A291C09884D00831BCB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+=======
+		5C1663071C01E7A100146B70 /* PromotionsCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PromotionsCell.swift; sourceTree = "<group>"; };
+>>>>>>> dev
 		5C17F0051BCC097600E027E0 /* ProfileTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ProfileTableViewController.swift; path = MIXR/ProfileTableViewController.swift; sourceTree = SOURCE_ROOT; };
 		5C1CF16F1BDBB45700B863F6 /* BorderedTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BorderedTextField.swift; sourceTree = "<group>"; };
 		5C1CF1721BDBC5CC00B863F6 /* BorderedButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BorderedButton.swift; sourceTree = "<group>"; };
@@ -99,10 +120,13 @@
 		5C27231C1BD899D7007227AA /* VenueProfileTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VenueProfileTableViewController.swift; sourceTree = "<group>"; };
 		5C2A9E931BD2063E008669AB /* RecentPhotoVidoeController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecentPhotoVidoeController.swift; sourceTree = "<group>"; };
 		5C3408111BE4F411006CB35C /* SettingsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsTableViewController.swift; sourceTree = "<group>"; };
+		5C6B78511C01798B00B30166 /* Notifications.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Notifications.swift; sourceTree = "<group>"; };
+		5C6B78541C017A9A00B30166 /* NotificationCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationCell.swift; sourceTree = "<group>"; };
 		5C6E2C491BC90B940036259A /* DatePickerDialog.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DatePickerDialog.swift; sourceTree = "<group>"; };
 		5C6F92051BC6C9680037373B /* SignUpTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpTableViewController.swift; sourceTree = "<group>"; };
 		5C92A1431BC5785A00EB6B9E /* User.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = User.storyboard; sourceTree = "<group>"; };
 		5C92A1451BC57AD500EB6B9E /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		5C95FD2C1C05FFFB00077C0F /* PromotionDetail.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PromotionDetail.swift; sourceTree = "<group>"; };
 		608155550307965E8EC9C7BD /* Pods-MIXR.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MIXR.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MIXR/Pods-MIXR.debug.xcconfig"; sourceTree = "<group>"; };
 		8061221A1BBF2D7400EFF35E /* MIXR.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MIXR.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8061221E1BBF2D7400EFF35E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -218,6 +242,15 @@
 			path = CollectionView;
 			sourceTree = "<group>";
 		};
+		5C6B78531C017A8A00B30166 /* Custom Cell */ = {
+			isa = PBXGroup;
+			children = (
+				5C6B78541C017A9A00B30166 /* NotificationCell.swift */,
+				5C1663071C01E7A100146B70 /* PromotionsCell.swift */,
+			);
+			path = "Custom Cell";
+			sourceTree = "<group>";
+		};
 		5C6E2C471BC90B940036259A /* Library */ = {
 			isa = PBXGroup;
 			children = (
@@ -270,7 +303,11 @@
 		8061221C1BBF2D7400EFF35E /* MIXR */ = {
 			isa = PBXGroup;
 			children = (
+<<<<<<< HEAD
 				156BCCA81C05E68100AB88A6 /* CustomCell */,
+=======
+				5C6B78531C017A8A00B30166 /* Custom Cell */,
+>>>>>>> dev
 				5C6E2C471BC90B940036259A /* Library */,
 				8061221F1BBF2D7400EFF35E /* AppDelegate.swift */,
 				806122211BBF2D7400EFF35E /* VenueFeedViewController.swift */,
@@ -295,6 +332,8 @@
 				5C3408111BE4F411006CB35C /* SettingsTableViewController.swift */,
 				5C218AC11BEA769800F7DA82 /* ChangePassword.swift */,
 				5C218AC31BEA7EA900F7DA82 /* SMSVerification.swift */,
+				5C6B78511C01798B00B30166 /* Notifications.swift */,
+				5C95FD2C1C05FFFB00077C0F /* PromotionDetail.swift */,
 			);
 			path = MIXR;
 			sourceTree = "<group>";
@@ -508,8 +547,11 @@
 			files = (
 				5C92A1461BC57AD500EB6B9E /* LoginViewController.swift in Sources */,
 				5C6F92061BC6C9680037373B /* SignUpTableViewController.swift in Sources */,
+				5C95FD2D1C05FFFB00077C0F /* PromotionDetail.swift in Sources */,
 				806122241BBF2D7400EFF35E /* MapViewController.swift in Sources */,
+				5C1663081C01E7A100146B70 /* PromotionsCell.swift in Sources */,
 				806122461BBF2EDF00EFF35E /* UserProfileViewController.swift in Sources */,
+				5C6B78551C017A9A00B30166 /* NotificationCell.swift in Sources */,
 				5C27231D1BD899D7007227AA /* VenueProfileTableViewController.swift in Sources */,
 				806122441BBF2ECF00EFF35E /* VenueProfileViewController.swift in Sources */,
 				5C6E2C4A1BC90B940036259A /* DatePickerDialog.swift in Sources */,
@@ -522,6 +564,7 @@
 				8061224D1BBF3CB000EFF35E /* VenueFeedNavigationController.swift in Sources */,
 				806122481BBF2EF200EFF35E /* PersonalProfileViewController.swift in Sources */,
 				5C218AC21BEA769800F7DA82 /* ChangePassword.swift in Sources */,
+				5C6B78521C01798B00B30166 /* Notifications.swift in Sources */,
 				5C3408121BE4F411006CB35C /* SettingsTableViewController.swift in Sources */,
 				5C22FB611BD1314000FF9C98 /* CollectionViewWaterfallLayout.swift in Sources */,
 				806122511BBF3CCC00EFF35E /* UserFeedNavigationController.swift in Sources */,
