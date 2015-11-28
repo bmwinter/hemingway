@@ -34,10 +34,18 @@ class LoginViewController: UIViewController {
     // Custom button methods for SignUP
     */
 
+    func loadTabar()
+    {
+        let storyboard: UIStoryboard = UIStoryboard(name:"Main", bundle: NSBundle.mainBundle())
+        let tabBarController: UITabBarController = storyboard.instantiateViewControllerWithIdentifier("TabBarController") as! UITabBarController
+        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+        appDelegate.window!.rootViewController = tabBarController
+    }
 
     @IBAction func signupButtonTapped(sender: AnyObject){
         self.navigationController?.navigationBarHidden = true
-        self.performSegueWithIdentifier("SignUpSegue", sender: nil)
+        //self.performSegueWithIdentifier("SignUpSegue", sender: nil)
+        loadTabar()
     }
     
     /*
@@ -49,9 +57,6 @@ class LoginViewController: UIViewController {
         
         userEmailTextField.resignFirstResponder()
         userPasswordTextField.resignFirstResponder()
-        
-//        self.performSegueWithIdentifier("ProfileScreenSegue", sender: nil)
-//        return;
         
         let email = userEmailTextField.text!.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
         let password = userPasswordTextField.text!.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
