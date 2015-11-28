@@ -26,6 +26,10 @@
                                     <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFit" image="MixrLogo.png" translatesAutoresizingMaskIntoConstraints="NO" id="88Z-GR-Jfn">
                                         <rect key="frame" x="71" y="20" width="178" height="44"/>
                                         <animations/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="178" id="XqJ-5b-yYy"/>
+                                            <constraint firstAttribute="width" secondItem="88Z-GR-Jfn" secondAttribute="height" multiplier="89:22" id="mz8-JJ-E6Z"/>
+                                        </constraints>
                                     </imageView>
                                 </subviews>
                                 <animations/>
@@ -34,6 +38,7 @@
                                     <constraint firstItem="88Z-GR-Jfn" firstAttribute="top" secondItem="coI-Z5-8AC" secondAttribute="top" constant="20" id="D5P-ii-MAP"/>
                                     <constraint firstItem="88Z-GR-Jfn" firstAttribute="leading" secondItem="coI-Z5-8AC" secondAttribute="leading" constant="71" id="MyT-z7-uIW"/>
                                     <constraint firstAttribute="bottom" secondItem="88Z-GR-Jfn" secondAttribute="bottom" id="RPA-I9-h4W"/>
+                                    <constraint firstAttribute="height" constant="64" id="ZBm-gV-d94"/>
                                     <constraint firstItem="88Z-GR-Jfn" firstAttribute="centerX" secondItem="coI-Z5-8AC" secondAttribute="centerX" id="kPy-jt-kRn"/>
                                 </constraints>
                             </view>
@@ -299,6 +304,10 @@
                                     <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFit" image="MixrLogo.png" translatesAutoresizingMaskIntoConstraints="NO" id="5rS-vK-5FE">
                                         <rect key="frame" x="71" y="20" width="178" height="44"/>
                                         <animations/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="178" id="POw-Tr-5gM"/>
+                                            <constraint firstAttribute="width" secondItem="5rS-vK-5FE" secondAttribute="height" multiplier="89:22" id="hec-NN-U09"/>
+                                        </constraints>
                                     </imageView>
                                 </subviews>
                                 <animations/>
@@ -540,7 +549,7 @@
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HuB-VB-40B" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="0.0" y="0.0"/>
+            <point key="canvasLocation" x="56" y="-3"/>
         </scene>
         <!--Venue Feed-->
         <scene sceneID="U5Q-YE-Dpn">
