@@ -1,0 +1,3 @@
+# merge conflits
+
+*.pbxproj binary merge=union
