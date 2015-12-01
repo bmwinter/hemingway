@@ -22,7 +22,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         IQKeyboardManager.sharedManager().enable = true
         IQKeyboardManager.sharedManager().shouldToolbarUsesTextFieldTintColor = true
-
+        
         return true
     }
 
@@ -51,3 +51,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 }
 
+/*
+@todo- Sujal 
+
+1) the user/venue feed (which is the first tab bar item), i.e - MIXR feed.png  ,MIXR following page.png
+2) the list of followers (which is viewed via the Notifications navigation item),  i.e MIXRNEWnotismixrfollowing-01
+3) search feed displaying users, venues, etc. (search by phone & name of user or venue) i.e Attachment-1.png
+*/

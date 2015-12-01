@@ -1,0 +1,17 @@
+# os x finder
+.DS_Store
+
+# xcode user configs
+*.pbxuser
+*.xcworkspace
+xcuserdata
+
+
+# build products
+*.o
+*.LinkFileList
+*.hmap
+
+# sys automatic backups
+*.swp
+*~.nib/
