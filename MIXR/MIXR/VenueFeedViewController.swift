@@ -24,16 +24,16 @@ class VenueFeedViewController:UIViewController, UITableViewDelegate,UITableViewD
     
     func loadData()
     {
-        feedsArray.addObject(["venueName":"Mad River1","venueImage":"venueImage1.jpg","userName":"Grant Boyle "])
-        feedsArray.addObject(["venueName":"Mad River2","venueImage":"venueImage2.jpg","userName":"Grant Boyle"])
-        feedsArray.addObject(["venueName":"Mad River3","venueImage":"venueImage3.jpg","userName":"Grant Boyle"])
-        feedsArray.addObject(["venueName":"Mad River4","venueImage":"venueImage4.jpg","userName":"Grant Boyle"])
-        feedsArray.addObject(["venueName":"Mad River5","venueImage":"venueImage5.jpg","userName":"Grant Boyle"])
-        feedsArray.addObject(["venueName":"Mad River6","venueImage":"venueImage6.jpg","userName":"Grant Boyle"])
-        feedsArray.addObject(["venueName":"Mad River7","venueImage":"venueImage7.jpg","userName":"Grant Boyle"])
-        feedsArray.addObject(["venueName":"Mad River8","venueImage":"venueImage8.jpg","userName":"Grant Boyle"])
-        feedsArray.addObject(["venueName":"Mad River9","venueImage":"venueImage9.jpg","userName":"Grant Boyle"])
-        feedsArray.addObject(["venueName":"Mad River10","venueImage":"venueImage10.jpg","userName":"Grant Boyle"])
+        feedsArray.addObject(["venueName":"Mad River1","venueImage":"venueImage1.jpg","userName":"Grant Boyle1"])
+        feedsArray.addObject(["venueName":"Mad River2","venueImage":"venueImage2.jpg","userName":"Grant Boyle2"])
+        feedsArray.addObject(["venueName":"Mad River3","venueImage":"venueImage3.jpg","userName":"Grant Boyle3"])
+        feedsArray.addObject(["venueName":"Mad River4","venueImage":"venueImage4.jpg","userName":"Grant Boyle4"])
+        feedsArray.addObject(["venueName":"Mad River5","venueImage":"venueImage5.jpg","userName":"Grant Boyle5"])
+        feedsArray.addObject(["venueName":"Mad River6","venueImage":"venueImage6.jpg","userName":"Grant Boyle6"])
+        feedsArray.addObject(["venueName":"Mad River7","venueImage":"venueImage7.jpg","userName":"Grant Boyle7"])
+        feedsArray.addObject(["venueName":"Mad River8","venueImage":"venueImage8.jpg","userName":"Grant Boyle8"])
+        feedsArray.addObject(["venueName":"Mad River9","venueImage":"venueImage9.jpg","userName":"Grant Boyle9"])
+        feedsArray.addObject(["venueName":"Mad River10","venueImage":"venueImage10.jpg","userName":"Grant Boyle10"])
     }
 
     @IBAction func onFeedClicked(sender: AnyObject)
