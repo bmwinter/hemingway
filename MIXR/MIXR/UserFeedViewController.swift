@@ -23,12 +23,30 @@ extension NSURL{
 class UserFeedViewController: UIViewController, UITableViewDelegate,UITableViewDataSource {
     
     @IBOutlet weak var tableView: UITableView!
+    let feedsArray : NSMutableArray = NSMutableArray()
     
     override func viewDidLoad()
     {
         super.viewDidLoad()
+        self.loadData()
+        
         view.backgroundColor = UIColor.blackColor()
         //performSelector(Selector(setFrames()), withObject: nil, afterDelay: 1.0)
+    }
+    
+    func loadData()
+    {
+        feedsArray.addObject(["venueName":"Mad River1","venueImage":"venueImage1.jpg","userName":"Grant Boyle "])
+        feedsArray.addObject(["venueName":"Mad River2","venueImage":"venueImage2.jpg","userName":"Grant Boyle"])
+        feedsArray.addObject(["venueName":"Mad River3","venueImage":"venueImage3.jpg","userName":"Grant Boyle"])
+        feedsArray.addObject(["venueName":"Mad River4","venueImage":"venueImage4.jpg","userName":"Grant Boyle"])
+        feedsArray.addObject(["venueName":"Mad River5","venueImage":"venueImage5.jpg","userName":"Grant Boyle"])
+        feedsArray.addObject(["venueName":"Mad River6","venueImage":"venueImage6.jpg","userName":"Grant Boyle"])
+        feedsArray.addObject(["venueName":"Mad River7","venueImage":"venueImage7.jpg","userName":"Grant Boyle"])
+        feedsArray.addObject(["venueName":"Mad River8","venueImage":"venueImage8.jpg","userName":"Grant Boyle"])
+        feedsArray.addObject(["venueName":"Mad River9","venueImage":"venueImage9.jpg","userName":"Grant Boyle"])
+        feedsArray.addObject(["venueName":"Mad River10","venueImage":"venueImage10.jpg","userName":"Grant Boyle"])
+
     }
     
     override func viewDidLayoutSubviews()
@@ -44,18 +62,23 @@ class UserFeedViewController: UIViewController, UITableViewDelegate,UITableViewD
     func tableView(tableView: UITableView,
         numberOfRowsInSection section: Int) -> Int
     {
-        return 10;
+        return feedsArray.count;
     }
     
     func tableView(tableView: UITableView,
         cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell
     {
+        let feedDict : NSDictionary = feedsArray[indexPath.row] as! NSDictionary
+        
         let cell = tableView.dequeueReusableCellWithIdentifier("tableCell", forIndexPath: indexPath) as! UserFeedCell
-        cell.FeedName.text = "Mad River \(indexPath.row)"
-        cell.lblUserName.text = "Grant Boyle \(indexPath.row)"
+        cell.FeedName.text = feedDict["venueName"] as? String
+        cell.lblUserName.text = feedDict["userName"] as? String
         return cell
     }
     
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        print("indexpath.row = \(indexPath.row)")
+    }
     override func prefersStatusBarHidden() -> Bool
     {
         return false
