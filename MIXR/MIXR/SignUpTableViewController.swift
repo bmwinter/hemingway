@@ -63,11 +63,11 @@ class SignUpTableViewController: UITableViewController {
         self.title = "Sign Up"
         // Do any additional setup after loading the view, typically from a nib.
     }
-    
+
     /*
     // Table View delegate methods
     */
-    
+
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 0
     }
@@ -88,7 +88,7 @@ class SignUpTableViewController: UITableViewController {
     /*
     // Custom button methods..
     */
-    
+
     @IBAction func signupButtonTapped(sender: AnyObject){
         
         let firstnameString = firstname.text!.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
@@ -97,43 +97,48 @@ class SignUpTableViewController: UITableViewController {
         let emailString = email.text!.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
         let passwordString = password.text!.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
         let confirmPasswordString = conformPassword.text!.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
-        
+
         if firstnameString.isEmpty{
             self.displayCommonAlert(globalConstants.kfirstnameError)
+            return
         }
         if lastnameString.isEmpty{
             self.displayCommonAlert(globalConstants.klastnameError)
+            return
         }
         if emailString.isEmpty{
             self.displayCommonAlert(globalConstants.kEmailError)
+            return
         }
         if passwordString.isEmpty{
             self.displayCommonAlert(globalConstants.kpasswordError)
+            return
         }
         if confirmPasswordString.isEmpty{
             self.displayCommonAlert(globalConstants.kconfirmPasswordError)
+            return
         }
         
         if !globalConstants.isValidEmail(emailString){
             self.displayCommonAlert(globalConstants.kValidEmailError)
+            return
         }
-        
+
         if !compareTwoPassword(passwordString, conformPassword: confirmPasswordString){
             self.displayCommonAlert(globalConstants.kpasswordconfirmPasswordError)
+            return
+        }
+
+        let years = NSDate().yearsFrom(self.selectedDate!)
+        
+        if(years<=18){
+            self.displayCommonAlert(globalConstants.kageRestrictionError)
+            return
         }
         
-        if(self.selectedDate != nil)
-        {
-            let years = NSDate().yearsFrom(self.selectedDate!)
-            
-            if(years<=18){
-                self.displayCommonAlert(globalConstants.kageRestrictionError)
-            }
-        }
-        
-        if !checkmark.selected
-        {
+        if !checkmark.selected{
             self.displayCommonAlert(globalConstants.ktermsandConditionError)
+            return
         }
         
     }
@@ -152,7 +157,7 @@ class SignUpTableViewController: UITableViewController {
             self.dob?.setTitle("\(strDate)", forState: UIControlState.Normal)
         }
     }
-    
+
     /*
     // Compare two password
     */
@@ -161,11 +166,11 @@ class SignUpTableViewController: UITableViewController {
         return (password == conformPassword)
     }
     
-    
+
     /*
     // Common alert method need to be used to display alert, by passing alert string as parameter to it.
     */
-    
+
     func displayCommonAlert(alertMesage : NSString){
         
         if #available(iOS 8.0, *) {
@@ -175,7 +180,7 @@ class SignUpTableViewController: UITableViewController {
             }
             alertController.addAction(okayAction)
             self.presentViewController(alertController, animated: true, completion: nil)
-            
+
         } else {
             let alert = UIAlertView(title: globalConstants.kAppName, message:alertMesage as String? , delegate: nil, cancelButtonTitle:"Ok")
             alert.show()
@@ -193,12 +198,12 @@ class SignUpTableViewController: UITableViewController {
         default: print("Test 1")
         }
     }
-    
+
     
     /*
     // Text field delegate methods..
     */
-    
+
     func textFieldDidBeginEditing(textField: UITextField) {
         
     }
@@ -210,6 +215,6 @@ class SignUpTableViewController: UITableViewController {
         return true
     }
     
-    
+
     
 }
