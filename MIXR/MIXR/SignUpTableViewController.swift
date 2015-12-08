@@ -60,8 +60,16 @@ class SignUpTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         
+        self.navigationItem.backBarButtonItem = UIBarButtonItem(title:"", style:.Plain, target:nil, action:nil)
+
+        self.selectedDate = NSDate()
+        self.tableView.backgroundView = UIImageView(image: UIImage(named: "BG"))
         self.title = "Sign Up"
         // Do any additional setup after loading the view, typically from a nib.
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        self.navigationController?.navigationBarHidden = true
     }
 
     /*
@@ -141,6 +149,8 @@ class SignUpTableViewController: UITableViewController {
             return
         }
         
+        self.navigationController?.navigationBarHidden = false
+        self.performSegueWithIdentifier("SMSVerification", sender: nil)
     }
     
     /* IBActions */
@@ -173,18 +183,12 @@ class SignUpTableViewController: UITableViewController {
 
     func displayCommonAlert(alertMesage : NSString){
         
-        if #available(iOS 8.0, *) {
-            let alertController = UIAlertController (title: globalConstants.kAppName, message: alertMesage as String?, preferredStyle:.Alert)
-            let okayAction: UIAlertAction = UIAlertAction(title: "Ok", style: .Cancel) { action -> Void in
-                //Just dismiss the action sheet
-            }
-            alertController.addAction(okayAction)
-            self.presentViewController(alertController, animated: true, completion: nil)
-
-        } else {
-            let alert = UIAlertView(title: globalConstants.kAppName, message:alertMesage as String? , delegate: nil, cancelButtonTitle:"Ok")
-            alert.show()
+        let alertController = UIAlertController (title: globalConstants.kAppName, message: alertMesage as String?, preferredStyle:.Alert)
+        let okayAction: UIAlertAction = UIAlertAction(title: "Ok", style: .Cancel) { action -> Void in
+            //Just dismiss the action sheet
         }
+        alertController.addAction(okayAction)
+        self.presentViewController(alertController, animated: true, completion: nil)
     }
     
     /*

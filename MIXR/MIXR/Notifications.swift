@@ -16,6 +16,17 @@ class Notifications: UITableViewController {
 
     @IBOutlet weak var segment : UISegmentedControl!
     
+    override func viewDidLoad() {
+        
+        self.tableView.rowHeight = UITableViewAutomaticDimension
+
+        self.navigationItem.backBarButtonItem = UIBarButtonItem(title:"", style:.Plain, target:nil, action:nil)
+        
+        self.tableView.backgroundView = UIImageView(image: UIImage(named: "BG"))
+        self.title = "Notifications"
+        // Do any additional setup after loading the view, typically from a nib.
+    }
+
     @IBAction func settingsButtonTapped (sender:AnyObject){
         
     }
@@ -63,7 +74,11 @@ class Notifications: UITableViewController {
         return cell
     }
     
-
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        tableView.deselectRowAtIndexPath(indexPath, animated:false)
+        self.performSegueWithIdentifier("Promotions", sender: nil)
+        
+    }
 
     
 }

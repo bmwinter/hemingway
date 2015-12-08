@@ -28,6 +28,10 @@ class VenueProfileTableViewController: UITableViewController {
         self.title = "Spanky's"
         self.navigationItem.rightBarButtonItem = showLatestVideos;
         super.viewDidLoad()
+        
+        self.navigationItem.backBarButtonItem = UIBarButtonItem(title:"", style:.Plain, target:nil, action:nil)
+        self.tableView.backgroundView = UIImageView(image: UIImage(named: "BG"))
+
         loadDummyScrollViewData()
         
         // Do any additional setup after loading the view, typically from a nib.

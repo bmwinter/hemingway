@@ -44,8 +44,16 @@ class LoginViewController: UIViewController {
 
     @IBAction func signupButtonTapped(sender: AnyObject){
         self.navigationController?.navigationBarHidden = true
-        //self.performSegueWithIdentifier("SignUpSegue", sender: nil)
-        loadTabar()
+        self.performSegueWithIdentifier("SignUpSegue", sender: nil)
+//        loadTabar()
+    }
+
+    /*
+    // Custom button method for forgot password
+    */
+
+    @IBAction func forgotPasswordButtonTapped(sender: AnyObject){
+        self.performSegueWithIdentifier("ForgotPassword", sender: nil)
     }
     
     /*

@@ -30,7 +30,8 @@ class ProfileTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         self.title = "Pete Dewitt"
-
+        self.navigationItem.backBarButtonItem = UIBarButtonItem(title:"", style:.Plain, target:nil, action:nil)
+        self.tableView.backgroundView = UIImageView(image: UIImage(named: "BG"))
         self.navigationItem.rightBarButtonItem = showLatestVideos;
         super.viewDidLoad()
         
@@ -59,7 +60,7 @@ class ProfileTableViewController: UITableViewController {
     */
 
     @IBAction func showLatestVideosButtonTapped(sender: AnyObject){
-        
+        self.performSegueWithIdentifier("RecentPhoto", sender: nil)
     }
 
     /*

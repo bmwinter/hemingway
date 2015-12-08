@@ -14,6 +14,14 @@ class ChangePassword: UITableViewController {
     @IBOutlet weak var currentPassword: UITextField!
     @IBOutlet weak var changePassword: UITextField!
     @IBOutlet weak var confirmPassword: UITextField!
+    override func viewDidLoad() {
+        
+        self.navigationItem.backBarButtonItem = UIBarButtonItem(title:"", style:.Plain, target:nil, action:nil)
+
+        self.tableView.backgroundView = UIImageView(image: UIImage(named: "BG"))
+        self.title = "Change Password"
+        // Do any additional setup after loading the view, typically from a nib.
+    }
 
     
     @IBAction func settingsButtonTapped (sender:AnyObject){

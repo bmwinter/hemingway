@@ -24,6 +24,12 @@ class RecentPhotoVidoeController: UIViewController, UICollectionViewDataSource, 
         }()
     
     override func viewDidLoad() {
+        
+        self.navigationItem.backBarButtonItem = UIBarButtonItem(title:"", style:.Plain, target:nil, action:nil)
+        
+        self.collectionView.backgroundView = UIImageView(image: UIImage(named: "BG"))
+        self.title = "Recent Uploads"
+
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
