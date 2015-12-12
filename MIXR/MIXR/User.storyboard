@@ -58,7 +58,7 @@
                                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="bezel" placeholder=" Email" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="zkM-Vo-nfK" customClass="BorderedTextField" customModule="MIXR" customModuleProvider="target">
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="bezel" placeholder="Email" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="zkM-Vo-nfK" customClass="BorderedTextField" customModule="MIXR" customModuleProvider="target">
                                         <rect key="frame" x="16" y="197" width="288" height="35"/>
                                         <color key="tintColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
@@ -70,7 +70,7 @@
                                             <outlet property="delegate" destination="ObV-wh-fIs" id="ERy-ru-tCB"/>
                                         </connections>
                                     </textField>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" verticalHuggingPriority="249" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="bezel" placeholder=" Password" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="6CW-ij-aRa" customClass="BorderedTextField" customModule="MIXR" customModuleProvider="target">
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" verticalHuggingPriority="249" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="bezel" placeholder="Password" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="6CW-ij-aRa" customClass="BorderedTextField" customModule="MIXR" customModuleProvider="target">
                                         <rect key="frame" x="16" y="257" width="288" height="35"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="35" id="1IU-ef-5Ce"/>
@@ -465,7 +465,7 @@
                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="bezel" placeholder=" First Name" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="k0B-3i-7C8" customClass="BorderedTextField" customModule="MIXR" customModuleProvider="target">
+                                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="bezel" placeholder="First Name" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="k0B-3i-7C8" customClass="BorderedTextField" customModule="MIXR" customModuleProvider="target">
                                             <rect key="frame" x="8" y="143" width="142" height="35"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="142" id="9Zx-vi-fLx"/>
@@ -477,7 +477,7 @@
                                                 <outlet property="delegate" destination="NlB-pM-1Gi" id="2ce-g7-X09"/>
                                             </connections>
                                         </textField>
-                                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" horizontalHuggingPriority="249" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="bezel" placeholder=" Last Name" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Did-XK-Rh0" customClass="BorderedTextField" customModule="MIXR" customModuleProvider="target">
+                                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" horizontalHuggingPriority="249" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="bezel" placeholder="Last Name" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Did-XK-Rh0" customClass="BorderedTextField" customModule="MIXR" customModuleProvider="target">
                                             <rect key="frame" x="170" y="143" width="142" height="35"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="142" id="59P-Ob-fV0"/>
@@ -489,7 +489,7 @@
                                                 <outlet property="delegate" destination="NlB-pM-1Gi" id="MkJ-zj-raq"/>
                                             </connections>
                                         </textField>
-                                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="bezel" placeholder=" Email" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="P2R-qH-8xR" customClass="BorderedTextField" customModule="MIXR" customModuleProvider="target">
+                                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="bezel" placeholder="Email" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="P2R-qH-8xR" customClass="BorderedTextField" customModule="MIXR" customModuleProvider="target">
                                             <rect key="frame" x="9" y="193" width="302" height="35"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="35" id="ecq-Ou-ele"/>
@@ -500,7 +500,7 @@
                                                 <outlet property="delegate" destination="NlB-pM-1Gi" id="Ddm-ei-Qvo"/>
                                             </connections>
                                         </textField>
-                                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="bezel" placeholder=" Password" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="E7w-xt-lJo" customClass="BorderedTextField" customModule="MIXR" customModuleProvider="target">
+                                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="bezel" placeholder="Password" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="E7w-xt-lJo" customClass="BorderedTextField" customModule="MIXR" customModuleProvider="target">
                                             <rect key="frame" x="9" y="243" width="302" height="35"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="35" id="hfk-h7-HDy"/>
@@ -511,7 +511,7 @@
                                                 <outlet property="delegate" destination="NlB-pM-1Gi" id="h4I-wQ-obG"/>
                                             </connections>
                                         </textField>
-                                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="bezel" placeholder=" Confirm Password" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="2er-sE-zh9" customClass="BorderedTextField" customModule="MIXR" customModuleProvider="target">
+                                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="bezel" placeholder="Confirm Password" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="2er-sE-zh9" customClass="BorderedTextField" customModule="MIXR" customModuleProvider="target">
                                             <rect key="frame" x="9" y="293" width="302" height="35"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="35" id="mn3-or-wXf"/>
