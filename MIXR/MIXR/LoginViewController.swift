@@ -71,33 +71,21 @@ class LoginViewController: UIViewController {
         let password = userPasswordTextField.text!.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
         
         if email.isEmpty{
-            if #available(iOS 8.0, *) {
                 let alertController = UIAlertController (title: globalConstants.kAppName , message:globalConstants.kEmailError , preferredStyle:.Alert)
                 let okayAction: UIAlertAction = UIAlertAction(title: "Ok", style: .Cancel) { action -> Void in
                     //Just dismiss the action sheet
                 }
                 alertController.addAction(okayAction)
                 self.presentViewController(alertController, animated: true, completion: nil)
-
-            } else {
-                let alert = UIAlertView(title: globalConstants.kAppName, message:globalConstants.kpasswordError , delegate: nil, cancelButtonTitle:"Ok")
-                alert.show()
-            }
         }
         
         if password.isEmpty{
-            if #available(iOS 8.0, *) {
                 let alertController = UIAlertController (title: globalConstants.kAppName, message: "Please enter password", preferredStyle:.Alert)
                 let okayAction: UIAlertAction = UIAlertAction(title: "Ok", style: .Cancel) { action -> Void in
                     //Just dismiss the action sheet
                 }
                 alertController.addAction(okayAction)
                 self.presentViewController(alertController, animated: true, completion: nil)
-
-            } else {
-                let alert = UIAlertView(title: globalConstants.kAppName, message:globalConstants.kpasswordError , delegate: nil, cancelButtonTitle:"Ok")
-                alert.show()
-            }
         }
         
         if !globalConstants.isValidEmail(email){
@@ -112,20 +100,12 @@ class LoginViewController: UIViewController {
 
     func displayCommonAlert(alertMesage : NSString){
         
-        if #available(iOS 8.0, *) {
             let alertController = UIAlertController (title: globalConstants.kAppName, message: alertMesage as String?, preferredStyle:.Alert)
             let okayAction: UIAlertAction = UIAlertAction(title: "Ok", style: .Cancel) { action -> Void in
                 //Just dismiss the action sheet
             }
             alertController.addAction(okayAction)
             self.presentViewController(alertController, animated: true, completion: nil)
-
-        } else {
-            let alert = UIAlertView(title: globalConstants.kAppName, message:alertMesage as String? , delegate: nil, cancelButtonTitle:"Ok")
-            alert.show()
-
-            // Fallback on earlier versions
-        }
     }
     
     /*
