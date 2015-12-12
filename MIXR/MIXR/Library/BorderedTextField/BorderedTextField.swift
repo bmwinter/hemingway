@@ -12,6 +12,8 @@ import UIKit
 import QuartzCore
 
 class BorderedTextField : UITextField {
+    let padding = UIEdgeInsets(top: 0, left: 5, bottom: 0, right: 5);
+
     required init(coder aDecoder: NSCoder) {
         super.init(coder:aDecoder)!
         self.setup()
@@ -31,4 +33,27 @@ class BorderedTextField : UITextField {
         self.layer.borderWidth = 2.0
         self.layer.borderColor = UIColor(red: (214.0/255.0), green: (214.0/255.0), blue: (214.0/255.0), alpha: 1).CGColor
     }
+
+    override func textRectForBounds(bounds: CGRect) -> CGRect {
+        return self.newBounds(bounds)
+    }
+    
+    override func placeholderRectForBounds(bounds: CGRect) -> CGRect {
+        return self.newBounds(bounds)
+    }
+    
+    override func editingRectForBounds(bounds: CGRect) -> CGRect {
+        return self.newBounds(bounds)
+    }
+    
+    private func newBounds(bounds: CGRect) -> CGRect {
+        
+        var newBounds = bounds
+        newBounds.origin.x += padding.left
+        newBounds.origin.y += padding.top
+        newBounds.size.height -= padding.top + padding.bottom
+        newBounds.size.width -= padding.left + padding.right
+        return newBounds
+    }
+
 }
