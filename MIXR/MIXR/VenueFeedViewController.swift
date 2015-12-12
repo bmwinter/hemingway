@@ -8,11 +8,12 @@
 //
 
 import UIKit
+let isLocalData = false
 
-class VenueFeedViewController:UIViewController, UITableViewDelegate,UITableViewDataSource {
+class VenueFeedViewController:UIViewController, UITableViewDelegate,UITableViewDataSource,APIConnectionDelegate {
     
     @IBOutlet weak var tableView: UITableView!
-    let feedsArray : NSMutableArray = NSMutableArray()
+    var feedsArray : NSMutableArray = NSMutableArray()
 
     override func viewDidLoad()
     {
@@ -24,18 +25,35 @@ class VenueFeedViewController:UIViewController, UITableViewDelegate,UITableViewD
     
     func loadData()
     {
-        feedsArray.addObject(["venueName":"Mad River1","venueImage":"venueImage1.jpg","userName":"Grant Boyle1"])
-        feedsArray.addObject(["venueName":"Mad River2","venueImage":"venueImage2.jpg","userName":"Grant Boyle2"])
-        feedsArray.addObject(["venueName":"Mad River3","venueImage":"venueImage3.jpg","userName":"Grant Boyle3"])
-        feedsArray.addObject(["venueName":"Mad River4","venueImage":"venueImage4.jpg","userName":"Grant Boyle4"])
-        feedsArray.addObject(["venueName":"Mad River5","venueImage":"venueImage5.jpg","userName":"Grant Boyle5"])
-        feedsArray.addObject(["venueName":"Mad River6","venueImage":"venueImage6.jpg","userName":"Grant Boyle6"])
-        feedsArray.addObject(["venueName":"Mad River7","venueImage":"venueImage7.jpg","userName":"Grant Boyle7"])
-        feedsArray.addObject(["venueName":"Mad River8","venueImage":"venueImage8.jpg","userName":"Grant Boyle8"])
-        feedsArray.addObject(["venueName":"Mad River9","venueImage":"venueImage9.jpg","userName":"Grant Boyle9"])
-        feedsArray.addObject(["venueName":"Mad River10","venueImage":"venueImage10.jpg","userName":"Grant Boyle10"])
+        if (isLocalData)
+        {
+            feedsArray.addObject(["venueName":"Mad River1","venueImage":"venueImage1.jpg","userName":"Grant Boyle1"])
+            feedsArray.addObject(["venueName":"Mad River2","venueImage":"venueImage2.jpg","userName":"Grant Boyle2"])
+            feedsArray.addObject(["venueName":"Mad River3","venueImage":"venueImage3.jpg","userName":"Grant Boyle3"])
+            feedsArray.addObject(["venueName":"Mad River4","venueImage":"venueImage4.jpg","userName":"Grant Boyle4"])
+            feedsArray.addObject(["venueName":"Mad River5","venueImage":"venueImage5.jpg","userName":"Grant Boyle5"])
+            feedsArray.addObject(["venueName":"Mad River6","venueImage":"venueImage6.jpg","userName":"Grant Boyle6"])
+            feedsArray.addObject(["venueName":"Mad River7","venueImage":"venueImage7.jpg","userName":"Grant Boyle7"])
+            feedsArray.addObject(["venueName":"Mad River8","venueImage":"venueImage8.jpg","userName":"Grant Boyle8"])
+            feedsArray.addObject(["venueName":"Mad River9","venueImage":"venueImage9.jpg","userName":"Grant Boyle9"])
+            feedsArray.addObject(["venueName":"Mad River10","venueImage":"venueImage10.jpg","userName":"Grant Boyle10"])
+            reloadTable()
+        }
+        else
+        {
+            let param: Dictionary = Dictionary<String, AnyObject>()
+            //call API for to get venues
+            let object = APIConnection().POST(APIName.Venues.rawValue, withAPIName: "VenueList", withMessage: "", withParam: param, withProgresshudShow: true, isShowNoInternetView: false) as! APIConnection
+            object.delegate = self
+        }
+        
     }
 
+    func reloadTable()
+    {
+        tableView.reloadData()
+    }
+    
     @IBAction func onFeedClicked(sender: AnyObject)
     {
         let feedBtn : UIButton = sender as! UIButton
@@ -62,7 +80,7 @@ class VenueFeedViewController:UIViewController, UITableViewDelegate,UITableViewD
     func tableView(tableView: UITableView,
         numberOfRowsInSection section: Int) -> Int
     {
-        return 10;
+        return feedsArray.count;
     }
     
     func tableView(tableView: UITableView,
@@ -93,5 +111,69 @@ class VenueFeedViewController:UIViewController, UITableViewDelegate,UITableViewD
         // Dispose of any resources that can be recreated.
     }
 
+    //MARK: - APIConnection Delegate -
+    
+    func connectionFailedForAction(action: Int, andWithResponse result: NSDictionary!, method : String)
+    {
+        switch action
+        {
+        case APIName.Venues.rawValue:
+            if ( result != nil)
+            {
+                if ( result.isKindOfClass(NSDictionary))
+                {
+                    DLog("\(result)")
+                }
+            }
+            
+        default:
+            DLog("Nothing")
+        }
+    }
+    
+    func connectionDidFinishedErrorResponceForAction(action: Int, andWithResponse result: NSDictionary!, method : String)
+    {
+        switch action
+        {
+        case APIName.Venues.rawValue:
+            if ( result != nil)
+            {
+                if ( result.isKindOfClass(NSDictionary))
+                {
+                    DLog("\(result)")
+                }
+            }
+            
+        default:
+            DLog("Nothing")
+        }
+        
+    }
+    
+    func connectionDidFinishedForAction(action: Int, andWithResponse result: NSDictionary!, method : String)
+    {
+        switch action
+        {
+        case APIName.Venues.rawValue:
+            
+            if ( result != nil)
+            {
+                if ( result.isKindOfClass(NSDictionary))
+                {
+                    feedsArray = result["data"] as! NSMutableArray
+                    reloadTable()
+                }
+            }
+            DLog("Venue")
+            
+        default:
+            DLog("Nothing")
+        }
+    }
+    
+    func connectionDidUpdateAPIProgress(action: Int,bytesWritten: Int64, totalBytesWritten: Int64 ,totalBytesExpectedToWrite: Int64)
+    {
+    
+    }
 }
 

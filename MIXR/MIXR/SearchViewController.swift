@@ -10,11 +10,11 @@ import UIKit
 
 
 
-class SearchViewController: UIViewController, UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate {
+class SearchViewController: UIViewController, UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,APIConnectionDelegate {
     
-    let feedsArray : NSMutableArray = NSMutableArray()
+    var usersArray : NSMutableArray = NSMutableArray()
     var searchingArray:NSMutableArray!
-    
+    let isLocalData = false
     @IBOutlet var searchBarObj: UISearchBar!
     
     var is_searching:Bool!
@@ -56,18 +56,35 @@ class SearchViewController: UIViewController, UITableViewDelegate,UITableViewDat
     //  MARK:- function OF feedsArray  -
     func loadData()
     {
-        feedsArray.addObject(["Name":"Micheal Clarke","venueImage":"userImage1.jpg"])
-        feedsArray.addObject(["Name":"John Woggs","venueImage":"userImage2.jpg"])
-        feedsArray.addObject(["Name":"Hinns Hawks","venueImage":"userImage3.jpg"])
-        feedsArray.addObject(["Name":"Stuart Jonald","venueImage":"userImage4.jpg"])
-        feedsArray.addObject(["Name":"Steve Waugh","venueImage":"userImage5.png"])
-        feedsArray.addObject(["Name":"Jimmy Walker","venueImage":"userImage6.jpg"])
-        feedsArray.addObject(["Name":"Paul Smith","venueImage":"userImage7.jpg"])
-        feedsArray.addObject(["Name":"Martin Samueals","venueImage":"userImage8.jpg"])
-        feedsArray.addObject(["Name":"Ronny Hoggs","venueImage":"userImage9.png"])
-        feedsArray.addObject(["Name":"Peter Hinns","venueImage":"userImage10.jpg"])
+        if (isLocalData)
+        {
+        
+        usersArray.addObject(["userName":"Micheal Clarke","userImage":"userImage1.jpg"])
+        usersArray.addObject(["userName":"John Woggs","userImage":"userImage2.jpg"])
+        usersArray.addObject(["userName":"Hinns Hawks","userImage":"userImage3.jpg"])
+        usersArray.addObject(["userName":"Stuart Jonald","userImage":"userImage4.jpg"])
+        usersArray.addObject(["userName":"Steve Waugh","userImage":"userImage5.png"])
+        usersArray.addObject(["userName":"Jimmy Walker","userImage":"userImage6.jpg"])
+        usersArray.addObject(["userName":"Paul Smith","userImage":"userImage7.jpg"])
+        usersArray.addObject(["userName":"Martin Samueals","userImage":"userImage8.jpg"])
+        usersArray.addObject(["userName":"Ronny Hoggs","userImage":"userImage9.png"])
+        usersArray.addObject(["userName":"Peter Hinns","userImage":"userImage10.jpg"])
+            reloadTable()
+
+        }
+        else
+        {
+            let param: Dictionary = Dictionary<String, AnyObject>()
+            //call API for to get venues
+            let object = APIConnection().POST(APIName.Users.rawValue, withAPIName:"SearchUser", withMessage:"", withParam: param, withProgresshudShow: true, isShowNoInternetView: false) as! APIConnection
+            object.delegate = self
+        }
     }
     
+    func reloadTable()
+    {
+        tableView.reloadData()
+    }
     
     //  MARK:- Tableview delegate -
     func numberOfSectionsInTableView(tableView: UITableView) -> Int
@@ -81,7 +98,7 @@ class SearchViewController: UIViewController, UITableViewDelegate,UITableViewDat
         if is_searching == true {
             return searchingArray.count
         }else{
-            return feedsArray.count  //Currently Giving default Value
+            return usersArray.count  //Currently Giving default Value
         }
         
     }
@@ -96,16 +113,16 @@ class SearchViewController: UIViewController, UITableViewDelegate,UITableViewDat
         
         if is_searching == true{
             let feedDict : NSDictionary = searchingArray[indexPath.row] as! NSDictionary
-            cell.imagePerson.image  = UIImage(named: feedDict["venueImage"] as! String)
-            cell.labelName.text = feedDict["Name"] as! NSString as String
+            cell.imagePerson.image  = UIImage(named: feedDict["userImage"] as! String)
+            cell.labelName.text = feedDict["userName"] as! NSString as String
             
             
             
             //            cell.textLabel!.text = searchingArray[indexPath.row] as! NSString as String
         }else{
-            let feedDict : NSDictionary = feedsArray[indexPath.row] as! NSDictionary
-            cell.imagePerson.image  = UIImage(named: feedDict["venueImage"] as! String)
-            cell.labelName.text = feedDict["Name"] as? String
+            let feedDict : NSDictionary = usersArray[indexPath.row] as! NSDictionary
+            cell.imagePerson.image  = UIImage(named: feedDict["userImage"] as! String)
+            cell.labelName.text = feedDict["userName"] as? String
         }
         return cell
     }
@@ -135,16 +152,81 @@ class SearchViewController: UIViewController, UITableViewDelegate,UITableViewDat
             print(" search text %@ ",searchBar.text! as NSString)
             is_searching = true
             searchingArray.removeAllObjects()
-            for var index = 0; index < feedsArray.count; index++
+            for var index = 0; index < usersArray.count; index++
             {
-                let currentString = feedsArray.objectAtIndex(index)["Name"] as! String
+                let currentString = usersArray.objectAtIndex(index)["userName"] as! String
                 if currentString.lowercaseString.rangeOfString(searchText.lowercaseString)  != nil
                 {
-                    searchingArray.addObject(feedsArray.objectAtIndex(index))
+                    searchingArray.addObject(usersArray.objectAtIndex(index))
                 }
             }
             tableView.reloadData()
         }
     }
     
+    
+    //MARK: - APIConnection Delegate -
+    
+    func connectionFailedForAction(action: Int, andWithResponse result: NSDictionary!, method : String)
+    {
+        switch action
+        {
+        case APIName.Users.rawValue:
+            if ( result != nil)
+            {
+                if ( result.isKindOfClass(NSDictionary))
+                {
+                    DLog("\(result)")
+                }
+            }
+            
+        default:
+            DLog("Nothing")
+        }
+    }
+    
+    func connectionDidFinishedErrorResponceForAction(action: Int, andWithResponse result: NSDictionary!, method : String)
+    {
+        switch action
+        {
+        case APIName.Users.rawValue:
+            if ( result != nil)
+            {
+                if ( result.isKindOfClass(NSDictionary))
+                {
+                    DLog("\(result)")
+                }
+            }
+            
+        default:
+            DLog("Nothing")
+        }
+        
+    }
+    
+    func connectionDidFinishedForAction(action: Int, andWithResponse result: NSDictionary!, method : String)
+    {
+        switch action
+        {
+        case APIName.Users.rawValue:
+            
+            if ( result != nil)
+            {
+                if ( result.isKindOfClass(NSDictionary))
+                {
+                    usersArray = result["data"] as! NSMutableArray
+                    reloadTable()
+                }
+            }
+            DLog("Venue")
+            
+        default:
+            DLog("Nothing")
+        }
+    }
+    
+    func connectionDidUpdateAPIProgress(action: Int,bytesWritten: Int64, totalBytesWritten: Int64 ,totalBytesExpectedToWrite: Int64)
+    {
+        
+    }
 }
