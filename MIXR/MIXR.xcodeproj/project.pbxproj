@@ -19,6 +19,7 @@
 		1502B8351C16C20E003BA39F /* userImage7.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 1502B82B1C16C20E003BA39F /* userImage7.jpg */; };
 		1502B8361C16C20E003BA39F /* userImage8.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 1502B82C1C16C20E003BA39F /* userImage8.jpg */; };
 		1502B8371C16C20E003BA39F /* userImage9.png in Resources */ = {isa = PBXBuildFile; fileRef = 1502B82D1C16C20E003BA39F /* userImage9.png */; };
+		1552EB331C1C663A00B73831 /* APIConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1552EB321C1C663A00B73831 /* APIConnection.swift */; };
 		156BCC9D1C05B8CE00AB88A6 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 156BCC9C1C05B8CE00AB88A6 /* libz.tbd */; };
 		156BCCAA1C05E6BF00AB88A6 /* UserFeedCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 156BCCA91C05E6BF00AB88A6 /* UserFeedCell.swift */; };
 		1577D7DE1C0D9E010033C8D5 /* PostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1577D7DD1C0D9E010033C8D5 /* PostViewController.swift */; };
@@ -40,7 +41,6 @@
 		15B85A231C09871900831BCB /* venueImage9.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 15B85A191C09871900831BCB /* venueImage9.jpg */; };
 		15B85A261C0987E500831BCB /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15B85A241C0987E500831BCB /* SearchViewController.swift */; };
 		15B85A2A1C09884D00831BCB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 15B85A281C09884D00831BCB /* Main.storyboard */; };
-		15DA593D1C19456C002BC1E5 /* APIConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15DA593C1C19456C002BC1E5 /* APIConnection.swift */; };
 		5C17F0061BCC097600E027E0 /* ProfileTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C17F0051BCC097600E027E0 /* ProfileTableViewController.swift */; };
 		5C1CF1701BDBB45700B863F6 /* BorderedTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C1CF16F1BDBB45700B863F6 /* BorderedTextField.swift */; };
 		5C1CF1731BDBC5CC00B863F6 /* BorderedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C1CF1721BDBC5CC00B863F6 /* BorderedButton.swift */; };
@@ -99,6 +99,7 @@
 		1502B82B1C16C20E003BA39F /* userImage7.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = userImage7.jpg; sourceTree = "<group>"; };
 		1502B82C1C16C20E003BA39F /* userImage8.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = userImage8.jpg; sourceTree = "<group>"; };
 		1502B82D1C16C20E003BA39F /* userImage9.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = userImage9.png; sourceTree = "<group>"; };
+		1552EB321C1C663A00B73831 /* APIConnection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIConnection.swift; sourceTree = "<group>"; };
 		156BCC9C1C05B8CE00AB88A6 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		156BCCA91C05E6BF00AB88A6 /* UserFeedCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserFeedCell.swift; sourceTree = "<group>"; };
 		1577D7DD1C0D9E010033C8D5 /* PostViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostViewController.swift; sourceTree = "<group>"; };
@@ -120,7 +121,6 @@
 		15B85A191C09871900831BCB /* venueImage9.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = venueImage9.jpg; sourceTree = "<group>"; };
 		15B85A241C0987E500831BCB /* SearchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		15B85A291C09884D00831BCB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		15DA593C1C19456C002BC1E5 /* APIConnection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIConnection.swift; sourceTree = "<group>"; };
 		5C17F0051BCC097600E027E0 /* ProfileTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ProfileTableViewController.swift; path = MIXR/ProfileTableViewController.swift; sourceTree = SOURCE_ROOT; };
 		5C1CF16F1BDBB45700B863F6 /* BorderedTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BorderedTextField.swift; sourceTree = "<group>"; };
 		5C1CF1721BDBC5CC00B863F6 /* BorderedButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BorderedButton.swift; sourceTree = "<group>"; };
@@ -254,7 +254,7 @@
 		15DA593B1C19456C002BC1E5 /* APIConnection */ = {
 			isa = PBXGroup;
 			children = (
-				15DA593C1C19456C002BC1E5 /* APIConnection.swift */,
+				1552EB321C1C663A00B73831 /* APIConnection.swift */,
 			);
 			path = APIConnection;
 			sourceTree = "<group>";
@@ -586,7 +586,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				15DA593D1C19456C002BC1E5 /* APIConnection.swift in Sources */,
+				1552EB331C1C663A00B73831 /* APIConnection.swift in Sources */,
 				5C92A1461BC57AD500EB6B9E /* LoginViewController.swift in Sources */,
 				5C6F92061BC6C9680037373B /* SignUpTableViewController.swift in Sources */,
 				1502B80B1C16B925003BA39F /* NotificationViewController.swift in Sources */,

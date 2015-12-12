@@ -8,11 +8,12 @@
 
 import UIKit
 
-
-
 class SearchViewController: UIViewController, UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,APIConnectionDelegate {
     
     var usersArray : NSMutableArray = NSMutableArray()
+    
+    var usersArray1 : NSMutableArray = NSMutableArray()
+    
     var searchingArray:NSMutableArray!
     let isLocalData = false
     @IBOutlet var searchBarObj: UISearchBar!
@@ -58,19 +59,19 @@ class SearchViewController: UIViewController, UITableViewDelegate,UITableViewDat
     {
         if (isLocalData)
         {
-        
-        usersArray.addObject(["userName":"Micheal Clarke","userImage":"userImage1.jpg"])
-        usersArray.addObject(["userName":"John Woggs","userImage":"userImage2.jpg"])
-        usersArray.addObject(["userName":"Hinns Hawks","userImage":"userImage3.jpg"])
-        usersArray.addObject(["userName":"Stuart Jonald","userImage":"userImage4.jpg"])
-        usersArray.addObject(["userName":"Steve Waugh","userImage":"userImage5.png"])
-        usersArray.addObject(["userName":"Jimmy Walker","userImage":"userImage6.jpg"])
-        usersArray.addObject(["userName":"Paul Smith","userImage":"userImage7.jpg"])
-        usersArray.addObject(["userName":"Martin Samueals","userImage":"userImage8.jpg"])
-        usersArray.addObject(["userName":"Ronny Hoggs","userImage":"userImage9.png"])
-        usersArray.addObject(["userName":"Peter Hinns","userImage":"userImage10.jpg"])
+            
+            usersArray.addObject(["userName":"Micheal Clarke","userImage":"userImage1.jpg"])
+            usersArray.addObject(["userName":"John Woggs","userImage":"userImage2.jpg"])
+            usersArray.addObject(["userName":"Hinns Hawks","userImage":"userImage3.jpg"])
+            usersArray.addObject(["userName":"Stuart Jonald","userImage":"userImage4.jpg"])
+            usersArray.addObject(["userName":"Steve Waugh","userImage":"userImage5.png"])
+            usersArray.addObject(["userName":"Jimmy Walker","userImage":"userImage6.jpg"])
+            usersArray.addObject(["userName":"Paul Smith","userImage":"userImage7.jpg"])
+            usersArray.addObject(["userName":"Martin Samueals","userImage":"userImage8.jpg"])
+            usersArray.addObject(["userName":"Ronny Hoggs","userImage":"userImage9.png"])
+            usersArray.addObject(["userName":"Peter Hinns","userImage":"userImage10.jpg"])
             reloadTable()
-
+            
         }
         else
         {
@@ -115,7 +116,7 @@ class SearchViewController: UIViewController, UITableViewDelegate,UITableViewDat
             let feedDict : NSDictionary = searchingArray[indexPath.row] as! NSDictionary
             cell.imagePerson.image  = UIImage(named: feedDict["userImage"] as! String)
             cell.labelName.text = feedDict["userName"] as! NSString as String
-            
+          cell.mobileNumber.text = feedDict["phoneNumber"] as! NSString as String
             
             
             //            cell.textLabel!.text = searchingArray[indexPath.row] as! NSString as String
@@ -123,6 +124,7 @@ class SearchViewController: UIViewController, UITableViewDelegate,UITableViewDat
             let feedDict : NSDictionary = usersArray[indexPath.row] as! NSDictionary
             cell.imagePerson.image  = UIImage(named: feedDict["userImage"] as! String)
             cell.labelName.text = feedDict["userName"] as? String
+           cell.mobileNumber.text = feedDict["phoneNumber"] as! NSString as String
         }
         return cell
     }
@@ -134,8 +136,6 @@ class SearchViewController: UIViewController, UITableViewDelegate,UITableViewDat
     
     //  MARK:- Button Action -
     @IBAction func NotificatiDeatil(sender: AnyObject) {
-        
-        
         
         let NotificationView : NotificationViewController = self.storyboard!.instantiateViewControllerWithIdentifier("Notification") as! NotificationViewController
         
@@ -149,20 +149,23 @@ class SearchViewController: UIViewController, UITableViewDelegate,UITableViewDat
             is_searching = false
             tableView.reloadData()
         } else {
-            print(" search text %@ ",searchBar.text! as NSString)
+            print("search text %@ ",searchBar.text! as NSString)
             is_searching = true
             searchingArray.removeAllObjects()
-            for var index = 0; index < usersArray.count; index++
-            {
-                let currentString = usersArray.objectAtIndex(index)["userName"] as! String
-                if currentString.lowercaseString.rangeOfString(searchText.lowercaseString)  != nil
-                {
-                    searchingArray.addObject(usersArray.objectAtIndex(index))
-                }
-            }
+            
+            let temp = self.searchBarObj.text
+            print(self.usersArray)
+            
+            let resultPredicate : NSPredicate = NSPredicate(format: "userName contains[c] %@ || phoneNumber contains[c] %@",searchBar.text! as NSString,searchBar.text! as NSString)
+            let searchResults = self.usersArray.filteredArrayUsingPredicate(resultPredicate)
+            self.searchingArray = NSMutableArray(array: searchResults)
+            
+            print("seaarching array \(self.searchingArray)")
+            
             tableView.reloadData()
         }
     }
+    
     
     
     //MARK: - APIConnection Delegate -
