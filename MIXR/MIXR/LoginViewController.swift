@@ -45,7 +45,6 @@ class LoginViewController: UIViewController {
     @IBAction func signupButtonTapped(sender: AnyObject){
         self.navigationController?.navigationBarHidden = true
         self.performSegueWithIdentifier("SignUpSegue", sender: nil)
-//        loadTabar()
     }
 
     /*
@@ -65,6 +64,8 @@ class LoginViewController: UIViewController {
         
         userEmailTextField.resignFirstResponder()
         userPasswordTextField.resignFirstResponder()
+        
+        loadTabar()
         
         let email = userEmailTextField.text!.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
         let password = userPasswordTextField.text!.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
