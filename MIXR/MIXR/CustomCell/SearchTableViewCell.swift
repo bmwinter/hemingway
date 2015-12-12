@@ -13,6 +13,7 @@ class SearchTableViewCell: UITableViewCell {
    let feedsArray : NSMutableArray = NSMutableArray()
     @IBOutlet var imageview: UIView!
    
+    @IBOutlet weak var mobileNumber: UILabel!
     @IBOutlet var imagePerson: UIImageView!
     @IBOutlet var labelName: UILabel!
   
