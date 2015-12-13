@@ -703,23 +703,29 @@
                                 <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="logowithName" translatesAutoresizingMaskIntoConstraints="NO" id="ftR-vD-muC">
                                     <rect key="frame" x="207" y="31" width="100" height="100"/>
                                 </imageView>
-                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TBf-GR-2F2">
-                                    <rect key="frame" x="8" y="68" width="191" height="30"/>
-                                    <state key="normal" title="Single"/>
+                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TBf-GR-2F2" customClass="BorderedButton" customModule="MIXR" customModuleProvider="target">
+                                    <rect key="frame" x="8" y="68" width="191" height="35"/>
+                                    <state key="normal" title="Single">
+                                        <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                    </state>
                                     <connections>
                                         <action selector="statusButtontapped:" destination="P1O-Pj-TnB" eventType="touchUpInside" id="mqg-Ie-RPo"/>
                                     </connections>
                                 </button>
-                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Go7-jh-AwP">
-                                    <rect key="frame" x="1" y="154" width="160" height="30"/>
-                                    <state key="normal" title="Followers(5)"/>
+                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Go7-jh-AwP" customClass="BorderedButton" customModule="MIXR" customModuleProvider="target">
+                                    <rect key="frame" x="1" y="151" width="160" height="35"/>
+                                    <state key="normal" title="Followers(5)">
+                                        <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                    </state>
                                     <connections>
                                         <action selector="followerButtontapped:" destination="P1O-Pj-TnB" eventType="touchUpInside" id="uO4-qE-Jr2"/>
                                     </connections>
                                 </button>
-                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TFh-Vp-f5X">
-                                    <rect key="frame" x="160" y="154" width="160" height="30"/>
-                                    <state key="normal" title="Following(10)"/>
+                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TFh-Vp-f5X" customClass="BorderedButton" customModule="MIXR" customModuleProvider="target">
+                                    <rect key="frame" x="160" y="151" width="160" height="35"/>
+                                    <state key="normal" title="Following(10)">
+                                        <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                    </state>
                                     <connections>
                                         <action selector="followingButtontapped:" destination="P1O-Pj-TnB" eventType="touchUpInside" id="qgN-Tw-P8a"/>
                                     </connections>
@@ -752,9 +758,11 @@
                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                     <nil key="highlightedColor"/>
                                 </label>
-                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fgV-yZ-sir">
-                                    <rect key="frame" x="8" y="31" width="191" height="30"/>
-                                    <state key="normal" title="Settings"/>
+                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fgV-yZ-sir" customClass="BorderedButton" customModule="MIXR" customModuleProvider="target">
+                                    <rect key="frame" x="8" y="27" width="191" height="35"/>
+                                    <state key="normal" title="Settings">
+                                        <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                    </state>
                                     <connections>
                                         <action selector="settingsButtontapped:" destination="P1O-Pj-TnB" eventType="touchUpInside" id="Upv-WV-VCL"/>
                                     </connections>
@@ -1050,9 +1058,15 @@
                         <outlet property="changePassword" destination="T3b-pm-yri" id="hDe-Uj-3HE"/>
                         <outlet property="confirmPassword" destination="FV9-Al-YaL" id="FQe-Yv-deh"/>
                         <outlet property="currentPassword" destination="Xy2-B3-C4g" id="7pm-jB-qfv"/>
+                        <outlet property="doneButton" destination="zIx-4C-qo2" id="gGd-Lt-Z9T"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7gf-oG-KIY" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <barButtonItem title="Done" id="zIx-4C-qo2">
+                    <connections>
+                        <action selector="doneButtonTapped:" destination="DUJ-QG-p1k" id="xaq-Mt-SkT"/>
+                    </connections>
+                </barButtonItem>
             </objects>
             <point key="canvasLocation" x="696" y="-171"/>
         </scene>
@@ -1088,16 +1102,18 @@
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="szv-Ds-Q7q">
-                                        <rect key="frame" x="0.0" y="79" width="320" height="44"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="50" id="szv-Ds-Q7q">
+                                        <rect key="frame" x="0.0" y="79" width="320" height="50"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="szv-Ds-Q7q" id="qpJ-MM-Gua">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="49"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="53p-CH-yJh">
-                                                    <rect key="frame" x="8" y="7" width="304" height="30"/>
-                                                    <state key="normal" title="Re send verification code"/>
+                                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="53p-CH-yJh" customClass="BorderedButton" customModule="MIXR" customModuleProvider="target">
+                                                    <rect key="frame" x="8" y="5" width="304" height="40"/>
+                                                    <state key="normal" title="Re send verification code">
+                                                        <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                                    </state>
                                                 </button>
                                             </subviews>
                                         </tableViewCellContentView>
