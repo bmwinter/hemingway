@@ -69,7 +69,7 @@ class VenueFeedViewController:UIViewController, UITableViewDelegate,UITableViewD
     
     override func viewDidLayoutSubviews()
     {
-        tableView.frame = CGRect(x: 0.0, y: 64, width: view.frame.size.width, height: view.frame.size.height - 64 - 48)
+        tableView.frame = CGRect(x: 0.0, y: 44, width: view.frame.size.width, height: view.frame.size.height - 44 - 48)
     }
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int

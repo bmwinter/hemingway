@@ -14,6 +14,7 @@ class PostViewController: UIViewController {
     @IBOutlet weak var FeedName: UILabel!
     @IBOutlet weak var lblUserName: UILabel!
     @IBOutlet weak var venuImageView: UIImageView!
+    @IBOutlet weak var userImageView: UIImageView!
     @IBOutlet weak var feedView: UIView!
     
     override func viewDidLoad()
@@ -27,6 +28,7 @@ class PostViewController: UIViewController {
     {
         if (feedDict.allKeys.count > 0)
         {
+            self.userImageView.image = UIImage(named: "userImage4.jpg")
             self.venuImageView.image = UIImage(named: feedDict["venueImage"] as! String)
             self.FeedName.text = feedDict["venueName"] as? String
             self.lblUserName.text = feedDict["userName"] as? String
@@ -36,7 +38,7 @@ class PostViewController: UIViewController {
         {
             if (subview.tag == 26)
             {
-                subview.layer.cornerRadius = 5.0
+                subview.layer.cornerRadius = 0.0
             }
         }
     }

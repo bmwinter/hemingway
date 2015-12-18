@@ -18,12 +18,16 @@ class SearchTableViewCell: UITableViewCell {
     @IBOutlet var labelName: UILabel!
   
    
-    override func awakeFromNib() {
+    override func awakeFromNib()
+    {
         super.awakeFromNib()
         // Initialization code
-//        imageview.layer.cornerRadius = 10.0
-//        imageview.layer.borderColor = UIColor.grayColor().CGColor
-//        imageview.layer.borderWidth = 1.0
+        self.layer.borderColor = UIColor.lightGrayColor().CGColor
+        self.layer.borderWidth = 0.5
+        
+//      imageview.layer.cornerRadius = 10.0
+//      imageview.layer.borderColor = UIColor.grayColor().CGColor
+//      imageview.layer.borderWidth = 1.0
     }
     
     override func setSelected(selected: Bool, animated: Bool) {

@@ -7,8 +7,10 @@
 //
 
 import UIKit
+import Alamofire
 
 let TIME_OUT_TIME = 60.0  // in seconds
+let UseAlamofire = true
 
 //MARK: - SERVER URL's -
 let MOCK_SERVER = "http://private-9f4d0-mixr1.apiary-mock.com/"
@@ -233,32 +235,45 @@ class APIConnection: NSObject {
         {
            showLoader()
         }
+        let apiURL = BASE_URL +  apiName;
+        DLog("apiURL = \(apiURL)")
         
-        let request = NSMutableURLRequest(URL: NSURL(string: BASE_URL +  apiName)!,
-            cachePolicy: .UseProtocolCachePolicy,
-            timeoutInterval: TIME_OUT_TIME)
-        request.HTTPMethod = "POST"
-        request.HTTPBody =  try? NSJSONSerialization.dataWithJSONObject(param , options: NSJSONWritingOptions())
-        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.addValue("application/json", forHTTPHeaderField: "Accept")
-        
-        let session = NSURLSession.sharedSession()
-        let dataTask = session.dataTaskWithRequest(request, completionHandler: { (data, response, error) -> Void in
-            let httpResponse = response as? NSHTTPURLResponse
-
-           /* if (error != nil) {
+        if(UseAlamofire)
+        {
+//            Alamofire.request(.POST, apiURL).response
+//                .responseJSON { _, _, result in
+//                    print(result)
+//                    debugPrint(result)
+//            }
+        }
+        else
+        {
+            let request = NSMutableURLRequest(URL: NSURL(string: apiURL)!,
+                cachePolicy: .UseProtocolCachePolicy,
+                timeoutInterval: TIME_OUT_TIME)
+            request.HTTPMethod = "POST"
+            request.HTTPBody =  try? NSJSONSerialization.dataWithJSONObject(param , options: NSJSONWritingOptions())
+            request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+            request.addValue("application/json", forHTTPHeaderField: "Accept")
+            
+            let session = NSURLSession.sharedSession()
+            let dataTask = session.dataTaskWithRequest(request, completionHandler: { (data, response, error) -> Void in
+                let httpResponse = response as? NSHTTPURLResponse
+                
+                /* if (error != nil) {
                 print(error)
-            } else {
+                } else {
                 let httpResponse = response as? NSHTTPURLResponse
                 print(httpResponse)
-            }*/
-            dispatch_async(dispatch_get_main_queue()) {
-                self.coreResponseHandling(request, response: httpResponse, json: data, error: error, action: action, method : Method.POST.rawValue)
-            }
-
-        })
-        
-        dataTask.resume()
+                }*/
+                dispatch_async(dispatch_get_main_queue()) {
+                    self.coreResponseHandling(request, response: httpResponse, json: data, error: error, action: action, method : Method.POST.rawValue)
+                }
+                
+            })
+            
+            dataTask.resume()
+        }
         return self
     }
 

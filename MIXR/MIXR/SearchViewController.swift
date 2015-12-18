@@ -109,7 +109,6 @@ class SearchViewController: UIViewController, UITableViewDelegate,UITableViewDat
         cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell
     {
         
-        
         let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as! SearchTableViewCell
         
         if is_searching == true{
@@ -218,6 +217,7 @@ class SearchViewController: UIViewController, UITableViewDelegate,UITableViewDat
                 if ( result.isKindOfClass(NSDictionary))
                 {
                     usersArray = result["data"] as! NSMutableArray
+                    DLog("usersArray \(usersArray)")
                     reloadTable()
                 }
             }

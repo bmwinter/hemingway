@@ -13,13 +13,11 @@ class NotificationCell: UITableViewCell {
     @IBOutlet weak var notificationTimeStamp: UILabel!
     @IBOutlet weak var userPic: UIImageView!
     @IBOutlet weak var cellBGView: UIView!
-    
-    
-    
+        
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
-        cellBGView.layer.cornerRadius = 10.0
+        cellBGView.layer.cornerRadius = 0.0
         cellBGView.layer.borderColor = UIColor.grayColor().CGColor
         cellBGView.layer.borderWidth = 1.0
     }

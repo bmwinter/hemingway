@@ -16,8 +16,8 @@ class Notifications: UITableViewController {
 
     @IBOutlet weak var segment : UISegmentedControl!
     
-    override func viewDidLoad() {
-        
+    override func viewDidLoad()
+    {
         self.tableView.rowHeight = UITableViewAutomaticDimension
 
         self.navigationItem.backBarButtonItem = UIBarButtonItem(title:"", style:.Plain, target:nil, action:nil)
@@ -27,32 +27,43 @@ class Notifications: UITableViewController {
         // Do any additional setup after loading the view, typically from a nib.
     }
 
-    @IBAction func settingsButtonTapped (sender:AnyObject){
+    @IBAction func settingsButtonTapped (sender:AnyObject)
+    {
         
     }
     /*
     // Table View delegate methods
     */
     
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    override func numberOfSectionsInTableView(tableView: UITableView) -> Int
+    {
         return 1
     }
-    override func tableView(tableView: (UITableView!), heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+    
+    override func tableView(tableView: (UITableView!), heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat
+    {
         return 50.0
     }
     
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int
+    {
         return 1
     }
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell{
-        if(segment.selectedSegmentIndex == 0){
+    
+    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell
+    {
+        if(segment.selectedSegmentIndex == 0)
+        {
             return notificationCell(indexPath)
-        }else{
+        }
+        else
+        {
             return promotionsCell(indexPath)
         }
     }
     
-    func notificationCell(indexPath:NSIndexPath) -> NotificationCell {
+    func notificationCell(indexPath:NSIndexPath) -> NotificationCell
+    {
         let cell = tableView.dequeueReusableCellWithIdentifier(notificationCellIdentifier) as! NotificationCell
         cell.notificationText.text = "This is test notification";
         cell.notificationTimeStamp.text = "1 hr";
@@ -65,7 +76,8 @@ class Notifications: UITableViewController {
         return cell
     }
     
-    func promotionsCell(indexPath:NSIndexPath) -> PromotionsCell {
+    func promotionsCell(indexPath:NSIndexPath) -> PromotionsCell
+    {
         let cell = tableView.dequeueReusableCellWithIdentifier(promotionsCellIdentifier) as! PromotionsCell
         cell.notificationText.text = "This is test promotions";
         cell.notificationTimeStamp.text = "1 hr";
@@ -77,11 +89,10 @@ class Notifications: UITableViewController {
         return cell
     }
     
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath)
+    {
         tableView.deselectRowAtIndexPath(indexPath, animated:false)
         self.performSegueWithIdentifier("Promotions", sender: nil)
-        
     }
 
-    
 }

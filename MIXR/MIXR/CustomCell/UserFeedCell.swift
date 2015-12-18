@@ -19,7 +19,10 @@ class UserFeedCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
-        venuBackground.layer.cornerRadius = 10.0
+        venuBackground.layer.cornerRadius = 0.0
+        self.layer.borderColor = UIColor.lightGrayColor().CGColor
+        self.layer.borderWidth = 0.5
+
     }
 
     override func setSelected(selected: Bool, animated: Bool) {
