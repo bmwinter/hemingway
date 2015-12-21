@@ -202,7 +202,15 @@ class SignUpTableViewController: UITableViewController {
         default: print("Test 1")
         }
     }
+    
+    /*
+    // Segment Control Delegate Method
+    */
 
+    @IBAction func segmentControlStateChanged(sender: SegmentControl) {
+        print("Selected segment = \(sender.selectedIndex)")
+        
+    }
     
     /*
     // Text field delegate methods..

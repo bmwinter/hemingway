@@ -44,6 +44,8 @@
 		5C17F0061BCC097600E027E0 /* ProfileTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C17F0051BCC097600E027E0 /* ProfileTableViewController.swift */; };
 		5C1CF1701BDBB45700B863F6 /* BorderedTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C1CF16F1BDBB45700B863F6 /* BorderedTextField.swift */; };
 		5C1CF1731BDBC5CC00B863F6 /* BorderedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C1CF1721BDBC5CC00B863F6 /* BorderedButton.swift */; };
+		5C1F05D41C2561840036830D /* ForgotPassword.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C1F05D31C2561840036830D /* ForgotPassword.swift */; settings = {ASSET_TAGS = (); }; };
+		5C1F05D71C256B4B0036830D /* SegmentControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C1F05D61C256B4B0036830D /* SegmentControl.swift */; settings = {ASSET_TAGS = (); }; };
 		5C218AC21BEA769800F7DA82 /* ChangePassword.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C218AC11BEA769800F7DA82 /* ChangePassword.swift */; };
 		5C218AC41BEA7EA900F7DA82 /* SMSVerification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C218AC31BEA7EA900F7DA82 /* SMSVerification.swift */; };
 		5C22FB611BD1314000FF9C98 /* CollectionViewWaterfallLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C22FB601BD1314000FF9C98 /* CollectionViewWaterfallLayout.swift */; };
@@ -124,6 +126,8 @@
 		5C17F0051BCC097600E027E0 /* ProfileTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ProfileTableViewController.swift; path = MIXR/ProfileTableViewController.swift; sourceTree = SOURCE_ROOT; };
 		5C1CF16F1BDBB45700B863F6 /* BorderedTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BorderedTextField.swift; sourceTree = "<group>"; };
 		5C1CF1721BDBC5CC00B863F6 /* BorderedButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BorderedButton.swift; sourceTree = "<group>"; };
+		5C1F05D31C2561840036830D /* ForgotPassword.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ForgotPassword.swift; sourceTree = "<group>"; };
+		5C1F05D61C256B4B0036830D /* SegmentControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SegmentControl.swift; sourceTree = "<group>"; };
 		5C218AC11BEA769800F7DA82 /* ChangePassword.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChangePassword.swift; sourceTree = "<group>"; };
 		5C218AC31BEA7EA900F7DA82 /* SMSVerification.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SMSVerification.swift; path = MIXR/SMSVerification.swift; sourceTree = SOURCE_ROOT; };
 		5C22FB601BD1314000FF9C98 /* CollectionViewWaterfallLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionViewWaterfallLayout.swift; sourceTree = "<group>"; };
@@ -275,6 +279,14 @@
 			path = BorderedButton;
 			sourceTree = "<group>";
 		};
+		5C1F05D51C256B4B0036830D /* SegmentControl */ = {
+			isa = PBXGroup;
+			children = (
+				5C1F05D61C256B4B0036830D /* SegmentControl.swift */,
+			);
+			path = SegmentControl;
+			sourceTree = "<group>";
+		};
 		5C22FB5F1BD1314000FF9C98 /* CollectionView */ = {
 			isa = PBXGroup;
 			children = (
@@ -286,6 +298,7 @@
 		5C6E2C471BC90B940036259A /* Library */ = {
 			isa = PBXGroup;
 			children = (
+				5C1F05D51C256B4B0036830D /* SegmentControl */,
 				15DA593B1C19456C002BC1E5 /* APIConnection */,
 				5C1CF1711BDBC5B800B863F6 /* BorderedButton */,
 				5C1CF16E1BDBB44700B863F6 /* BorderedTextField */,
@@ -336,8 +349,6 @@
 		8061221C1BBF2D7400EFF35E /* MIXR */ = {
 			isa = PBXGroup;
 			children = (
-				5CF4687C1C0E8ABD007F87AA /* PromotionDetail.swift */,
-				5CF4687D1C0E8ABD007F87AA /* Notifications.swift */,
 				156BCCA81C05E68100AB88A6 /* CustomCell */,
 				5C6E2C471BC90B940036259A /* Library */,
 				8061221F1BBF2D7400EFF35E /* AppDelegate.swift */,
@@ -365,6 +376,9 @@
 				5C218AC11BEA769800F7DA82 /* ChangePassword.swift */,
 				5C218AC31BEA7EA900F7DA82 /* SMSVerification.swift */,
 				1502B80A1C16B925003BA39F /* NotificationViewController.swift */,
+				5C1F05D31C2561840036830D /* ForgotPassword.swift */,
+				5CF4687C1C0E8ABD007F87AA /* PromotionDetail.swift */,
+				5CF4687D1C0E8ABD007F87AA /* Notifications.swift */,
 			);
 			path = MIXR;
 			sourceTree = "<group>";
@@ -590,6 +604,7 @@
 				5C92A1461BC57AD500EB6B9E /* LoginViewController.swift in Sources */,
 				5C6F92061BC6C9680037373B /* SignUpTableViewController.swift in Sources */,
 				1502B80B1C16B925003BA39F /* NotificationViewController.swift in Sources */,
+				5C1F05D41C2561840036830D /* ForgotPassword.swift in Sources */,
 				5CF4687F1C0E8ABD007F87AA /* Notifications.swift in Sources */,
 				5CF4687E1C0E8ABD007F87AA /* PromotionDetail.swift in Sources */,
 				806122241BBF2D7400EFF35E /* MapViewController.swift in Sources */,
@@ -620,6 +635,7 @@
 				5C1CF1731BDBC5CC00B863F6 /* BorderedButton.swift in Sources */,
 				5CF468811C0E8B0C007F87AA /* NotificationCell.swift in Sources */,
 				156BCCAA1C05E6BF00AB88A6 /* UserFeedCell.swift in Sources */,
+				5C1F05D71C256B4B0036830D /* SegmentControl.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

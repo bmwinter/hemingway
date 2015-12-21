@@ -32,7 +32,7 @@ class ProfileTableViewController: UITableViewController {
         self.title = "Pete Dewitt"
         self.navigationItem.backBarButtonItem = UIBarButtonItem(title:"", style:.Plain, target:nil, action:nil)
         self.tableView.backgroundView = UIImageView(image: UIImage(named: "BG"))
-        self.navigationItem.rightBarButtonItem = showLatestVideos;
+//        self.navigationItem.rightBarButtonItem = showLatestVideos;
         super.viewDidLoad()
         
         // Do any additional setup after loading the view, typically from a nib.

@@ -18,7 +18,7 @@ class ChangePassword: UITableViewController {
     override func viewDidLoad() {
         
         self.navigationItem.backBarButtonItem = UIBarButtonItem(title:"", style:.Plain, target:nil, action:nil)
-        self.navigationItem.rightBarButtonItem = self.doneButton
+//        self.navigationItem.rightBarButtonItem = self.doneButton
 
         self.tableView.backgroundView = UIImageView(image: UIImage(named: "BG"))
         self.title = "Change Password"
@@ -28,6 +28,7 @@ class ChangePassword: UITableViewController {
     @IBAction func doneButtonTapped (sender:AnyObject){
         self.navigationController?.popViewControllerAnimated(true)
     }
+    
     @IBAction func settingsButtonTapped (sender:AnyObject){
         
     }
@@ -40,7 +41,7 @@ class ChangePassword: UITableViewController {
     }
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 3
+        return 4
     }
     
     
