@@ -73,7 +73,8 @@ class Notifications: UITableViewController {
         
         cell.cellBGView.layer.masksToBounds = true
         cell.cellBGView.layer.cornerRadius = 0.0
-        cell.cellBGView.layer.borderColor = UIColor.darkGrayColor().CGColor
+        cell.cellBGView.layer.borderColor = UIColor(red: (214.0/255.0), green: (214.0/255.0), blue: (214.0/255.0), alpha: 1).CGColor
+
         
         return cell
     }
@@ -86,7 +87,8 @@ class Notifications: UITableViewController {
         
         cell.cellBGView.layer.masksToBounds = true
         cell.cellBGView.layer.cornerRadius = 0.0
-        cell.cellBGView.layer.borderColor = UIColor.darkGrayColor().CGColor
+        cell.cellBGView.layer.borderColor = UIColor(red: (214.0/255.0), green: (214.0/255.0), blue: (214.0/255.0), alpha: 1).CGColor
+
         
         return cell
     }

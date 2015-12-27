@@ -62,6 +62,8 @@ class SignUpTableViewController: UITableViewController {
         
         self.navigationItem.backBarButtonItem = UIBarButtonItem(title:"", style:.Plain, target:nil, action:nil)
 
+        self.dob?.setTitleColor(UIColor.lightGrayColor(), forState: UIControlState.Normal)
+
         self.selectedDate = NSDate()
         self.tableView.backgroundView = UIImageView(image: UIImage(named: "BG"))
         self.title = "Sign Up"
@@ -163,7 +165,7 @@ class SignUpTableViewController: UITableViewController {
             dateFormatter.dateFormat = "dd/MM/yyyy"
             
             let strDate = dateFormatter.stringFromDate(date)
-            
+            self.dob?.setTitleColor(UIColor.blackColor(), forState: UIControlState.Normal)
             self.dob?.setTitle("\(strDate)", forState: UIControlState.Normal)
         }
     }
