@@ -44,19 +44,19 @@
 		5C17F0061BCC097600E027E0 /* ProfileTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C17F0051BCC097600E027E0 /* ProfileTableViewController.swift */; };
 		5C1CF1701BDBB45700B863F6 /* BorderedTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C1CF16F1BDBB45700B863F6 /* BorderedTextField.swift */; };
 		5C1CF1731BDBC5CC00B863F6 /* BorderedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C1CF1721BDBC5CC00B863F6 /* BorderedButton.swift */; };
-		5C1F05D41C2561840036830D /* ForgotPassword.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C1F05D31C2561840036830D /* ForgotPassword.swift */; settings = {ASSET_TAGS = (); }; };
-		5C1F05D71C256B4B0036830D /* SegmentControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C1F05D61C256B4B0036830D /* SegmentControl.swift */; settings = {ASSET_TAGS = (); }; };
+		5C1F05D41C2561840036830D /* ForgotPassword.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C1F05D31C2561840036830D /* ForgotPassword.swift */; };
+		5C1F05D71C256B4B0036830D /* SegmentControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C1F05D61C256B4B0036830D /* SegmentControl.swift */; };
 		5C218AC21BEA769800F7DA82 /* ChangePassword.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C218AC11BEA769800F7DA82 /* ChangePassword.swift */; };
 		5C218AC41BEA7EA900F7DA82 /* SMSVerification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C218AC31BEA7EA900F7DA82 /* SMSVerification.swift */; };
 		5C22FB611BD1314000FF9C98 /* CollectionViewWaterfallLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C22FB601BD1314000FF9C98 /* CollectionViewWaterfallLayout.swift */; };
-		5C232CF31C2BA134008D52A1 /* BorderedImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C232CF21C2BA134008D52A1 /* BorderedImageView.swift */; settings = {ASSET_TAGS = (); }; };
-		5C232CF71C2BA264008D52A1 /* Borderedlabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C232CF61C2BA264008D52A1 /* Borderedlabel.swift */; settings = {ASSET_TAGS = (); }; };
+		5C232CF31C2BA134008D52A1 /* BorderedImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C232CF21C2BA134008D52A1 /* BorderedImageView.swift */; };
+		5C232CF71C2BA264008D52A1 /* Borderedlabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C232CF61C2BA264008D52A1 /* Borderedlabel.swift */; };
 		5C26612F1BD0B4E100413257 /* GlobalConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C26612E1BD0B4E100413257 /* GlobalConstants.swift */; };
 		5C27231D1BD899D7007227AA /* VenueProfileTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C27231C1BD899D7007227AA /* VenueProfileTableViewController.swift */; };
 		5C2A9E941BD2063E008669AB /* RecentPhotoVidoeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C2A9E931BD2063E008669AB /* RecentPhotoVidoeController.swift */; };
 		5C3408121BE4F411006CB35C /* SettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C3408111BE4F411006CB35C /* SettingsTableViewController.swift */; };
-		5C6DF59B1C2FFFEC00F2910B /* Events.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C6DF59A1C2FFFEC00F2910B /* Events.swift */; settings = {ASSET_TAGS = (); }; };
-		5C6DF59D1C3000AE00F2910B /* Specials.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C6DF59C1C3000AE00F2910B /* Specials.swift */; settings = {ASSET_TAGS = (); }; };
+		5C6DF59B1C2FFFEC00F2910B /* Events.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C6DF59A1C2FFFEC00F2910B /* Events.swift */; };
+		5C6DF59D1C3000AE00F2910B /* Specials.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C6DF59C1C3000AE00F2910B /* Specials.swift */; };
 		5C6E2C4A1BC90B940036259A /* DatePickerDialog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C6E2C491BC90B940036259A /* DatePickerDialog.swift */; };
 		5C6F92061BC6C9680037373B /* SignUpTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C6F92051BC6C9680037373B /* SignUpTableViewController.swift */; };
 		5C92A1441BC5785A00EB6B9E /* User.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5C92A1431BC5785A00EB6B9E /* User.storyboard */; };
@@ -79,6 +79,10 @@
 		8061224D1BBF3CB000EFF35E /* VenueFeedNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8061224C1BBF3CB000EFF35E /* VenueFeedNavigationController.swift */; };
 		8061224F1BBF3CB800EFF35E /* MapNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8061224E1BBF3CB800EFF35E /* MapNavigationController.swift */; };
 		806122511BBF3CCC00EFF35E /* UserFeedNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 806122501BBF3CCC00EFF35E /* UserFeedNavigationController.swift */; };
+		80B1958A1C333250009B265C /* forgotten futurist rg it.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 80B195861C333250009B265C /* forgotten futurist rg it.ttf */; };
+		80B1958B1C333250009B265C /* forgotten futurist rg.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 80B195871C333250009B265C /* forgotten futurist rg.ttf */; };
+		80B1958C1C333250009B265C /* forgotten futurist bd it.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 80B195881C333250009B265C /* forgotten futurist bd it.ttf */; };
+		80B1958D1C333250009B265C /* forgotten futurist bd.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 80B195891C333250009B265C /* forgotten futurist bd.ttf */; };
 		F3B565B4B07FC51D1A04C946 /* Pods_MIXR.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CCB483A3B820ED5B04645C4E /* Pods_MIXR.framework */; };
 /* End PBXBuildFile section */
 
@@ -170,6 +174,10 @@
 		8061224C1BBF3CB000EFF35E /* VenueFeedNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VenueFeedNavigationController.swift; sourceTree = "<group>"; };
 		8061224E1BBF3CB800EFF35E /* MapNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapNavigationController.swift; sourceTree = "<group>"; };
 		806122501BBF3CCC00EFF35E /* UserFeedNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserFeedNavigationController.swift; sourceTree = "<group>"; };
+		80B195861C333250009B265C /* forgotten futurist rg it.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "forgotten futurist rg it.ttf"; sourceTree = "<group>"; };
+		80B195871C333250009B265C /* forgotten futurist rg.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "forgotten futurist rg.ttf"; sourceTree = "<group>"; };
+		80B195881C333250009B265C /* forgotten futurist bd it.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "forgotten futurist bd it.ttf"; sourceTree = "<group>"; };
+		80B195891C333250009B265C /* forgotten futurist bd.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "forgotten futurist bd.ttf"; sourceTree = "<group>"; };
 		CCB483A3B820ED5B04645C4E /* Pods_MIXR.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MIXR.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		EC28065CB75E450F3A075861 /* Pods-MIXR.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MIXR.release.xcconfig"; path = "Pods/Target Support Files/Pods-MIXR/Pods-MIXR.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -430,6 +438,7 @@
 		8061221D1BBF2D7400EFF35E /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				80B195851C3331EB009B265C /* Fonts */,
 				15B85A021C0983E900831BCB /* ProjectImage */,
 				8061221E1BBF2D7400EFF35E /* Info.plist */,
 			);
@@ -461,6 +470,17 @@
 				806122501BBF3CCC00EFF35E /* UserFeedNavigationController.swift */,
 			);
 			name = NavigationControllers;
+			sourceTree = "<group>";
+		};
+		80B195851C3331EB009B265C /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				80B195861C333250009B265C /* forgotten futurist rg it.ttf */,
+				80B195871C333250009B265C /* forgotten futurist rg.ttf */,
+				80B195881C333250009B265C /* forgotten futurist bd it.ttf */,
+				80B195891C333250009B265C /* forgotten futurist bd.ttf */,
+			);
+			name = Fonts;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -550,7 +570,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				15AB68DB1C23C69800FB936C /* userImage5.png in Resources */,
+				80B1958D1C333250009B265C /* forgotten futurist bd.ttf in Resources */,
 				15AB68DC1C23C69800FB936C /* userImage6.jpg in Resources */,
+				80B1958A1C333250009B265C /* forgotten futurist rg it.ttf in Resources */,
 				15B85A0E1C0983E900831BCB /* MixrLogo@3x.png in Resources */,
 				15AB68E01C23C69800FB936C /* userImage10.jpg in Resources */,
 				15AB68D81C23C69800FB936C /* userImage2.jpg in Resources */,
@@ -559,7 +581,9 @@
 				15B85A0C1C0983E900831BCB /* MixrLogo.png in Resources */,
 				15AB68D71C23C69800FB936C /* userImage1.jpg in Resources */,
 				15AB68DF1C23C69800FB936C /* userImage9.png in Resources */,
+				80B1958C1C333250009B265C /* forgotten futurist bd it.ttf in Resources */,
 				15B85A1B1C09871900831BCB /* venueImage10.jpg in Resources */,
+				80B1958B1C333250009B265C /* forgotten futurist rg.ttf in Resources */,
 				15B85A1A1C09871900831BCB /* venueImage1.jpg in Resources */,
 				15AB68DD1C23C69800FB936C /* userImage7.jpg in Resources */,
 				15AB68DE1C23C69800FB936C /* userImage8.jpg in Resources */,

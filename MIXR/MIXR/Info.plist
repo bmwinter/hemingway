@@ -45,6 +45,13 @@
 			<false/>
 		</dict>
 	</dict>
+	<key>UIAppFonts</key>
+	<array>
+		<string>forgotten futurist rg it.tff</string>
+		<string>forgotten futurist rg.ttf</string>
+		<string>forgotten futurist bd it.ttf</string>
+		<string>forgotten futurist bd.ttf</string>
+	</array>
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
