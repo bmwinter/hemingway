@@ -52,14 +52,16 @@ class Notifications: UITableViewController {
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell
     {
-        if(segment.selectedSegmentIndex == 0)
-        {
-            return notificationCell(indexPath)
-        }
-        else
-        {
-            return promotionsCell(indexPath)
-        }
+        return notificationCell(indexPath)
+
+//        if(segment.selectedSegmentIndex == 0)
+//        {
+//            return notificationCell(indexPath)
+//        }
+//        else
+//        {
+//            return promotionsCell(indexPath)
+//        }
     }
     
     func notificationCell(indexPath:NSIndexPath) -> NotificationCell
@@ -70,8 +72,9 @@ class Notifications: UITableViewController {
         cell.userPic.image = UIImage(named: "Chcked")
         
         cell.cellBGView.layer.masksToBounds = true
-        cell.cellBGView.layer.cornerRadius = 5.0
-        cell.cellBGView.layer.borderColor = UIColor.darkGrayColor().CGColor
+        cell.cellBGView.layer.cornerRadius = 0.0
+        cell.cellBGView.layer.borderColor = UIColor(red: (214.0/255.0), green: (214.0/255.0), blue: (214.0/255.0), alpha: 1).CGColor
+
         
         return cell
     }
@@ -83,8 +86,9 @@ class Notifications: UITableViewController {
         cell.notificationTimeStamp.text = "1 hr";
         
         cell.cellBGView.layer.masksToBounds = true
-        cell.cellBGView.layer.cornerRadius = 5.0
-        cell.cellBGView.layer.borderColor = UIColor.darkGrayColor().CGColor
+        cell.cellBGView.layer.cornerRadius = 0.0
+        cell.cellBGView.layer.borderColor = UIColor(red: (214.0/255.0), green: (214.0/255.0), blue: (214.0/255.0), alpha: 1).CGColor
+
         
         return cell
     }
@@ -94,5 +98,15 @@ class Notifications: UITableViewController {
         tableView.deselectRowAtIndexPath(indexPath, animated:false)
         self.performSegueWithIdentifier("Promotions", sender: nil)
     }
+    
+    /*
+    // Segment Control Delegate Method
+    */
+    
+    @IBAction func segmentControlStateChanged(sender: SegmentControl) {
+        print("Selected segment = \(sender.selectedIndex)")
+        
+    }
+
 
 }
