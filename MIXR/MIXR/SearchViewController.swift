@@ -59,7 +59,6 @@ class SearchViewController: UIViewController, UITableViewDelegate,UITableViewDat
     {
         if (isLocalData)
         {
-            
             usersArray.addObject(["userName":"Micheal Clarke","userImage":"userImage1.jpg"])
             usersArray.addObject(["userName":"John Woggs","userImage":"userImage2.jpg"])
             usersArray.addObject(["userName":"Hinns Hawks","userImage":"userImage3.jpg"])
@@ -71,13 +70,12 @@ class SearchViewController: UIViewController, UITableViewDelegate,UITableViewDat
             usersArray.addObject(["userName":"Ronny Hoggs","userImage":"userImage9.png"])
             usersArray.addObject(["userName":"Peter Hinns","userImage":"userImage10.jpg"])
             reloadTable()
-            
         }
         else
         {
             let param: Dictionary = Dictionary<String, AnyObject>()
             //call API for to get venues
-            let object = APIConnection().POST(APIName.Users.rawValue, withAPIName:"SearchUser", withMessage:"", withParam: param, withProgresshudShow: true, isShowNoInternetView: false) as! APIConnection
+            let object = APIConnection().POST(APIName.Users.rawValue, withAPIName:"SearchUser", withMessage:"", withParam: param, withProgresshudShow: true, withHeader: false) as! APIConnection
             object.delegate = self
         }
     }

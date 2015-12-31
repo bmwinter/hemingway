@@ -43,7 +43,7 @@ class VenueFeedViewController:UIViewController, UITableViewDelegate,UITableViewD
         {
             let param: Dictionary = Dictionary<String, AnyObject>()
             //call API for to get venues
-            let object = APIConnection().POST(APIName.Venues.rawValue, withAPIName: "VenueList", withMessage: "", withParam: param, withProgresshudShow: true, isShowNoInternetView: false) as! APIConnection
+            let object = APIConnection().POST(APIName.Venues.rawValue, withAPIName: "VenueList", withMessage: "", withParam: param, withProgresshudShow: true, withHeader: false) as! APIConnection
             object.delegate = self
         }
         

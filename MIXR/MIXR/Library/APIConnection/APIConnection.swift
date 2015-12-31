@@ -40,6 +40,8 @@ let IS_TESTING              = true
 
 let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
 
+var appHeader:NSDictionary = ["":""]
+
 public enum Method: String
 {
     case OPTIONS    = "OPTIONS"
@@ -64,7 +66,8 @@ protocol APIConnectionDelegate
     func connectionDidUpdateAPIProgress(action: Int,bytesWritten: Int64, totalBytesWritten: Int64 ,totalBytesExpectedToWrite: Int64)
 }
 
-class APIConnection: NSObject {
+class APIConnection: NSObject
+{
     
     var delegate: APIConnectionDelegate! =  nil
     var param : NSDictionary?
@@ -94,6 +97,8 @@ class APIConnection: NSObject {
             //send x-auth token
              headers = ["x-auth": token]
         }
+        
+        appHeader = headers!
         return headers!
     }
     
@@ -151,110 +156,84 @@ class APIConnection: NSObject {
         return queryString
 
     }
-    func GET(action: Int,withAPIName apiName: String, andMessage message: String, param:NSDictionary, withProgresshudShow isProgresshudShow: CBool,  isShowNoInternetView: CBool , token : String) -> AnyObject
+    
+    func GET(action: Int, withAPIName apiName: String, withMessage message: String, withParam param: [String:AnyObject], withProgresshudShow isProgresshudShow: CBool,  withHeader isHeaderNeeded: CBool) -> AnyObject
     {
         if isProgresshudShow == true
         {
             showLoader()
-        }
-        
-        let headers: NSDictionary  = CoreHTTPAuthorizationHeaderWithXAuthToken(param, token: token)
-        
-        let request = NSMutableURLRequest(URL: NSURL(string: self.addQueryStringToUrl( BASE_URL +  apiName ,param: param))!,
-            cachePolicy: .UseProtocolCachePolicy,
-            timeoutInterval: TIME_OUT_TIME)
-        request.HTTPMethod = "GET"
-        request.allHTTPHeaderFields = headers as? [String : String] 
-        
-        let session = NSURLSession.sharedSession()
-        let dataTask = session.dataTaskWithRequest(request, completionHandler: { (data, response, error) -> Void in
-          
-            let httpResponse = response as? NSHTTPURLResponse
-
-            /*if (error != nil) {
-                print(error)
-            } else {
-                print(httpResponse)
-            }*/
-            
-            dispatch_async(dispatch_get_main_queue()) {
-                 self.coreResponseHandling(request, response: httpResponse, json: data, error: error, action: action, method : Method.GET.rawValue)
-            }
-
-        })
-        
-        dataTask.resume()
-        return self
-    }
-    
-    func PUT(action: Int,withAPIName apiName: String, andMessage message: String, param:[String:AnyObject], withProgresshudShow isProgresshudShow: CBool,  isShowNoInternetView: CBool , token : String) -> AnyObject
-    {
-        if isProgresshudShow == true
-        {
-            showLoader()
-        }
-        let headers: NSDictionary  = CoreHTTPAuthorizationHeaderWithXAuthToken(param, token: token)
-        
-        let request = NSMutableURLRequest(URL: NSURL(string: BASE_URL +  apiName)!,
-            cachePolicy: .UseProtocolCachePolicy,
-            timeoutInterval:TIME_OUT_TIME)
-        request.HTTPMethod = "PUT"
-        request.allHTTPHeaderFields = headers as? [String : String] 
-       /* request.HTTPBody = self.convertDicToMutableData(param)
-        request.addValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")*/
-        request.HTTPBody =  try? NSJSONSerialization.dataWithJSONObject(param, options: NSJSONWritingOptions())
-        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.addValue("application/json", forHTTPHeaderField: "Accept")
-
-        DLog(request.allHTTPHeaderFields!)
-
-        let session = NSURLSession.sharedSession()
-        let dataTask = session.dataTaskWithRequest(request, completionHandler: { (data, response, error) -> Void in
-            
-            let httpResponse = response as? NSHTTPURLResponse
-
-            /*if (error != nil) {
-                print(error)
-            } else {
-                let httpResponse = response as? NSHTTPURLResponse
-                print(httpResponse)
-            }*/
-            dispatch_async(dispatch_get_main_queue()) {
-                self.coreResponseHandling(request, response: httpResponse, json: data, error: error, action: action, method : Method.PUT.rawValue)
-            }
-        })
-        
-        dataTask.resume()
-        
-        return self
-    }
-    
-    func POST(action: Int, withAPIName apiName: String, withMessage message: String, withParam param: [String:AnyObject], withProgresshudShow isProgresshudShow: CBool,  isShowNoInternetView: CBool) -> AnyObject
-    {
-        if isProgresshudShow == true
-        {
-           showLoader()
         }
         let apiURL = BASE_URL +  apiName;
         DLog("apiURL = \(apiURL)")
         
         if(UseAlamofire)
         {
-//            Alamofire.request(.POST, apiURL).response
-//                .responseJSON { _, _, result in
-//                    print(result)
-//                    debugPrint(result)
-//            }
+            if (!isHeaderNeeded)
+            {
+                Alamofire.request(.GET, apiURL, parameters: param)
+                    .responseJSON { response in
+                        print("Request:\(response.request)")  // original URL request
+                        print("Response: \(response.response)") // URL response
+                        print("Data: \(response.data)")     // server data
+                        print("Result: \(response.result)")   // result of response serialization
+                        
+                        if let JSON = response.result.value
+                        {
+                            print("JSON: \(JSON)")
+                            dispatch_async(dispatch_get_main_queue()) {
+                                self.coreResponseHandling(response.request!, response: response.response, json: response.data, error: nil, action: action, method : Method.POST.rawValue)
+                            }
+                        }
+                        else
+                        {
+                            if isProgresshudShow == true
+                            {
+                                hideLoader()
+                            }
+                        }
+                }
+            }
+            else
+            {
+                Alamofire.request(.GET, apiURL, parameters: param, headers: appHeader as? [String : String])
+                    .responseJSON { response in
+                        print("Request:\(response.request)")  // original URL request
+                        print("Response: \(response.response)") // URL response
+                        print("Data: \(response.data)")     // server data
+                        print("Result: \(response.result)")   // result of response serialization
+                        
+                        if let JSON = response.result.value
+                        {
+                            print("JSON: \(JSON)")
+                            dispatch_async(dispatch_get_main_queue()) {
+                                self.coreResponseHandling(response.request!, response: response.response, json: response.data, error: nil, action: action, method : Method.POST.rawValue)
+                            }
+                        }
+                        else
+                        {
+                            if isProgresshudShow == true
+                            {
+                                hideLoader()
+                            }
+                        }
+                }
+                
+            }
         }
         else
         {
             let request = NSMutableURLRequest(URL: NSURL(string: apiURL)!,
                 cachePolicy: .UseProtocolCachePolicy,
                 timeoutInterval: TIME_OUT_TIME)
-            request.HTTPMethod = "POST"
+            request.HTTPMethod = "GET"
             request.HTTPBody =  try? NSJSONSerialization.dataWithJSONObject(param , options: NSJSONWritingOptions())
             request.addValue("application/json", forHTTPHeaderField: "Content-Type")
             request.addValue("application/json", forHTTPHeaderField: "Accept")
+            
+            if(isHeaderNeeded)
+            {
+                request.allHTTPHeaderFields = appHeader as? [String : String]
+            }
             
             let session = NSURLSession.sharedSession()
             let dataTask = session.dataTaskWithRequest(request, completionHandler: { (data, response, error) -> Void in
@@ -277,109 +256,106 @@ class APIConnection: NSObject {
         return self
     }
 
-    func POST_WITH_HEADER(action: Int,withAPIName apiName: String, andMessage message: String, param:NSDictionary,paramHeader:NSDictionary, withProgresshudShow isProgresshudShow: CBool,  isShowNoInternetView: CBool , token : String, ContentType : String) -> AnyObject
+    func POST(action: Int, withAPIName apiName: String, withMessage message: String, withParam param: [String:AnyObject], withProgresshudShow isProgresshudShow: CBool,  withHeader isHeaderNeeded: CBool) -> AnyObject
     {
         if isProgresshudShow == true
         {
             showLoader()
         }
-
-        let headers: NSDictionary  = CoreHTTPAuthorizationHeaderWithXAuthToken(paramHeader, token: token)
+        let apiURL = BASE_URL +  apiName;
+        DLog("apiURL = \(apiURL)")
         
-        let request = NSMutableURLRequest(URL: NSURL(string: BASE_URL +  apiName)!,
-            cachePolicy: .UseProtocolCachePolicy,
-            timeoutInterval: TIME_OUT_TIME)
-        request.HTTPMethod = "POST"
-        request.allHTTPHeaderFields = headers as? [String : String]
-        
-        if ContentType == CONTENT_TYPE_ENCODED
+        if(UseAlamofire)
         {
-            request.addValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
-            
-            if param.count > 0
+            if (!isHeaderNeeded)
             {
-                request.HTTPBody = self.convertDicToMutableData(param)
-            }
-        }                    
-        else
-        {
-            //json
-            if param[kAPIData] != nil
-            {
-                request.HTTPBody =  try? NSJSONSerialization.dataWithJSONObject(param[kAPIData]! , options: NSJSONWritingOptions())
-                request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-                request.addValue("application/json", forHTTPHeaderField: "Accept")
-                
-
+                Alamofire.request(.POST, apiURL, parameters: param)
+                    .responseJSON { response in
+                        print("Request:\(response.request)")  // original URL request
+                        print("Response: \(response.response)") // URL response
+                        print("Data: \(response.data)")     // server data
+                        print("Result: \(response.result)")   // result of response serialization
+                        
+                        if let JSON = response.result.value
+                        {
+                            print("JSON: \(JSON)")
+                            dispatch_async(dispatch_get_main_queue()) {
+                                self.coreResponseHandling(response.request!, response: response.response, json: response.data, error: nil, action: action, method : Method.POST.rawValue)
+                            }
+                        }
+                        else
+                        {
+                            if isProgresshudShow == true
+                            {
+                                hideLoader()
+                            }
+                        }
+                }
             }
             else
             {
-                request.HTTPBody =  try? NSJSONSerialization.dataWithJSONObject(param , options: NSJSONWritingOptions())
-                request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-                request.addValue("application/json", forHTTPHeaderField: "Accept")
-
+                Alamofire.request(.POST, apiURL, parameters: param, headers: appHeader as? [String : String])
+                    .responseJSON { response in
+                        print("Request:\(response.request)")  // original URL request
+                        print("Response: \(response.response)") // URL response
+                        print("Data: \(response.data)")     // server data
+                        print("Result: \(response.result)")   // result of response serialization
+                        
+                        if let JSON = response.result.value
+                        {
+                            print("JSON: \(JSON)")
+                            dispatch_async(dispatch_get_main_queue()) {
+                                self.coreResponseHandling(response.request!, response: response.response, json: response.data, error: nil, action: action, method : Method.POST.rawValue)
+                            }
+                        }
+                        else
+                        {
+                            if isProgresshudShow == true
+                            {
+                                hideLoader()
+                            }
+                        }
+                }
+                
             }
         }
-  
-        DLog(request.allHTTPHeaderFields!)
-
-        let session = NSURLSession.sharedSession()
-        let dataTask = session.dataTaskWithRequest(request, completionHandler: { (data, response, error) -> Void in
-           
-            let httpResponse = response as? NSHTTPURLResponse
-
-            /*if (error != nil) {
-                print(error)
-            } else {
-
-                print(httpResponse)
-            }*/
-            dispatch_async(dispatch_get_main_queue()) {
-                self.coreResponseHandling(request, response: httpResponse, json: data, error: error, action: action, method : Method.POST.rawValue)
-            }
-
-        })
-        dataTask.resume()
-        return self
-    }
-    
-
-
-    func DELETE(action: Int,withAPIName apiName: String, andMessage message: String, param:NSDictionary,paramHeader:NSDictionary, withProgresshudShow isProgresshudShow: CBool,  isShowNoInternetView: CBool , token : String) -> AnyObject
-    {
-        if isProgresshudShow == true
+        else
         {
-            showLoader()
-        }
-       
-        let headers: NSDictionary  = CoreHTTPAuthorizationHeaderWithXAuthToken(paramHeader, token: token)
-        
-        let request = NSMutableURLRequest(URL: NSURL(string: BASE_URL +  apiName)!,
-            cachePolicy: .UseProtocolCachePolicy,
-            timeoutInterval: TIME_OUT_TIME)
-        request.HTTPMethod = "DELETE"
-        request.allHTTPHeaderFields = headers as? [String : String]
-        DLog(request.allHTTPHeaderFields!)
-        let session = NSURLSession.sharedSession()
-        let dataTask = session.dataTaskWithRequest(request, completionHandler: { (data, response, error) -> Void in
+            let request = NSMutableURLRequest(URL: NSURL(string: apiURL)!,
+                cachePolicy: .UseProtocolCachePolicy,
+                timeoutInterval: TIME_OUT_TIME)
+            request.HTTPMethod = "POST"
+            request.HTTPBody =  try? NSJSONSerialization.dataWithJSONObject(param , options: NSJSONWritingOptions())
+            request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+            request.addValue("application/json", forHTTPHeaderField: "Accept")
             
-            let httpResponse = response as? NSHTTPURLResponse
-
-           /* if (error != nil) {
-                print(error)
-            } else {
-                print(httpResponse)
-            }*/
-            dispatch_async(dispatch_get_main_queue()) {
-                self.coreResponseHandling(request, response: httpResponse, json: data, error: error, action: action, method :Method.DELETE.rawValue )
+            if(isHeaderNeeded)
+            {
+                request.allHTTPHeaderFields = appHeader as? [String : String]
             }
-
-        })
-        
-        dataTask.resume()
+            
+            let session = NSURLSession.sharedSession()
+            let dataTask = session.dataTaskWithRequest(request, completionHandler: { (data, response, error) -> Void in
+                let httpResponse = response as? NSHTTPURLResponse
+                
+                /* if (error != nil) {
+                print(error)
+                } else {
+                let httpResponse = response as? NSHTTPURLResponse
+                print(httpResponse)
+                }*/
+                dispatch_async(dispatch_get_main_queue()) {
+                    self.coreResponseHandling(request, response: httpResponse, json: data, error: error, action: action, method : Method.POST.rawValue)
+                }
+                
+            })
+            
+            dataTask.resume()
+        }
         return self
     }
 
+        
     func UPLOAD_PROFILE_PIC(action: Int, withAPIName apiName: String, withMessage message: String, withParam param:NSDictionary, withProgresshudShow isProgresshudShow: CBool,  isShowNoInternetView: CBool, token : String) -> AnyObject
     {
         
@@ -426,12 +402,12 @@ class APIConnection: NSObject {
             })
             
             dataTask.resume()
-
         }
         
         return self
     }
     //MARK: - Respose Handling -
+    
     func coreResponseHandling(request: NSURLRequest,response: NSHTTPURLResponse?,json: NSData!,error: NSError?,action: Int,method : String)
     {
         //DLog("Stop loading \(action)")
