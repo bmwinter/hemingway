@@ -9,13 +9,14 @@
 import UIKit
 
 class PostViewController: UIViewController {
-
+    
     var feedDict : NSDictionary = NSDictionary()
     @IBOutlet weak var FeedName: UILabel!
     @IBOutlet weak var lblUserName: UILabel!
     @IBOutlet weak var venuImageView: UIImageView!
     @IBOutlet weak var userImageView: UIImageView!
     @IBOutlet weak var feedView: UIView!
+    @IBOutlet weak var btnFollowing: UIButton!
     
     override func viewDidLoad()
     {
@@ -23,7 +24,7 @@ class PostViewController: UIViewController {
         self.loadData()
         // Do any additional setup after loading the view.
     }
-
+    
     func loadData()
     {
         if (feedDict.allKeys.count > 0)
@@ -48,19 +49,33 @@ class PostViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    @IBAction func btnFollowing(sender: AnyObject)
+    {
+        let btn : UIButton = (sender as? UIButton)!
+        btn.selected = !btn.selected
+        if(btn.selected)
+        {
+            self.btnFollowing.backgroundColor = UIColor(red: 96/255,green: 134/255.0,blue: 72/255,alpha: 1.0)
+        }
+        else
+        {
+            self.btnFollowing.backgroundColor = UIColor(red: 194/255,green: 194/255.0,blue: 194/255,alpha: 1.0)
+        }
+    }
+    
     @IBAction func onBackClicked(sender: AnyObject)
     {
         self.navigationController?.popViewControllerAnimated(true)
     }
-
+    
     /*
     // MARK: - Navigation
-
+    
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    // Get the new view controller using segue.destinationViewController.
+    // Pass the selected object to the new view controller.
     }
     */
-
+    
 }

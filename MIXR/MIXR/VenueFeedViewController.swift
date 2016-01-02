@@ -12,9 +12,20 @@ let isLocalData = false
 
 class VenueFeedViewController:UIViewController, UITableViewDelegate,UITableViewDataSource,APIConnectionDelegate {
     
+    @IBAction func onUserProfileClicked(sender: AnyObject)
+    {
+        
+        let feedDict : NSDictionary = ["venueName":"App User","venueImage":"venueImage1.jpg","userName":"AppUser Name"]
+        
+        let postViewController : PostViewController = self.storyboard!.instantiateViewControllerWithIdentifier("post") as! PostViewController
+        postViewController.feedDict = feedDict
+        self.navigationController!.pushViewController(postViewController, animated: true)
+        
+    }
+    
     @IBOutlet weak var tableView: UITableView!
     var feedsArray : NSMutableArray = NSMutableArray()
-
+    
     override func viewDidLoad()
     {
         super.viewDidLoad()
@@ -46,9 +57,8 @@ class VenueFeedViewController:UIViewController, UITableViewDelegate,UITableViewD
             let object = APIConnection().POST(APIName.Venues.rawValue, withAPIName: "VenueList", withMessage: "", withParam: param, withProgresshudShow: true, withHeader: false) as! APIConnection
             object.delegate = self
         }
-        
     }
-
+    
     func reloadTable()
     {
         tableView.reloadData()
@@ -60,7 +70,7 @@ class VenueFeedViewController:UIViewController, UITableViewDelegate,UITableViewD
         let feedTag = feedBtn.superview!.tag
         NSLog("feedTag = \(feedTag)")
         let feedDict : NSDictionary = feedsArray[feedTag] as! NSDictionary
-
+        
         
         let postViewController : PostViewController = self.storyboard!.instantiateViewControllerWithIdentifier("post") as! PostViewController
         postViewController.feedDict = feedDict
@@ -110,7 +120,7 @@ class VenueFeedViewController:UIViewController, UITableViewDelegate,UITableViewD
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
+    
     //MARK: - APIConnection Delegate -
     
     func connectionFailedForAction(action: Int, andWithResponse result: NSDictionary!, method : String)
@@ -173,7 +183,7 @@ class VenueFeedViewController:UIViewController, UITableViewDelegate,UITableViewD
     
     func connectionDidUpdateAPIProgress(action: Int,bytesWritten: Int64, totalBytesWritten: Int64 ,totalBytesExpectedToWrite: Int64)
     {
-    
+        
     }
 }
 
