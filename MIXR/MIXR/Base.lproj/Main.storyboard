@@ -8,6 +8,36 @@
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
     </dependencies>
+    <customFonts key="customFonts">
+        <mutableArray key="forgotten futurist rg.ttf">
+            <string>ForgottenFuturistRg-Regular</string>
+            <string>ForgottenFuturistRg-Regular</string>
+            <string>ForgottenFuturistRg-Regular</string>
+            <string>ForgottenFuturistRg-Regular</string>
+            <string>ForgottenFuturistRg-Regular</string>
+            <string>ForgottenFuturistRg-Regular</string>
+            <string>ForgottenFuturistRg-Regular</string>
+            <string>ForgottenFuturistRg-Regular</string>
+            <string>ForgottenFuturistRg-Regular</string>
+            <string>ForgottenFuturistRg-Regular</string>
+            <string>ForgottenFuturistRg-Regular</string>
+            <string>ForgottenFuturistRg-Regular</string>
+            <string>ForgottenFuturistRg-Regular</string>
+            <string>ForgottenFuturistRg-Regular</string>
+            <string>ForgottenFuturistRg-Regular</string>
+            <string>ForgottenFuturistRg-Regular</string>
+            <string>ForgottenFuturistRg-Regular</string>
+            <string>ForgottenFuturistRg-Regular</string>
+            <string>ForgottenFuturistRg-Regular</string>
+            <string>ForgottenFuturistRg-Regular</string>
+            <string>ForgottenFuturistRg-Regular</string>
+            <string>ForgottenFuturistRg-Regular</string>
+            <string>ForgottenFuturistRg-Regular</string>
+            <string>ForgottenFuturistRg-Regular</string>
+            <string>ForgottenFuturistRg-Regular</string>
+            <string>ForgottenFuturistRg-Regular</string>
+        </mutableArray>
+    </customFonts>
     <scenes>
         <!--Venue Feed-->
         <scene sceneID="hNz-n2-bh7">
@@ -130,13 +160,13 @@
                                                                 <constraint firstAttribute="width" constant="40" id="3S3-dj-16h"/>
                                                                 <constraint firstAttribute="height" constant="21" id="zkm-IP-p0l"/>
                                                             </constraints>
-                                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="19"/>
+                                                            <fontDescription key="fontDescription" name="ForgottenFuturistRg-Regular" family="Forgotten Futurist" pointSize="24"/>
                                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Mad River" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4I7-QF-mMf">
                                                             <rect key="frame" x="40" y="6" width="170" height="18"/>
-                                                            <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="17"/>
+                                                            <fontDescription key="fontDescription" name="ForgottenFuturistRg-Regular" family="Forgotten Futurist" pointSize="24"/>
                                                             <color key="textColor" red="0.2470588235" green="0.2470588235" blue="0.2470588235" alpha="1" colorSpace="calibratedRGB"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
@@ -145,7 +175,7 @@
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="18" id="8L1-6T-TFU"/>
                                                             </constraints>
-                                                            <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="19"/>
+                                                            <fontDescription key="fontDescription" name="ForgottenFuturistRg-Regular" family="Forgotten Futurist" pointSize="24"/>
                                                             <color key="textColor" red="0.2470588235" green="0.2470588235" blue="0.2470588235" alpha="1" colorSpace="calibratedRGB"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
@@ -154,7 +184,7 @@
                                                             <constraints>
                                                                 <constraint firstAttribute="width" constant="36" id="fcT-No-6Uu"/>
                                                             </constraints>
-                                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                            <fontDescription key="fontDescription" name="ForgottenFuturistRg-Regular" family="Forgotten Futurist" pointSize="24"/>
                                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
@@ -163,34 +193,45 @@
                                                             <constraints>
                                                                 <constraint firstAttribute="width" constant="50" id="ifA-t6-yIf"/>
                                                             </constraints>
-                                                            <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="17"/>
+                                                            <fontDescription key="fontDescription" name="ForgottenFuturistRg-Regular" family="Forgotten Futurist" pointSize="24"/>
                                                             <color key="textColor" red="0.2470588235" green="0.2470588235" blue="0.2470588235" alpha="1" colorSpace="calibratedRGB"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Q6l-br-8RR">
-                                                            <rect key="frame" x="-20" y="-51" width="320" height="482"/>
+                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Q6l-br-8RR" userLabel="feedBtn">
+                                                            <rect key="frame" x="0.0" y="0.0" width="280" height="327"/>
+                                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                             <connections>
                                                                 <action selector="onFeedClicked:" destination="9pv-A4-QxB" eventType="touchUpInside" id="fmM-UY-3hM"/>
+                                                            </connections>
+                                                        </button>
+                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="faa-87-p59" userLabel="userBtn">
+                                                            <rect key="frame" x="0.0" y="328" width="280" height="41"/>
+                                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                            <connections>
+                                                                <action selector="onUserBtnClicked:" destination="9pv-A4-QxB" eventType="touchUpInside" id="Lbt-6c-f7i"/>
                                                             </connections>
                                                         </button>
                                                     </subviews>
                                                     <color key="backgroundColor" red="0.80392156859999997" green="0.80392156859999997" blue="0.80392156859999997" alpha="1" colorSpace="calibratedRGB"/>
                                                     <constraints>
+                                                        <constraint firstItem="faa-87-p59" firstAttribute="leading" secondItem="oVF-22-rOw" secondAttribute="leading" id="015-rn-hDc"/>
                                                         <constraint firstItem="csi-vf-CPw" firstAttribute="top" secondItem="mHf-8o-wKQ" secondAttribute="bottom" constant="10" id="0de-ig-RqK"/>
                                                         <constraint firstItem="IRr-01-qCh" firstAttribute="baseline" secondItem="4I7-QF-mMf" secondAttribute="baseline" id="2I2-Ls-cEO"/>
                                                         <constraint firstItem="IRr-01-qCh" firstAttribute="leading" secondItem="1dj-pO-aBM" secondAttribute="trailing" constant="3" id="2mz-rj-C4V"/>
                                                         <constraint firstItem="Fp5-Jd-Y4E" firstAttribute="bottom" secondItem="9qr-sA-ohP" secondAttribute="bottom" id="4Uj-Wl-Ppy"/>
                                                         <constraint firstItem="LHF-TC-93u" firstAttribute="leading" secondItem="mHf-8o-wKQ" secondAttribute="leading" id="6Ci-I3-bVg"/>
+                                                        <constraint firstItem="faa-87-p59" firstAttribute="top" secondItem="Q6l-br-8RR" secondAttribute="bottom" constant="1" id="7AQ-TH-0U5"/>
                                                         <constraint firstItem="cb5-RD-K29" firstAttribute="top" secondItem="oVF-22-rOw" secondAttribute="top" constant="7" id="7jj-tl-4DK"/>
                                                         <constraint firstItem="9qr-sA-ohP" firstAttribute="leading" secondItem="Fp5-Jd-Y4E" secondAttribute="trailing" constant="1" id="8ip-fv-AgQ"/>
-                                                        <constraint firstItem="Q6l-br-8RR" firstAttribute="top" secondItem="oVF-22-rOw" secondAttribute="top" constant="-51" id="Bfh-bX-uo8"/>
+                                                        <constraint firstItem="Q6l-br-8RR" firstAttribute="top" secondItem="oVF-22-rOw" secondAttribute="top" id="Bfh-bX-uo8"/>
                                                         <constraint firstItem="mHf-8o-wKQ" firstAttribute="top" secondItem="LHF-TC-93u" secondAttribute="bottom" constant="6" id="EJc-M1-YTf"/>
                                                         <constraint firstItem="4I7-QF-mMf" firstAttribute="top" secondItem="LHF-TC-93u" secondAttribute="top" id="Gf7-55-5kr"/>
                                                         <constraint firstItem="Fp5-Jd-Y4E" firstAttribute="top" secondItem="oVF-22-rOw" secondAttribute="top" constant="19" id="KbO-D1-IpS"/>
                                                         <constraint firstItem="IRr-01-qCh" firstAttribute="top" secondItem="1dj-pO-aBM" secondAttribute="top" id="LAg-s3-coE"/>
                                                         <constraint firstItem="9qr-sA-ohP" firstAttribute="top" secondItem="Fp5-Jd-Y4E" secondAttribute="top" id="N0c-uo-Wkj"/>
                                                         <constraint firstItem="1dj-pO-aBM" firstAttribute="bottom" secondItem="IRr-01-qCh" secondAttribute="bottom" id="Ow9-dq-9lv"/>
-                                                        <constraint firstItem="Q6l-br-8RR" firstAttribute="centerY" secondItem="oVF-22-rOw" secondAttribute="centerY" id="Pb3-wN-b6g"/>
+                                                        <constraint firstItem="Q6l-br-8RR" firstAttribute="centerY" secondItem="oVF-22-rOw" secondAttribute="centerY" constant="-26.5" id="Pb3-wN-b6g"/>
+                                                        <constraint firstItem="faa-87-p59" firstAttribute="width" secondItem="Q6l-br-8RR" secondAttribute="width" id="RWP-aV-Dxd"/>
                                                         <constraint firstItem="csi-vf-CPw" firstAttribute="centerX" secondItem="oVF-22-rOw" secondAttribute="centerX" id="XBF-p7-j8Z"/>
                                                         <constraint firstItem="cb5-RD-K29" firstAttribute="leading" secondItem="oVF-22-rOw" secondAttribute="leading" constant="448" id="bDo-25-U9Z"/>
                                                         <constraint firstItem="LHF-TC-93u" firstAttribute="bottom" secondItem="4I7-QF-mMf" secondAttribute="bottom" id="f5U-jC-MU3"/>
@@ -202,10 +243,12 @@
                                                         <constraint firstItem="Fp5-Jd-Y4E" firstAttribute="centerY" secondItem="cb5-RD-K29" secondAttribute="centerY" id="oIt-Q7-D5w"/>
                                                         <constraint firstItem="csi-vf-CPw" firstAttribute="leading" secondItem="mHf-8o-wKQ" secondAttribute="leading" id="orJ-Pg-IUg"/>
                                                         <constraint firstAttribute="bottom" secondItem="csi-vf-CPw" secondAttribute="bottom" constant="22" id="qiO-wj-TcD"/>
+                                                        <constraint firstAttribute="trailing" secondItem="faa-87-p59" secondAttribute="trailing" id="sQy-SN-joY"/>
                                                         <constraint firstItem="4I7-QF-mMf" firstAttribute="firstBaseline" secondItem="IRr-01-qCh" secondAttribute="firstBaseline" id="t3B-bd-GyW"/>
                                                         <constraint firstItem="mHf-8o-wKQ" firstAttribute="trailing" secondItem="csi-vf-CPw" secondAttribute="trailing" id="tkQ-8p-ynS"/>
-                                                        <constraint firstItem="Q6l-br-8RR" firstAttribute="leading" secondItem="oVF-22-rOw" secondAttribute="leading" constant="-20" id="uEE-fi-4Gy"/>
+                                                        <constraint firstItem="Q6l-br-8RR" firstAttribute="leading" secondItem="oVF-22-rOw" secondAttribute="leading" id="uEE-fi-4Gy"/>
                                                         <constraint firstItem="1dj-pO-aBM" firstAttribute="leading" secondItem="4I7-QF-mMf" secondAttribute="trailing" constant="5" id="uT5-FF-ulq"/>
+                                                        <constraint firstAttribute="bottom" secondItem="faa-87-p59" secondAttribute="bottom" constant="11" id="w9Y-9x-Q9o"/>
                                                         <constraint firstItem="LHF-TC-93u" firstAttribute="leading" secondItem="oVF-22-rOw" secondAttribute="leading" constant="15" id="wea-fF-mAi"/>
                                                     </constraints>
                                                 </view>
@@ -226,7 +269,9 @@
                                         <accessibility key="accessibilityConfiguration" identifier="tableCell"/>
                                         <connections>
                                             <outlet property="FeedName" destination="4I7-QF-mMf" id="F6i-n2-kAS"/>
+                                            <outlet property="feedBtn" destination="Q6l-br-8RR" id="yia-40-BeL"/>
                                             <outlet property="lblUserName" destination="csi-vf-CPw" id="0gT-aY-eA3"/>
+                                            <outlet property="userBtn" destination="faa-87-p59" id="dSl-8K-twX"/>
                                             <outlet property="venuBackground" destination="oVF-22-rOw" id="iap-uN-f7J"/>
                                             <outlet property="venuImageView" destination="mHf-8o-wKQ" id="D1h-la-ovp"/>
                                         </connections>
@@ -307,7 +352,7 @@
                                     </imageView>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="71C-uZ-nEc">
                                         <rect key="frame" x="0.0" y="20" width="50" height="44"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="40"/>
+                                        <fontDescription key="fontDescription" name="ForgottenFuturistRg-Regular" family="Forgotten Futurist" pointSize="40"/>
                                         <state key="normal" title="&lt;">
                                             <color key="titleColor" red="0.37647058820000001" green="0.52549019610000003" blue="0.28235294119999998" alpha="1" colorSpace="calibratedRGB"/>
                                         </state>
@@ -363,7 +408,7 @@
                                             </imageView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Mad River" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uhv-A9-zEX">
                                                 <rect key="frame" x="40" y="6" width="170" height="18"/>
-                                                <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="17"/>
+                                                <fontDescription key="fontDescription" name="ForgottenFuturistRg-Regular" family="Forgotten Futurist" pointSize="24"/>
                                                 <color key="textColor" red="0.2470588235" green="0.2470588235" blue="0.2470588235" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
@@ -372,7 +417,7 @@
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="50" id="rIM-5t-shN"/>
                                                 </constraints>
-                                                <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="17"/>
+                                                <fontDescription key="fontDescription" name="ForgottenFuturistRg-Regular" family="Forgotten Futurist" pointSize="24"/>
                                                 <color key="textColor" red="0.2470588235" green="0.2470588235" blue="0.2470588235" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
@@ -406,7 +451,7 @@
                                     </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Grant Boyle" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TNQ-Kd-uIy">
                                         <rect key="frame" x="114" y="20" width="186" height="36"/>
-                                        <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="19"/>
+                                        <fontDescription key="fontDescription" name="ForgottenFuturistRg-Regular" family="Forgotten Futurist" pointSize="24"/>
                                         <color key="textColor" red="0.2470588235" green="0.2470588235" blue="0.2470588235" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
@@ -416,7 +461,7 @@
                                         <constraints>
                                             <constraint firstAttribute="height" constant="36" id="rRl-4D-eJ9"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="19"/>
+                                        <fontDescription key="fontDescription" name="ForgottenFuturistRg-Regular" family="Forgotten Futurist" pointSize="24"/>
                                         <state key="normal" title=" Following">
                                             <color key="titleColor" red="0.24705882352941178" green="0.24705882352941178" blue="0.24705882352941178" alpha="1" colorSpace="calibratedRGB"/>
                                         </state>
@@ -572,11 +617,11 @@
                                     <constraint firstItem="DEk-ij-9Pg" firstAttribute="leading" secondItem="46B-Bu-P6r" secondAttribute="trailing" constant="5" id="qOM-Fb-nAZ"/>
                                 </constraints>
                             </view>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="409" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="ZBx-ur-1Qy" userLabel="VenueFeedTableView">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="409" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="ZBx-ur-1Qy" userLabel="VenueFeedTableView">
                                 <rect key="frame" x="0.0" y="109" width="320" height="458"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="456" id="S3R-OP-gSx"/>
+                                    <constraint firstAttribute="height" constant="458" id="S3R-OP-gSx"/>
                                 </constraints>
                                 <inset key="separatorInset" minX="5" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 <prototypes>
@@ -587,10 +632,10 @@
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="408"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cL4-8K-38r">
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cL4-8K-38r">
                                                     <rect key="frame" x="20" y="8" width="280" height="380"/>
                                                     <subviews>
-                                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3kF-Mc-c7A">
+                                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="3kF-Mc-c7A">
                                                             <rect key="frame" x="15" y="30" width="250" height="300"/>
                                                             <color key="backgroundColor" red="0.054901960784313725" green="0.039215686274509803" blue="0.031372549019607843" alpha="1" colorSpace="calibratedRGB"/>
                                                         </imageView>
@@ -621,22 +666,22 @@
                                                                 <constraint firstAttribute="height" constant="21" id="2an-MI-Kpy"/>
                                                                 <constraint firstAttribute="width" constant="40" id="Ipq-CC-guj"/>
                                                             </constraints>
-                                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="19"/>
+                                                            <fontDescription key="fontDescription" name="ForgottenFuturistRg-Regular" family="Forgotten Futurist" pointSize="24"/>
                                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Mad River" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rc8-Xf-7LQ">
                                                             <rect key="frame" x="40" y="6" width="170" height="18"/>
-                                                            <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="17"/>
+                                                            <fontDescription key="fontDescription" name="ForgottenFuturistRg-Regular" family="Forgotten Futurist" pointSize="24"/>
                                                             <color key="textColor" red="0.24705882352941178" green="0.24705882352941178" blue="0.24705882352941178" alpha="1" colorSpace="calibratedRGB"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Grant Boyle" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DBq-dh-FBU">
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Grant Boyle" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DBq-dh-FBU">
                                                             <rect key="frame" x="15" y="340" width="250" height="18"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="18" id="Wb9-Uk-H9r"/>
                                                             </constraints>
-                                                            <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="19"/>
+                                                            <fontDescription key="fontDescription" name="ForgottenFuturistRg-Regular" family="Forgotten Futurist" pointSize="24"/>
                                                             <color key="textColor" red="0.24705882352941178" green="0.24705882352941178" blue="0.24705882352941178" alpha="1" colorSpace="calibratedRGB"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
@@ -645,7 +690,7 @@
                                                             <constraints>
                                                                 <constraint firstAttribute="width" constant="36" id="Vcx-jk-id6"/>
                                                             </constraints>
-                                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                            <fontDescription key="fontDescription" name="ForgottenFuturistRg-Regular" family="Forgotten Futurist" pointSize="24"/>
                                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
@@ -654,7 +699,7 @@
                                                             <constraints>
                                                                 <constraint firstAttribute="width" constant="50" id="d74-pT-bQE"/>
                                                             </constraints>
-                                                            <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="17"/>
+                                                            <fontDescription key="fontDescription" name="ForgottenFuturistRg-Regular" family="Forgotten Futurist" pointSize="24"/>
                                                             <color key="textColor" red="0.2470588235" green="0.2470588235" blue="0.2470588235" alpha="1" colorSpace="calibratedRGB"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
@@ -696,7 +741,7 @@
                                                 <constraint firstItem="cL4-8K-38r" firstAttribute="top" secondItem="33c-9o-sdj" secondAttribute="topMargin" id="ELk-ES-gwa"/>
                                                 <constraint firstItem="cL4-8K-38r" firstAttribute="leading" secondItem="33c-9o-sdj" secondAttribute="leadingMargin" constant="12" id="Ggv-mR-Agu"/>
                                                 <constraint firstItem="cL4-8K-38r" firstAttribute="centerX" secondItem="33c-9o-sdj" secondAttribute="centerX" id="Xyf-ay-4pn"/>
-                                                <constraint firstAttribute="bottomMargin" secondItem="cL4-8K-38r" secondAttribute="bottom" constant="29" id="zAO-ql-seA"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="cL4-8K-38r" secondAttribute="bottom" constant="12" id="zAO-ql-seA"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -722,14 +767,14 @@
                             <constraint firstItem="1zk-Di-Bi3" firstAttribute="leading" secondItem="deC-Hq-y7D" secondAttribute="leading" id="FcU-Lx-UM6"/>
                             <constraint firstAttribute="bottomMargin" secondItem="sDF-Je-jPL" secondAttribute="bottom" constant="-48" id="FnP-JZ-hgH"/>
                             <constraint firstItem="1zk-Di-Bi3" firstAttribute="trailing" secondItem="ZBx-ur-1Qy" secondAttribute="trailing" id="MEB-UM-G78"/>
-                            <constraint firstItem="ZBx-ur-1Qy" firstAttribute="top" secondItem="1zk-Di-Bi3" secondAttribute="bottom" id="VKO-Xo-f96"/>
+                            <constraint firstItem="ZBx-ur-1Qy" firstAttribute="top" secondItem="1zk-Di-Bi3" secondAttribute="bottom" constant="45" id="VKO-Xo-f96"/>
                             <constraint firstItem="ZBx-ur-1Qy" firstAttribute="leading" secondItem="sDF-Je-jPL" secondAttribute="leading" id="VhP-uL-8Ye"/>
                             <constraint firstItem="fmM-Ql-MHF" firstAttribute="top" secondItem="1zk-Di-Bi3" secondAttribute="bottom" id="a6j-pc-05q"/>
                             <constraint firstAttribute="trailing" secondItem="1zk-Di-Bi3" secondAttribute="trailing" id="lEx-Ph-fOm"/>
                             <constraint firstItem="sDF-Je-jPL" firstAttribute="top" secondItem="OdT-Uz-GUf" secondAttribute="top" id="n22-Hx-T8e"/>
                             <constraint firstItem="sDF-Je-jPL" firstAttribute="trailing" secondItem="ZBx-ur-1Qy" secondAttribute="trailing" id="paN-VZ-FdG"/>
                             <constraint firstItem="fmM-Ql-MHF" firstAttribute="trailing" secondItem="1zk-Di-Bi3" secondAttribute="trailing" id="phb-TK-3fK"/>
-                            <constraint firstAttribute="bottomMargin" secondItem="ZBx-ur-1Qy" secondAttribute="bottom" constant="-1" id="sD3-cc-pn8"/>
+                            <constraint firstAttribute="bottomMargin" secondItem="ZBx-ur-1Qy" secondAttribute="bottom" constant="-48" id="sD3-cc-pn8"/>
                             <constraint firstItem="1zk-Di-Bi3" firstAttribute="top" secondItem="deC-Hq-y7D" secondAttribute="top" id="sZt-eE-0DA"/>
                             <constraint firstItem="1zk-Di-Bi3" firstAttribute="leading" secondItem="ZBx-ur-1Qy" secondAttribute="leading" id="tek-E1-SpS"/>
                             <constraint firstItem="fmM-Ql-MHF" firstAttribute="leading" secondItem="1zk-Di-Bi3" secondAttribute="leading" id="yHE-YZ-nC2"/>
@@ -745,7 +790,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="OSq-Yk-k9z" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1734" y="180"/>
+            <point key="canvasLocation" x="2065" y="168"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="yl2-sM-qoP">
@@ -827,7 +872,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Cou-EN-wwu" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="61" y="847"/>
+            <point key="canvasLocation" x="10" y="786"/>
         </scene>
         <!--Search View Controller-->
         <scene sceneID="2hr-oN-cej">
@@ -853,6 +898,7 @@
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Lmb-YK-f0Q" userLabel="NotificationBtn">
                                         <rect key="frame" x="13" y="22" width="50" height="40"/>
                                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                        <fontDescription key="fontDescription" name="ForgottenFuturistRg-Regular" family="Forgotten Futurist" pointSize="24"/>
                                         <state key="normal" image="IQButtonBarArrowLeft.png">
                                             <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
@@ -906,22 +952,22 @@
                                                             </constraints>
                                                         </imageView>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Q32-7e-Jqu">
-                                                            <rect key="frame" x="65" y="7" width="292" height="20"/>
+                                                            <rect key="frame" x="65" y="9" width="292" height="20"/>
                                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="20" id="6v7-eB-RJf"/>
                                                             </constraints>
-                                                            <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="18"/>
+                                                            <fontDescription key="fontDescription" name="ForgottenFuturistRg-Regular" family="Forgotten Futurist" pointSize="18"/>
                                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="o7J-B6-hky">
-                                                            <rect key="frame" x="65" y="29" width="292" height="21"/>
+                                                            <rect key="frame" x="65" y="27" width="292" height="21"/>
                                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="21" id="JFk-xr-CB5"/>
                                                             </constraints>
-                                                            <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="12"/>
+                                                            <fontDescription key="fontDescription" name="ForgottenFuturistRg-Regular" family="Forgotten Futurist" pointSize="12"/>
                                                             <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
@@ -929,7 +975,7 @@
                                                     <color key="backgroundColor" red="0.84313725490196079" green="0.84313725490196079" blue="0.85490196078431369" alpha="1" colorSpace="calibratedRGB"/>
                                                     <constraints>
                                                         <constraint firstItem="UvT-kr-JBr" firstAttribute="leading" secondItem="fza-Ax-yYA" secondAttribute="leading" constant="5" id="1Ys-Og-eND"/>
-                                                        <constraint firstAttribute="bottomMargin" secondItem="o7J-B6-hky" secondAttribute="bottom" constant="-1" id="6mS-1W-WVF"/>
+                                                        <constraint firstAttribute="bottomMargin" secondItem="o7J-B6-hky" secondAttribute="bottom" constant="1" id="6mS-1W-WVF"/>
                                                         <constraint firstAttribute="trailing" secondItem="UvT-kr-JBr" secondAttribute="trailing" constant="5" id="8mQ-Tw-E4Z"/>
                                                         <constraint firstItem="o7J-B6-hky" firstAttribute="leading" secondItem="aH8-RG-M6S" secondAttribute="trailing" constant="12" id="985-ed-clS"/>
                                                         <constraint firstItem="aH8-RG-M6S" firstAttribute="leading" secondItem="fza-Ax-yYA" secondAttribute="leading" constant="12" id="99e-jB-KLP"/>
@@ -941,7 +987,7 @@
                                                         <constraint firstAttribute="bottom" secondItem="aH8-RG-M6S" secondAttribute="bottom" constant="8" id="iO7-S2-odx"/>
                                                         <constraint firstItem="o7J-B6-hky" firstAttribute="trailing" secondItem="Q32-7e-Jqu" secondAttribute="trailing" id="kfA-4o-ZYj"/>
                                                         <constraint firstItem="aH8-RG-M6S" firstAttribute="top" secondItem="fza-Ax-yYA" secondAttribute="top" constant="8" id="lS1-41-8ju"/>
-                                                        <constraint firstItem="o7J-B6-hky" firstAttribute="top" secondItem="Q32-7e-Jqu" secondAttribute="bottom" constant="2" id="nTx-Vy-cfl"/>
+                                                        <constraint firstItem="o7J-B6-hky" firstAttribute="top" secondItem="Q32-7e-Jqu" secondAttribute="bottom" constant="-2" id="nTx-Vy-cfl"/>
                                                     </constraints>
                                                 </tableViewCellContentView>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -1033,7 +1079,7 @@
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Notifications" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vdu-zY-cTV">
                                         <rect key="frame" x="118" y="20" width="178" height="44"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                        <fontDescription key="fontDescription" name="ForgottenFuturistRg-Regular" family="Forgotten Futurist" pointSize="24"/>
                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
@@ -1091,14 +1137,14 @@
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VDo-VQ-Of3">
                                                             <rect key="frame" x="11" y="19" width="177" height="21"/>
                                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                            <fontDescription key="fontDescription" name="ForgottenFuturistRg-Regular" family="Forgotten Futurist" pointSize="24"/>
                                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WIU-uu-A2z">
                                                             <rect key="frame" x="188" y="19" width="165" height="21"/>
                                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                            <fontDescription key="fontDescription" name="ForgottenFuturistRg-Regular" family="Forgotten Futurist" pointSize="24"/>
                                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
@@ -1177,6 +1223,200 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8lo-Ls-N1u" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1440" y="977"/>
+        </scene>
+        <!--User Profile View Controller-->
+        <scene sceneID="dJa-Xu-dp6">
+            <objects>
+                <viewController storyboardIdentifier="UserProfileViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Gqe-YF-6Fc" customClass="UserProfileViewController" customModule="MIXR" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="FDM-kT-4UO"/>
+                        <viewControllerLayoutGuide type="bottom" id="2oS-OR-SOl"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="9Zs-rC-SUF">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFill" image="backgroundWhiteDrediant.png" translatesAutoresizingMaskIntoConstraints="NO" id="kBg-f0-R1o">
+                                <rect key="frame" x="0.0" y="64" width="320" height="462"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="462" id="1Dv-5t-iQc"/>
+                                </constraints>
+                            </imageView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9pl-qM-rl1" userLabel="TopBar">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="64"/>
+                                <subviews>
+                                    <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFit" image="MixrLogo.png" translatesAutoresizingMaskIntoConstraints="NO" id="t9S-RY-XaK">
+                                        <rect key="frame" x="71" y="20" width="178" height="44"/>
+                                    </imageView>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Etw-Bv-tFB">
+                                        <rect key="frame" x="0.0" y="20" width="50" height="44"/>
+                                        <fontDescription key="fontDescription" name="ForgottenFuturistRg-Regular" family="Forgotten Futurist" pointSize="40"/>
+                                        <state key="normal" title="&lt;">
+                                            <color key="titleColor" red="0.37647058820000001" green="0.52549019610000003" blue="0.28235294119999998" alpha="1" colorSpace="calibratedRGB"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="onBackClicked:" destination="Gqe-YF-6Fc" eventType="touchUpInside" id="TOl-1v-ST5"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" red="0.85098039219999999" green="0.85098039219999999" blue="0.85098039219999999" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstItem="t9S-RY-XaK" firstAttribute="leading" secondItem="Etw-Bv-tFB" secondAttribute="trailing" constant="21" id="1SU-jp-gO5"/>
+                                    <constraint firstItem="Etw-Bv-tFB" firstAttribute="top" secondItem="t9S-RY-XaK" secondAttribute="top" id="CWx-Tf-ytE"/>
+                                    <constraint firstItem="Etw-Bv-tFB" firstAttribute="leading" secondItem="9pl-qM-rl1" secondAttribute="leading" id="Jwc-ka-9QY"/>
+                                    <constraint firstItem="t9S-RY-XaK" firstAttribute="centerX" secondItem="9pl-qM-rl1" secondAttribute="centerX" id="VKU-Fi-Q98"/>
+                                    <constraint firstAttribute="height" constant="64" id="Vyz-9y-Ecn"/>
+                                    <constraint firstAttribute="bottom" secondItem="Etw-Bv-tFB" secondAttribute="bottom" id="X87-ll-HnN"/>
+                                    <constraint firstAttribute="trailing" secondItem="t9S-RY-XaK" secondAttribute="trailing" constant="71" id="YPl-bd-QBY"/>
+                                    <constraint firstItem="Etw-Bv-tFB" firstAttribute="bottom" secondItem="t9S-RY-XaK" secondAttribute="bottom" id="nnJ-FF-a2c"/>
+                                    <constraint firstItem="Etw-Bv-tFB" firstAttribute="top" secondItem="9pl-qM-rl1" secondAttribute="top" constant="20" id="vJx-3f-nk8"/>
+                                </constraints>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5FI-WW-rDX">
+                                <rect key="frame" x="0.0" y="66" width="320" height="502"/>
+                                <subviews>
+                                    <imageView userInteractionEnabled="NO" tag="26" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="abz-JR-gFW">
+                                        <rect key="frame" x="20" y="20" width="75" height="75"/>
+                                        <color key="backgroundColor" red="0.85098039219999999" green="0.85098039219999999" blue="0.85098039219999999" alpha="1" colorSpace="calibratedRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="75" id="929-bO-aD4"/>
+                                        </constraints>
+                                    </imageView>
+                                    <view tag="26" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CWU-ww-0kN">
+                                        <rect key="frame" x="20" y="105" width="280" height="369"/>
+                                        <subviews>
+                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="gOQ-zY-GaE">
+                                                <rect key="frame" x="15" y="30" width="250" height="329"/>
+                                                <color key="backgroundColor" red="0.054901960780000002" green="0.039215686270000001" blue="0.031372549020000001" alpha="1" colorSpace="calibratedRGB"/>
+                                            </imageView>
+                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Vqv-6E-eio">
+                                                <rect key="frame" x="15" y="6" width="18" height="18"/>
+                                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="18" id="LQ4-90-AS2"/>
+                                                    <constraint firstAttribute="height" constant="18" id="nFi-qb-myS"/>
+                                                </constraints>
+                                            </imageView>
+                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="APE-AK-XJv">
+                                                <rect key="frame" x="215" y="6" width="12" height="18"/>
+                                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="12" id="MUs-e3-3ym"/>
+                                                </constraints>
+                                            </imageView>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Mad River" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zQq-Vt-TJN">
+                                                <rect key="frame" x="40" y="6" width="170" height="18"/>
+                                                <fontDescription key="fontDescription" name="ForgottenFuturistRg-Regular" family="Forgotten Futurist" pointSize="24"/>
+                                                <color key="textColor" red="0.2470588235" green="0.2470588235" blue="0.2470588235" alpha="1" colorSpace="calibratedRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="250" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PbL-9s-i6Q">
+                                                <rect key="frame" x="230" y="6" width="50" height="18"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="50" id="LIs-il-FXu"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" name="ForgottenFuturistRg-Regular" family="Forgotten Futurist" pointSize="24"/>
+                                                <color key="textColor" red="0.2470588235" green="0.2470588235" blue="0.2470588235" alpha="1" colorSpace="calibratedRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                        <color key="backgroundColor" red="0.80392156859999997" green="0.80392156859999997" blue="0.80392156859999997" alpha="1" colorSpace="calibratedRGB"/>
+                                        <constraints>
+                                            <constraint firstItem="zQq-Vt-TJN" firstAttribute="leading" secondItem="Vqv-6E-eio" secondAttribute="trailing" constant="7" id="73C-hv-mp0"/>
+                                            <constraint firstItem="APE-AK-XJv" firstAttribute="bottom" secondItem="PbL-9s-i6Q" secondAttribute="bottom" id="Fat-Dz-seq"/>
+                                            <constraint firstItem="zQq-Vt-TJN" firstAttribute="bottom" secondItem="Vqv-6E-eio" secondAttribute="bottom" id="Gn8-bp-bhI"/>
+                                            <constraint firstItem="APE-AK-XJv" firstAttribute="leading" secondItem="zQq-Vt-TJN" secondAttribute="trailing" constant="5" id="M7o-xP-4kw"/>
+                                            <constraint firstItem="gOQ-zY-GaE" firstAttribute="centerX" secondItem="CWU-ww-0kN" secondAttribute="centerX" id="OSg-ho-ySW"/>
+                                            <constraint firstAttribute="bottom" secondItem="gOQ-zY-GaE" secondAttribute="bottom" constant="10" id="Umt-L1-c47"/>
+                                            <constraint firstItem="PbL-9s-i6Q" firstAttribute="top" secondItem="APE-AK-XJv" secondAttribute="top" id="Uqv-qU-7g9"/>
+                                            <constraint firstItem="PbL-9s-i6Q" firstAttribute="baseline" secondItem="zQq-Vt-TJN" secondAttribute="baseline" id="Vat-nF-3Vl"/>
+                                            <constraint firstItem="Vqv-6E-eio" firstAttribute="leading" secondItem="CWU-ww-0kN" secondAttribute="leading" constant="15" id="ba4-6s-mhW"/>
+                                            <constraint firstItem="gOQ-zY-GaE" firstAttribute="top" secondItem="Vqv-6E-eio" secondAttribute="bottom" constant="6" id="c5g-dr-R65"/>
+                                            <constraint firstItem="zQq-Vt-TJN" firstAttribute="firstBaseline" secondItem="PbL-9s-i6Q" secondAttribute="firstBaseline" id="dr4-GD-UEn"/>
+                                            <constraint firstItem="PbL-9s-i6Q" firstAttribute="leading" secondItem="APE-AK-XJv" secondAttribute="trailing" constant="3" id="dwX-Tb-1Xt"/>
+                                            <constraint firstItem="Vqv-6E-eio" firstAttribute="top" secondItem="CWU-ww-0kN" secondAttribute="top" constant="6" id="eez-pu-ZqX"/>
+                                            <constraint firstItem="gOQ-zY-GaE" firstAttribute="leading" secondItem="Vqv-6E-eio" secondAttribute="leading" id="rh9-AZ-ViS"/>
+                                            <constraint firstItem="Vqv-6E-eio" firstAttribute="top" secondItem="zQq-Vt-TJN" secondAttribute="top" id="sQg-wX-QXr"/>
+                                            <constraint firstAttribute="trailing" secondItem="PbL-9s-i6Q" secondAttribute="trailing" id="tvz-Mk-j5u"/>
+                                        </constraints>
+                                    </view>
+                                    <imageView userInteractionEnabled="NO" tag="26" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Mov-U9-rWH">
+                                        <rect key="frame" x="110" y="20" width="190" height="36"/>
+                                        <color key="backgroundColor" red="0.85098039219999999" green="0.85098039219999999" blue="0.85098039219999999" alpha="1" colorSpace="calibratedRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="36" id="bR3-kl-ggs"/>
+                                        </constraints>
+                                    </imageView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Grant Boyle" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Kuq-tW-3r9">
+                                        <rect key="frame" x="114" y="20" width="186" height="36"/>
+                                        <fontDescription key="fontDescription" name="ForgottenFuturistRg-Regular" family="Forgotten Futurist" pointSize="24"/>
+                                        <color key="textColor" red="0.2470588235" green="0.2470588235" blue="0.2470588235" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button opaque="NO" alpha="0.0" tag="26" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sAY-xB-3Fi">
+                                        <rect key="frame" x="110" y="59" width="190" height="36"/>
+                                        <color key="backgroundColor" red="0.76078431369999999" green="0.76078431369999999" blue="0.76078431369999999" alpha="1" colorSpace="calibratedRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="36" id="J0y-lK-YNT"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="ForgottenFuturistRg-Regular" family="Forgotten Futurist" pointSize="24"/>
+                                        <state key="normal" title=" Following">
+                                            <color key="titleColor" red="0.2470588235" green="0.2470588235" blue="0.2470588235" alpha="1" colorSpace="calibratedRGB"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="btnFollowing:" destination="Gqe-YF-6Fc" eventType="touchUpInside" id="hc2-8a-Rm2"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="CWU-ww-0kN" secondAttribute="bottom" constant="28" id="1rh-DF-ZhI"/>
+                                    <constraint firstItem="CWU-ww-0kN" firstAttribute="leading" secondItem="abz-JR-gFW" secondAttribute="leading" id="AA8-Zp-v7e"/>
+                                    <constraint firstItem="Mov-U9-rWH" firstAttribute="leading" secondItem="abz-JR-gFW" secondAttribute="trailing" constant="15" id="CuJ-JJ-nbJ"/>
+                                    <constraint firstItem="sAY-xB-3Fi" firstAttribute="top" secondItem="Mov-U9-rWH" secondAttribute="bottom" constant="3" id="ET7-pL-aCp"/>
+                                    <constraint firstItem="CWU-ww-0kN" firstAttribute="centerX" secondItem="5FI-WW-rDX" secondAttribute="centerX" id="Ima-CK-sCP"/>
+                                    <constraint firstItem="Kuq-tW-3r9" firstAttribute="leading" secondItem="abz-JR-gFW" secondAttribute="trailing" constant="19" id="J4m-Cf-tvB"/>
+                                    <constraint firstItem="Mov-U9-rWH" firstAttribute="top" secondItem="abz-JR-gFW" secondAttribute="top" id="ROy-LT-bJj"/>
+                                    <constraint firstItem="sAY-xB-3Fi" firstAttribute="leading" secondItem="Mov-U9-rWH" secondAttribute="leading" id="TOD-wK-Cq0"/>
+                                    <constraint firstItem="sAY-xB-3Fi" firstAttribute="trailing" secondItem="Kuq-tW-3r9" secondAttribute="trailing" id="cBe-Mj-Xzw"/>
+                                    <constraint firstItem="sAY-xB-3Fi" firstAttribute="bottom" secondItem="abz-JR-gFW" secondAttribute="bottom" id="eTS-LF-Agd"/>
+                                    <constraint firstItem="CWU-ww-0kN" firstAttribute="top" secondItem="abz-JR-gFW" secondAttribute="bottom" constant="10" id="jD3-yb-i4D"/>
+                                    <constraint firstItem="Kuq-tW-3r9" firstAttribute="trailing" secondItem="Mov-U9-rWH" secondAttribute="trailing" id="jF2-pg-XhK"/>
+                                    <constraint firstItem="sAY-xB-3Fi" firstAttribute="trailing" secondItem="CWU-ww-0kN" secondAttribute="trailing" id="ksa-rT-VLY"/>
+                                    <constraint firstItem="abz-JR-gFW" firstAttribute="top" secondItem="5FI-WW-rDX" secondAttribute="top" constant="20" id="r7g-G2-lRJ"/>
+                                    <constraint firstItem="abz-JR-gFW" firstAttribute="leading" secondItem="5FI-WW-rDX" secondAttribute="leading" constant="20" id="sB9-yx-32i"/>
+                                    <constraint firstItem="Mov-U9-rWH" firstAttribute="bottom" secondItem="Kuq-tW-3r9" secondAttribute="bottom" id="saM-4L-leb"/>
+                                    <constraint firstItem="Mov-U9-rWH" firstAttribute="top" secondItem="Kuq-tW-3r9" secondAttribute="top" id="y0c-QQ-NRT"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="2oS-OR-SOl" firstAttribute="top" secondItem="kBg-f0-R1o" secondAttribute="bottom" constant="42" id="9IH-6q-am0"/>
+                            <constraint firstItem="kBg-f0-R1o" firstAttribute="leading" secondItem="9Zs-rC-SUF" secondAttribute="leading" id="UZK-9I-mQ8"/>
+                            <constraint firstItem="kBg-f0-R1o" firstAttribute="leading" secondItem="9pl-qM-rl1" secondAttribute="leading" id="YMa-PE-kfN"/>
+                            <constraint firstItem="kBg-f0-R1o" firstAttribute="trailing" secondItem="5FI-WW-rDX" secondAttribute="trailing" id="YgO-VO-plH"/>
+                            <constraint firstItem="5FI-WW-rDX" firstAttribute="top" secondItem="9pl-qM-rl1" secondAttribute="bottom" constant="2" id="ff4-FG-KAE"/>
+                            <constraint firstItem="kBg-f0-R1o" firstAttribute="top" secondItem="9pl-qM-rl1" secondAttribute="bottom" id="kzA-Yb-VV3"/>
+                            <constraint firstItem="5FI-WW-rDX" firstAttribute="bottom" secondItem="2oS-OR-SOl" secondAttribute="top" id="rcw-xL-qbB"/>
+                            <constraint firstItem="9pl-qM-rl1" firstAttribute="top" secondItem="9Zs-rC-SUF" secondAttribute="top" id="san-s4-HMZ"/>
+                            <constraint firstItem="5FI-WW-rDX" firstAttribute="leading" secondItem="kBg-f0-R1o" secondAttribute="leading" id="twu-YC-eeW"/>
+                            <constraint firstAttribute="trailing" secondItem="5FI-WW-rDX" secondAttribute="trailing" id="wSL-P3-aKE"/>
+                            <constraint firstItem="9pl-qM-rl1" firstAttribute="trailing" secondItem="kBg-f0-R1o" secondAttribute="trailing" id="ydk-20-09i"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="FeedName" destination="zQq-Vt-TJN" id="YU4-W4-d7a"/>
+                        <outlet property="btnFollowing" destination="sAY-xB-3Fi" id="x1C-wl-LTI"/>
+                        <outlet property="feedView" destination="5FI-WW-rDX" id="lVA-FE-iHB"/>
+                        <outlet property="lblUserName" destination="Kuq-tW-3r9" id="q70-U5-YkK"/>
+                        <outlet property="userImageView" destination="abz-JR-gFW" id="TCx-3n-T67"/>
+                        <outlet property="venuImageView" destination="gOQ-zY-GaE" id="gY2-Ih-BdF"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ZyE-KR-kMX" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1648" y="168"/>
         </scene>
     </scenes>
     <resources>
