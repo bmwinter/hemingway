@@ -14,7 +14,7 @@ enum tags:Int {
 }
 
 class ProfileTableViewController: UITableViewController {
-
+    
     @IBOutlet weak var userProfilePic: UIImageView!
     @IBOutlet weak var settings: UIButton!
     @IBOutlet weak var status: UIButton!
@@ -32,12 +32,12 @@ class ProfileTableViewController: UITableViewController {
         self.title = "Pete Dewitt"
         self.navigationItem.backBarButtonItem = UIBarButtonItem(title:"", style:.Plain, target:nil, action:nil)
         self.tableView.backgroundView = UIImageView(image: UIImage(named: "BG"))
-//        self.navigationItem.rightBarButtonItem = showLatestVideos;
+        //        self.navigationItem.rightBarButtonItem = showLatestVideos;
         super.viewDidLoad()
         
         // Do any additional setup after loading the view, typically from a nib.
     }
-
+    
     
     /*
     // Table View delegate methods
@@ -54,19 +54,19 @@ class ProfileTableViewController: UITableViewController {
     /*
     // IBAction methods
     */
-
+    
     /*
     // Show past 72 hours videos/photos
     */
-
+    
     @IBAction func showLatestVideosButtonTapped(sender: AnyObject){
         self.performSegueWithIdentifier("RecentPhoto", sender: nil)
     }
-
+    
     /*
     // Setting button method
     */
-
+    
     @IBAction func settingsButtontapped(sender: AnyObject) {
     }
     
@@ -87,7 +87,7 @@ class ProfileTableViewController: UITableViewController {
     */
     @IBAction func followingButtontapped(sender: AnyObject) {
     }
-
+    
     /*
     // Text View Delegate Method
     */
@@ -103,20 +103,20 @@ class ProfileTableViewController: UITableViewController {
     func textViewDidChange(textView: UITextView){
         
         switch (textView.tag){
-            case tags.biography.rawValue :
-                if !textView.hasText(){
-                    biographyLabel.hidden = false;
-                }else{
-                    biographyLabel.hidden = true;
+        case tags.biography.rawValue :
+            if !textView.hasText(){
+                biographyLabel.hidden = false;
+            }else{
+                biographyLabel.hidden = true;
             }
-            case tags.favBar.rawValue :
-                if !textView.hasText(){
-                    favBarsLabel.hidden = false;
-                }else{
-                    favBarsLabel.hidden = true;
+        case tags.favBar.rawValue :
+            if !textView.hasText(){
+                favBarsLabel.hidden = false;
+            }else{
+                favBarsLabel.hidden = true;
             }
-            default :
-                print("Fizz")
+        default :
+            print("Fizz")
         }
         
         

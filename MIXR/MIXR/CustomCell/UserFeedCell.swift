@@ -9,12 +9,15 @@
 import UIKit
 
 class UserFeedCell: UITableViewCell {
-
+    
     @IBOutlet weak var FeedName: UILabel!
     @IBOutlet weak var lblUserName: UILabel!
     
     @IBOutlet weak var venuImageView: UIImageView!
     @IBOutlet weak var venuBackground: UIView!
+    
+    @IBOutlet weak var userBtn: UIButton!
+    @IBOutlet weak var feedBtn: UIButton!
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -22,13 +25,13 @@ class UserFeedCell: UITableViewCell {
         venuBackground.layer.cornerRadius = 0.0
         self.layer.borderColor = UIColor.lightGrayColor().CGColor
         self.layer.borderWidth = 0.5
-
+        
     }
-
+    
     override func setSelected(selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
+        
         // Configure the view for the selected state
     }
-
+    
 }

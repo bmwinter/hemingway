@@ -7,11 +7,12 @@
 //
 
 import UIKit
+import SwiftyJSON
 
 class SearchViewController: UIViewController, UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,APIConnectionDelegate {
     
+    //var usersArray : Array<JSON> = []
     var usersArray : NSMutableArray = NSMutableArray()
-    
     var usersArray1 : NSMutableArray = NSMutableArray()
     
     var searchingArray:NSMutableArray!
@@ -59,7 +60,6 @@ class SearchViewController: UIViewController, UITableViewDelegate,UITableViewDat
     {
         if (isLocalData)
         {
-            
             usersArray.addObject(["userName":"Micheal Clarke","userImage":"userImage1.jpg"])
             usersArray.addObject(["userName":"John Woggs","userImage":"userImage2.jpg"])
             usersArray.addObject(["userName":"Hinns Hawks","userImage":"userImage3.jpg"])
@@ -71,13 +71,12 @@ class SearchViewController: UIViewController, UITableViewDelegate,UITableViewDat
             usersArray.addObject(["userName":"Ronny Hoggs","userImage":"userImage9.png"])
             usersArray.addObject(["userName":"Peter Hinns","userImage":"userImage10.jpg"])
             reloadTable()
-            
         }
         else
         {
             let param: Dictionary = Dictionary<String, AnyObject>()
             //call API for to get venues
-            let object = APIConnection().POST(APIName.Users.rawValue, withAPIName:"SearchUser", withMessage:"", withParam: param, withProgresshudShow: true, isShowNoInternetView: false) as! APIConnection
+            let object = APIConnection().POST(APIName.Users.rawValue, withAPIName:"SearchUser", withMessage:"", withParam: param, withProgresshudShow: true, withHeader: false) as! APIConnection
             object.delegate = self
         }
     }
@@ -96,14 +95,15 @@ class SearchViewController: UIViewController, UITableViewDelegate,UITableViewDat
     func tableView(tableView: UITableView,
         numberOfRowsInSection section: Int) -> Int
     {
-        if is_searching == true {
+        if is_searching == true
+        {
             return searchingArray.count
-        }else{
+        }
+        else
+        {
             return usersArray.count  //Currently Giving default Value
         }
-        
     }
-    
     
     func tableView(tableView: UITableView,
         cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell
@@ -111,19 +111,20 @@ class SearchViewController: UIViewController, UITableViewDelegate,UITableViewDat
         
         let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as! SearchTableViewCell
         
-        if is_searching == true{
+        if is_searching == true
+        {
             let feedDict : NSDictionary = searchingArray[indexPath.row] as! NSDictionary
             cell.imagePerson.image  = UIImage(named: feedDict["userImage"] as! String)
             cell.labelName.text = feedDict["userName"] as! NSString as String
-          cell.mobileNumber.text = feedDict["phoneNumber"] as! NSString as String
-            
-            
-            //            cell.textLabel!.text = searchingArray[indexPath.row] as! NSString as String
-        }else{
+            cell.mobileNumber.text = feedDict["phoneNumber"] as! NSString as String
+            //cell.textLabel!.text = searchingArray[indexPath.row] as! NSString as String
+        }
+        else
+        {
             let feedDict : NSDictionary = usersArray[indexPath.row] as! NSDictionary
             cell.imagePerson.image  = UIImage(named: feedDict["userImage"] as! String)
             cell.labelName.text = feedDict["userName"] as? String
-           cell.mobileNumber.text = feedDict["phoneNumber"] as! NSString as String
+            cell.mobileNumber.text = feedDict["phoneNumber"] as! NSString as String
         }
         return cell
     }
@@ -155,6 +156,8 @@ class SearchViewController: UIViewController, UITableViewDelegate,UITableViewDat
             let temp = self.searchBarObj.text
             print(self.usersArray)
             
+            var tempArray : NSMutableArray = []
+            
             let resultPredicate : NSPredicate = NSPredicate(format: "userName contains[c] %@ || phoneNumber contains[c] %@",searchBar.text! as NSString,searchBar.text! as NSString)
             let searchResults = self.usersArray.filteredArrayUsingPredicate(resultPredicate)
             self.searchingArray = NSMutableArray(array: searchResults)
@@ -165,21 +168,16 @@ class SearchViewController: UIViewController, UITableViewDelegate,UITableViewDat
         }
     }
     
-    
-    
     //MARK: - APIConnection Delegate -
     
-    func connectionFailedForAction(action: Int, andWithResponse result: NSDictionary!, method : String)
+    func connectionFailedForAction(action: Int, andWithResponse result: Dictionary <String, JSON>!, method : String)
     {
         switch action
         {
         case APIName.Users.rawValue:
             if ( result != nil)
             {
-                if ( result.isKindOfClass(NSDictionary))
-                {
-                    DLog("\(result)")
-                }
+                DLog("\(result)")
             }
             
         default:
@@ -187,17 +185,14 @@ class SearchViewController: UIViewController, UITableViewDelegate,UITableViewDat
         }
     }
     
-    func connectionDidFinishedErrorResponceForAction(action: Int, andWithResponse result: NSDictionary!, method : String)
+    func connectionDidFinishedErrorResponceForAction(action: Int, andWithResponse result: Dictionary <String, JSON>!, method : String)
     {
         switch action
         {
         case APIName.Users.rawValue:
             if ( result != nil)
             {
-                if ( result.isKindOfClass(NSDictionary))
-                {
-                    DLog("\(result)")
-                }
+                DLog("\(result)")
             }
             
         default:
@@ -206,7 +201,7 @@ class SearchViewController: UIViewController, UITableViewDelegate,UITableViewDat
         
     }
     
-    func connectionDidFinishedForAction(action: Int, andWithResponse result: NSDictionary!, method : String)
+    func connectionDidFinishedForAction(action: Int, andWithResponse result: Dictionary <String, JSON>!, method : String)
     {
         switch action
         {
@@ -214,12 +209,12 @@ class SearchViewController: UIViewController, UITableViewDelegate,UITableViewDat
             
             if ( result != nil)
             {
-                if ( result.isKindOfClass(NSDictionary))
-                {
-                    usersArray = result["data"] as! NSMutableArray
-                    DLog("usersArray \(usersArray)")
-                    reloadTable()
-                }
+                DLog("\(result)")
+                self.usersArray = (result["data"]?.arrayObject as? NSMutableArray)!
+                reloadTable()
+                
+                //usersArray = result["data"]!.arrayObject
+                //usersArray = result["data"] as! NSMutableArray
             }
             DLog("Venue")
             

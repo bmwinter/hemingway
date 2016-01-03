@@ -8,13 +8,24 @@
 //
 
 import UIKit
+import SwiftyJSON
+
 let isLocalData = false
 
 class VenueFeedViewController:UIViewController, UITableViewDelegate,UITableViewDataSource,APIConnectionDelegate {
     
+    @IBAction func onUserProfileClicked(sender: AnyObject)
+    {
+        let feedDict : NSDictionary = ["venueName":"App User","venueImage":"venueImage1.jpg","userName":"AppUser Name"]
+        let postViewController : UserProfileViewController = self.storyboard!.instantiateViewControllerWithIdentifier("UserProfileViewController") as! UserProfileViewController
+        postViewController.feedDict = feedDict
+        self.navigationController!.pushViewController(postViewController, animated: true)
+    }
+    
     @IBOutlet weak var tableView: UITableView!
-    var feedsArray : NSMutableArray = NSMutableArray()
-
+    var feedsArray : Array<JSON> = []
+    //var feedsArray : NSArray <JSON> = NSMutableArray()
+    
     override func viewDidLoad()
     {
         super.viewDidLoad()
@@ -27,6 +38,7 @@ class VenueFeedViewController:UIViewController, UITableViewDelegate,UITableViewD
     {
         if (isLocalData)
         {
+            /*
             feedsArray.addObject(["venueName":"Mad River1","venueImage":"venueImage1.jpg","userName":"Grant Boyle1"])
             feedsArray.addObject(["venueName":"Mad River2","venueImage":"venueImage2.jpg","userName":"Grant Boyle2"])
             feedsArray.addObject(["venueName":"Mad River3","venueImage":"venueImage3.jpg","userName":"Grant Boyle3"])
@@ -38,33 +50,20 @@ class VenueFeedViewController:UIViewController, UITableViewDelegate,UITableViewD
             feedsArray.addObject(["venueName":"Mad River9","venueImage":"venueImage9.jpg","userName":"Grant Boyle9"])
             feedsArray.addObject(["venueName":"Mad River10","venueImage":"venueImage10.jpg","userName":"Grant Boyle10"])
             reloadTable()
+            */
         }
         else
         {
             let param: Dictionary = Dictionary<String, AnyObject>()
             //call API for to get venues
-            let object = APIConnection().POST(APIName.Venues.rawValue, withAPIName: "VenueList", withMessage: "", withParam: param, withProgresshudShow: true, isShowNoInternetView: false) as! APIConnection
+            let object = APIConnection().POST(APIName.Venues.rawValue, withAPIName: "VenueList", withMessage: "", withParam: param, withProgresshudShow: true, withHeader: false) as! APIConnection
             object.delegate = self
         }
-        
     }
-
+    
     func reloadTable()
     {
         tableView.reloadData()
-    }
-    
-    @IBAction func onFeedClicked(sender: AnyObject)
-    {
-        let feedBtn : UIButton = sender as! UIButton
-        let feedTag = feedBtn.superview!.tag
-        NSLog("feedTag = \(feedTag)")
-        let feedDict : NSDictionary = feedsArray[feedTag] as! NSDictionary
-
-        
-        let postViewController : PostViewController = self.storyboard!.instantiateViewControllerWithIdentifier("post") as! PostViewController
-        postViewController.feedDict = feedDict
-        self.navigationController!.pushViewController(postViewController, animated: true)
     }
     
     override func viewDidLayoutSubviews()
@@ -88,11 +87,18 @@ class VenueFeedViewController:UIViewController, UITableViewDelegate,UITableViewD
     {
         let cell = tableView.dequeueReusableCellWithIdentifier("tableCell", forIndexPath: indexPath) as! UserFeedCell
         
-        let feedDict : NSDictionary = feedsArray[indexPath.row] as! NSDictionary
+        //let feedDict : Dictionary <String, JSON> = feedsArray[indexPath.row]
         cell.contentView.tag = indexPath.row
+        
+        cell.venuImageView.image = UIImage(named: feedsArray[indexPath.row]["venueImage"].string!)
+        cell.FeedName.text = feedsArray[indexPath.row]["venueName"].string
+        cell.lblUserName.text = feedsArray[indexPath.row]["userName"].string
+        
+        /*
         cell.venuImageView.image = UIImage(named: feedDict["venueImage"] as! String)
         cell.FeedName.text = feedDict["venueName"] as? String
         cell.lblUserName.text = feedDict["userName"] as? String
+        */
         return cell
     }
     
@@ -106,24 +112,47 @@ class VenueFeedViewController:UIViewController, UITableViewDelegate,UITableViewD
         return false
     }
     
+    @IBAction func onUserBtnClicked(sender: AnyObject)
+    {
+        let feedBtn : UIButton = sender as! UIButton
+        let feedTag = feedBtn.superview!.tag
+        NSLog("feedTag = \(feedTag)")
+        let feedDict : NSDictionary = feedsArray[feedTag].dictionaryObject!
+        
+        
+        let postViewController : PostViewController = self.storyboard!.instantiateViewControllerWithIdentifier("post") as! PostViewController
+        postViewController.feedDict = feedDict
+        self.navigationController!.pushViewController(postViewController, animated: true)
+    }
+    
+    @IBAction func onFeedClicked(sender: AnyObject)
+    {
+        return;
+        let feedBtn : UIButton = sender as! UIButton
+        let feedTag = feedBtn.superview!.tag
+        NSLog("feedTag = \(feedTag)")
+        let feedDict : NSDictionary = feedsArray[feedTag].dictionaryObject!
+        
+        
+        let postViewController : PostViewController = self.storyboard!.instantiateViewControllerWithIdentifier("post") as! PostViewController
+        postViewController.feedDict = feedDict
+        self.navigationController!.pushViewController(postViewController, animated: true)
+    }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
+    
     //MARK: - APIConnection Delegate -
     
-    func connectionFailedForAction(action: Int, andWithResponse result: NSDictionary!, method : String)
+    func connectionFailedForAction(action: Int, andWithResponse result: Dictionary <String, JSON>!, method : String)
     {
         switch action
         {
         case APIName.Venues.rawValue:
             if ( result != nil)
             {
-                if ( result.isKindOfClass(NSDictionary))
-                {
-                    DLog("\(result)")
-                }
+                DLog("\(result)")
             }
             
         default:
@@ -131,17 +160,15 @@ class VenueFeedViewController:UIViewController, UITableViewDelegate,UITableViewD
         }
     }
     
-    func connectionDidFinishedErrorResponceForAction(action: Int, andWithResponse result: NSDictionary!, method : String)
+    func connectionDidFinishedErrorResponceForAction(action: Int, andWithResponse result: Dictionary <String, JSON>!, method : String)
     {
         switch action
         {
         case APIName.Venues.rawValue:
             if ( result != nil)
             {
-                if ( result.isKindOfClass(NSDictionary))
-                {
-                    DLog("\(result)")
-                }
+                DLog("\(result)")
+                
             }
             
         default:
@@ -150,7 +177,7 @@ class VenueFeedViewController:UIViewController, UITableViewDelegate,UITableViewD
         
     }
     
-    func connectionDidFinishedForAction(action: Int, andWithResponse result: NSDictionary!, method : String)
+    func connectionDidFinishedForAction(action: Int, andWithResponse result:Dictionary <String, JSON>!, method : String)
     {
         switch action
         {
@@ -158,11 +185,14 @@ class VenueFeedViewController:UIViewController, UITableViewDelegate,UITableViewD
             
             if ( result != nil)
             {
-                if ( result.isKindOfClass(NSDictionary))
-                {
-                    feedsArray = result["data"] as! NSMutableArray
-                    reloadTable()
-                }
+                DLog("\(result)")
+                feedsArray = result["data"]!.arrayValue
+                reloadTable()
+                
+                //                if ( result.isKindOfClass(NSDictionary))
+                //                {
+                //                    feedsArray = result["data"] as! NSMutableArray
+                //                }
             }
             DLog("Venue")
             
@@ -173,7 +203,7 @@ class VenueFeedViewController:UIViewController, UITableViewDelegate,UITableViewD
     
     func connectionDidUpdateAPIProgress(action: Int,bytesWritten: Int64, totalBytesWritten: Int64 ,totalBytesExpectedToWrite: Int64)
     {
-    
+        
     }
 }
 
