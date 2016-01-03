@@ -18,6 +18,19 @@ enum APIName : Int
 
 
 struct globalConstants {
+    static let kAPIURL = "url"
+    
+    static let kLoginAPIEndPoint = "Login"
+    static let kSignUpAPIEndPoint = "SignUp"
+    static let kVerifyAPIEndPoint = "Verify"
+    static let kForgotPasswordAPIEndPoint = "ForgotPassword"
+    static let kChangePasswordAPIEndPoint = "ChangePassword"
+    static let kVenueDetailsAPIEndPoint = "VenueDetails"
+    static let kNotificationsAPIEndPoint = "Notifications"
+    static let kPromotionAPIEndPoint = "Promotions"
+    
+    
+    
     static let kAppName = "MIXR"
     
     static let kValidEmailError = "Please enter valid email"

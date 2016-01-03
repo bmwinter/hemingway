@@ -101,6 +101,11 @@ class SignUpTableViewController: UITableViewController {
 
     @IBAction func signupButtonTapped(sender: AnyObject){
         
+        
+        self.navigationController?.navigationBarHidden = false
+        self.performSegueWithIdentifier("SMSVerification", sender: nil)
+        return
+        
         let firstnameString = firstname.text!.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
         let lastnameString = lastname.text!.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
         

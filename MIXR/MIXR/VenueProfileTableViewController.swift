@@ -44,7 +44,7 @@ class VenueProfileTableViewController: UITableViewController {
             test = UILabel()
             test.textAlignment = NSTextAlignmentFromCTTextAlignment(CTTextAlignment.Center)
             test.text = "Test Data"
-            test.font = UIFont.systemFontOfSize(15)
+            test.font = UIFont(name: "ForgottenFuturistRg-Regular", size: 20)
             test.frame = CGRectMake(0, (CGFloat)(i * 20), self.eventsScrollView.frame.size.width, 20);
             self.eventsScrollView.addSubview(test)
         }

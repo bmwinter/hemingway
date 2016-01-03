@@ -8,6 +8,8 @@
 
 import UIKit
 import IQKeyboardManagerSwift
+import Alamofire
+import SwiftyJSON
 
 class LoginViewController: UIViewController {
     
@@ -93,6 +95,37 @@ class LoginViewController: UIViewController {
             self.displayCommonAlert(globalConstants.kValidEmailError)
         }
         
+    }
+    
+    func performLoginAction(){
+        let parameters = [
+            "email": userEmailTextField.text!.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet()),
+            "password": userPasswordTextField.text!.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())]
+
+        let URL =  globalConstants.kAPIURL + globalConstants.kLoginAPIEndPoint
+
+        Alamofire.request(.POST, URL , parameters: parameters, encoding: .JSON)
+            .responseJSON { response in
+                guard let value = response.result.value else {
+                    print("Error: did not receive data")
+                    return
+                }
+                
+                guard response.result.error == nil else {
+                    print("error calling POST on Login")
+                    print(response.result.error)
+                    return
+                }
+                let post = JSON(value)
+                
+                print("The post is: " + post.description)
+                if let email = post["email"].string {
+                    print("The title is: " + email)
+                } else {
+                    print("Error parsing JSON")
+                }
+
+        }
     }
     
     /*

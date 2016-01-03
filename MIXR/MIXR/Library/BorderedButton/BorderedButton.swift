@@ -28,5 +28,6 @@ class BorderedButton : UIButton {
     func setup() {
         self.layer.borderWidth = 2.0
         self.layer.borderColor = UIColor(red: (214.0/255.0), green: (214.0/255.0), blue: (214.0/255.0), alpha: 1).CGColor
+        self.titleLabel?.font = UIFont(name: "ForgottenFuturistRg-Regular", size: 24)
     }
 }

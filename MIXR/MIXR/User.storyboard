@@ -4,6 +4,34 @@
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
     </dependencies>
+    <customFonts key="customFonts">
+        <mutableArray key="forgotten futurist rg.ttf">
+            <string>ForgottenFuturistRg-Regular</string>
+            <string>ForgottenFuturistRg-Regular</string>
+            <string>ForgottenFuturistRg-Regular</string>
+            <string>ForgottenFuturistRg-Regular</string>
+            <string>ForgottenFuturistRg-Regular</string>
+            <string>ForgottenFuturistRg-Regular</string>
+            <string>ForgottenFuturistRg-Regular</string>
+            <string>ForgottenFuturistRg-Regular</string>
+            <string>ForgottenFuturistRg-Regular</string>
+            <string>ForgottenFuturistRg-Regular</string>
+            <string>ForgottenFuturistRg-Regular</string>
+            <string>ForgottenFuturistRg-Regular</string>
+            <string>ForgottenFuturistRg-Regular</string>
+            <string>ForgottenFuturistRg-Regular</string>
+            <string>ForgottenFuturistRg-Regular</string>
+            <string>ForgottenFuturistRg-Regular</string>
+            <string>ForgottenFuturistRg-Regular</string>
+            <string>ForgottenFuturistRg-Regular</string>
+            <string>ForgottenFuturistRg-Regular</string>
+            <string>ForgottenFuturistRg-Regular</string>
+            <string>ForgottenFuturistRg-Regular</string>
+            <string>ForgottenFuturistRg-Regular</string>
+            <string>ForgottenFuturistRg-Regular</string>
+            <string>ForgottenFuturistRg-Regular</string>
+        </mutableArray>
+    </customFonts>
     <scenes>
         <!--Navigation Controller-->
         <scene sceneID="iIW-ji-o03">
@@ -125,6 +153,7 @@
                                         <constraints>
                                             <constraint firstAttribute="height" constant="30" id="M7d-ye-QDV"/>
                                         </constraints>
+                                        <fontDescription key="fontDescription" name="ForgottenFuturistRg-Regular" family="Forgotten Futurist" pointSize="17"/>
                                         <state key="normal" title="Reset Password">
                                             <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
@@ -220,7 +249,7 @@
                                             <subviews>
                                                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VS0-u6-9oD">
                                                     <rect key="frame" x="13" y="5" width="299" height="40"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                                    <fontDescription key="fontDescription" name="ForgottenFuturistRg-Regular" family="Forgotten Futurist" pointSize="22"/>
                                                     <inset key="contentEdgeInsets" minX="6" minY="0.0" maxX="0.0" maxY="0.0"/>
                                                     <state key="normal" title="Edit Profile">
                                                         <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
@@ -249,7 +278,7 @@
                                             <subviews>
                                                 <button opaque="NO" tag="1" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Y6f-L6-zSO">
                                                     <rect key="frame" x="13" y="5" width="299" height="40"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                                    <fontDescription key="fontDescription" name="ForgottenFuturistRg-Regular" family="Forgotten Futurist" pointSize="22"/>
                                                     <inset key="contentEdgeInsets" minX="6" minY="0.0" maxX="0.0" maxY="0.0"/>
                                                     <state key="normal" title="Change Password">
                                                         <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
@@ -278,7 +307,7 @@
                                             <subviews>
                                                 <button opaque="NO" tag="2" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2iT-ud-Yx5">
                                                     <rect key="frame" x="13" y="5" width="299" height="40"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                                    <fontDescription key="fontDescription" name="ForgottenFuturistRg-Regular" family="Forgotten Futurist" pointSize="22"/>
                                                     <inset key="contentEdgeInsets" minX="6" minY="0.0" maxX="0.0" maxY="0.0"/>
                                                     <state key="normal" title="Change Name">
                                                         <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
@@ -307,7 +336,7 @@
                                             <subviews>
                                                 <button opaque="NO" tag="2" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KJw-09-hGH">
                                                     <rect key="frame" x="13" y="5" width="299" height="40"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                                    <fontDescription key="fontDescription" name="ForgottenFuturistRg-Regular" family="Forgotten Futurist" pointSize="22"/>
                                                     <inset key="contentEdgeInsets" minX="6" minY="0.0" maxX="0.0" maxY="0.0"/>
                                                     <state key="normal" title="Private Account">
                                                         <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
@@ -339,7 +368,7 @@
                                             <subviews>
                                                 <button opaque="NO" tag="3" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="in8-Il-TLB">
                                                     <rect key="frame" x="13" y="5" width="299" height="40"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                                    <fontDescription key="fontDescription" name="ForgottenFuturistRg-Regular" family="Forgotten Futurist" pointSize="22"/>
                                                     <inset key="contentEdgeInsets" minX="6" minY="0.0" maxX="0.0" maxY="0.0"/>
                                                     <state key="normal" title="Privacy Policy">
                                                         <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
@@ -368,7 +397,7 @@
                                             <subviews>
                                                 <button opaque="NO" tag="4" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wdK-Oa-vcc">
                                                     <rect key="frame" x="13" y="5" width="299" height="40"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                                    <fontDescription key="fontDescription" name="ForgottenFuturistRg-Regular" family="Forgotten Futurist" pointSize="22"/>
                                                     <inset key="contentEdgeInsets" minX="6" minY="0.0" maxX="0.0" maxY="0.0"/>
                                                     <state key="normal" title="Terms &amp; Condition">
                                                         <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
@@ -397,7 +426,7 @@
                                             <subviews>
                                                 <button opaque="NO" tag="5" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Amh-T8-unj">
                                                     <rect key="frame" x="13" y="5" width="299" height="40"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                                    <fontDescription key="fontDescription" name="ForgottenFuturistRg-Regular" family="Forgotten Futurist" pointSize="22"/>
                                                     <inset key="contentEdgeInsets" minX="6" minY="0.0" maxX="0.0" maxY="0.0"/>
                                                     <state key="normal" title="Logout">
                                                         <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
@@ -468,7 +497,7 @@
                                                 <constraint firstAttribute="height" constant="21" id="f71-iF-hjc"/>
                                                 <constraint firstAttribute="width" constant="65" id="wsn-12-tbl"/>
                                             </constraints>
-                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <fontDescription key="fontDescription" name="ForgottenFuturistRg-Regular" family="Forgotten Futurist" pointSize="17"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
@@ -573,7 +602,7 @@
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="21" id="vFr-cI-NPk"/>
                                             </constraints>
-                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                            <fontDescription key="fontDescription" name="ForgottenFuturistRg-Regular" family="Forgotten Futurist" pointSize="17"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
@@ -583,7 +612,7 @@
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="38" id="W18-bD-c8h"/>
                                             </constraints>
-                                            <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                            <fontDescription key="fontDescription" name="ForgottenFuturistRg-Regular" family="Forgotten Futurist" pointSize="24"/>
                                             <state key="normal" title="Sign Up">
                                                 <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -872,7 +901,7 @@
                                 </imageView>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="100 likes" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3dl-e1-rHZ">
                                     <rect key="frame" x="72" y="32" width="83" height="36"/>
-                                    <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                    <fontDescription key="fontDescription" name="ForgottenFuturistRg-Regular" family="Forgotten Futurist" pointSize="18"/>
                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                     <nil key="highlightedColor"/>
                                 </label>
@@ -1127,7 +1156,7 @@
                                                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="53p-CH-yJh">
                                                     <rect key="frame" x="212" y="5" width="100" height="30"/>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <fontDescription key="fontDescription" name="ForgottenFuturistRg-Regular" family="Forgotten Futurist" pointSize="17"/>
                                                     <state key="normal" title="Resend code">
                                                         <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                                     </state>
@@ -1282,15 +1311,18 @@
                                             <rect key="frame" x="8" y="0.0" width="304" height="50"/>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </view>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ey2-Sf-1fS">
+                                            <rect key="frame" x="14" y="5" width="40" height="40"/>
+                                        </imageView>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Test Notification is the long text allow" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="32Z-hX-9TC" userLabel="Noti. message">
-                                            <rect key="frame" x="15" y="14" width="234" height="21"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                            <rect key="frame" x="58" y="14" width="191" height="21"/>
+                                            <fontDescription key="fontDescription" name="ForgottenFuturistRg-Regular" family="Forgotten Futurist" pointSize="15"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="1 hr ago" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Atm-F5-tyt" userLabel="Time">
                                             <rect key="frame" x="249" y="14" width="55" height="21"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                            <fontDescription key="fontDescription" name="ForgottenFuturistRg-Regular" family="Forgotten Futurist" pointSize="15"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
@@ -1302,6 +1334,7 @@
                                     <outlet property="cellBGView" destination="QQr-wC-WzP" id="R3a-rZ-DIW"/>
                                     <outlet property="notificationText" destination="32Z-hX-9TC" id="nVU-cv-tMx"/>
                                     <outlet property="notificationTimeStamp" destination="Atm-F5-tyt" id="LR4-UX-SEQ"/>
+                                    <outlet property="userPic" destination="Ey2-Sf-1fS" id="buM-aB-TrD"/>
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="PromotionsCell" rowHeight="50" id="MDF-uT-WDU" customClass="PromotionsCell">
@@ -1317,13 +1350,13 @@
                                         </view>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Test Notification update iincluding the " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Yhs-Fw-4GN" userLabel="Noti. message">
                                             <rect key="frame" x="15" y="14" width="237" height="21"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                            <fontDescription key="fontDescription" name="ForgottenFuturistRg-Regular" family="Forgotten Futurist" pointSize="15"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="2 hr ago" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gT6-26-KqL" userLabel="Time">
                                             <rect key="frame" x="248" y="14" width="55" height="21"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                            <fontDescription key="fontDescription" name="ForgottenFuturistRg-Regular" family="Forgotten Futurist" pointSize="15"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
@@ -1332,6 +1365,7 @@
                                 </tableViewCellContentView>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <connections>
+                                    <outlet property="cellBGView" destination="Hn9-dx-FKP" id="my8-Af-PBt"/>
                                     <outlet property="notificationText" destination="Yhs-Fw-4GN" id="Az7-I7-7mh"/>
                                     <outlet property="notificationTimeStamp" destination="gT6-26-KqL" id="iUO-1u-y6V"/>
                                 </connections>
@@ -1368,44 +1402,44 @@
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Congratulations!" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZYg-8t-9WE">
                                     <rect key="frame" x="138" y="52" width="168" height="34"/>
-                                    <fontDescription key="fontDescription" type="system" pointSize="21"/>
+                                    <fontDescription key="fontDescription" name="ForgottenFuturistRg-Regular" family="Forgotten Futurist" pointSize="23"/>
                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="This offer is valid for" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mi5-cd-yyp">
                                     <rect key="frame" x="138" y="90" width="168" height="21"/>
-                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                    <fontDescription key="fontDescription" name="ForgottenFuturistRg-Regular" family="Forgotten Futurist" pointSize="17"/>
                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="One $3.00 Margarita" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="85Q-ph-jfi">
                                     <rect key="frame" x="138" y="115" width="168" height="21"/>
-                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                    <fontDescription key="fontDescription" name="ForgottenFuturistRg-Regular" family="Forgotten Futurist" pointSize="16"/>
                                     <color key="textColor" red="0.42352941176470588" green="0.58431372549019611" blue="0.32549019607843138" alpha="1" colorSpace="calibratedRGB"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Expires in: 1 hr 21 min" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bFP-mT-d7D">
                                     <rect key="frame" x="8" y="193" width="304" height="21"/>
-                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                    <fontDescription key="fontDescription" name="ForgottenFuturistRg-Regular" family="Forgotten Futurist" pointSize="18"/>
                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Promotion must be shown to server in order to redeem." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gNI-4p-yaK">
                                     <rect key="frame" x="8" y="227" width="304" height="49"/>
-                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                    <fontDescription key="fontDescription" name="ForgottenFuturistRg-Regular" family="Forgotten Futurist" pointSize="18"/>
                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Offer expires 28/11/15 12:00 am" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0v5-BQ-1TL">
                                     <rect key="frame" x="8" y="289" width="304" height="21"/>
-                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                    <fontDescription key="fontDescription" name="ForgottenFuturistRg-Regular" family="Forgotten Futurist" pointSize="18"/>
                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RbP-wH-nRA">
                                     <rect key="frame" x="57" y="349" width="205" height="38"/>
                                     <color key="backgroundColor" red="0.4941176471" green="0.63921568630000003" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
-                                    <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                    <fontDescription key="fontDescription" name="ForgottenFuturistRg-Regular" family="Forgotten Futurist" pointSize="24"/>
                                     <state key="normal" title="Redeem">
                                         <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
