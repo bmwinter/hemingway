@@ -97,6 +97,10 @@ class LoginViewController: UIViewController {
         
     }
     
+    /*
+    // performLoginAction used to Call the Login API & store logged in user's data in NSUserDefault
+    */
+    
     func performLoginAction(){
         let parameters = [
             "email": userEmailTextField.text!.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet()),
@@ -117,6 +121,7 @@ class LoginViewController: UIViewController {
                     return
                 }
                 let post = JSON(value)
+                NSUserDefaults.standardUserDefaults().setObject(post as! AnyObject, forKey: "loggedInUserInfo")
                 
                 print("The post is: " + post.description)
                 if let email = post["email"].string {

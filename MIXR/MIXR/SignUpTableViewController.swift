@@ -6,6 +6,8 @@
 //  Copyright (c) 2015 MIXR LLC. All rights reserved.
 //
 import UIKit
+import Alamofire
+import SwiftyJSON
 
 extension NSDate {
     func yearsFrom(date:NSDate) -> Int{
@@ -159,6 +161,40 @@ class SignUpTableViewController: UITableViewController {
         self.navigationController?.navigationBarHidden = false
         self.performSegueWithIdentifier("SMSVerification", sender: nil)
     }
+    
+    /*
+    // performLoginAction used to Call the Login API & store logged in user's data in NSUserDefault
+    */
+    
+    func performSignUp(){
+        let parameters = [
+            "firstName": firstname.text!.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet()),
+            "lastName": lastname.text!.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet()),
+            "password": password.text!.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet()),
+            "email": email.text!.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet()),
+            "birthdate": dob.titleLabel!.text!.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet()),
+            "gender": "Male"
+        ]
+        
+        let URL =  globalConstants.kAPIURL + globalConstants.kSignUpAPIEndPoint
+        
+        Alamofire.request(.POST, URL , parameters: parameters, encoding: .JSON)
+            .responseJSON { response in
+                guard let value = response.result.value else {
+                    print("Error: did not receive data")
+                    return
+                }
+                
+                guard response.result.error == nil else {
+                    print("error calling POST on SignUp")
+                    print(response.result.error)
+                    return
+                }
+                let post = JSON(value)
+                print("The post is: " + post.description)
+        }
+    }
+
     
     /* IBActions */
     @IBAction func datePickerTapped(sender: AnyObject) {

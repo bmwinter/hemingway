@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="15A282b" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="Q1N-HV-Btx">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="8191" systemVersion="14E46" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="Q1N-HV-Btx">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
     </dependencies>
     <customFonts key="customFonts">
         <mutableArray key="forgotten futurist rg.ttf">
@@ -893,14 +893,11 @@
                             <rect key="frame" x="0.0" y="0.0" width="320" height="510"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
-                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="logowithName" translatesAutoresizingMaskIntoConstraints="NO" id="WkB-fA-hIP" customClass="BorderedImageView" customModule="MIXR" customModuleProvider="target">
-                                    <rect key="frame" x="10" y="20" width="60" height="60"/>
+                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="martini" translatesAutoresizingMaskIntoConstraints="NO" id="WkB-fA-hIP" customClass="BorderedImageView" customModule="MIXR" customModuleProvider="target">
+                                    <rect key="frame" x="15" y="20" width="60" height="60"/>
                                 </imageView>
-                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="logowithName" translatesAutoresizingMaskIntoConstraints="NO" id="web-EF-Rc8">
-                                    <rect key="frame" x="160" y="20" width="150" height="60"/>
-                                </imageView>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="100 likes" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3dl-e1-rHZ">
-                                    <rect key="frame" x="72" y="32" width="83" height="36"/>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="100 likes" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3dl-e1-rHZ">
+                                    <rect key="frame" x="251" y="32" width="54" height="48"/>
                                     <fontDescription key="fontDescription" name="ForgottenFuturistRg-Regular" family="Forgotten Futurist" pointSize="18"/>
                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                     <nil key="highlightedColor"/>
@@ -941,6 +938,9 @@
                                         <outlet property="delegate" destination="MNN-eG-nUK" id="Ola-Kf-uLD"/>
                                     </connections>
                                 </scrollView>
+                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="logowithName" translatesAutoresizingMaskIntoConstraints="NO" id="web-EF-Rc8">
+                                    <rect key="frame" x="85" y="20" width="150" height="60"/>
+                                </imageView>
                             </subviews>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         </view>
@@ -1506,5 +1506,6 @@
         <image name="Ernst" width="100" height="100"/>
         <image name="UnChecked" width="16" height="16"/>
         <image name="logowithName" width="173" height="69"/>
+        <image name="martini" width="84" height="69"/>
     </resources>
 </document>

@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import Alamofire
+import SwiftyJSON
 
 class VenueProfileTableViewController: UITableViewController {
     
@@ -50,6 +52,36 @@ class VenueProfileTableViewController: UITableViewController {
         }
         
     }
+    
+    /*
+    // getProfileData used to Call Profile API & retrieve the user's profile data
+    */
+    
+    func getVenueProfileData(){
+        let parameters = [
+            "userID": "1"
+        ]
+        
+        let URL =  globalConstants.kAPIURL + globalConstants.kVenueDetailsAPIEndPoint
+        
+        Alamofire.request(.POST, URL , parameters: parameters, encoding: .JSON)
+            .responseJSON { response in
+                guard let value = response.result.value else {
+                    print("Error: did not receive data")
+                    return
+                }
+                
+                guard response.result.error == nil else {
+                    print("error calling POST")
+                    print(response.result.error)
+                    return
+                }
+                let post = JSON(value)
+                print("The post is: " + post.description)
+        }
+    }
+    
+
     
     /*
     // Table View delegate methods

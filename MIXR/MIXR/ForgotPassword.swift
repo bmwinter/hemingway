@@ -6,6 +6,8 @@
 //  Copyright © 2015 MIXR LLC. All rights reserved.
 //
 import UIKit
+import Alamofire
+import SwiftyJSON
 
 class ForgotPassword: UITableViewController {
     
@@ -40,6 +42,35 @@ class ForgotPassword: UITableViewController {
     @IBAction func settingsButtonTapped (sender:AnyObject){
         
     }
+    
+    /*
+    // forgotPasswordAPI used to send email to user to reset the password
+    */
+    
+    func forgotPasswordAPI(){
+        let parameters = [
+            "email": email.text!.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
+        ]
+        
+        let URL =  globalConstants.kAPIURL + globalConstants.kForgotPasswordAPIEndPoint
+        
+        Alamofire.request(.POST, URL , parameters: parameters, encoding: .JSON)
+            .responseJSON { response in
+                guard let value = response.result.value else {
+                    print("Error: did not receive data")
+                    return
+                }
+                
+                guard response.result.error == nil else {
+                    print("error calling POST")
+                    print(response.result.error)
+                    return
+                }
+                let post = JSON(value)
+                print("The post is: " + post.description)
+        }
+    }
+
     /*
     // Table View delegate methods
     */
