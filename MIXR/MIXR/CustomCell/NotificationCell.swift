@@ -13,7 +13,7 @@ class NotificationCell: UITableViewCell {
     @IBOutlet weak var notificationTimeStamp: UILabel!
     @IBOutlet weak var userPic: UIImageView!
     @IBOutlet weak var cellBGView: UIView!
-        
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
