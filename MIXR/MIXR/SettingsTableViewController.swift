@@ -83,11 +83,6 @@ class SettingsTableViewController: UITableViewController {
                 print("The post is: " + post.description)
         }
     }
-<<<<<<< HEAD
-    
-=======
-
->>>>>>> origin/dev
     
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 1

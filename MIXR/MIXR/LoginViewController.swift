@@ -105,15 +105,9 @@ class LoginViewController: UIViewController {
         let parameters = [
             "email": userEmailTextField.text!.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet()),
             "password": userPasswordTextField.text!.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())]
-<<<<<<< HEAD
         
         let URL =  globalConstants.kAPIURL + globalConstants.kLoginAPIEndPoint
         
-=======
-
-        let URL =  globalConstants.kAPIURL + globalConstants.kLoginAPIEndPoint
-
->>>>>>> origin/dev
         Alamofire.request(.POST, URL , parameters: parameters, encoding: .JSON)
             .responseJSON { response in
                 guard let value = response.result.value else {
@@ -135,10 +129,6 @@ class LoginViewController: UIViewController {
                 } else {
                     print("Error parsing JSON")
                 }
-<<<<<<< HEAD
-=======
-
->>>>>>> origin/dev
         }
     }
     

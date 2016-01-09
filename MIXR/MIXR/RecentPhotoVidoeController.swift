@@ -10,7 +10,7 @@ import UIKit
 
 class RecentPhotoVidoeController: UIViewController, UICollectionViewDataSource, CollectionViewWaterfallLayoutDelegate {
     @IBOutlet var collectionView: UICollectionView!
-
+    
     lazy var cellSizes: [CGSize] = {
         var _cellSizes = [CGSize]()
         
@@ -21,7 +21,7 @@ class RecentPhotoVidoeController: UIViewController, UICollectionViewDataSource, 
         }
         _cellSizes.append(CGSize(width: 100, height: 100))
         return _cellSizes
-        }()
+    }()
     
     override func viewDidLoad() {
         
@@ -29,7 +29,7 @@ class RecentPhotoVidoeController: UIViewController, UICollectionViewDataSource, 
         
         self.collectionView.backgroundView = UIImageView(image: UIImage(named: "BG"))
         self.title = "Recent Uploads"
-
+        
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
@@ -42,8 +42,8 @@ class RecentPhotoVidoeController: UIViewController, UICollectionViewDataSource, 
         layout.minimumInteritemSpacing = 2
         
         collectionView.collectionViewLayout = layout
-//        collectionView.registerClass(UICollectionReusableView.self, forSupplementaryViewOfKind: CollectionViewWaterfallElementKindSectionHeader, withReuseIdentifier: "Header")
-//        collectionView.registerClass(UICollectionReusableView.self, forSupplementaryViewOfKind: CollectionViewWaterfallElementKindSectionFooter, withReuseIdentifier: "Footer")
+        //        collectionView.registerClass(UICollectionReusableView.self, forSupplementaryViewOfKind: CollectionViewWaterfallElementKindSectionHeader, withReuseIdentifier: "Header")
+        //        collectionView.registerClass(UICollectionReusableView.self, forSupplementaryViewOfKind: CollectionViewWaterfallElementKindSectionFooter, withReuseIdentifier: "Footer")
     }
     
     override func didReceiveMemoryWarning() {
@@ -69,31 +69,31 @@ class RecentPhotoVidoeController: UIViewController, UICollectionViewDataSource, 
         return cell
     }
     
-//    func collectionView(collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, atIndexPath indexPath: NSIndexPath) -> UICollectionReusableView {
-//        var reusableView: UICollectionReusableView? = nil
-//        
-//        if kind == CollectionViewWaterfallElementKindSectionHeader {
-//            reusableView = collectionView.dequeueReusableSupplementaryViewOfKind(kind, withReuseIdentifier: "Header", forIndexPath: indexPath) as? UICollectionReusableView
-//            
-//            if let view = reusableView {
-//                view.backgroundColor = UIColor.redColor()
-//            }
-//        }
-//        else if kind == CollectionViewWaterfallElementKindSectionFooter {
-//            reusableView = collectionView.dequeueReusableSupplementaryViewOfKind(kind, withReuseIdentifier: "Footer", forIndexPath: indexPath) as? UICollectionReusableView
-//            if let view = reusableView {
-//                view.backgroundColor = UIColor.blueColor()
-//            }
-//        }
+    //    func collectionView(collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, atIndexPath indexPath: NSIndexPath) -> UICollectionReusableView {
+    //        var reusableView: UICollectionReusableView? = nil
+    //        
+    //        if kind == CollectionViewWaterfallElementKindSectionHeader {
+    //            reusableView = collectionView.dequeueReusableSupplementaryViewOfKind(kind, withReuseIdentifier: "Header", forIndexPath: indexPath) as? UICollectionReusableView
+    //            
+    //            if let view = reusableView {
+    //                view.backgroundColor = UIColor.redColor()
+    //            }
+    //        }
+    //        else if kind == CollectionViewWaterfallElementKindSectionFooter {
+    //            reusableView = collectionView.dequeueReusableSupplementaryViewOfKind(kind, withReuseIdentifier: "Footer", forIndexPath: indexPath) as? UICollectionReusableView
+    //            if let view = reusableView {
+    //                view.backgroundColor = UIColor.blueColor()
+    //            }
+    //        }
     
-//        return reusableView!
-//    }
+    //        return reusableView!
+    //    }
     
     // MARK: WaterfallLayoutDelegate
     
     func collectionView(collectionView: UICollectionView, layout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
         return CGSizeMake(self.view.frame.size.width/2, self.view.frame.size.width/2);
-//        return cellSizes[indexPath.item]
+        //        return cellSizes[indexPath.item]
     }
-
+    
 }
