@@ -118,7 +118,11 @@ class ProfileTableViewController: UITableViewController {
                 print("The post is: " + post.description)
         }
     }
+<<<<<<< HEAD
     
+=======
+
+>>>>>>> origin/dev
     
     /*
     // Text View Delegate Method
