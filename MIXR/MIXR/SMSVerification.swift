@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import Alamofire
+import SwiftyJSON
 
 
 class SMSVerification: UITableViewController {
@@ -33,6 +35,37 @@ class SMSVerification: UITableViewController {
     @IBAction func settingsButtonTapped (sender:AnyObject){
         
     }
+    
+    
+    /*
+    // checkVerificationCode used to check user entered verification code with server
+    */
+    
+    func checkVerificationCode(){
+        let parameters = [
+            "currentPassword": phoneInput.text!.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet()),
+            "userID":"1"
+        ]
+        
+        let URL =  globalConstants.kAPIURL + globalConstants.kVerifyAPIEndPoint
+        
+        Alamofire.request(.POST, URL , parameters: parameters, encoding: .JSON)
+            .responseJSON { response in
+                guard let value = response.result.value else {
+                    print("Error: did not receive data")
+                    return
+                }
+                
+                guard response.result.error == nil else {
+                    print("error calling POST")
+                    print(response.result.error)
+                    return
+                }
+                let post = JSON(value)
+                print("The post is: " + post.description)
+        }
+    }
+
     /*
     // Table View delegate methods
     */

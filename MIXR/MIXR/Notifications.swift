@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import Alamofire
+import SwiftyJSON
 
 
 class Notifications: UITableViewController {
@@ -99,6 +101,35 @@ class Notifications: UITableViewController {
         self.performSegueWithIdentifier("Promotions", sender: nil)
     }
     
+    
+    /*
+    // getNotifications used to retrieve the notifications
+    */
+    
+    func getNotifications(){
+        let parameters = [
+            "userID": "1"
+        ]
+        
+        let URL =  globalConstants.kAPIURL + globalConstants.kNotificationsAPIEndPoint
+        
+        Alamofire.request(.POST, URL , parameters: parameters, encoding: .JSON)
+            .responseJSON { response in
+                guard let value = response.result.value else {
+                    print("Error: did not receive data")
+                    return
+                }
+                
+                guard response.result.error == nil else {
+                    print("error calling POST")
+                    print(response.result.error)
+                    return
+                }
+                let post = JSON(value)
+                print("The post is: " + post.description)
+        }
+    }
+
     /*
     // Segment Control Delegate Method
     */

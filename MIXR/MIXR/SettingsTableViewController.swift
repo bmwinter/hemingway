@@ -6,6 +6,8 @@
 //  Copyright © 2015 MIXR LLC. All rights reserved.
 //
 import UIKit
+import Alamofire
+import SwiftyJSON
 
 enum settingsTag:Int {
     case editProfile
@@ -27,9 +29,9 @@ class SettingsTableViewController: UITableViewController {
         self.title = "Settings"
         // Do any additional setup after loading the view, typically from a nib.
     }
-
-    @IBAction func settingsButtonTapped (sender:AnyObject){
-
+    
+    @IBAction func settingsButtonTapped (sender:AnyObject)
+    {
         let button = sender as? UIButton
         switch (button?.tag) {
         case settingsTag.editProfile.rawValue? :
@@ -54,6 +56,35 @@ class SettingsTableViewController: UITableViewController {
         
     }
     
+    /*
+    // getSettingsData used to retrieve user settings data
+    */
+    
+    func getSettingsData(){
+        let parameters = [
+            "userID": "1"
+        ]
+        
+        let URL =  globalConstants.kAPIURL + globalConstants.kSettingAPIEndPoint
+        
+        Alamofire.request(.POST, URL , parameters: parameters, encoding: .JSON)
+            .responseJSON { response in
+                guard let value = response.result.value else {
+                    print("Error: did not receive data")
+                    return
+                }
+                
+                guard response.result.error == nil else {
+                    print("error calling POST")
+                    print(response.result.error)
+                    return
+                }
+                let post = JSON(value)
+                print("The post is: " + post.description)
+        }
+    }
+    
+    
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 1
     }
@@ -62,5 +93,5 @@ class SettingsTableViewController: UITableViewController {
         return 7
     }
     
-
+    
 }

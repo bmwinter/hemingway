@@ -476,12 +476,11 @@ public class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
     }
     
     /**
-    Returns YES if ViewController class is disabled for library, otherwise returns NO.
-    
-    @param disabledClass Class which is to check for it's disability.
-    */
-    public func isDisableInViewControllerClass(disabledClass : AnyClass) -> Bool {
-        return _disabledClasses.contains(NSStringFromClass(disabledClass))
+     Returns All disabled classes reigstered with disableInViewControllerClass.
+     */
+    public func disabledInViewControllerClassesString() -> Set<String> {
+        
+        return _disabledClasses;
     }
     
     /**
@@ -507,8 +506,8 @@ public class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
     
     @param toolbarDisabledClass Class which is to check for toolbar disability.
     */
-    public func isDisableToolbarInViewControllerClass(toolbarDisabledClass : AnyClass) -> Bool {
-        return _disabledToolbarClasses.contains(NSStringFromClass(toolbarDisabledClass))
+    public func disabledToolbarInViewControllerClassesString() -> Set<String> {
+        return _disabledToolbarClasses;
     }
     
     /**
@@ -534,8 +533,8 @@ public class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
     
     @param toolbarPreviousNextConsideredClass Class which is to check for previous next consideration
     */
-    public func isConsiderToolbarPreviousNextInViewClass(toolbarPreviousNextConsideredClass : AnyClass) -> Bool {
-        return _toolbarPreviousNextConsideredClass.contains(NSStringFromClass(toolbarPreviousNextConsideredClass))
+    public func consideredToolbarPreviousNextViewClassesString() -> Set<String> {
+        return _toolbarPreviousNextConsideredClass;
     }
 
 
@@ -655,17 +654,24 @@ public class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
 
         //Creating gesture for @shouldResignOnTouchOutside. (Enhancement ID: #14)
         _tapGesture = UITapGestureRecognizer(target: self, action: "tapRecognized:")
+        _tapGesture.cancelsTouchesInView = false
         _tapGesture.delegate = self
         _tapGesture.enabled = shouldResignOnTouchOutside
         
         disableInViewControllerClass(UITableViewController)
         considerToolbarPreviousNextInViewClass(UITableView)
         considerToolbarPreviousNextInViewClass(UICollectionView)
+        
+        //Workaround to load all appearance proxies at startup
+        let barButtonItem2 = IQTitleBarButtonItem()
+        barButtonItem2.title = ""
+        let toolbar = IQToolbar()
+        toolbar.title = ""
     }
     
     /** Override +load method to enable KeyboardManager when class loader load IQKeyboardManager. Enabling when app starts (No need to write any code) */
-    /** It doesn't work on Swift 1.2 */
-//    override class func load() {
+    /** It doesn't work from Swift 1.2 */
+//    override public class func load() {
 //        super.load()
 //        
 //        //Enabling IQKeyboardManager.
@@ -1397,9 +1403,9 @@ public class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
 
                 // TODO: restore scrollView state
                 // This is temporary solution. Have to implement the save and restore scrollView state
-                var superScrollView = lastScrollView
-                
-                while let scrollView = superScrollView.superviewOfClassType(UIScrollView) as? UIScrollView {
+                var superScrollView : UIScrollView? = lastScrollView
+
+                while let scrollView = superScrollView {
 
                     let contentSize = CGSizeMake(max(scrollView.contentSize.width, CGRectGetWidth(scrollView.frame)), max(scrollView.contentSize.height, CGRectGetHeight(scrollView.frame)))
                     
@@ -1411,7 +1417,7 @@ public class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
                         self._IQShowLog("Restoring \(scrollView._IQDescription()) contentOffset to : \(self._startingContentOffset)")
                     }
                     
-                    superScrollView = scrollView
+                    superScrollView = scrollView.superviewOfClassType(UIScrollView) as? UIScrollView
                 }
                 }) { (finished) -> Void in }
         }

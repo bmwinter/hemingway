@@ -17,7 +17,7 @@ class PostViewController: UIViewController {
     @IBOutlet weak var userImageView: UIImageView!
     @IBOutlet weak var feedView: UIView!
     @IBOutlet weak var btnFollowing: UIButton!
-    
+    @IBOutlet weak var btnFeedName: UIButton!
     override func viewDidLoad()
     {
         super.viewDidLoad()
@@ -31,8 +31,8 @@ class PostViewController: UIViewController {
         {
             self.userImageView.image = UIImage(named: "userImage4.jpg")
             self.venuImageView.image = UIImage(named: feedDict["venueImage"] as! String)
-            self.FeedName.text = feedDict["venueName"] as? String
-            self.lblUserName.text = feedDict["userName"] as? String
+            //self.FeedName.text = feedDict["venueName"] as? String
+            //self.lblUserName.text = feedDict["userName"] as? String
         }
         
         for subview in feedView.subviews

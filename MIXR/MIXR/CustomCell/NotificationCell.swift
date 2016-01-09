@@ -14,17 +14,18 @@ class NotificationCell: UITableViewCell {
     @IBOutlet weak var userPic: UIImageView!
     @IBOutlet weak var cellBGView: UIView!
     
-    override func awakeFromNib() {
+    override func awakeFromNib()
+    {
         super.awakeFromNib()
         // Initialization code
         cellBGView.layer.cornerRadius = 0.0
-        cellBGView.layer.borderColor = UIColor.grayColor().CGColor
-        cellBGView.layer.borderWidth = 1.0
+        cellBGView.layer.borderWidth = 2.0
+        cellBGView.layer.borderColor = UIColor(red: (214.0/255.0), green: (214.0/255.0), blue: (214.0/255.0), alpha: 1).CGColor
     }
     
-    override func setSelected(selected: Bool, animated: Bool) {
+    override func setSelected(selected: Bool, animated: Bool)
+    {
         super.setSelected(selected, animated: animated)
-        
         // Configure the view for the selected state
     }
     

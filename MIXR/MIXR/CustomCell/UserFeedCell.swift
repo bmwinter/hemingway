@@ -19,13 +19,13 @@ class UserFeedCell: UITableViewCell {
     @IBOutlet weak var userBtn: UIButton!
     @IBOutlet weak var feedBtn: UIButton!
     
-    override func awakeFromNib() {
+    override func awakeFromNib()
+    {
         super.awakeFromNib()
         // Initialization code
         venuBackground.layer.cornerRadius = 0.0
-        self.layer.borderColor = UIColor.lightGrayColor().CGColor
-        self.layer.borderWidth = 0.5
-        
+        venuBackground.layer.borderColor = UIColor(red: (214.0/255.0), green: (214.0/255.0), blue: (214.0/255.0), alpha: 1).CGColor //UIColor.lightGrayColor().CGColor
+        venuBackground.layer.borderWidth = 2.0
     }
     
     override func setSelected(selected: Bool, animated: Bool) {

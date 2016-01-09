@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import Alamofire
+import SwiftyJSON
 
 
 class ChangePassword: UITableViewController {
@@ -32,6 +34,36 @@ class ChangePassword: UITableViewController {
     @IBAction func settingsButtonTapped (sender:AnyObject){
         
     }
+    
+    /*
+    // getSettingsData used to retrieve user settings data
+    */
+    
+    func changePasswordAPICall(){
+        let parameters = [
+            "currentPassword": currentPassword.text!.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet()),
+            "changedPassword": changePassword.text!.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
+        ]
+        
+        let URL =  globalConstants.kAPIURL + globalConstants.kChangePasswordAPIEndPoint
+        
+        Alamofire.request(.POST, URL , parameters: parameters, encoding: .JSON)
+            .responseJSON { response in
+                guard let value = response.result.value else {
+                    print("Error: did not receive data")
+                    return
+                }
+                
+                guard response.result.error == nil else {
+                    print("error calling POST")
+                    print(response.result.error)
+                    return
+                }
+                let post = JSON(value)
+                print("The post is: " + post.description)
+        }
+    }
+
     /*
     // Table View delegate methods
     */

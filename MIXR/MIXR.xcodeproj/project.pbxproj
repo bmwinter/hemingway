@@ -55,6 +55,7 @@
 		156BCC9D1C05B8CE00AB88A6 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 156BCC9C1C05B8CE00AB88A6 /* libz.tbd */; };
 		156BCCAA1C05E6BF00AB88A6 /* UserFeedCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 156BCCA91C05E6BF00AB88A6 /* UserFeedCell.swift */; };
 		1577D7DE1C0D9E010033C8D5 /* PostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1577D7DD1C0D9E010033C8D5 /* PostViewController.swift */; };
+		159B87161C40D1B8007BF69C /* NewsFeedTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 159B87151C40D1B8007BF69C /* NewsFeedTableViewController.swift */; };
 		15AB68D71C23C69800FB936C /* userImage1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 15AB68CD1C23C69800FB936C /* userImage1.jpg */; };
 		15AB68D81C23C69800FB936C /* userImage2.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 15AB68CE1C23C69800FB936C /* userImage2.jpg */; };
 		15AB68D91C23C69800FB936C /* userImage3.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 15AB68CF1C23C69800FB936C /* userImage3.jpg */; };
@@ -129,6 +130,34 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		15883CD51C3F9DE900595A46 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 15883CCE1C3F9DE800595A46 /* Pods.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 5511C95E7E2EB64EC11DB3AA8B430D7D;
+			remoteInfo = Alamofire;
+		};
+		15883CD71C3F9DE900595A46 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 15883CCE1C3F9DE800595A46 /* Pods.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 461211B0D7792F58938520D5AFA7BCE6;
+			remoteInfo = IQKeyboardManagerSwift;
+		};
+		15883CD91C3F9DE900595A46 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 15883CCE1C3F9DE800595A46 /* Pods.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = F4ABDE9219DC62AC89D1984E9EFD265F;
+			remoteInfo = "Pods-MIXR";
+		};
+		15883CDB1C3F9DE900595A46 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 15883CCE1C3F9DE800595A46 /* Pods.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 0705A1E8F28524468E8085B1FF8DBC32;
+			remoteInfo = SwiftyJSON;
+		};
 		806122321BBF2D7500EFF35E /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 806122121BBF2D7400EFF35E /* Project object */;
@@ -187,6 +216,8 @@
 		156BCC9C1C05B8CE00AB88A6 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		156BCCA91C05E6BF00AB88A6 /* UserFeedCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserFeedCell.swift; sourceTree = "<group>"; };
 		1577D7DD1C0D9E010033C8D5 /* PostViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostViewController.swift; sourceTree = "<group>"; };
+		15883CCE1C3F9DE800595A46 /* Pods.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Pods.xcodeproj; path = Pods/Pods.xcodeproj; sourceTree = "<group>"; };
+		159B87151C40D1B8007BF69C /* NewsFeedTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewsFeedTableViewController.swift; sourceTree = "<group>"; };
 		15AB68CD1C23C69800FB936C /* userImage1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = userImage1.jpg; sourceTree = "<group>"; };
 		15AB68CE1C23C69800FB936C /* userImage2.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = userImage2.jpg; sourceTree = "<group>"; };
 		15AB68CF1C23C69800FB936C /* userImage3.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = userImage3.jpg; sourceTree = "<group>"; };
@@ -372,6 +403,17 @@
 			path = CustomCell;
 			sourceTree = "<group>";
 		};
+		15883CCF1C3F9DE800595A46 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				15883CD61C3F9DE900595A46 /* Alamofire.framework */,
+				15883CD81C3F9DE900595A46 /* IQKeyboardManagerSwift.framework */,
+				15883CDA1C3F9DE900595A46 /* Pods_MIXR.framework */,
+				15883CDC1C3F9DE900595A46 /* SwiftyJSON.framework */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		15B85A021C0983E900831BCB /* ProjectImage */ = {
 			isa = PBXGroup;
 			children = (
@@ -517,6 +559,7 @@
 				8061221C1BBF2D7400EFF35E /* MIXR */,
 				806122341BBF2D7500EFF35E /* MIXRTests */,
 				8061221B1BBF2D7400EFF35E /* Products */,
+				15883CCE1C3F9DE800595A46 /* Pods.xcodeproj */,
 				7D022D3DCAC350459339E920 /* Pods */,
 				14B036E93F4C01FE0876251F /* Frameworks */,
 			);
@@ -538,6 +581,7 @@
 				156BCCA81C05E68100AB88A6 /* CustomCell */,
 				5C6E2C471BC90B940036259A /* Library */,
 				8061221F1BBF2D7400EFF35E /* AppDelegate.swift */,
+				159B87151C40D1B8007BF69C /* NewsFeedTableViewController.swift */,
 				806122211BBF2D7400EFF35E /* VenueFeedViewController.swift */,
 				806122231BBF2D7400EFF35E /* MapViewController.swift */,
 				806122411BBF2E8100EFF35E /* UserFeedViewController.swift */,
@@ -690,6 +734,12 @@
 			mainGroup = 806122111BBF2D7400EFF35E;
 			productRefGroup = 8061221B1BBF2D7400EFF35E /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 15883CCF1C3F9DE800595A46 /* Products */;
+					ProjectRef = 15883CCE1C3F9DE800595A46 /* Pods.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				806122191BBF2D7400EFF35E /* MIXR */,
@@ -697,6 +747,37 @@
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		15883CD61C3F9DE900595A46 /* Alamofire.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = Alamofire.framework;
+			remoteRef = 15883CD51C3F9DE900595A46 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		15883CD81C3F9DE900595A46 /* IQKeyboardManagerSwift.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = IQKeyboardManagerSwift.framework;
+			remoteRef = 15883CD71C3F9DE900595A46 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		15883CDA1C3F9DE900595A46 /* Pods_MIXR.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = Pods_MIXR.framework;
+			remoteRef = 15883CD91C3F9DE900595A46 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		15883CDC1C3F9DE900595A46 /* SwiftyJSON.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = SwiftyJSON.framework;
+			remoteRef = 15883CDB1C3F9DE900595A46 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		806122181BBF2D7400EFF35E /* Resources */ = {
@@ -844,6 +925,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				159B87161C40D1B8007BF69C /* NewsFeedTableViewController.swift in Sources */,
 				5C6DF59B1C2FFFEC00F2910B /* Events.swift in Sources */,
 				1552EB331C1C663A00B73831 /* APIConnection.swift in Sources */,
 				5C92A1461BC57AD500EB6B9E /* LoginViewController.swift in Sources */,

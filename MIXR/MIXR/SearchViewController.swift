@@ -16,7 +16,7 @@ class SearchViewController: UIViewController, UITableViewDelegate,UITableViewDat
     var usersArray1 : NSMutableArray = NSMutableArray()
     
     var searchingArray:NSMutableArray!
-    let isLocalData = false
+    let isLocalData = true
     @IBOutlet var searchBarObj: UISearchBar!
     
     var is_searching:Bool!
@@ -28,14 +28,14 @@ class SearchViewController: UIViewController, UITableViewDelegate,UITableViewDat
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        is_searching = false
+        self.tableView.separatorColor = UIColor .clearColor()
         self.loadData()
         
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "dismissKeyboard")
         view.addGestureRecognizer(tap)
         
         searchingArray = []
-        is_searching = false
         
         searchBarObj.layer.cornerRadius = 10.0
         
@@ -60,16 +60,16 @@ class SearchViewController: UIViewController, UITableViewDelegate,UITableViewDat
     {
         if (isLocalData)
         {
-            usersArray.addObject(["userName":"Micheal Clarke","userImage":"userImage1.jpg"])
-            usersArray.addObject(["userName":"John Woggs","userImage":"userImage2.jpg"])
-            usersArray.addObject(["userName":"Hinns Hawks","userImage":"userImage3.jpg"])
-            usersArray.addObject(["userName":"Stuart Jonald","userImage":"userImage4.jpg"])
-            usersArray.addObject(["userName":"Steve Waugh","userImage":"userImage5.png"])
-            usersArray.addObject(["userName":"Jimmy Walker","userImage":"userImage6.jpg"])
-            usersArray.addObject(["userName":"Paul Smith","userImage":"userImage7.jpg"])
-            usersArray.addObject(["userName":"Martin Samueals","userImage":"userImage8.jpg"])
-            usersArray.addObject(["userName":"Ronny Hoggs","userImage":"userImage9.png"])
-            usersArray.addObject(["userName":"Peter Hinns","userImage":"userImage10.jpg"])
+            usersArray.addObject(["userName":"Micheal Clarke","userImage":"userImage1.jpg","phoneNumber":"1234567890"])
+            usersArray.addObject(["userName":"John Woggs","userImage":"userImage2.jpg","phoneNumber":"1234567890"])
+            usersArray.addObject(["userName":"Hinns Hawks","userImage":"userImage3.jpg","phoneNumber":"1234567890"])
+            usersArray.addObject(["userName":"Stuart Jonald","userImage":"userImage4.jpg","phoneNumber":"1234567890"])
+            usersArray.addObject(["userName":"Steve Waugh","userImage":"userImage5.png","phoneNumber":"1234567890"])
+            usersArray.addObject(["userName":"Jimmy Walker","userImage":"userImage6.jpg","phoneNumber":"1234567890"])
+            usersArray.addObject(["userName":"Paul Smith","userImage":"userImage7.jpg","phoneNumber":"1234567890"])
+            usersArray.addObject(["userName":"Martin Samueals","userImage":"userImage8.jpg","phoneNumber":"1234567890"])
+            usersArray.addObject(["userName":"Ronny Hoggs","userImage":"userImage9.png","phoneNumber":"1234567890"])
+            usersArray.addObject(["userName":"Peter Hinns","userImage":"userImage10.jpg","phoneNumber":"1234567890"])
             reloadTable()
         }
         else

@@ -102,7 +102,9 @@ class SegmentControl : UIControl {
   }
 
   //Title font
-  var titleFont:UIFont = UIFont.preferredFontForTextStyle(UIFontTextStyleCaption1) {
+//  var titleFont:UIFont = UIFont.preferredFontForTextStyle(UIFontTextStyleCaption1) {
+    
+    var titleFont:UIFont = UIFont(name: "ForgottenFuturistRg-Regular", size: 18)! {
     didSet{
       updateButtonStatus()
     }

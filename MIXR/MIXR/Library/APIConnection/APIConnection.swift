@@ -40,7 +40,6 @@ let kAPIPassword            = "Password"
 let IS_TESTING              = true
 
 let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
-
 var appHeader:NSDictionary = ["":""]
 
 public enum Method1: String
