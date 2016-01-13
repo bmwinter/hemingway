@@ -12,6 +12,7 @@ class UserFeedCell: UITableViewCell {
     
     @IBOutlet weak var FeedName: UILabel!
     @IBOutlet weak var lblUserName: UILabel!
+    @IBOutlet weak var lblLike: UILabel!
     
     @IBOutlet weak var venuImageView: UIImageView!
     @IBOutlet weak var venuBackground: UIView!

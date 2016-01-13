@@ -55,6 +55,8 @@
 		156BCC9D1C05B8CE00AB88A6 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 156BCC9C1C05B8CE00AB88A6 /* libz.tbd */; };
 		156BCCAA1C05E6BF00AB88A6 /* UserFeedCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 156BCCA91C05E6BF00AB88A6 /* UserFeedCell.swift */; };
 		1577D7DE1C0D9E010033C8D5 /* PostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1577D7DD1C0D9E010033C8D5 /* PostViewController.swift */; };
+		158F434A1C467A4700A2356C /* FollowingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 158F43491C467A4700A2356C /* FollowingViewController.swift */; };
+		158F43501C467A9500A2356C /* FollowingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 158F434F1C467A9500A2356C /* FollowingCell.swift */; };
 		159B87161C40D1B8007BF69C /* NewsFeedTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 159B87151C40D1B8007BF69C /* NewsFeedTableViewController.swift */; };
 		15AB68D71C23C69800FB936C /* userImage1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 15AB68CD1C23C69800FB936C /* userImage1.jpg */; };
 		15AB68D81C23C69800FB936C /* userImage2.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 15AB68CE1C23C69800FB936C /* userImage2.jpg */; };
@@ -217,6 +219,8 @@
 		156BCCA91C05E6BF00AB88A6 /* UserFeedCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserFeedCell.swift; sourceTree = "<group>"; };
 		1577D7DD1C0D9E010033C8D5 /* PostViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostViewController.swift; sourceTree = "<group>"; };
 		15883CCE1C3F9DE800595A46 /* Pods.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Pods.xcodeproj; path = Pods/Pods.xcodeproj; sourceTree = "<group>"; };
+		158F43491C467A4700A2356C /* FollowingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FollowingViewController.swift; sourceTree = "<group>"; };
+		158F434F1C467A9500A2356C /* FollowingCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FollowingCell.swift; sourceTree = "<group>"; };
 		159B87151C40D1B8007BF69C /* NewsFeedTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewsFeedTableViewController.swift; sourceTree = "<group>"; };
 		15AB68CD1C23C69800FB936C /* userImage1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = userImage1.jpg; sourceTree = "<group>"; };
 		15AB68CE1C23C69800FB936C /* userImage2.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = userImage2.jpg; sourceTree = "<group>"; };
@@ -398,6 +402,7 @@
 				5CF468821C0E8B3B007F87AA /* PromotionsCell.swift */,
 				5CF468801C0E8B0C007F87AA /* NotificationCell.swift */,
 				156BCCA91C05E6BF00AB88A6 /* UserFeedCell.swift */,
+				158F434F1C467A9500A2356C /* FollowingCell.swift */,
 				1502B80C1C16B973003BA39F /* SearchTableViewCell.swift */,
 			);
 			path = CustomCell;
@@ -585,6 +590,7 @@
 				806122211BBF2D7400EFF35E /* VenueFeedViewController.swift */,
 				806122231BBF2D7400EFF35E /* MapViewController.swift */,
 				806122411BBF2E8100EFF35E /* UserFeedViewController.swift */,
+				158F43491C467A4700A2356C /* FollowingViewController.swift */,
 				15B85A241C0987E500831BCB /* SearchViewController.swift */,
 				1577D7DD1C0D9E010033C8D5 /* PostViewController.swift */,
 				806122431BBF2ECF00EFF35E /* VenueProfileViewController.swift */,
@@ -960,9 +966,11 @@
 				5C26612F1BD0B4E100413257 /* GlobalConstants.swift in Sources */,
 				5C1CF1701BDBB45700B863F6 /* BorderedTextField.swift in Sources */,
 				5C232CF31C2BA134008D52A1 /* BorderedImageView.swift in Sources */,
+				158F434A1C467A4700A2356C /* FollowingViewController.swift in Sources */,
 				8061224A1BBF2F1400EFF35E /* FeedPageViewController.swift in Sources */,
 				5C218AC41BEA7EA900F7DA82 /* SMSVerification.swift in Sources */,
 				5C1CF1731BDBC5CC00B863F6 /* BorderedButton.swift in Sources */,
+				158F43501C467A9500A2356C /* FollowingCell.swift in Sources */,
 				5CF468811C0E8B0C007F87AA /* NotificationCell.swift in Sources */,
 				156BCCAA1C05E6BF00AB88A6 /* UserFeedCell.swift in Sources */,
 				5C1F05D71C256B4B0036830D /* SegmentControl.swift in Sources */,

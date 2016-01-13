@@ -80,6 +80,10 @@ class NewsFeedTableViewController:UITableViewController,APIConnectionDelegate {
     
     @IBAction func onFeedClicked(sender: AnyObject)
     {
+        let followingViewController : FollowingViewController = self.storyboard!.instantiateViewControllerWithIdentifier("FollowingViewController") as! FollowingViewController
+        //postViewController.feedDict = feedDict
+        self.navigationController!.pushViewController(followingViewController, animated: true)
+        
         return;
         let feedBtn : UIButton = sender as! UIButton
         let feedTag = feedBtn.superview!.tag
@@ -91,6 +95,7 @@ class NewsFeedTableViewController:UITableViewController,APIConnectionDelegate {
         postViewController.feedDict = feedDict
         self.navigationController!.pushViewController(postViewController, animated: true)
     }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -120,6 +125,15 @@ class NewsFeedTableViewController:UITableViewController,APIConnectionDelegate {
         cell.venuImageView.image = UIImage(named: feedsArray[indexPath.row]["venueImage"].string!)
         cell.FeedName.text = feedsArray[indexPath.row]["venueName"].string
         cell.lblUserName.text = feedsArray[indexPath.row]["userName"].string
+        
+        
+        let attachment = NSTextAttachment()
+        attachment.image = UIImage(named: "martiniglass_icon.png")
+        let attachmentString = NSAttributedString(attachment: attachment)
+        let myString = NSMutableAttributedString(string: " ")
+        myString.appendAttributedString(attachmentString)
+        myString.appendAttributedString(NSMutableAttributedString(string: " 250"))
+        cell.lblLike.attributedText = myString
         
         /*
         cell.venuImageView.image = UIImage(named: feedDict["venueImage"] as! String)

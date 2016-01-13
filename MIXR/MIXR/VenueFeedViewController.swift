@@ -32,7 +32,6 @@ class VenueFeedViewController:UIViewController {
         // self.navigationController!.pushViewController(postViewController, animated: true)
     }
     
-    
     override func prefersStatusBarHidden() -> Bool
     {
         return false

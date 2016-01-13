@@ -8,12 +8,11 @@
 
 import UIKit
 
-class SearchTableViewCell: UITableViewCell {
+class FollowingCell: UITableViewCell {
     
     let feedsArray : NSMutableArray = NSMutableArray()
     @IBOutlet var imageview: UIView!
     
-    @IBOutlet weak var mobileNumber: UILabel!
     @IBOutlet var imagePerson: UIImageView!
     @IBOutlet var labelName: UILabel!
     @IBOutlet var cellBackgroundView: UIView!
