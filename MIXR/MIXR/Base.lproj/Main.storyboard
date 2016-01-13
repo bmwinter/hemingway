@@ -787,11 +787,8 @@
                                                 <rect key="frame" x="0.0" y="28" width="374" height="58"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="ars-U6-vr2" id="fza-Ax-yYA">
-<<<<<<< HEAD
                                                     <rect key="frame" x="0.0" y="0.0" width="374" height="58"/>
-=======
-                                                    <rect key="frame" x="0.0" y="0.0" width="374" height="57.5"/>
->>>>>>> origin/dev
+
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LEx-v7-ajW">
