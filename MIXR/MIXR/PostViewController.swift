@@ -18,11 +18,27 @@ class PostViewController: UIViewController {
     @IBOutlet weak var feedView: UIView!
     @IBOutlet weak var btnFollowing: UIButton!
     @IBOutlet weak var btnFeedName: UIButton!
+    var isUserProfile : Bool = false
+    
+    @IBAction func OnSettingBtnAction(sender: AnyObject)
+    {
+        
+        let aSettingsTableViewController : SettingsTableViewController = self.storyboard!.instantiateViewControllerWithIdentifier("SettingsTableViewController") as! SettingsTableViewController
+        //postViewController.feedDict = feedDict
+        self.navigationController!.pushViewController(aSettingsTableViewController, animated: true)
+    }
+    
+    @IBOutlet weak var SettingBtn: UIButton!
     override func viewDidLoad()
     {
         super.viewDidLoad()
         self.loadData()
         // Do any additional setup after loading the view.
+    }
+    
+    override func viewWillAppear(animated: Bool)
+    {
+        self.navigationController?.navigationBarHidden = true
     }
     
     func loadData()
@@ -33,6 +49,16 @@ class PostViewController: UIViewController {
             self.venuImageView.image = UIImage(named: feedDict["venueImage"] as! String)
             //self.FeedName.text = feedDict["venueName"] as? String
             //self.lblUserName.text = feedDict["userName"] as? String
+        }
+        
+        if (
+            isUserProfile)
+        {
+            self.SettingBtn.hidden = false
+        }
+        else
+        {
+            self.SettingBtn.hidden = true
         }
         
         for subview in feedView.subviews

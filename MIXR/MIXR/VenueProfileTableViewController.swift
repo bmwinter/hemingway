@@ -25,23 +25,33 @@ class VenueProfileTableViewController: UITableViewController {
     
     @IBOutlet weak var showLatestVideos: UIBarButtonItem!
     
-    override func viewDidLoad() {
+    override func viewDidLoad()
+    {
+        super.viewDidLoad()
         
         self.title = "Spanky's"
         self.navigationItem.rightBarButtonItem = showLatestVideos;
-        super.viewDidLoad()
         
         self.navigationItem.backBarButtonItem = UIBarButtonItem(title:"", style:.Plain, target:nil, action:nil)
         self.tableView.backgroundView = UIImageView(image: UIImage(named: "BG"))
-
+        
         loadDummyScrollViewData()
         
         // Do any additional setup after loading the view, typically from a nib.
     }
     
-    func loadDummyScrollViewData(){
+    override func viewWillAppear(animated: Bool) {
+        self.navigationController?.navigationBarHidden = false
+    }
+    
+    override func viewDidDisappear(animated: Bool) {
+        self.navigationController?.navigationBarHidden = true
+    }
+    func loadDummyScrollViewData()
+    {
         self.eventsScrollView.contentSize = CGSizeMake( 145, 20*51);
-        for i in 1...50{
+        for i in 1...50
+        {
             let test:UILabel
             test = UILabel()
             test.textAlignment = NSTextAlignmentFromCTTextAlignment(CTTextAlignment.Center)
@@ -50,7 +60,6 @@ class VenueProfileTableViewController: UITableViewController {
             test.frame = CGRectMake(0, (CGFloat)(i * 20), self.eventsScrollView.frame.size.width, 20);
             self.eventsScrollView.addSubview(test)
         }
-        
     }
     
     /*
@@ -81,7 +90,7 @@ class VenueProfileTableViewController: UITableViewController {
         }
     }
     
-
+    
     
     /*
     // Table View delegate methods

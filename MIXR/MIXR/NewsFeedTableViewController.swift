@@ -30,6 +30,11 @@ class NewsFeedTableViewController:UITableViewController,APIConnectionDelegate {
         self.loadData()
     }
     
+    override func viewWillAppear(animated: Bool)
+    {
+        self.navigationController?.navigationBarHidden = true
+    }
+    
     func loadData()
     {
         if (isLocalData)
@@ -72,16 +77,19 @@ class NewsFeedTableViewController:UITableViewController,APIConnectionDelegate {
         let feedTag = feedBtn.superview!.tag
         NSLog("feedTag = \(feedTag)")
         //let feedDict : NSDictionary = feedsArray[feedTag].dictionaryObject!
-        let postViewController : PostViewController = self.storyboard!.instantiateViewControllerWithIdentifier("post") as! PostViewController
-        //postViewController.feedDict = feedDict
+        let postViewController : PostViewController = self.storyboard!.instantiateViewControllerWithIdentifier("PostViewController") as! PostViewController
+        postViewController.isUserProfile = false
         self.navigationController!.pushViewController(postViewController, animated: true)
-        
     }
     
     @IBAction func onFeedClicked(sender: AnyObject)
     {
+        let aVenueProfileTableViewController : VenueProfileTableViewController = self.storyboard!.instantiateViewControllerWithIdentifier("VenueProfileTableViewController") as! VenueProfileTableViewController
+        self.navigationController!.pushViewController(aVenueProfileTableViewController, animated: true)
+        
+        return
+        
         let followingViewController : FollowingViewController = self.storyboard!.instantiateViewControllerWithIdentifier("FollowingViewController") as! FollowingViewController
-        //postViewController.feedDict = feedDict
         self.navigationController!.pushViewController(followingViewController, animated: true)
         
         return;
@@ -91,8 +99,8 @@ class NewsFeedTableViewController:UITableViewController,APIConnectionDelegate {
         let feedDict : NSDictionary = feedsArray[feedTag].dictionaryObject!
         
         
-        let postViewController : PostViewController = self.storyboard!.instantiateViewControllerWithIdentifier("post") as! PostViewController
-        postViewController.feedDict = feedDict
+        let postViewController : PostViewController = self.storyboard!.instantiateViewControllerWithIdentifier("PostViewController") as! PostViewController
+        postViewController.isUserProfile = false
         self.navigationController!.pushViewController(postViewController, animated: true)
     }
     

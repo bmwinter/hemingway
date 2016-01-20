@@ -107,8 +107,8 @@ class FollowingViewController: UIViewController, UITableViewDelegate,UITableView
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath)
     {
         print("indexpath.row = \(indexPath.row)")
-        let postViewController : PostViewController = self.storyboard!.instantiateViewControllerWithIdentifier("post") as! PostViewController
-        //postViewController.feedDict = feedDict
+        let postViewController : PostViewController = self.storyboard!.instantiateViewControllerWithIdentifier("PostViewController") as! PostViewController
+        postViewController.isUserProfile = true
         self.navigationController!.pushViewController(postViewController, animated: true)
         
     }

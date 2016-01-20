@@ -26,6 +26,11 @@ class UserProfileViewController: UIViewController, UITableViewDelegate
         // Do any additional setup after loading the view.
     }
     
+    override func viewWillAppear(animated: Bool)
+    {
+        self.navigationController?.navigationBarHidden = true
+    }
+    
     func loadData()
     {
         if (feedDict.allKeys.count > 0)

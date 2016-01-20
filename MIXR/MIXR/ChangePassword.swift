@@ -20,13 +20,21 @@ class ChangePassword: UITableViewController {
     override func viewDidLoad() {
         
         self.navigationItem.backBarButtonItem = UIBarButtonItem(title:"", style:.Plain, target:nil, action:nil)
-//        self.navigationItem.rightBarButtonItem = self.doneButton
-
+        //        self.navigationItem.rightBarButtonItem = self.doneButton
+        
         self.tableView.backgroundView = UIImageView(image: UIImage(named: "BG"))
         self.title = "Change Password"
         // Do any additional setup after loading the view, typically from a nib.
     }
-
+    
+    override func viewWillAppear(animated: Bool) {
+        self.navigationController?.navigationBarHidden = false
+    }
+    
+    override func viewWillDisappear(animated: Bool) {
+        self.navigationController?.navigationBarHidden = true
+    }
+    
     @IBAction func doneButtonTapped (sender:AnyObject){
         self.navigationController?.popViewControllerAnimated(true)
     }
@@ -63,7 +71,7 @@ class ChangePassword: UITableViewController {
                 print("The post is: " + post.description)
         }
     }
-
+    
     /*
     // Table View delegate methods
     */

@@ -34,6 +34,11 @@ class UserFeedViewController: UIViewController, UITableViewDelegate,UITableViewD
         //performSelector(Selector(setFrames()), withObject: nil, afterDelay: 1.0)
     }
     
+    override func viewWillAppear(animated: Bool)
+    {
+        self.navigationController?.navigationBarHidden = true
+    }
+    
     func loadData()
     {
         feedsArray.addObject(["venueName":"Mad River1","venueImage":"venueImage1.jpg","userName":"Grant Boyle1"])
@@ -46,7 +51,7 @@ class UserFeedViewController: UIViewController, UITableViewDelegate,UITableViewD
         feedsArray.addObject(["venueName":"Mad River8","venueImage":"venueImage8.jpg","userName":"Grant Boyle8"])
         feedsArray.addObject(["venueName":"Mad River9","venueImage":"venueImage9.jpg","userName":"Grant Boyle9"])
         feedsArray.addObject(["venueName":"Mad River10","venueImage":"venueImage10.jpg","userName":"Grant Boyle10"])
-
+        
     }
     
     override func viewDidLayoutSubviews()
