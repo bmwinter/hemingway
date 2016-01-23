@@ -84,8 +84,8 @@ class NewsFeedTableViewController:UITableViewController,APIConnectionDelegate {
     
     @IBAction func onFeedClicked(sender: AnyObject)
     {
-        let aVenueProfileTableViewController : VenueProfileTableViewController = self.storyboard!.instantiateViewControllerWithIdentifier("VenueProfileTableViewController") as! VenueProfileTableViewController
-        self.navigationController!.pushViewController(aVenueProfileTableViewController, animated: true)
+        let aVenueProfileViewController : VenueProfileViewController = self.storyboard!.instantiateViewControllerWithIdentifier("VenueProfileViewController") as! VenueProfileViewController
+        self.navigationController!.pushViewController(aVenueProfileViewController, animated: true)
         
         return
         

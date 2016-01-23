@@ -25,6 +25,10 @@ class VenueProfileViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    @IBAction func onBackClicked(sender: AnyObject)
+    {
+        self.navigationController?.popViewControllerAnimated(true)
+    }
     
 }
 

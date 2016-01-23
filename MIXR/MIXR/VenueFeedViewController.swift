@@ -20,7 +20,7 @@ class VenueFeedViewController:UIViewController {
     }
     
     override func viewWillAppear(animated: Bool) {
-        self.navigationController?.navigationBarHidden = false
+        //self.navigationController?.navigationBarHidden = false
     }
     
     override func viewWillDisappear(animated: Bool) {

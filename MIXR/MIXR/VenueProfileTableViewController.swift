@@ -41,11 +41,11 @@ class VenueProfileTableViewController: UITableViewController {
     }
     
     override func viewWillAppear(animated: Bool) {
-        self.navigationController?.navigationBarHidden = false
+        self.navigationController?.navigationBarHidden = true
     }
     
     override func viewDidDisappear(animated: Bool) {
-        self.navigationController?.navigationBarHidden = true
+        //self.navigationController?.navigationBarHidden = false
     }
     func loadDummyScrollViewData()
     {

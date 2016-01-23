@@ -104,7 +104,7 @@ class SignUpTableViewController: UITableViewController {
     @IBAction func signupButtonTapped(sender: AnyObject){
         
         
-        self.navigationController?.navigationBarHidden = false
+       // self.navigationController?.navigationBarHidden = false
         self.performSegueWithIdentifier("SMSVerification", sender: nil)
         return
         
@@ -158,7 +158,7 @@ class SignUpTableViewController: UITableViewController {
             return
         }
         
-        self.navigationController?.navigationBarHidden = false
+        //self.navigationController?.navigationBarHidden = false
         self.performSegueWithIdentifier("SMSVerification", sender: nil)
     }
     

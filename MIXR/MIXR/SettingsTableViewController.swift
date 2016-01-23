@@ -31,11 +31,11 @@ class SettingsTableViewController: UITableViewController {
     }
     
     override func viewWillAppear(animated: Bool) {
-        self.navigationController?.navigationBarHidden = false
+        self.navigationController?.navigationBarHidden = true
     }
     
     override func viewWillDisappear(animated: Bool) {
-        self.navigationController?.navigationBarHidden = true
+        //self.navigationController?.navigationBarHidden = false
     }
     
     @IBAction func settingsButtonTapped (sender:AnyObject)
@@ -51,7 +51,7 @@ class SettingsTableViewController: UITableViewController {
             
         case settingsTag.changePassword.rawValue? :
             //self.performSegueWithIdentifier("ChangePassword", sender: nil)
-            let aChangePassword : ChangePassword = self.storyboard!.instantiateViewControllerWithIdentifier("ChangePassword") as! ChangePassword
+            let aChangePassword : ChangePasswordViewController = self.storyboard!.instantiateViewControllerWithIdentifier("ChangePasswordViewController") as! ChangePasswordViewController
             self.navigationController!.pushViewController(aChangePassword, animated: true)
             print("Change password")
             
@@ -62,8 +62,8 @@ class SettingsTableViewController: UITableViewController {
             print("Change Name")
             
         case settingsTag.privacyPolicy.rawValue? :
-            let aVenueProfileTableViewController : VenueProfileTableViewController = self.storyboard!.instantiateViewControllerWithIdentifier("VenueProfileTableViewController") as! VenueProfileTableViewController
-            self.navigationController!.pushViewController(aVenueProfileTableViewController, animated: true)
+            let aVenueProfileViewController : VenueProfileViewController = self.storyboard!.instantiateViewControllerWithIdentifier("VenueProfileViewController") as! VenueProfileViewController
+            self.navigationController!.pushViewController(aVenueProfileViewController, animated: true)
             //self.performSegueWithIdentifier("VenueProfile", sender: nil)
             print("Privary Policy")
             
@@ -78,7 +78,6 @@ class SettingsTableViewController: UITableViewController {
         default :
             print("Test 1")
         }
-        
     }
     
     /*
@@ -114,7 +113,7 @@ class SettingsTableViewController: UITableViewController {
     }
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 7
+        return 8
     }
     
     

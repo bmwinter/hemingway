@@ -142,7 +142,7 @@ class SearchViewController: UIViewController, UITableViewDelegate,UITableViewDat
     //  MARK:- Button Action -
     @IBAction func NotificatiDeatil(sender: AnyObject) {
         
-        let NotificationView : NotificationViewController = self.storyboard!.instantiateViewControllerWithIdentifier("Notification") as! NotificationViewController
+        let NotificationView : NotificationViewController = self.storyboard!.instantiateViewControllerWithIdentifier("NotificationViewController") as! NotificationViewController
         
         self.navigationController!.pushViewController(NotificationView, animated: true)
         

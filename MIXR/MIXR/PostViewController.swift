@@ -23,7 +23,7 @@ class PostViewController: UIViewController {
     @IBAction func OnSettingBtnAction(sender: AnyObject)
     {
         
-        let aSettingsTableViewController : SettingsTableViewController = self.storyboard!.instantiateViewControllerWithIdentifier("SettingsTableViewController") as! SettingsTableViewController
+        let aSettingsTableViewController : SettingViewController = self.storyboard!.instantiateViewControllerWithIdentifier("SettingViewController") as! SettingViewController
         //postViewController.feedDict = feedDict
         self.navigationController!.pushViewController(aSettingsTableViewController, animated: true)
     }

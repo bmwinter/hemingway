@@ -54,7 +54,7 @@ class LoginViewController: UIViewController {
     */
     
     @IBAction func forgotPasswordButtonTapped(sender: AnyObject){
-        self.navigationController?.navigationBarHidden = false
+        //self.navigationController?.navigationBarHidden = false
         self.performSegueWithIdentifier("ForgotPasswordSegue", sender: nil)
     }
     

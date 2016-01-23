@@ -9,6 +9,15 @@
 /* Begin PBXBuildFile section */
 		1502B80B1C16B925003BA39F /* NotificationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1502B80A1C16B925003BA39F /* NotificationViewController.swift */; };
 		1502B80D1C16B973003BA39F /* SearchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1502B80C1C16B973003BA39F /* SearchTableViewCell.swift */; };
+		151212F01C53C551001D6C50 /* locationtab.png in Resources */ = {isa = PBXBuildFile; fileRef = 151212E71C53C551001D6C50 /* locationtab.png */; };
+		151212F11C53C551001D6C50 /* locationtab@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 151212E81C53C551001D6C50 /* locationtab@2x.png */; };
+		151212F21C53C551001D6C50 /* locationtab@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 151212E91C53C551001D6C50 /* locationtab@3x.png */; };
+		151212F31C53C551001D6C50 /* searchtab.png in Resources */ = {isa = PBXBuildFile; fileRef = 151212EA1C53C551001D6C50 /* searchtab.png */; };
+		151212F41C53C551001D6C50 /* searchtab@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 151212EB1C53C551001D6C50 /* searchtab@2x.png */; };
+		151212F51C53C551001D6C50 /* searchtab@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 151212EC1C53C551001D6C50 /* searchtab@3x.png */; };
+		151212F61C53C551001D6C50 /* venu_tab.png in Resources */ = {isa = PBXBuildFile; fileRef = 151212ED1C53C551001D6C50 /* venu_tab.png */; };
+		151212F71C53C551001D6C50 /* venu_tab@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 151212EE1C53C551001D6C50 /* venu_tab@2x.png */; };
+		151212F81C53C551001D6C50 /* venu_tab@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 151212EF1C53C551001D6C50 /* venu_tab@3x.png */; };
 		1552EB331C1C663A00B73831 /* APIConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1552EB321C1C663A00B73831 /* APIConnection.swift */; };
 		15606EAA1C3D309400CD4D50 /* camera_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 15606E861C3D309400CD4D50 /* camera_icon.png */; };
 		15606EAB1C3D309400CD4D50 /* camera_icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 15606E871C3D309400CD4D50 /* camera_icon@2x.png */; };
@@ -86,6 +95,8 @@
 		15B85A231C09871900831BCB /* venueImage9.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 15B85A191C09871900831BCB /* venueImage9.jpg */; };
 		15B85A261C0987E500831BCB /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15B85A241C0987E500831BCB /* SearchViewController.swift */; };
 		15B85A2A1C09884D00831BCB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 15B85A281C09884D00831BCB /* Main.storyboard */; };
+		15F0E4B41C52559D00F6D1B3 /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15F0E4B31C52559D00F6D1B3 /* SettingViewController.swift */; };
+		15F0E4BA1C52598D00F6D1B3 /* ChangePasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15F0E4B91C52598D00F6D1B3 /* ChangePasswordViewController.swift */; };
 		5C17F0061BCC097600E027E0 /* ProfileTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C17F0051BCC097600E027E0 /* ProfileTableViewController.swift */; };
 		5C1CF1701BDBB45700B863F6 /* BorderedTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C1CF16F1BDBB45700B863F6 /* BorderedTextField.swift */; };
 		5C1CF1731BDBC5CC00B863F6 /* BorderedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C1CF1721BDBC5CC00B863F6 /* BorderedButton.swift */; };
@@ -172,6 +183,15 @@
 /* Begin PBXFileReference section */
 		1502B80A1C16B925003BA39F /* NotificationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationViewController.swift; sourceTree = "<group>"; };
 		1502B80C1C16B973003BA39F /* SearchTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchTableViewCell.swift; sourceTree = "<group>"; };
+		151212E71C53C551001D6C50 /* locationtab.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = locationtab.png; sourceTree = "<group>"; };
+		151212E81C53C551001D6C50 /* locationtab@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "locationtab@2x.png"; sourceTree = "<group>"; };
+		151212E91C53C551001D6C50 /* locationtab@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "locationtab@3x.png"; sourceTree = "<group>"; };
+		151212EA1C53C551001D6C50 /* searchtab.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = searchtab.png; sourceTree = "<group>"; };
+		151212EB1C53C551001D6C50 /* searchtab@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "searchtab@2x.png"; sourceTree = "<group>"; };
+		151212EC1C53C551001D6C50 /* searchtab@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "searchtab@3x.png"; sourceTree = "<group>"; };
+		151212ED1C53C551001D6C50 /* venu_tab.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = venu_tab.png; sourceTree = "<group>"; };
+		151212EE1C53C551001D6C50 /* venu_tab@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "venu_tab@2x.png"; sourceTree = "<group>"; };
+		151212EF1C53C551001D6C50 /* venu_tab@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "venu_tab@3x.png"; sourceTree = "<group>"; };
 		1552EB321C1C663A00B73831 /* APIConnection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIConnection.swift; sourceTree = "<group>"; };
 		15606E861C3D309400CD4D50 /* camera_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = camera_icon.png; sourceTree = "<group>"; };
 		15606E871C3D309400CD4D50 /* camera_icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "camera_icon@2x.png"; sourceTree = "<group>"; };
@@ -250,6 +270,8 @@
 		15B85A191C09871900831BCB /* venueImage9.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = venueImage9.jpg; sourceTree = "<group>"; };
 		15B85A241C0987E500831BCB /* SearchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		15B85A291C09884D00831BCB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		15F0E4B31C52559D00F6D1B3 /* SettingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
+		15F0E4B91C52598D00F6D1B3 /* ChangePasswordViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChangePasswordViewController.swift; sourceTree = "<group>"; };
 		5C17F0051BCC097600E027E0 /* ProfileTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ProfileTableViewController.swift; path = MIXR/ProfileTableViewController.swift; sourceTree = SOURCE_ROOT; };
 		5C1CF16F1BDBB45700B863F6 /* BorderedTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BorderedTextField.swift; sourceTree = "<group>"; };
 		5C1CF1721BDBC5CC00B863F6 /* BorderedButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BorderedButton.swift; sourceTree = "<group>"; };
@@ -350,6 +372,15 @@
 		15606E851C3D309400CD4D50 /* Mixr_icon */ = {
 			isa = PBXGroup;
 			children = (
+				151212E71C53C551001D6C50 /* locationtab.png */,
+				151212E81C53C551001D6C50 /* locationtab@2x.png */,
+				151212E91C53C551001D6C50 /* locationtab@3x.png */,
+				151212EA1C53C551001D6C50 /* searchtab.png */,
+				151212EB1C53C551001D6C50 /* searchtab@2x.png */,
+				151212EC1C53C551001D6C50 /* searchtab@3x.png */,
+				151212ED1C53C551001D6C50 /* venu_tab.png */,
+				151212EE1C53C551001D6C50 /* venu_tab@2x.png */,
+				151212EF1C53C551001D6C50 /* venu_tab@3x.png */,
 				15606ECE1C3D32AC00CD4D50 /* ArrowLeft.png */,
 				15606ECF1C3D32AC00CD4D50 /* ArrowLeft@2x.png */,
 				15606ED01C3D32AC00CD4D50 /* ArrowLeft@3x.png */,
@@ -587,7 +618,9 @@
 				5C6E2C471BC90B940036259A /* Library */,
 				8061221F1BBF2D7400EFF35E /* AppDelegate.swift */,
 				159B87151C40D1B8007BF69C /* NewsFeedTableViewController.swift */,
+				15F0E4B31C52559D00F6D1B3 /* SettingViewController.swift */,
 				806122211BBF2D7400EFF35E /* VenueFeedViewController.swift */,
+				15F0E4B91C52598D00F6D1B3 /* ChangePasswordViewController.swift */,
 				806122231BBF2D7400EFF35E /* MapViewController.swift */,
 				806122411BBF2E8100EFF35E /* UserFeedViewController.swift */,
 				158F43491C467A4700A2356C /* FollowingViewController.swift */,
@@ -791,6 +824,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				15606EC51C3D309400CD4D50 /* plus_icon.png in Resources */,
+				151212F01C53C551001D6C50 /* locationtab.png in Resources */,
 				15AB68DB1C23C69800FB936C /* userImage5.png in Resources */,
 				15606EAA1C3D309400CD4D50 /* camera_icon.png in Resources */,
 				15606EAE1C3D309400CD4D50 /* check_icon@2x.png in Resources */,
@@ -817,6 +851,7 @@
 				80B1958C1C333250009B265C /* forgotten futurist bd it.ttf in Resources */,
 				15606EB81C3D309400CD4D50 /* locationtab_icon@3x.png in Resources */,
 				15606EC01C3D309400CD4D50 /* mixriconApp_icon@2x.png in Resources */,
+				151212F21C53C551001D6C50 /* locationtab@3x.png in Resources */,
 				15B85A1B1C09871900831BCB /* venueImage10.jpg in Resources */,
 				15606EC11C3D309400CD4D50 /* mixriconApp_icon@3x.png in Resources */,
 				80B1958B1C333250009B265C /* forgotten futurist rg.ttf in Resources */,
@@ -825,9 +860,11 @@
 				15B85A1A1C09871900831BCB /* venueImage1.jpg in Resources */,
 				15606ECD1C3D309400CD4D50 /* user_profile_icon@3x.png in Resources */,
 				15606EBD1C3D309400CD4D50 /* martiniglass_icon@2x.png in Resources */,
+				151212F41C53C551001D6C50 /* searchtab@2x.png in Resources */,
 				15606ED61C3D32AC00CD4D50 /* ArrowLeft@3x.png in Resources */,
 				15AB68DD1C23C69800FB936C /* userImage7.jpg in Resources */,
 				15606EBA1C3D309400CD4D50 /* magglass_icon@2x.png in Resources */,
+				151212F51C53C551001D6C50 /* searchtab@3x.png in Resources */,
 				15AB68DE1C23C69800FB936C /* userImage8.jpg in Resources */,
 				15B85A1E1C09871900831BCB /* venueImage4.jpg in Resources */,
 				15606ED71C3D32AC00CD4D50 /* ArrowRight.png in Resources */,
@@ -837,6 +874,7 @@
 				15606ED91C3D32AC00CD4D50 /* ArrowRight@3x.png in Resources */,
 				15606EB91C3D309400CD4D50 /* magglass_icon.png in Resources */,
 				15B85A0B1C0983E900831BCB /* backgroundWhiteDrediant@3x.png in Resources */,
+				151212F61C53C551001D6C50 /* venu_tab.png in Resources */,
 				15606EBE1C3D309400CD4D50 /* martiniglass_icon@3x.png in Resources */,
 				15B85A211C09871900831BCB /* venueImage7.jpg in Resources */,
 				15606EC61C3D309400CD4D50 /* plus_icon@2x.png in Resources */,
@@ -853,6 +891,8 @@
 				15AB68DA1C23C69800FB936C /* userImage4.jpg in Resources */,
 				15606EB11C3D309400CD4D50 /* guy_icon@2x.png in Resources */,
 				8061222C1BBF2D7400EFF35E /* LaunchScreen.xib in Resources */,
+				151212F81C53C551001D6C50 /* venu_tab@3x.png in Resources */,
+				151212F71C53C551001D6C50 /* venu_tab@2x.png in Resources */,
 				15606EC81C3D309400CD4D50 /* record_icon.png in Resources */,
 				15606EB21C3D309400CD4D50 /* guy_icon@3x.png in Resources */,
 				15606EBB1C3D309400CD4D50 /* magglass_icon@3x.png in Resources */,
@@ -862,8 +902,10 @@
 				15606EB71C3D309400CD4D50 /* locationtab_icon@2x.png in Resources */,
 				806122291BBF2D7400EFF35E /* Images.xcassets in Resources */,
 				15B85A201C09871900831BCB /* venueImage6.jpg in Resources */,
+				151212F11C53C551001D6C50 /* locationtab@2x.png in Resources */,
 				15606ECC1C3D309400CD4D50 /* user_profile_icon@2x.png in Resources */,
 				15606EC91C3D309400CD4D50 /* record_icon@2x.png in Resources */,
+				151212F31C53C551001D6C50 /* searchtab.png in Resources */,
 				15B85A0A1C0983E900831BCB /* backgroundWhiteDrediant@2x.png in Resources */,
 				15606ED81C3D32AC00CD4D50 /* ArrowRight@2x.png in Resources */,
 			);
@@ -934,6 +976,7 @@
 				159B87161C40D1B8007BF69C /* NewsFeedTableViewController.swift in Sources */,
 				5C6DF59B1C2FFFEC00F2910B /* Events.swift in Sources */,
 				1552EB331C1C663A00B73831 /* APIConnection.swift in Sources */,
+				15F0E4BA1C52598D00F6D1B3 /* ChangePasswordViewController.swift in Sources */,
 				5C92A1461BC57AD500EB6B9E /* LoginViewController.swift in Sources */,
 				5C6F92061BC6C9680037373B /* SignUpTableViewController.swift in Sources */,
 				5C232CF71C2BA264008D52A1 /* Borderedlabel.swift in Sources */,
@@ -954,6 +997,7 @@
 				1502B80D1C16B973003BA39F /* SearchTableViewCell.swift in Sources */,
 				806122201BBF2D7400EFF35E /* AppDelegate.swift in Sources */,
 				5C6DF59D1C3000AE00F2910B /* Specials.swift in Sources */,
+				15F0E4B41C52559D00F6D1B3 /* SettingViewController.swift in Sources */,
 				806122221BBF2D7400EFF35E /* VenueFeedViewController.swift in Sources */,
 				8061224D1BBF3CB000EFF35E /* VenueFeedNavigationController.swift in Sources */,
 				806122481BBF2EF200EFF35E /* PersonalProfileViewController.swift in Sources */,
