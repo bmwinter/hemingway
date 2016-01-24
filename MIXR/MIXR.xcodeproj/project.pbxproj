@@ -111,6 +111,23 @@
 		5C27231D1BD899D7007227AA /* VenueProfileTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C27231C1BD899D7007227AA /* VenueProfileTableViewController.swift */; };
 		5C2A9E941BD2063E008669AB /* RecentPhotoVidoeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C2A9E931BD2063E008669AB /* RecentPhotoVidoeController.swift */; };
 		5C3408121BE4F411006CB35C /* SettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C3408111BE4F411006CB35C /* SettingsTableViewController.swift */; };
+		5C520FD11C54FA9600299990 /* ALCameraView.strings in Resources */ = {isa = PBXBuildFile; fileRef = 5C520FBD1C54FA9600299990 /* ALCameraView.strings */; settings = {ASSET_TAGS = (); }; };
+		5C520FD21C54FA9600299990 /* ALCameraViewAssets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5C520FBE1C54FA9600299990 /* ALCameraViewAssets.xcassets */; settings = {ASSET_TAGS = (); }; };
+		5C520FD31C54FA9600299990 /* ALImageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C520FC01C54FA9600299990 /* ALImageModel.swift */; settings = {ASSET_TAGS = (); }; };
+		5C520FD41C54FA9600299990 /* ALCameraShot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C520FC21C54FA9600299990 /* ALCameraShot.swift */; settings = {ASSET_TAGS = (); }; };
+		5C520FD51C54FA9600299990 /* ALImageExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C520FC31C54FA9600299990 /* ALImageExtensions.swift */; settings = {ASSET_TAGS = (); }; };
+		5C520FD61C54FA9600299990 /* ALImageFetchingInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C520FC41C54FA9600299990 /* ALImageFetchingInteractor.swift */; settings = {ASSET_TAGS = (); }; };
+		5C520FD71C54FA9600299990 /* ALUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C520FC51C54FA9600299990 /* ALUtilities.swift */; settings = {ASSET_TAGS = (); }; };
+		5C520FD81C54FA9600299990 /* ALCameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C520FC71C54FA9600299990 /* ALCameraViewController.swift */; settings = {ASSET_TAGS = (); }; };
+		5C520FD91C54FA9600299990 /* ALConfirmViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C520FC81C54FA9600299990 /* ALConfirmViewController.swift */; settings = {ASSET_TAGS = (); }; };
+		5C520FDA1C54FA9600299990 /* ALConfirmViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5C520FC91C54FA9600299990 /* ALConfirmViewController.xib */; settings = {ASSET_TAGS = (); }; };
+		5C520FDB1C54FA9600299990 /* ALImagePickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C520FCA1C54FA9600299990 /* ALImagePickerViewController.swift */; settings = {ASSET_TAGS = (); }; };
+		5C520FDC1C54FA9600299990 /* ALImagePickerViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C520FCB1C54FA9600299990 /* ALImagePickerViewDelegate.swift */; settings = {ASSET_TAGS = (); }; };
+		5C520FDD1C54FA9600299990 /* ALCameraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C520FCD1C54FA9600299990 /* ALCameraView.swift */; settings = {ASSET_TAGS = (); }; };
+		5C520FDE1C54FA9600299990 /* ALCropOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C520FCE1C54FA9600299990 /* ALCropOverlay.swift */; settings = {ASSET_TAGS = (); }; };
+		5C520FDF1C54FA9600299990 /* ALImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C520FCF1C54FA9600299990 /* ALImageCell.swift */; settings = {ASSET_TAGS = (); }; };
+		5C520FE01C54FA9600299990 /* ALPermissionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C520FD01C54FA9600299990 /* ALPermissionsView.swift */; settings = {ASSET_TAGS = (); }; };
+		5C520FE71C54FE4D00299990 /* DOAlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C520FE61C54FE4D00299990 /* DOAlertController.swift */; settings = {ASSET_TAGS = (); }; };
 		5C6DF59B1C2FFFEC00F2910B /* Events.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C6DF59A1C2FFFEC00F2910B /* Events.swift */; };
 		5C6DF59D1C3000AE00F2910B /* Specials.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C6DF59C1C3000AE00F2910B /* Specials.swift */; };
 		5C6E2C4A1BC90B940036259A /* DatePickerDialog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C6E2C491BC90B940036259A /* DatePickerDialog.swift */; };
@@ -286,6 +303,23 @@
 		5C27231C1BD899D7007227AA /* VenueProfileTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VenueProfileTableViewController.swift; sourceTree = "<group>"; };
 		5C2A9E931BD2063E008669AB /* RecentPhotoVidoeController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecentPhotoVidoeController.swift; sourceTree = "<group>"; };
 		5C3408111BE4F411006CB35C /* SettingsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsTableViewController.swift; sourceTree = "<group>"; };
+		5C520FBD1C54FA9600299990 /* ALCameraView.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = ALCameraView.strings; sourceTree = "<group>"; };
+		5C520FBE1C54FA9600299990 /* ALCameraViewAssets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = ALCameraViewAssets.xcassets; sourceTree = "<group>"; };
+		5C520FC01C54FA9600299990 /* ALImageModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ALImageModel.swift; sourceTree = "<group>"; };
+		5C520FC21C54FA9600299990 /* ALCameraShot.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ALCameraShot.swift; sourceTree = "<group>"; };
+		5C520FC31C54FA9600299990 /* ALImageExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ALImageExtensions.swift; sourceTree = "<group>"; };
+		5C520FC41C54FA9600299990 /* ALImageFetchingInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ALImageFetchingInteractor.swift; sourceTree = "<group>"; };
+		5C520FC51C54FA9600299990 /* ALUtilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ALUtilities.swift; sourceTree = "<group>"; };
+		5C520FC71C54FA9600299990 /* ALCameraViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ALCameraViewController.swift; sourceTree = "<group>"; };
+		5C520FC81C54FA9600299990 /* ALConfirmViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ALConfirmViewController.swift; sourceTree = "<group>"; };
+		5C520FC91C54FA9600299990 /* ALConfirmViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ALConfirmViewController.xib; sourceTree = "<group>"; };
+		5C520FCA1C54FA9600299990 /* ALImagePickerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ALImagePickerViewController.swift; sourceTree = "<group>"; };
+		5C520FCB1C54FA9600299990 /* ALImagePickerViewDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ALImagePickerViewDelegate.swift; sourceTree = "<group>"; };
+		5C520FCD1C54FA9600299990 /* ALCameraView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ALCameraView.swift; sourceTree = "<group>"; };
+		5C520FCE1C54FA9600299990 /* ALCropOverlay.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ALCropOverlay.swift; sourceTree = "<group>"; };
+		5C520FCF1C54FA9600299990 /* ALImageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ALImageCell.swift; sourceTree = "<group>"; };
+		5C520FD01C54FA9600299990 /* ALPermissionsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ALPermissionsView.swift; sourceTree = "<group>"; };
+		5C520FE61C54FE4D00299990 /* DOAlertController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DOAlertController.swift; sourceTree = "<group>"; };
 		5C6DF59A1C2FFFEC00F2910B /* Events.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Events.swift; sourceTree = "<group>"; };
 		5C6DF59C1C3000AE00F2910B /* Specials.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Specials.swift; sourceTree = "<group>"; };
 		5C6E2C491BC90B940036259A /* DatePickerDialog.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DatePickerDialog.swift; sourceTree = "<group>"; };
@@ -546,6 +580,69 @@
 			path = BorderedLabel;
 			sourceTree = "<group>";
 		};
+		5C520FBC1C54FA9600299990 /* ALCameraViewController */ = {
+			isa = PBXGroup;
+			children = (
+				5C520FBD1C54FA9600299990 /* ALCameraView.strings */,
+				5C520FBE1C54FA9600299990 /* ALCameraViewAssets.xcassets */,
+				5C520FBF1C54FA9600299990 /* Models */,
+				5C520FC11C54FA9600299990 /* Utilities */,
+				5C520FC61C54FA9600299990 /* ViewController */,
+				5C520FCC1C54FA9600299990 /* Views */,
+			);
+			path = ALCameraViewController;
+			sourceTree = "<group>";
+		};
+		5C520FBF1C54FA9600299990 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				5C520FC01C54FA9600299990 /* ALImageModel.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		5C520FC11C54FA9600299990 /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				5C520FC21C54FA9600299990 /* ALCameraShot.swift */,
+				5C520FC31C54FA9600299990 /* ALImageExtensions.swift */,
+				5C520FC41C54FA9600299990 /* ALImageFetchingInteractor.swift */,
+				5C520FC51C54FA9600299990 /* ALUtilities.swift */,
+			);
+			path = Utilities;
+			sourceTree = "<group>";
+		};
+		5C520FC61C54FA9600299990 /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				5C520FC71C54FA9600299990 /* ALCameraViewController.swift */,
+				5C520FC81C54FA9600299990 /* ALConfirmViewController.swift */,
+				5C520FC91C54FA9600299990 /* ALConfirmViewController.xib */,
+				5C520FCA1C54FA9600299990 /* ALImagePickerViewController.swift */,
+				5C520FCB1C54FA9600299990 /* ALImagePickerViewDelegate.swift */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
+		5C520FCC1C54FA9600299990 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				5C520FCD1C54FA9600299990 /* ALCameraView.swift */,
+				5C520FCE1C54FA9600299990 /* ALCropOverlay.swift */,
+				5C520FCF1C54FA9600299990 /* ALImageCell.swift */,
+				5C520FD01C54FA9600299990 /* ALPermissionsView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		5C520FE51C54FE4D00299990 /* Alert Controller */ = {
+			isa = PBXGroup;
+			children = (
+				5C520FE61C54FE4D00299990 /* DOAlertController.swift */,
+			);
+			path = "Alert Controller";
+			sourceTree = "<group>";
+		};
 		5C6DF5991C2FFF6300F2910B /* Models */ = {
 			isa = PBXGroup;
 			children = (
@@ -558,6 +655,8 @@
 		5C6E2C471BC90B940036259A /* Library */ = {
 			isa = PBXGroup;
 			children = (
+				5C520FE51C54FE4D00299990 /* Alert Controller */,
+				5C520FBC1C54FA9600299990 /* ALCameraViewController */,
 				5C232CF51C2BA254008D52A1 /* BorderedLabel */,
 				5C232CF01C2BA121008D52A1 /* BorderedImageView */,
 				5C232CF11C2BA121008D52A1 /* BorderedScrollView */,
@@ -869,6 +968,7 @@
 				15B85A1E1C09871900831BCB /* venueImage4.jpg in Resources */,
 				15606ED71C3D32AC00CD4D50 /* ArrowRight.png in Resources */,
 				5C92A1441BC5785A00EB6B9E /* User.storyboard in Resources */,
+				5C520FD21C54FA9600299990 /* ALCameraViewAssets.xcassets in Resources */,
 				15AB68D91C23C69800FB936C /* userImage3.jpg in Resources */,
 				15606EC21C3D309400CD4D50 /* playbutton_icon.png in Resources */,
 				15606ED91C3D32AC00CD4D50 /* ArrowRight@3x.png in Resources */,
@@ -892,12 +992,14 @@
 				15606EB11C3D309400CD4D50 /* guy_icon@2x.png in Resources */,
 				8061222C1BBF2D7400EFF35E /* LaunchScreen.xib in Resources */,
 				151212F81C53C551001D6C50 /* venu_tab@3x.png in Resources */,
+				5C520FDA1C54FA9600299990 /* ALConfirmViewController.xib in Resources */,
 				151212F71C53C551001D6C50 /* venu_tab@2x.png in Resources */,
 				15606EC81C3D309400CD4D50 /* record_icon.png in Resources */,
 				15606EB21C3D309400CD4D50 /* guy_icon@3x.png in Resources */,
 				15606EBB1C3D309400CD4D50 /* magglass_icon@3x.png in Resources */,
 				15606EAD1C3D309400CD4D50 /* check_icon.png in Resources */,
 				15606EC71C3D309400CD4D50 /* plus_icon@3x.png in Resources */,
+				5C520FD11C54FA9600299990 /* ALCameraView.strings in Resources */,
 				15606EAB1C3D309400CD4D50 /* camera_icon@2x.png in Resources */,
 				15606EB71C3D309400CD4D50 /* locationtab_icon@2x.png in Resources */,
 				806122291BBF2D7400EFF35E /* Images.xcassets in Resources */,
@@ -975,6 +1077,7 @@
 			files = (
 				159B87161C40D1B8007BF69C /* NewsFeedTableViewController.swift in Sources */,
 				5C6DF59B1C2FFFEC00F2910B /* Events.swift in Sources */,
+				5C520FDD1C54FA9600299990 /* ALCameraView.swift in Sources */,
 				1552EB331C1C663A00B73831 /* APIConnection.swift in Sources */,
 				15F0E4BA1C52598D00F6D1B3 /* ChangePasswordViewController.swift in Sources */,
 				5C92A1461BC57AD500EB6B9E /* LoginViewController.swift in Sources */,
@@ -982,15 +1085,20 @@
 				5C232CF71C2BA264008D52A1 /* Borderedlabel.swift in Sources */,
 				1502B80B1C16B925003BA39F /* NotificationViewController.swift in Sources */,
 				5C1F05D41C2561840036830D /* ForgotPassword.swift in Sources */,
+				5C520FD61C54FA9600299990 /* ALImageFetchingInteractor.swift in Sources */,
+				5C520FDB1C54FA9600299990 /* ALImagePickerViewController.swift in Sources */,
 				5CF4687F1C0E8ABD007F87AA /* Notifications.swift in Sources */,
 				5CF4687E1C0E8ABD007F87AA /* PromotionDetail.swift in Sources */,
+				5C520FE01C54FA9600299990 /* ALPermissionsView.swift in Sources */,
 				806122241BBF2D7400EFF35E /* MapViewController.swift in Sources */,
 				806122461BBF2EDF00EFF35E /* UserProfileViewController.swift in Sources */,
+				5C520FE71C54FE4D00299990 /* DOAlertController.swift in Sources */,
 				5C27231D1BD899D7007227AA /* VenueProfileTableViewController.swift in Sources */,
 				5CF468831C0E8B3B007F87AA /* PromotionsCell.swift in Sources */,
 				806122441BBF2ECF00EFF35E /* VenueProfileViewController.swift in Sources */,
 				5C6E2C4A1BC90B940036259A /* DatePickerDialog.swift in Sources */,
 				5C17F0061BCC097600E027E0 /* ProfileTableViewController.swift in Sources */,
+				5C520FD71C54FA9600299990 /* ALUtilities.swift in Sources */,
 				15B85A261C0987E500831BCB /* SearchViewController.swift in Sources */,
 				806122421BBF2E8100EFF35E /* UserFeedViewController.swift in Sources */,
 				5C2A9E941BD2063E008669AB /* RecentPhotoVidoeController.swift in Sources */,
@@ -1005,19 +1113,27 @@
 				5C3408121BE4F411006CB35C /* SettingsTableViewController.swift in Sources */,
 				5C22FB611BD1314000FF9C98 /* CollectionViewWaterfallLayout.swift in Sources */,
 				1577D7DE1C0D9E010033C8D5 /* PostViewController.swift in Sources */,
+				5C520FD91C54FA9600299990 /* ALConfirmViewController.swift in Sources */,
+				5C520FDC1C54FA9600299990 /* ALImagePickerViewDelegate.swift in Sources */,
 				806122511BBF3CCC00EFF35E /* UserFeedNavigationController.swift in Sources */,
 				8061224F1BBF3CB800EFF35E /* MapNavigationController.swift in Sources */,
+				5C520FD81C54FA9600299990 /* ALCameraViewController.swift in Sources */,
+				5C520FDE1C54FA9600299990 /* ALCropOverlay.swift in Sources */,
+				5C520FD51C54FA9600299990 /* ALImageExtensions.swift in Sources */,
 				5C26612F1BD0B4E100413257 /* GlobalConstants.swift in Sources */,
 				5C1CF1701BDBB45700B863F6 /* BorderedTextField.swift in Sources */,
 				5C232CF31C2BA134008D52A1 /* BorderedImageView.swift in Sources */,
 				158F434A1C467A4700A2356C /* FollowingViewController.swift in Sources */,
 				8061224A1BBF2F1400EFF35E /* FeedPageViewController.swift in Sources */,
 				5C218AC41BEA7EA900F7DA82 /* SMSVerification.swift in Sources */,
+				5C520FDF1C54FA9600299990 /* ALImageCell.swift in Sources */,
 				5C1CF1731BDBC5CC00B863F6 /* BorderedButton.swift in Sources */,
 				158F43501C467A9500A2356C /* FollowingCell.swift in Sources */,
 				5CF468811C0E8B0C007F87AA /* NotificationCell.swift in Sources */,
 				156BCCAA1C05E6BF00AB88A6 /* UserFeedCell.swift in Sources */,
+				5C520FD31C54FA9600299990 /* ALImageModel.swift in Sources */,
 				5C1F05D71C256B4B0036830D /* SegmentControl.swift in Sources */,
+				5C520FD41C54FA9600299990 /* ALCameraShot.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
