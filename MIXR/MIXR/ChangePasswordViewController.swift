@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ChangePasswordViewController: UIViewController {
+class ChangePasswordViewController: BaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -21,10 +21,6 @@ class ChangePasswordViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    @IBAction func onBackClicked(sender: AnyObject)
-    {
-        self.navigationController?.popViewControllerAnimated(true)
-    }
     /*
     // MARK: - Navigation
     

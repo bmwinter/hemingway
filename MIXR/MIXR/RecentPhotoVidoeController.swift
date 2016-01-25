@@ -8,7 +8,7 @@
 
 import UIKit
 
-class RecentPhotoVidoeController: UIViewController, UICollectionViewDataSource, CollectionViewWaterfallLayoutDelegate {
+class RecentPhotoVidoeController: BaseViewController, UICollectionViewDataSource, CollectionViewWaterfallLayoutDelegate {
     @IBOutlet var collectionView: UICollectionView!
     
     lazy var cellSizes: [CGSize] = {

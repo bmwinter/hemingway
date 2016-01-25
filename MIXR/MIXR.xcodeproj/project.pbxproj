@@ -18,6 +18,7 @@
 		151212F61C53C551001D6C50 /* venu_tab.png in Resources */ = {isa = PBXBuildFile; fileRef = 151212ED1C53C551001D6C50 /* venu_tab.png */; };
 		151212F71C53C551001D6C50 /* venu_tab@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 151212EE1C53C551001D6C50 /* venu_tab@2x.png */; };
 		151212F81C53C551001D6C50 /* venu_tab@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 151212EF1C53C551001D6C50 /* venu_tab@3x.png */; };
+		154900321C55F70500EB64E8 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 154900311C55F70500EB64E8 /* BaseViewController.swift */; };
 		1552EB331C1C663A00B73831 /* APIConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1552EB321C1C663A00B73831 /* APIConnection.swift */; };
 		15606EAA1C3D309400CD4D50 /* camera_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 15606E861C3D309400CD4D50 /* camera_icon.png */; };
 		15606EAB1C3D309400CD4D50 /* camera_icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 15606E871C3D309400CD4D50 /* camera_icon@2x.png */; };
@@ -111,23 +112,23 @@
 		5C27231D1BD899D7007227AA /* VenueProfileTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C27231C1BD899D7007227AA /* VenueProfileTableViewController.swift */; };
 		5C2A9E941BD2063E008669AB /* RecentPhotoVidoeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C2A9E931BD2063E008669AB /* RecentPhotoVidoeController.swift */; };
 		5C3408121BE4F411006CB35C /* SettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C3408111BE4F411006CB35C /* SettingsTableViewController.swift */; };
-		5C520FD11C54FA9600299990 /* ALCameraView.strings in Resources */ = {isa = PBXBuildFile; fileRef = 5C520FBD1C54FA9600299990 /* ALCameraView.strings */; settings = {ASSET_TAGS = (); }; };
-		5C520FD21C54FA9600299990 /* ALCameraViewAssets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5C520FBE1C54FA9600299990 /* ALCameraViewAssets.xcassets */; settings = {ASSET_TAGS = (); }; };
-		5C520FD31C54FA9600299990 /* ALImageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C520FC01C54FA9600299990 /* ALImageModel.swift */; settings = {ASSET_TAGS = (); }; };
-		5C520FD41C54FA9600299990 /* ALCameraShot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C520FC21C54FA9600299990 /* ALCameraShot.swift */; settings = {ASSET_TAGS = (); }; };
-		5C520FD51C54FA9600299990 /* ALImageExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C520FC31C54FA9600299990 /* ALImageExtensions.swift */; settings = {ASSET_TAGS = (); }; };
-		5C520FD61C54FA9600299990 /* ALImageFetchingInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C520FC41C54FA9600299990 /* ALImageFetchingInteractor.swift */; settings = {ASSET_TAGS = (); }; };
-		5C520FD71C54FA9600299990 /* ALUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C520FC51C54FA9600299990 /* ALUtilities.swift */; settings = {ASSET_TAGS = (); }; };
-		5C520FD81C54FA9600299990 /* ALCameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C520FC71C54FA9600299990 /* ALCameraViewController.swift */; settings = {ASSET_TAGS = (); }; };
-		5C520FD91C54FA9600299990 /* ALConfirmViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C520FC81C54FA9600299990 /* ALConfirmViewController.swift */; settings = {ASSET_TAGS = (); }; };
-		5C520FDA1C54FA9600299990 /* ALConfirmViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5C520FC91C54FA9600299990 /* ALConfirmViewController.xib */; settings = {ASSET_TAGS = (); }; };
-		5C520FDB1C54FA9600299990 /* ALImagePickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C520FCA1C54FA9600299990 /* ALImagePickerViewController.swift */; settings = {ASSET_TAGS = (); }; };
-		5C520FDC1C54FA9600299990 /* ALImagePickerViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C520FCB1C54FA9600299990 /* ALImagePickerViewDelegate.swift */; settings = {ASSET_TAGS = (); }; };
-		5C520FDD1C54FA9600299990 /* ALCameraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C520FCD1C54FA9600299990 /* ALCameraView.swift */; settings = {ASSET_TAGS = (); }; };
-		5C520FDE1C54FA9600299990 /* ALCropOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C520FCE1C54FA9600299990 /* ALCropOverlay.swift */; settings = {ASSET_TAGS = (); }; };
-		5C520FDF1C54FA9600299990 /* ALImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C520FCF1C54FA9600299990 /* ALImageCell.swift */; settings = {ASSET_TAGS = (); }; };
-		5C520FE01C54FA9600299990 /* ALPermissionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C520FD01C54FA9600299990 /* ALPermissionsView.swift */; settings = {ASSET_TAGS = (); }; };
-		5C520FE71C54FE4D00299990 /* DOAlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C520FE61C54FE4D00299990 /* DOAlertController.swift */; settings = {ASSET_TAGS = (); }; };
+		5C520FD11C54FA9600299990 /* ALCameraView.strings in Resources */ = {isa = PBXBuildFile; fileRef = 5C520FBD1C54FA9600299990 /* ALCameraView.strings */; };
+		5C520FD21C54FA9600299990 /* ALCameraViewAssets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5C520FBE1C54FA9600299990 /* ALCameraViewAssets.xcassets */; };
+		5C520FD31C54FA9600299990 /* ALImageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C520FC01C54FA9600299990 /* ALImageModel.swift */; };
+		5C520FD41C54FA9600299990 /* ALCameraShot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C520FC21C54FA9600299990 /* ALCameraShot.swift */; };
+		5C520FD51C54FA9600299990 /* ALImageExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C520FC31C54FA9600299990 /* ALImageExtensions.swift */; };
+		5C520FD61C54FA9600299990 /* ALImageFetchingInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C520FC41C54FA9600299990 /* ALImageFetchingInteractor.swift */; };
+		5C520FD71C54FA9600299990 /* ALUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C520FC51C54FA9600299990 /* ALUtilities.swift */; };
+		5C520FD81C54FA9600299990 /* ALCameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C520FC71C54FA9600299990 /* ALCameraViewController.swift */; };
+		5C520FD91C54FA9600299990 /* ALConfirmViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C520FC81C54FA9600299990 /* ALConfirmViewController.swift */; };
+		5C520FDA1C54FA9600299990 /* ALConfirmViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5C520FC91C54FA9600299990 /* ALConfirmViewController.xib */; };
+		5C520FDB1C54FA9600299990 /* ALImagePickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C520FCA1C54FA9600299990 /* ALImagePickerViewController.swift */; };
+		5C520FDC1C54FA9600299990 /* ALImagePickerViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C520FCB1C54FA9600299990 /* ALImagePickerViewDelegate.swift */; };
+		5C520FDD1C54FA9600299990 /* ALCameraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C520FCD1C54FA9600299990 /* ALCameraView.swift */; };
+		5C520FDE1C54FA9600299990 /* ALCropOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C520FCE1C54FA9600299990 /* ALCropOverlay.swift */; };
+		5C520FDF1C54FA9600299990 /* ALImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C520FCF1C54FA9600299990 /* ALImageCell.swift */; };
+		5C520FE01C54FA9600299990 /* ALPermissionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C520FD01C54FA9600299990 /* ALPermissionsView.swift */; };
+		5C520FE71C54FE4D00299990 /* DOAlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C520FE61C54FE4D00299990 /* DOAlertController.swift */; };
 		5C6DF59B1C2FFFEC00F2910B /* Events.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C6DF59A1C2FFFEC00F2910B /* Events.swift */; };
 		5C6DF59D1C3000AE00F2910B /* Specials.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C6DF59C1C3000AE00F2910B /* Specials.swift */; };
 		5C6E2C4A1BC90B940036259A /* DatePickerDialog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C6E2C491BC90B940036259A /* DatePickerDialog.swift */; };
@@ -209,6 +210,7 @@
 		151212ED1C53C551001D6C50 /* venu_tab.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = venu_tab.png; sourceTree = "<group>"; };
 		151212EE1C53C551001D6C50 /* venu_tab@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "venu_tab@2x.png"; sourceTree = "<group>"; };
 		151212EF1C53C551001D6C50 /* venu_tab@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "venu_tab@3x.png"; sourceTree = "<group>"; };
+		154900311C55F70500EB64E8 /* BaseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		1552EB321C1C663A00B73831 /* APIConnection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIConnection.swift; sourceTree = "<group>"; };
 		15606E861C3D309400CD4D50 /* camera_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = camera_icon.png; sourceTree = "<group>"; };
 		15606E871C3D309400CD4D50 /* camera_icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "camera_icon@2x.png"; sourceTree = "<group>"; };
@@ -720,6 +722,7 @@
 				15F0E4B31C52559D00F6D1B3 /* SettingViewController.swift */,
 				806122211BBF2D7400EFF35E /* VenueFeedViewController.swift */,
 				15F0E4B91C52598D00F6D1B3 /* ChangePasswordViewController.swift */,
+				154900311C55F70500EB64E8 /* BaseViewController.swift */,
 				806122231BBF2D7400EFF35E /* MapViewController.swift */,
 				806122411BBF2E8100EFF35E /* UserFeedViewController.swift */,
 				158F43491C467A4700A2356C /* FollowingViewController.swift */,
@@ -1080,6 +1083,7 @@
 				5C520FDD1C54FA9600299990 /* ALCameraView.swift in Sources */,
 				1552EB331C1C663A00B73831 /* APIConnection.swift in Sources */,
 				15F0E4BA1C52598D00F6D1B3 /* ChangePasswordViewController.swift in Sources */,
+				154900321C55F70500EB64E8 /* BaseViewController.swift in Sources */,
 				5C92A1461BC57AD500EB6B9E /* LoginViewController.swift in Sources */,
 				5C6F92061BC6C9680037373B /* SignUpTableViewController.swift in Sources */,
 				5C232CF71C2BA264008D52A1 /* Borderedlabel.swift in Sources */,

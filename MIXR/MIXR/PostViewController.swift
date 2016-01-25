@@ -8,7 +8,7 @@
 
 import UIKit
 
-class PostViewController: UIViewController {
+class PostViewController: BaseViewController {
     
     var feedDict : NSDictionary = NSDictionary()
     @IBOutlet weak var FeedName: UILabel!
@@ -87,11 +87,6 @@ class PostViewController: UIViewController {
         {
             self.btnFollowing.backgroundColor = UIColor(red: 194/255,green: 194/255.0,blue: 194/255,alpha: 1.0)
         }
-    }
-    
-    @IBAction func onBackClicked(sender: AnyObject)
-    {
-        self.navigationController?.popViewControllerAnimated(true)
     }
     
     /*

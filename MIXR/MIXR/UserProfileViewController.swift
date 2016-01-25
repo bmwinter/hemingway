@@ -9,7 +9,7 @@
 import UIKit
 
 
-class UserProfileViewController: UIViewController, UITableViewDelegate
+class UserProfileViewController: BaseViewController, UITableViewDelegate
 {
     var feedDict : NSDictionary = NSDictionary()
     @IBOutlet weak var FeedName: UILabel!
@@ -67,11 +67,6 @@ class UserProfileViewController: UIViewController, UITableViewDelegate
         {
             self.btnFollowing.backgroundColor = UIColor(red: 194/255,green: 194/255.0,blue: 194/255,alpha: 1.0)
         }
-    }
-    
-    @IBAction func onBackClicked(sender: AnyObject)
-    {
-        self.navigationController?.popViewControllerAnimated(true)
     }
     
     /*

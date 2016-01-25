@@ -8,7 +8,7 @@
 
 import UIKit
 
-class NotificationViewController: UIViewController,UITableViewDelegate,UITableViewDataSource,UISearchBarDelegate {
+class NotificationViewController: BaseViewController,UITableViewDelegate,UITableViewDataSource,UISearchBarDelegate {
     let feedsArray : NSMutableArray = NSMutableArray()
     
     @IBOutlet var tblViewNotification: UITableView!
@@ -46,12 +46,6 @@ class NotificationViewController: UIViewController,UITableViewDelegate,UITableVi
     }
     
     @IBOutlet var segmentedControl: UISegmentedControl!
-    
-    //  MARK:- Button Action -
-    @IBAction func BackButtonAction(sender: AnyObject)
-    {
-        self.navigationController?.popViewControllerAnimated(true)
-    }
     
     //  MARK:- segmentedControl Delegate -
     @IBAction func indexChanged(sender: AnyObject)

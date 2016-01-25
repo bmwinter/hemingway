@@ -8,7 +8,7 @@
 
 import UIKit
 
-class VenueProfileViewController: UIViewController {
+class VenueProfileViewController: BaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,11 +23,6 @@ class VenueProfileViewController: UIViewController {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
-    }
-    
-    @IBAction func onBackClicked(sender: AnyObject)
-    {
-        self.navigationController?.popViewControllerAnimated(true)
     }
     
 }

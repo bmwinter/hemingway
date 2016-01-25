@@ -9,7 +9,7 @@
 import UIKit
 import SwiftyJSON
 
-class SearchViewController: UIViewController, UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,APIConnectionDelegate {
+class SearchViewController: BaseViewController, UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,APIConnectionDelegate {
     
     //var usersArray : Array<JSON> = []
     var usersArray : NSMutableArray = NSMutableArray()

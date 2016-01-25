@@ -8,7 +8,7 @@
 
 import UIKit
 
-class SettingViewController: UIViewController {
+class SettingViewController: BaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -20,12 +20,6 @@ class SettingViewController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
-    @IBAction func onBackClicked(sender: AnyObject)
-    {
-        self.navigationController?.popViewControllerAnimated(true)
-    }
-    
     
     /*
     // MARK: - Navigation

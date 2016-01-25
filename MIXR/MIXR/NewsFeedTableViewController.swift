@@ -68,6 +68,7 @@ class NewsFeedTableViewController:UITableViewController,APIConnectionDelegate {
     
     @IBAction func onUserBtnClicked(sender: AnyObject)
     {
+        
         // let postViewController : ProfileTableViewController = self.storyboard!.instantiateViewControllerWithIdentifier("ProfileTableViewController") as! ProfileTableViewController
         // //postViewController.feedDict = feedDict
         // self.navigationController!.pushViewController(postViewController, animated: true)
