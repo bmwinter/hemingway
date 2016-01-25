@@ -108,12 +108,11 @@ public class ALCameraView: UIView {
                 if self.currentPosition == .Front {
                     correctedImage = image.fixFrontCameraOrientation()
                 }
-                
                 completion(correctedImage)
             }
         }
     }
-
+    
     public func swapCameraInput() {
         if session != nil && input != nil {
             session.beginConfiguration()
