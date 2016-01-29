@@ -15,6 +15,7 @@ class NewsFeedTableViewController:UITableViewController,APIConnectionDelegate {
     
     var feedsArray : Array<JSON> = []
     //var feedsArray : NSArray <JSON> = NSMutableArray()
+    //var refreshControl:UIRefreshControl!
     
     override func viewDidLoad()
     {
@@ -24,10 +25,33 @@ class NewsFeedTableViewController:UITableViewController,APIConnectionDelegate {
         
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
+        self.pullToReferesh()
         
         view.backgroundColor = UIColor.clearColor()
         //performSelector(Selector(setFrames()), withObject: nil, afterDelay: 1.0)
         self.loadData()
+    }
+    
+    func pullToReferesh()
+    {
+        self.refreshControl = UIRefreshControl()
+        self.refreshControl!.attributedTitle = NSAttributedString(string: "Pull to refresh")
+        self.refreshControl!.addTarget(self, action: "refresh:", forControlEvents: UIControlEvents.ValueChanged)
+        self.tableView.addSubview(self.refreshControl!)
+    }
+    
+    func refresh(sender:AnyObject)
+    {
+        // Code to refresh table view
+        self.performSelector(Selector("endReferesh"), withObject: nil, afterDelay: 1.0)
+    }
+    
+    func endReferesh()
+    {
+        //End refresh control
+        self.refreshControl?.endRefreshing()
+        //Remove refresh control to superview
+        //self.refreshControl?.removeFromSuperview()
     }
     
     override func viewWillAppear(animated: Bool)
@@ -58,6 +82,7 @@ class NewsFeedTableViewController:UITableViewController,APIConnectionDelegate {
             //call API for to get venues
             let object = APIConnection().POST(APIName.Venues.rawValue, withAPIName: "VenueList", withMessage: "", withParam: param, withProgresshudShow: true, withHeader: false) as! APIConnection
             object.delegate = self
+            
         }
     }
     

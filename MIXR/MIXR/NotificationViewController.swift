@@ -12,6 +12,7 @@ class NotificationViewController: BaseViewController,UITableViewDelegate,UITable
     let feedsArray : NSMutableArray = NSMutableArray()
     
     @IBOutlet var tblViewNotification: UITableView!
+    var refreshControl:UIRefreshControl!
     
     //  MARK:- ViewLifecycle -
     override func viewDidLoad()
@@ -20,9 +21,31 @@ class NotificationViewController: BaseViewController,UITableViewDelegate,UITable
         //        self.tblViewNotification.hidden = true
         // Do any additional setup after loading the view.
         (segmentedControl.subviews[1] as UIView).tintColor = UIColor(red: 83/255.0, green:135/255.0, blue: 50/255.0, alpha: 1.0)
-        
+        self.pullToReferesh()
         self.loadData()
         
+    }
+    
+    func pullToReferesh()
+    {
+        self.refreshControl = UIRefreshControl()
+        self.refreshControl!.attributedTitle = NSAttributedString(string: "Pull to refresh")
+        self.refreshControl!.addTarget(self, action: "refresh:", forControlEvents: UIControlEvents.ValueChanged)
+        self.tblViewNotification.addSubview(self.refreshControl!)
+    }
+    
+    func refresh(sender:AnyObject)
+    {
+        // Code to refresh table view
+        self.performSelector(Selector("endReferesh"), withObject: nil, afterDelay: 1.0)
+    }
+    
+    func endReferesh()
+    {
+        //End refresh control
+        self.refreshControl?.endRefreshing()
+        //Remove refresh control to superview
+        //self.refreshControl?.removeFromSuperview()
     }
     
     override func didReceiveMemoryWarning() {
