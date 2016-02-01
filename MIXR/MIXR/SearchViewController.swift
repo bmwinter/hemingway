@@ -40,14 +40,14 @@ class SearchViewController: BaseViewController, UITableViewDelegate,UITableViewD
         
         searchBarObj.layer.cornerRadius = 10.0
         
-        self.pullToReferesh()
+        //self.pullToReferesh()
         // Do any additional setup after loading the view.
     }
     
     func pullToReferesh()
     {
         self.refreshControl = UIRefreshControl()
-        self.refreshControl!.attributedTitle = NSAttributedString(string: "Pull to refresh")
+        self.refreshControl!.attributedTitle = NSAttributedString(string: "Updating")
         self.refreshControl!.addTarget(self, action: "refresh:", forControlEvents: UIControlEvents.ValueChanged)
         self.tableView.addSubview(self.refreshControl!)
     }
