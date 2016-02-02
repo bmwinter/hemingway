@@ -56,7 +56,7 @@ class DOAlertAction : NSObject, NSCopying {
 // MARK: DOAlertAnimation Class
 
 class DOAlertAnimation : NSObject, UIViewControllerAnimatedTransitioning {
-
+    
     let isPresenting: Bool
     
     init(isPresenting: Bool) {
@@ -114,8 +114,8 @@ class DOAlertAnimation : NSObject, UIViewControllerAnimatedTransitioning {
                         if (finished) {
                             transitionContext.completeTransition(true)
                         }
-                    })
-            })
+                })
+        })
     }
     
     func dismissAnimateTransition(transitionContext: UIViewControllerContextTransitioning) {
@@ -134,7 +134,7 @@ class DOAlertAnimation : NSObject, UIViewControllerAnimatedTransitioning {
             },
             completion: { finished in
                 transitionContext.completeTransition(true)
-            })
+        })
     }
 }
 
@@ -225,13 +225,16 @@ class DOAlertController : UIViewController, UITextFieldDelegate, UIViewControlle
         .Cancel  : UIColor.whiteColor(),
         .Destructive  : UIColor.whiteColor()
     ]
+    ////UIColor(red:52/255, green:152/255, blue:219/255, alpha:1),
     var buttonBgColor: [DOAlertActionStyle : UIColor] = [
-        .Default : UIColor(red:52/255, green:152/255, blue:219/255, alpha:1),
+        .Default : UIColor(red: 96/255,green: 134/255.0,blue: 72/255,alpha: 1.0),
         .Cancel  : UIColor(red:127/255, green:140/255, blue:141/255, alpha:1),
         .Destructive  : UIColor(red:231/255, green:76/255, blue:60/255, alpha:1)
     ]
+    
+    //UIColor(red:74/255, green:163/255, blue:223/255, alpha:1),
     var buttonBgColorHighlighted: [DOAlertActionStyle : UIColor] = [
-        .Default : UIColor(red:74/255, green:163/255, blue:223/255, alpha:1),
+        .Default : UIColor(red: 96/255,green: 134/255.0,blue: 72/255,alpha: 1.0),
         .Cancel  : UIColor(red:140/255, green:152/255, blue:153/255, alpha:1),
         .Destructive  : UIColor(red:234/255, green:97/255, blue:83/255, alpha:1)
     ]

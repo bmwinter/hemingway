@@ -14,12 +14,43 @@ import Foundation
 import MobileCoreServices
 
 
-class BaseViewController: UIViewController  ,UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+class BaseViewController: UIViewController  ,UIImagePickerControllerDelegate, UINavigationControllerDelegate,UIGestureRecognizerDelegate {
     
-    override func viewDidLoad() {
+    override func viewDidLoad()
+    {
         super.viewDidLoad()
         
+        if ((self.navigationController?.respondsToSelector(Selector("interactivePopGestureRecognizer"))) != nil)
+        {
+            Log("interactivePopGestureRecognizer true \(self.navigationController!.viewControllers.count)")
+            if (self.navigationController!.viewControllers.count > 1)
+            {
+                self.navigationController!.interactivePopGestureRecognizer!.delegate =  self
+                self.navigationController!.interactivePopGestureRecognizer!.enabled = true
+            }
+            else
+            {
+                self.navigationController!.interactivePopGestureRecognizer!.delegate =  nil
+                self.navigationController!.interactivePopGestureRecognizer!.enabled = false
+            }
+        }
+        else
+        {
+            Log("interactivePopGestureRecognizer false")
+            self.navigationController!.interactivePopGestureRecognizer!.delegate =  nil
+            self.navigationController!.interactivePopGestureRecognizer!.enabled = false
+        }
+        
         // Do any additional setup after loading the view.
+        
+    }
+    
+    func gestureRecognizer(gestureRecognizer: UIGestureRecognizer, shouldBeRequiredToFailByGestureRecognizer otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+        return gestureRecognizer.isKindOfClass(UIScreenEdgePanGestureRecognizer)
+    }
+    
+    func gestureRecognizer(gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWithGestureRecognizer otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+        return true
     }
     
     override func didReceiveMemoryWarning() {
@@ -55,7 +86,6 @@ class BaseViewController: UIViewController  ,UIImagePickerControllerDelegate, UI
         self.dismissViewControllerAnimated(true, completion: {})
         
         UISaveVideoAtPathToSavedPhotosAlbum(pathString!, self, nil, nil)
-        
     }
     
     
@@ -74,7 +104,6 @@ class BaseViewController: UIViewController  ,UIImagePickerControllerDelegate, UI
             imagePicker.allowsEditing = false
             imagePicker.videoMaximumDuration = 10.0
             imagePicker.showsCameraControls = true
-            
             
             self.presentViewController(imagePicker, animated: true, completion: nil)
             
@@ -104,7 +133,7 @@ class BaseViewController: UIViewController  ,UIImagePickerControllerDelegate, UI
     func displayActionSheetForCamera(){
         let cancelButtonTitle = "Cancel"
         let photoButton = "Take Photo"
-        let videoButton = "Take Video"
+        let videoButton = "Record Video"
         
         let alertController = DOAlertController(title: nil, message: nil, preferredStyle: .ActionSheet)
         
@@ -133,6 +162,27 @@ class BaseViewController: UIViewController  ,UIImagePickerControllerDelegate, UI
         presentViewController(alertController, animated: true, completion: nil)
     }
     
+    // MARK:
+    // MARK: Image preview
     
     
+    func previewImages(image : UIImage = UIImage(named: "placeholder.png")!)
+    {
+        let images = [
+            image
+        ]
+        self.previewImagesFromArray(images)
+    }
+    
+    func previewImagesFromArray(images : NSArray, startIndex : Int = 0)
+    {
+        let agrume = Agrume(images: images, startIndex: startIndex, backgroundBlurStyle: .Light)
+        agrume.didScroll = {
+            [unowned self] index in
+            self.collectionView?.scrollToItemAtIndexPath(NSIndexPath(forRow: index, inSection: 0),
+                atScrollPosition: [],
+                animated: false)
+        }
+        agrume.showFrom(self)
+    }
 }

@@ -27,7 +27,8 @@ class SearchViewController: BaseViewController, UITableViewDelegate,UITableViewD
     
     //  MARK:- Tableview delegate -
     
-    override func viewDidLoad() {
+    override func viewDidLoad()
+    {
         super.viewDidLoad()
         is_searching = false
         self.tableView.separatorColor = UIColor .clearColor()
@@ -37,7 +38,6 @@ class SearchViewController: BaseViewController, UITableViewDelegate,UITableViewD
         view.addGestureRecognizer(tap)
         
         searchingArray = []
-        
         searchBarObj.layer.cornerRadius = 10.0
         
         //self.pullToReferesh()

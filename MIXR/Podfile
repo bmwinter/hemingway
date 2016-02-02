@@ -7,12 +7,13 @@ platform :ios, '8.0'
 use_frameworks!
 
 target 'MIXR' do
-pod 'Alamofire', '~> 3.0'
-pod 'IQKeyboardManagerSwift', '~> 3.3'
-pod 'SwiftyJSON'
+    pod 'Alamofire', '~> 3.0'
+    pod 'IQKeyboardManagerSwift', '~> 3.3'
+    pod 'SwiftyJSON'
+    pod 'Agrume'
 end
 
 target 'MIXRTests' do
-
+    
 end
 

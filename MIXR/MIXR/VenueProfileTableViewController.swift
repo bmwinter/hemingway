@@ -10,7 +10,7 @@ import UIKit
 import Alamofire
 import SwiftyJSON
 
-class VenueProfileTableViewController: UITableViewController {
+class VenueProfileTableViewController: UITableViewController,UIGestureRecognizerDelegate {
     
     @IBOutlet weak var venuePicture: UIImageView!
     @IBOutlet weak var noofFillsImage: UIImageView!
@@ -28,13 +28,13 @@ class VenueProfileTableViewController: UITableViewController {
     override func viewDidLoad()
     {
         super.viewDidLoad()
-        
+        //self.navigationController?.interactivePopGestureRecognizer!.delegate =  self
+        //self.navigationController?.interactivePopGestureRecognizer!.enabled = true        
         self.title = "Spanky's"
         self.navigationItem.rightBarButtonItem = showLatestVideos;
         
         self.navigationItem.backBarButtonItem = UIBarButtonItem(title:"", style:.Plain, target:nil, action:nil)
         self.tableView.backgroundView = UIImageView(image: UIImage(named: "BG"))
-        
         loadDummyScrollViewData()
         
         // Do any additional setup after loading the view, typically from a nib.

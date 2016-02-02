@@ -32,6 +32,8 @@ class PostViewController: BaseViewController {
     override func viewDidLoad()
     {
         super.viewDidLoad()
+        //self.navigationController?.interactivePopGestureRecognizer!.delegate =  self
+        //self.navigationController?.interactivePopGestureRecognizer!.enabled = true        
         self.loadData()
         // Do any additional setup after loading the view.
     }

@@ -18,7 +18,9 @@ class NotificationViewController: BaseViewController,UITableViewDelegate,UITable
     override func viewDidLoad()
     {
         super.viewDidLoad()
-        //        self.tblViewNotification.hidden = true
+        //self.navigationController?.interactivePopGestureRecognizer!.delegate =  self
+        //self.navigationController?.interactivePopGestureRecognizer!.enabled = true        
+        //self.tblViewNotification.hidden = true
         // Do any additional setup after loading the view.
         (segmentedControl.subviews[1] as UIView).tintColor = UIColor(red: 83/255.0, green:135/255.0, blue: 50/255.0, alpha: 1.0)
         self.pullToReferesh()

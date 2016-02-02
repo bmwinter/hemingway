@@ -24,7 +24,11 @@ class FollowingViewController: BaseViewController, UITableViewDelegate,UITableVi
     //  MARK:- Tableview delegate -
     
     override func viewDidLoad() {
+        
         super.viewDidLoad()
+        //self.navigationController?.interactivePopGestureRecognizer!.delegate =  self
+        //self.navigationController?.interactivePopGestureRecognizer!.enabled = true        
+        
         is_searching = false
         self.tableView.separatorColor = UIColor .clearColor()
         self.loadData()

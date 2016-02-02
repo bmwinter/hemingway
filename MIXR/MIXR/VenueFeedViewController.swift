@@ -24,7 +24,7 @@ class VenueFeedViewController:BaseViewController {
     }
     
     override func viewWillDisappear(animated: Bool) {
-        self.navigationController?.navigationBarHidden = true
+        //self.navigationController?.navigationBarHidden = true
     }
     
     @IBAction func onUserProfileClicked(sender: AnyObject)
@@ -40,9 +40,9 @@ class VenueFeedViewController:BaseViewController {
         // self.navigationController!.pushViewController(postViewController, animated: true)
     }
     
-    override func prefersStatusBarHidden() -> Bool
-    {
-        return false
-    }
+    //    override func prefersStatusBarHidden() -> Bool
+    //    {
+    //        return false
+    //    }
 }
 
