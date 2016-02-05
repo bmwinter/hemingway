@@ -12,7 +12,7 @@ import Alamofire
 import SwiftyJSON
 import Foundation
 import MobileCoreServices
-
+import Agrume
 
 class BaseViewController: UIViewController  ,UIImagePickerControllerDelegate, UINavigationControllerDelegate,UIGestureRecognizerDelegate {
     
@@ -164,7 +164,18 @@ class BaseViewController: UIViewController  ,UIImagePickerControllerDelegate, UI
     
     // MARK:
     // MARK: Image preview
-    
+    @IBAction func onImagePreviewClicked(sender: AnyObject)
+    {
+        if let button = sender as? UIButton {
+            
+            if let image = button.imageForState(.Normal)
+            {
+                self.previewImages(image)
+            }
+            //            let agrume = Agrume(image: image)
+            //            agrume.showFrom(self)
+        }
+    }
     
     func previewImages(image : UIImage = UIImage(named: "placeholder.png")!)
     {
@@ -176,13 +187,14 @@ class BaseViewController: UIViewController  ,UIImagePickerControllerDelegate, UI
     
     func previewImagesFromArray(images : NSArray, startIndex : Int = 0)
     {
-        let agrume = Agrume(images: images, startIndex: startIndex, backgroundBlurStyle: .Light)
-        agrume.didScroll = {
-            [unowned self] index in
-            self.collectionView?.scrollToItemAtIndexPath(NSIndexPath(forRow: index, inSection: 0),
-                atScrollPosition: [],
-                animated: false)
-        }
+        let agrume = Agrume(images: images as! [UIImage], startIndex: startIndex, backgroundBlurStyle: .ExtraLight)
+        //        agrume.didScroll = {
+        //            [unowned self] index in
+        //            Log("index \(index)")
+        //            //            self.collectionView?.scrollToItemAtIndexPath(NSIndexPath(forRow: index, inSection: 0),
+        //            //                atScrollPosition: [],
+        //            //                animated: false)
+        //        }
         agrume.showFrom(self)
     }
 }

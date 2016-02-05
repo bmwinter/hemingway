@@ -22,7 +22,6 @@ class PostViewController: BaseViewController {
     
     @IBAction func OnSettingBtnAction(sender: AnyObject)
     {
-        
         let aSettingsTableViewController : SettingViewController = self.storyboard!.instantiateViewControllerWithIdentifier("SettingViewController") as! SettingViewController
         //postViewController.feedDict = feedDict
         self.navigationController!.pushViewController(aSettingsTableViewController, animated: true)
@@ -53,8 +52,7 @@ class PostViewController: BaseViewController {
             //self.lblUserName.text = feedDict["userName"] as? String
         }
         
-        if (
-            isUserProfile)
+        if (isUserProfile)
         {
             self.SettingBtn.hidden = false
         }
@@ -72,7 +70,8 @@ class PostViewController: BaseViewController {
         }
     }
     
-    override func didReceiveMemoryWarning() {
+    override func didReceiveMemoryWarning()
+    {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
@@ -100,5 +99,4 @@ class PostViewController: BaseViewController {
     // Pass the selected object to the new view controller.
     }
     */
-    
 }

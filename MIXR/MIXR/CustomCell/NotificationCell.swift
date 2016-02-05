@@ -27,6 +27,13 @@ class NotificationCell: UITableViewCell {
     {
         super.setSelected(selected, animated: animated)
         // Configure the view for the selected state
+        if (selected)
+        {
+            cellBGView.backgroundColor = UIColor(red: (214.0/255.0), green: (214.0/255.0), blue: (214.0/255.0), alpha: 1)
+        }
+        else
+        {
+            cellBGView.backgroundColor = UIColor.clearColor()
+        }
     }
-    
 }

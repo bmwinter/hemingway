@@ -69,6 +69,7 @@ class Notifications: UITableViewController {
     func notificationCell(indexPath:NSIndexPath) -> NotificationCell
     {
         let cell = tableView.dequeueReusableCellWithIdentifier(notificationCellIdentifier) as! NotificationCell
+        cell.selectionStyle = UITableViewCellSelectionStyle.None
         cell.notificationText.text = "This is test notification";
         cell.notificationTimeStamp.text = "1 hr";
         cell.userPic.image = UIImage(named: "Chcked")
@@ -84,6 +85,7 @@ class Notifications: UITableViewController {
     func promotionsCell(indexPath:NSIndexPath) -> PromotionsCell
     {
         let cell = tableView.dequeueReusableCellWithIdentifier(promotionsCellIdentifier) as! PromotionsCell
+        cell.selectionStyle = UITableViewCellSelectionStyle.None
         cell.notificationText.text = "This is test promotions";
         cell.notificationTimeStamp.text = "1 hr";
         

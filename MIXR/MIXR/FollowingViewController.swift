@@ -100,7 +100,7 @@ class FollowingViewController: BaseViewController, UITableViewDelegate,UITableVi
     {
         
         let cell = tableView.dequeueReusableCellWithIdentifier("FollowingCell", forIndexPath: indexPath) as! FollowingCell
-        
+        cell.selectionStyle = UITableViewCellSelectionStyle.None
         let feedDict : NSDictionary = usersArray[indexPath.row] as! NSDictionary
         cell.imagePerson.image  = UIImage(named: feedDict["userImage"] as! String)
         cell.labelName.text = feedDict["userName"] as? String

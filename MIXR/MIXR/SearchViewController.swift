@@ -34,8 +34,8 @@ class SearchViewController: BaseViewController, UITableViewDelegate,UITableViewD
         self.tableView.separatorColor = UIColor .clearColor()
         self.loadData()
         
-        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "dismissKeyboard")
-        view.addGestureRecognizer(tap)
+        //let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "dismissKeyboard")
+        // view.addGestureRecognizer(tap)
         
         searchingArray = []
         searchBarObj.layer.cornerRadius = 10.0
@@ -71,7 +71,8 @@ class SearchViewController: BaseViewController, UITableViewDelegate,UITableViewD
         self.navigationController?.navigationBarHidden = true
     }
     
-    override func didReceiveMemoryWarning() {
+    override func didReceiveMemoryWarning()
+    {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
@@ -79,7 +80,8 @@ class SearchViewController: BaseViewController, UITableViewDelegate,UITableViewD
     //  MARK:- UITapGestureRecognizer  -
     //Calls this function when the tap is recognized.
     
-    func dismissKeyboard() {
+    func dismissKeyboard()
+    {
         //Causes the view (or one of its embedded text fields) to resign the first responder status.
         view.endEditing(true)
     }
@@ -110,7 +112,6 @@ class SearchViewController: BaseViewController, UITableViewDelegate,UITableViewD
         }
     }
     
-    
     func reloadTable()
     {
         tableView.reloadData()
@@ -140,6 +141,7 @@ class SearchViewController: BaseViewController, UITableViewDelegate,UITableViewD
     {
         
         let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as! SearchTableViewCell
+        cell.selectionStyle = UITableViewCellSelectionStyle.None
         
         if is_searching == true
         {
@@ -159,10 +161,23 @@ class SearchViewController: BaseViewController, UITableViewDelegate,UITableViewD
         return cell
     }
     
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath)
-    {
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         print("indexpath.row = \(indexPath.row)")
+        
+        //let selectedCell:UITableViewCell = tableView.cellForRowAtIndexPath(indexPath)!
+        //selectedCell.contentView.backgroundColor = UIColor.clearColor()
     }
+    
+    // if tableView is set in attribute inspector with selection to multiple Selection it should work.
+    
+    // Just set it back in deselect
+    
+    func tableView(tableView: UITableView, didDeselectRowAtIndexPath indexPath: NSIndexPath) {
+        // let cellToDeSelect:UITableViewCell = tableView.cellForRowAtIndexPath(indexPath)!
+        //  cellToDeSelect.contentView.backgroundColor = UIColor.lightGrayColor()
+    }
+    
+    
     
     //  MARK:- Button Action -
     @IBAction func NotificatiDeatil(sender: AnyObject) {
