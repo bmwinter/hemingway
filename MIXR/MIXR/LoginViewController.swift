@@ -144,10 +144,9 @@ class LoginViewController: UIViewController, UIImagePickerControllerDelegate, UI
     */
     
     @IBAction func forgotPasswordButtonTapped(sender: AnyObject){
-        //self.navigationController?.navigationBarHidden = false
-        self.displayActionSheetForCamera()
-        return;
-        
+//        self.displayActionSheetForCamera()
+//        return;
+        self.navigationController?.navigationBarHidden = false
         self.performSegueWithIdentifier("ForgotPasswordSegue", sender: nil)
     }
     
@@ -161,7 +160,7 @@ class LoginViewController: UIViewController, UIImagePickerControllerDelegate, UI
         userEmailTextField.resignFirstResponder()
         userPasswordTextField.resignFirstResponder()
         
-        loadTabar()
+//        loadTabar()
         
         let email = userEmailTextField.text!.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
         let password = userPasswordTextField.text!.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
@@ -187,7 +186,7 @@ class LoginViewController: UIViewController, UIImagePickerControllerDelegate, UI
         if !globalConstants.isValidEmail(email){
             self.displayCommonAlert(globalConstants.kValidEmailError)
         }
-        
+        self.performLoginAction()
     }
     
     /*
@@ -196,13 +195,14 @@ class LoginViewController: UIViewController, UIImagePickerControllerDelegate, UI
     
     func performLoginAction(){
         let parameters = [
-            "email": userEmailTextField.text!.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet()),
+            "username": userEmailTextField.text!.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet()),
             "password": userPasswordTextField.text!.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())]
         
         let URL =  globalConstants.kAPIURL + globalConstants.kLoginAPIEndPoint
-        
+        Alamofire.Manager.sharedInstance.session.configuration.HTTPAdditionalHeaders?.updateValue("application/json", forKey: "Accept")
+
         Alamofire.request(.POST, URL , parameters: parameters, encoding: .JSON)
-            .responseJSON { response in
+            .responseString { response in
                 guard let value = response.result.value else {
                     print("Error: did not receive data")
                     return

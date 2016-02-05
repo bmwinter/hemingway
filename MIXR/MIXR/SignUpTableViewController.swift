@@ -56,6 +56,9 @@ class SignUpTableViewController: UITableViewController {
     @IBOutlet weak var dob: UIButton!
     @IBOutlet weak var gender: UISegmentedControl!
     @IBOutlet weak var checkmark: UIButton!
+    @IBOutlet weak var spaceBetween: NSLayoutConstraint!
+    @IBOutlet weak var firstNameWidth: NSLayoutConstraint!
+    @IBOutlet weak var lastNameWidth: NSLayoutConstraint!
     
     var selectedDate : NSDate?
     
@@ -73,7 +76,13 @@ class SignUpTableViewController: UITableViewController {
     }
     
     override func viewWillAppear(animated: Bool) {
+//        self.spaceBetween.constant = 9
+        // 26
+        let width = (self.navigationController?.view.frame.size.width)! - 26.0
+        self.firstNameWidth.constant = width/2.0
+        self.lastNameWidth.constant = width/2.0
         self.navigationController?.navigationBarHidden = true
+//        self.performSignUp()
     }
 
     /*
@@ -104,7 +113,7 @@ class SignUpTableViewController: UITableViewController {
     @IBAction func signupButtonTapped(sender: AnyObject){
         
         
-       // self.navigationController?.navigationBarHidden = false
+        self.navigationController?.navigationBarHidden = false
         self.performSegueWithIdentifier("SMSVerification", sender: nil)
         return
         
@@ -167,19 +176,29 @@ class SignUpTableViewController: UITableViewController {
     */
     
     func performSignUp(){
+//        let parameters = [
+//            "first_name": firstname.text!.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet()),
+//            "last_name": lastname.text!.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet()),
+//            "password": password.text!.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet()),
+//            "email": email.text!.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet()),
+//            "birthdate": dob.titleLabel!.text!.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet()),
+//            "gender": "Male"
+//        ]
+        
         let parameters = [
-            "firstName": firstname.text!.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet()),
-            "lastName": lastname.text!.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet()),
-            "password": password.text!.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet()),
-            "email": email.text!.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet()),
-            "birthdate": dob.titleLabel!.text!.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet()),
-            "gender": "Male"
+            "first_name": "test",
+            "last_name": "test",
+            "password": "test",
+            "email": "test@test.com",
+            "birthdate": "1988-04-04",
+            "phone_number": "+919428117839"
         ]
+
         
         let URL =  globalConstants.kAPIURL + globalConstants.kSignUpAPIEndPoint
         
         Alamofire.request(.POST, URL , parameters: parameters, encoding: .JSON)
-            .responseJSON { response in
+            .responseString { response in
                 guard let value = response.result.value else {
                     print("Error: did not receive data")
                     return

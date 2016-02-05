@@ -14,12 +14,14 @@ class ForgotPassword: UITableViewController {
     @IBOutlet weak var email: UITextField!
     @IBOutlet weak var doneButton: UIButton!
     override func viewDidLoad() {
-        
+        self.email?.placeholder = "Phone"
+        self.email?.text = "+919428117839"
         self.navigationItem.backBarButtonItem = UIBarButtonItem(title:"", style:.Plain, target:nil, action:nil)
 //        self.navigationItem.rightBarButtonItem = self.doneButton
         
         self.tableView.backgroundView = UIImageView(image: UIImage(named: "BG"))
         self.title = "Forgot Password"
+        
         // Do any additional setup after loading the view, typically from a nib.
     }
     
@@ -31,12 +33,13 @@ class ForgotPassword: UITableViewController {
             self.displayCommonAlert(globalConstants.kEmailError)
             return
         }
-        if !globalConstants.isValidEmail(emailString){
-            self.displayCommonAlert(globalConstants.kValidEmailError)
-            return
-        }
+//        if !globalConstants.isValidEmail(emailString){
+//            self.displayCommonAlert(globalConstants.kValidEmailError)
+//            return
+//        }
 
-        self.navigationController?.popViewControllerAnimated(true)
+        self.recoverPasswordUpdate()
+//        self.navigationController?.popViewControllerAnimated(true)
     }
     
     @IBAction func settingsButtonTapped (sender:AnyObject){
@@ -44,18 +47,48 @@ class ForgotPassword: UITableViewController {
     }
     
     /*
-    // forgotPasswordAPI used to send email to user to reset the password
+    // recoverPassword used to send email to user to reset the password
     */
     
-    func forgotPasswordAPI(){
+    func recoverPassword(){
         let parameters = [
-            "email": email.text!.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
+            "phone_number": email.text!.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
         ]
         
-        let URL =  globalConstants.kAPIURL + globalConstants.kForgotPasswordAPIEndPoint
+        let URL =  globalConstants.kAPIURL + globalConstants.kPasswordRecover
         
         Alamofire.request(.POST, URL , parameters: parameters, encoding: .JSON)
-            .responseJSON { response in
+            .responseString { response in
+                guard let value = response.result.value else {
+                    print("Error: did not receive data")
+                    return
+                }
+                
+                guard response.result.error == nil else {
+                    print("error calling POST")
+                    print(response.result.error)
+                    return
+                }
+                let post = JSON(value)
+                print("The post is: " + post.description)
+        }
+    }
+
+    /*
+    // recoverPassword used to send email to user to reset the password
+    */
+    
+    func recoverPasswordUpdate(){
+        let parameters = [
+            "phone_number": email.text!.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet()),
+            "code":"1234",
+            "password":"test12345"
+        ]
+        
+        let URL =  globalConstants.kAPIURL + globalConstants.kPasswordRecoverChange
+        
+        Alamofire.request(.POST, URL , parameters: parameters, encoding: .JSON)
+            .responseString { response in
                 guard let value = response.result.value else {
                     print("Error: did not receive data")
                     return

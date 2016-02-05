@@ -23,13 +23,15 @@ class SMSVerification: UITableViewController {
 //        self.navigationItem.rightBarButtonItem = self.btnDone;
         self.title = "Verify"
         // Do any additional setup after loading the view, typically from a nib.
+        
     }
 
     @IBAction func btnVerifyClicked (sender:AnyObject){
-        self.performSegueWithIdentifier("SettingsSegue", sender: nil)
+        self.checkVerificationCode();
+//        self.performSegueWithIdentifier("SettingsSegue", sender: nil)
     }
     @IBAction func btnResendClicked (sender:AnyObject){
-        self.performSegueWithIdentifier("SettingsSegue", sender: nil)
+//        self.performSegueWithIdentifier("SettingsSegue", sender: nil)
     }
 
     @IBAction func settingsButtonTapped (sender:AnyObject){
@@ -41,16 +43,16 @@ class SMSVerification: UITableViewController {
     // checkVerificationCode used to check user entered verification code with server
     */
     
-    func checkVerificationCode(){
+    func getVerificationCode(){
         let parameters = [
-            "currentPassword": phoneInput.text!.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet()),
-            "userID":"1"
+            "phone_number": "+919428117839"
+                //phoneInput.text!.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet()),
         ]
         
-        let URL =  globalConstants.kAPIURL + globalConstants.kVerifyAPIEndPoint
+        let URL =  globalConstants.kAPIURL + globalConstants.kGetVerificationCode
         
         Alamofire.request(.POST, URL , parameters: parameters, encoding: .JSON)
-            .responseJSON { response in
+            .responseString { response in
                 guard let value = response.result.value else {
                     print("Error: did not receive data")
                     return
@@ -66,6 +68,32 @@ class SMSVerification: UITableViewController {
         }
     }
 
+    func checkVerificationCode(){
+        let parameters = [
+            "phone_number": "+919428117839",
+            "code": "5626"
+            //phoneInput.text!.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet()),
+        ]
+        
+        let URL =  globalConstants.kAPIURL + globalConstants.kVerifyCodeAPIEndPoint
+        
+        Alamofire.request(.POST, URL , parameters: parameters, encoding: .JSON)
+            .responseString { response in
+                guard let value = response.result.value else {
+                    print("Error: did not receive data")
+                    return
+                }
+                
+                guard response.result.error == nil else {
+                    print("error calling POST")
+                    print(response.result.error)
+                    return
+                }
+                let post = JSON(value)
+                print("The post is: " + post.description)
+        }
+    }
+    
     /*
     // Table View delegate methods
     */

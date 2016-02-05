@@ -18,12 +18,14 @@ enum APIName : Int
 
 
 struct globalConstants {
-    static let kAPIURL = "url"
+    static let kAPIURL = "http://54.174.249.237/"
     
-    static let kLoginAPIEndPoint = "Login"
-    static let kSignUpAPIEndPoint = "SignUp"
-    static let kVerifyAPIEndPoint = "Verify"
-    static let kForgotPasswordAPIEndPoint = "ForgotPassword"
+    static let kLoginAPIEndPoint = "login"
+    static let kSignUpAPIEndPoint = "register"
+    static let kGetVerificationCode = "confirmation"
+    static let kVerifyCodeAPIEndPoint = "confirmation/check"
+    static let kPasswordRecover = "password/recover"
+    static let kPasswordRecoverChange = "password/recover/change"
     static let kChangePasswordAPIEndPoint = "ChangePassword"
     static let kVenueDetailsAPIEndPoint = "VenueDetails"
     static let kNotificationsAPIEndPoint = "Notifications"
