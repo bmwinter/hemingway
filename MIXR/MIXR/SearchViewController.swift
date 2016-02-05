@@ -9,8 +9,9 @@
 import UIKit
 import SwiftyJSON
 
-class SearchViewController: UIViewController, UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,APIConnectionDelegate {
+class SearchViewController: BaseViewController, UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,APIConnectionDelegate {
     
+    var refreshControl:UIRefreshControl!
     //var usersArray : Array<JSON> = []
     var usersArray : NSMutableArray = NSMutableArray()
     var usersArray1 : NSMutableArray = NSMutableArray()
@@ -39,7 +40,30 @@ class SearchViewController: UIViewController, UITableViewDelegate,UITableViewDat
         
         searchBarObj.layer.cornerRadius = 10.0
         
+        //self.pullToReferesh()
         // Do any additional setup after loading the view.
+    }
+    
+    func pullToReferesh()
+    {
+        self.refreshControl = UIRefreshControl()
+        self.refreshControl!.attributedTitle = NSAttributedString(string: "Updating")
+        self.refreshControl!.addTarget(self, action: "refresh:", forControlEvents: UIControlEvents.ValueChanged)
+        self.tableView.addSubview(self.refreshControl!)
+    }
+    
+    func refresh(sender:AnyObject)
+    {
+        // Code to refresh table view
+        self.performSelector(Selector("endReferesh"), withObject: nil, afterDelay: 1.0)
+    }
+    
+    func endReferesh()
+    {
+        //End refresh control
+        self.refreshControl?.endRefreshing()
+        //Remove refresh control to superview
+        //self.refreshControl?.removeFromSuperview()
     }
     
     override func viewWillAppear(animated: Bool)
@@ -85,6 +109,7 @@ class SearchViewController: UIViewController, UITableViewDelegate,UITableViewDat
             object.delegate = self
         }
     }
+    
     
     func reloadTable()
     {

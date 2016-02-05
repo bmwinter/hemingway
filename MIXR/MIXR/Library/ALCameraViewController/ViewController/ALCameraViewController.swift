@@ -142,7 +142,7 @@ public class ALCameraViewController: UIViewController {
             horizontalPadding = 15
         }
     }
-
+    
     private func checkPermissions() {
         if AVCaptureDevice.authorizationStatusForMediaType(AVMediaTypeVideo) == AVAuthorizationStatus.Authorized {
             startCamera()
@@ -207,7 +207,7 @@ public class ALCameraViewController: UIViewController {
         
         cameraButton.setImage(UIImage(named: "cameraButton", inBundle: NSBundle(forClass: ALCameraViewController.self), compatibleWithTraitCollection: nil), forState: .Normal)
         cameraButton.setImage(UIImage(named: "cameraButtonHighlighted", inBundle: NSBundle(forClass: ALCameraViewController.self), compatibleWithTraitCollection: nil), forState: .Highlighted)
-
+        
         closeButton.setImage(UIImage(named: "closeButton", inBundle: NSBundle(forClass: ALCameraViewController.self), compatibleWithTraitCollection: nil), forState: .Normal)
         swapButton.setImage(UIImage(named: "swapButton", inBundle: NSBundle(forClass: ALCameraViewController.self), compatibleWithTraitCollection: nil), forState: .Normal)
         libraryButton.setImage(UIImage(named: "libraryButton", inBundle: NSBundle(forClass: ALCameraViewController.self), compatibleWithTraitCollection: nil), forState: .Normal)
@@ -293,7 +293,7 @@ public class ALCameraViewController: UIViewController {
         }
         
         imagePicker.modalTransitionStyle = UIModalTransitionStyle.CrossDissolve
-
+        
         presentViewController(imagePicker, animated: true) {
             self.cameraView.stopSession()
         }
@@ -306,6 +306,11 @@ public class ALCameraViewController: UIViewController {
     
     internal func toggleFlash() {
         let device = AVCaptureDevice.defaultDeviceWithMediaType(AVMediaTypeVideo)
+        if (device == nil)
+        {
+            return
+        }
+        
         if (device.hasTorch) {
             do {
                 try device.lockForConfiguration()

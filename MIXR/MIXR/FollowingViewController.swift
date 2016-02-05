@@ -9,7 +9,7 @@
 import UIKit
 import SwiftyJSON
 
-class FollowingViewController: UIViewController, UITableViewDelegate,UITableViewDataSource,APIConnectionDelegate {
+class FollowingViewController: BaseViewController, UITableViewDelegate,UITableViewDataSource,APIConnectionDelegate {
     
     //var usersArray : Array<JSON> = []
     var usersArray : NSMutableArray = NSMutableArray()
@@ -111,12 +111,6 @@ class FollowingViewController: UIViewController, UITableViewDelegate,UITableView
         postViewController.isUserProfile = true
         self.navigationController!.pushViewController(postViewController, animated: true)
         
-    }
-    
-    //  MARK:- Button Action -
-    @IBAction func BackButtonAction(sender: AnyObject)
-    {
-        self.navigationController?.popViewControllerAnimated(true)
     }
     
     

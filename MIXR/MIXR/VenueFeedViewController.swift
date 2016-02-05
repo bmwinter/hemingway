@@ -10,7 +10,7 @@
 import UIKit
 import SwiftyJSON
 
-class VenueFeedViewController:UIViewController {
+class VenueFeedViewController:BaseViewController {
     
     override func viewDidLoad()
     {

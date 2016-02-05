@@ -15,20 +15,20 @@ class Notifications: UITableViewController {
     
     let notificationCellIdentifier = "NotificationCell"
     let promotionsCellIdentifier = "PromotionsCell"
-
+    
     @IBOutlet weak var segment : UISegmentedControl!
     
     override func viewDidLoad()
     {
         self.tableView.rowHeight = UITableViewAutomaticDimension
-
+        
         self.navigationItem.backBarButtonItem = UIBarButtonItem(title:"", style:.Plain, target:nil, action:nil)
         
         self.tableView.backgroundView = UIImageView(image: UIImage(named: "BG"))
         self.title = "Notifications"
         // Do any additional setup after loading the view, typically from a nib.
     }
-
+    
     @IBAction func settingsButtonTapped (sender:AnyObject)
     {
         
@@ -55,15 +55,15 @@ class Notifications: UITableViewController {
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell
     {
         return notificationCell(indexPath)
-
-//        if(segment.selectedSegmentIndex == 0)
-//        {
-//            return notificationCell(indexPath)
-//        }
-//        else
-//        {
-//            return promotionsCell(indexPath)
-//        }
+        
+        //        if(segment.selectedSegmentIndex == 0)
+        //        {
+        //            return notificationCell(indexPath)
+        //        }
+        //        else
+        //        {
+        //            return promotionsCell(indexPath)
+        //        }
     }
     
     func notificationCell(indexPath:NSIndexPath) -> NotificationCell
@@ -76,7 +76,7 @@ class Notifications: UITableViewController {
         cell.cellBGView.layer.masksToBounds = true
         cell.cellBGView.layer.cornerRadius = 0.0
         cell.cellBGView.layer.borderColor = UIColor(red: (214.0/255.0), green: (214.0/255.0), blue: (214.0/255.0), alpha: 1).CGColor
-
+        
         
         return cell
     }
@@ -90,7 +90,7 @@ class Notifications: UITableViewController {
         cell.cellBGView.layer.masksToBounds = true
         cell.cellBGView.layer.cornerRadius = 0.0
         cell.cellBGView.layer.borderColor = UIColor(red: (214.0/255.0), green: (214.0/255.0), blue: (214.0/255.0), alpha: 1).CGColor
-
+        
         
         return cell
     }
@@ -129,7 +129,7 @@ class Notifications: UITableViewController {
                 print("The post is: " + post.description)
         }
     }
-
+    
     /*
     // Segment Control Delegate Method
     */
@@ -138,6 +138,6 @@ class Notifications: UITableViewController {
         print("Selected segment = \(sender.selectedIndex)")
         
     }
-
-
+    
+    
 }
