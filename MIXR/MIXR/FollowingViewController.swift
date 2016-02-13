@@ -24,7 +24,11 @@ class FollowingViewController: BaseViewController, UITableViewDelegate,UITableVi
     //  MARK:- Tableview delegate -
     
     override func viewDidLoad() {
+        
         super.viewDidLoad()
+        //self.navigationController?.interactivePopGestureRecognizer!.delegate =  self
+        //self.navigationController?.interactivePopGestureRecognizer!.enabled = true        
+        
         is_searching = false
         self.tableView.separatorColor = UIColor .clearColor()
         self.loadData()
@@ -96,7 +100,7 @@ class FollowingViewController: BaseViewController, UITableViewDelegate,UITableVi
     {
         
         let cell = tableView.dequeueReusableCellWithIdentifier("FollowingCell", forIndexPath: indexPath) as! FollowingCell
-        
+        cell.selectionStyle = UITableViewCellSelectionStyle.None
         let feedDict : NSDictionary = usersArray[indexPath.row] as! NSDictionary
         cell.imagePerson.image  = UIImage(named: feedDict["userImage"] as! String)
         cell.labelName.text = feedDict["userName"] as? String

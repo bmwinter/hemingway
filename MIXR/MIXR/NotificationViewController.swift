@@ -10,7 +10,7 @@ import UIKit
 
 class NotificationViewController: BaseViewController,UITableViewDelegate,UITableViewDataSource,UISearchBarDelegate {
     let feedsArray : NSMutableArray = NSMutableArray()
-    
+    let promotersArray : NSMutableArray = NSMutableArray()
     @IBOutlet var tblViewNotification: UITableView!
     var refreshControl:UIRefreshControl!
     
@@ -18,7 +18,9 @@ class NotificationViewController: BaseViewController,UITableViewDelegate,UITable
     override func viewDidLoad()
     {
         super.viewDidLoad()
-        //        self.tblViewNotification.hidden = true
+        //self.navigationController?.interactivePopGestureRecognizer!.delegate =  self
+        //self.navigationController?.interactivePopGestureRecognizer!.enabled = true        
+        //self.tblViewNotification.hidden = true
         // Do any additional setup after loading the view.
         (segmentedControl.subviews[1] as UIView).tintColor = UIColor(red: 83/255.0, green:135/255.0, blue: 50/255.0, alpha: 1.0)
         self.pullToReferesh()
@@ -66,6 +68,18 @@ class NotificationViewController: BaseViewController,UITableViewDelegate,UITable
         feedsArray.addObject(["venueName":"Mad River8","venueImage":"venueImage8.jpg","userHr":"12 hr"])
         feedsArray.addObject(["venueName":"Mad River9","venueImage":"venueImage9.jpg","userHr":"4 hr"])
         feedsArray.addObject(["venueName":"Mad River10","venueImage":"venueImage10.jpg","userHr":"8 hr"])
+        
+        promotersArray.addObject(["promoters":"Coupon 1","userHr":"1 hr"])
+        promotersArray.addObject(["promoters":"Coupon 2","userHr":"12 hr"])
+        promotersArray.addObject(["promoters":"Coupon 3","userHr":"8 hr"])
+        promotersArray.addObject(["promoters":"Coupon 4","userHr":"20 hr"])
+        promotersArray.addObject(["promoters":"Coupon 5","userHr":"30 hr"])
+        promotersArray.addObject(["promoters":"Coupon 6","userHr":"6 hr"])
+        promotersArray.addObject(["promoters":"Coupon 7","userHr":"7 hr"])
+        promotersArray.addObject(["promoters":"Coupon 8","userHr":"12 hr"])
+        promotersArray.addObject(["promoters":"Coupon 9","userHr":"4 hr"])
+        promotersArray.addObject(["promoters":"Coupon 10","userHr":"8 hr"])
+        
     }
     
     @IBOutlet var segmentedControl: UISegmentedControl!
@@ -103,13 +117,21 @@ class NotificationViewController: BaseViewController,UITableViewDelegate,UITable
     func tableView(tableView: UITableView,
         numberOfRowsInSection section: Int) -> Int
     {
-        return feedsArray.count;
+        if(segmentedControl.selectedSegmentIndex == 0)
+        {
+            return feedsArray.count
+        }
+        else
+        {
+            return promotersArray.count
+        }
     }
     
     func tableView(tableView: UITableView,
         cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell
     {
         let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as! NotificationCell
+        cell.selectionStyle = UITableViewCellSelectionStyle.None
         
         if(segmentedControl.selectedSegmentIndex == 0)
         {
@@ -122,8 +144,8 @@ class NotificationViewController: BaseViewController,UITableViewDelegate,UITable
         }
         else
         {
-            let feedDict : NSDictionary = feedsArray[indexPath.row] as! NSDictionary
-            cell.notificationText.text = feedDict["venueName"] as? String
+            let feedDict : NSDictionary = promotersArray[indexPath.row] as! NSDictionary
+            cell.notificationText.text = feedDict["promoters"] as? String
             cell.notificationTimeStamp.text = feedDict["userHr"] as? String
             //cell.notificationTimeStamp.frame = CGRectMake(220, 15, 42, 21)
             cell.userPic.hidden = true
@@ -135,6 +157,11 @@ class NotificationViewController: BaseViewController,UITableViewDelegate,UITable
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath)
     {
         print("indexpath.row = \(indexPath.row)")
+        if (segmentedControl.selectedSegmentIndex == 1)
+        {
+            let aPromotionDetailViewController : PromotionDetailViewController = self.storyboard!.instantiateViewControllerWithIdentifier("PromotionDetailViewController") as! PromotionDetailViewController
+            self.navigationController!.pushViewController(aPromotionDetailViewController, animated: true)
+        }
     }
     
     /*

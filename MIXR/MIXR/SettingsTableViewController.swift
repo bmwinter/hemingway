@@ -18,12 +18,15 @@ enum settingsTag:Int {
     case logout
 }
 
-class SettingsTableViewController: UITableViewController {
+class SettingsTableViewController: UITableViewController,UIGestureRecognizerDelegate {
     /*
     // Table View delegate methods
     */
     override func viewDidLoad()
     {
+        super.viewDidLoad()
+        //self.navigationController?.interactivePopGestureRecognizer!.delegate =  self
+        //self.navigationController?.interactivePopGestureRecognizer!.enabled = true        
         self.navigationItem.backBarButtonItem = UIBarButtonItem(title:"", style:.Plain, target:nil, action:nil)
         self.tableView.backgroundView = UIImageView(image: UIImage(named: "BG"))
         self.title = "Settings"

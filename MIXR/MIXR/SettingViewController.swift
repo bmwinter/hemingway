@@ -12,8 +12,8 @@ class SettingViewController: BaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        // Do any additional setup after loading the view.
+        //self.navigationController?.interactivePopGestureRecognizer!.delegate =  self
+        //self.navigationController?.interactivePopGestureRecognizer!.enabled = true        // Do any additional setup after loading the view.
     }
     
     override func didReceiveMemoryWarning() {

@@ -11,7 +11,8 @@ import SwiftyJSON
 
 let isLocalData = false
 
-class NewsFeedTableViewController:UITableViewController,APIConnectionDelegate {
+class
+NewsFeedTableViewController:UITableViewController,APIConnectionDelegate {
     
     var feedsArray : Array<JSON> = []
     //var feedsArray : NSArray <JSON> = NSMutableArray()
@@ -93,7 +94,6 @@ class NewsFeedTableViewController:UITableViewController,APIConnectionDelegate {
     
     @IBAction func onUserBtnClicked(sender: AnyObject)
     {
-        
         // let postViewController : ProfileTableViewController = self.storyboard!.instantiateViewControllerWithIdentifier("ProfileTableViewController") as! ProfileTableViewController
         // //postViewController.feedDict = feedDict
         // self.navigationController!.pushViewController(postViewController, animated: true)
@@ -152,7 +152,7 @@ class NewsFeedTableViewController:UITableViewController,APIConnectionDelegate {
         cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell
     {
         let cell = tableView.dequeueReusableCellWithIdentifier("tableCell", forIndexPath: indexPath) as! UserFeedCell
-        
+        cell.selectionStyle = UITableViewCellSelectionStyle.None
         //let feedDict : Dictionary <String, JSON> = feedsArray[indexPath.row]
         cell.contentView.tag = indexPath.row
         

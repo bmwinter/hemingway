@@ -23,6 +23,7 @@ class SearchTableViewCell: UITableViewCell {
         super.awakeFromNib()
         // Initialization code
         //self.layer.borderColor = UIColor.lightGrayColor().CGColor
+        self.cellBackgroundView.userInteractionEnabled = true
         self.cellBackgroundView.layer.borderWidth = 2.0
         self.cellBackgroundView.layer.borderColor = UIColor(red: (214.0/255.0), green: (214.0/255.0), blue: (214.0/255.0), alpha: 1).CGColor
     }
@@ -30,8 +31,14 @@ class SearchTableViewCell: UITableViewCell {
     override func setSelected(selected: Bool, animated: Bool)
     {
         super.setSelected(selected, animated: animated)
-        
         // Configure the view for the selected state
+        if (selected)
+        {
+            self.cellBackgroundView.backgroundColor = UIColor(red: (214.0/255.0), green: (214.0/255.0), blue: (214.0/255.0), alpha: 1)
+        }
+        else
+        {
+            self.cellBackgroundView.backgroundColor = UIColor.clearColor()
+        }
     }
-    
 }

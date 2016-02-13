@@ -76,6 +76,7 @@ class UserFeedViewController: UIViewController, UITableViewDelegate,UITableViewD
         let feedDict : NSDictionary = feedsArray[indexPath.row] as! NSDictionary
         
         let cell = tableView.dequeueReusableCellWithIdentifier("tableCell", forIndexPath: indexPath) as! UserFeedCell
+        cell.selectionStyle = UITableViewCellSelectionStyle.None
         cell.FeedName.text = feedDict["venueName"] as? String
         cell.lblUserName.text = feedDict["userName"] as? String
         return cell

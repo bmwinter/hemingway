@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ChangePasswordViewController: BaseViewController {
+class PromotionDetailViewController: BaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
