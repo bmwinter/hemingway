@@ -113,7 +113,7 @@ class LoginViewController: BaseViewController {
         
         let URL =  globalConstants.kAPIURL + globalConstants.kLoginAPIEndPoint
         Alamofire.Manager.sharedInstance.session.configuration.HTTPAdditionalHeaders?.updateValue("application/json", forKey: "Accept")
-
+        
         Alamofire.request(.POST, URL , parameters: parameters, encoding: .JSON)
             .responseString { response in
                 guard let value = response.result.value else {
@@ -126,18 +126,43 @@ class LoginViewController: BaseViewController {
                     print(response.result.error)
                     return
                 }
-                let post = JSON(value)
-                NSUserDefaults.standardUserDefaults().setObject(post as! AnyObject, forKey: "loggedInUserInfo")
                 
-                print("The post is: " + post.description)
-                if let email = post["email"].string {
-                    print("The title is: " + email)
-                } else {
-                    print("Error parsing JSON")
+                let post = JSON(value)
+                if let string = post.rawString() {
+                    let responseDic:[String:AnyObject]? = self.convertStringToDictionary(string)
+                    
+                    if response.response?.statusCode == 400{
+                        print("The Response Error is:   \(response.response?.statusCode)")
+                        if let errorData = responseDic?["detail"] {
+                            let errorMessage = errorData[0] as! String
+                            self.displayCommonAlert(errorMessage)
+                            return;
+                        }
+                    }
+                    
+                    if let tokenData = responseDic?["token"] {
+                        let tokenString = tokenData as! String
+                        NSUserDefaults.standardUserDefaults().setObject(tokenString, forKey: "LoginToken")
+                        print(tokenString)
+                        self.loadTabar()
+                    }
                 }
         }
     }
     
+    //MARK: convertStringObject to Dictionary
+    
+    func convertStringToDictionary(text:String) -> [String:AnyObject]? {
+        if let data = text.dataUsingEncoding(NSUTF8StringEncoding) {
+            do {
+                return try NSJSONSerialization.JSONObjectWithData(data, options: []) as? [String:AnyObject]
+            } catch let error as NSError {
+                print(error)
+            }
+        }
+        return nil
+    }
+
     /*
     // Common alert method need to be used to display alert, by passing alert string as parameter to it.
     */

@@ -102,7 +102,7 @@ class DatePickerDialog: UIView {
 
         self.datePicker.date = self.defaultDate ?? NSDate()
 
-        self.datePicker.maximumDate = self.defaultDate ?? NSDate()
+//        self.datePicker.maximumDate = self.defaultDate ?? NSDate()
 
         
 

@@ -21,6 +21,7 @@ class SMSVerification: UITableViewController {
 
         self.tableView.backgroundView = UIImageView(image: UIImage(named: "BG"))
 //        self.navigationItem.rightBarButtonItem = self.btnDone;
+        self.phoneInput?.text = "+919428117839"
         self.title = "Verify"
         // Do any additional setup after loading the view, typically from a nib.
         
@@ -45,8 +46,7 @@ class SMSVerification: UITableViewController {
     
     func getVerificationCode(){
         let parameters = [
-            "phone_number": "+919428117839"
-                //phoneInput.text!.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet()),
+            "phone_number": self.phoneInput.text!.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet()),
         ]
         
         let URL =  globalConstants.kAPIURL + globalConstants.kGetVerificationCode
@@ -70,7 +70,7 @@ class SMSVerification: UITableViewController {
 
     func checkVerificationCode(){
         let parameters = [
-            "phone_number": "+919428117839",
+            "phone_number": self.phoneInput.text!.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet()),
             "code": "5626"
             //phoneInput.text!.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet()),
         ]

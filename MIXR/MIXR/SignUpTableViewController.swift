@@ -8,6 +8,7 @@
 import UIKit
 import Alamofire
 import SwiftyJSON
+import IQKeyboardManagerSwift
 
 extension NSDate {
     func yearsFrom(date:NSDate) -> Int{
@@ -45,7 +46,7 @@ extension NSDate {
 
 
 
-class SignUpTableViewController: UITableViewController {
+class SignUpTableViewController: UIViewController {
     
     
     @IBOutlet weak var firstname: UITextField!
@@ -54,6 +55,7 @@ class SignUpTableViewController: UITableViewController {
     @IBOutlet weak var password: UITextField!
     @IBOutlet weak var conformPassword: UITextField!
     @IBOutlet weak var dob: UIButton!
+    @IBOutlet weak var phoneNo: UITextField!
     @IBOutlet weak var gender: UISegmentedControl!
     @IBOutlet weak var checkmark: UIButton!
     @IBOutlet weak var spaceBetween: NSLayoutConstraint!
@@ -65,12 +67,14 @@ class SignUpTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         
+        IQKeyboardManager.sharedManager().enable = true
+
         self.navigationItem.backBarButtonItem = UIBarButtonItem(title:"", style:.Plain, target:nil, action:nil)
 
         self.dob?.setTitleColor(UIColor.lightGrayColor(), forState: UIControlState.Normal)
 
         self.selectedDate = NSDate()
-        self.tableView.backgroundView = UIImageView(image: UIImage(named: "BG"))
+//        self.tableView.backgroundView = UIImageView(image: UIImage(named: "BG"))
         self.title = "Sign Up"
         // Do any additional setup after loading the view, typically from a nib.
     }
@@ -85,19 +89,6 @@ class SignUpTableViewController: UITableViewController {
 //        self.performSignUp()
     }
 
-    /*
-    // Table View delegate methods
-    */
-
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return 0
-    }
-    
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 0
-    }
-    
-    
     /*
     //  Check mark button method
     */
@@ -124,6 +115,8 @@ class SignUpTableViewController: UITableViewController {
         let passwordString = password.text!.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
         let confirmPasswordString = conformPassword.text!.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
 
+        let phoneNoString = phoneNo.text!.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
+
         if firstnameString.isEmpty{
             self.displayCommonAlert(globalConstants.kfirstnameError)
             return
@@ -145,6 +138,11 @@ class SignUpTableViewController: UITableViewController {
             return
         }
         
+        if phoneNoString.isEmpty{
+            self.displayCommonAlert(globalConstants.kPhoneNoError)
+            return
+        }
+
         if !globalConstants.isValidEmail(emailString){
             self.displayCommonAlert(globalConstants.kValidEmailError)
             return
@@ -168,7 +166,7 @@ class SignUpTableViewController: UITableViewController {
         }
         
         //self.navigationController?.navigationBarHidden = false
-        self.performSegueWithIdentifier("SMSVerification", sender: nil)
+        self.performSignUp()
     }
     
     /*
@@ -176,23 +174,23 @@ class SignUpTableViewController: UITableViewController {
     */
     
     func performSignUp(){
-//        let parameters = [
-//            "first_name": firstname.text!.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet()),
-//            "last_name": lastname.text!.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet()),
-//            "password": password.text!.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet()),
-//            "email": email.text!.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet()),
-//            "birthdate": dob.titleLabel!.text!.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet()),
-//            "gender": "Male"
-//        ]
-        
         let parameters = [
-            "first_name": "test",
-            "last_name": "test",
-            "password": "test",
-            "email": "test@test.com",
-            "birthdate": "1988-04-04",
-            "phone_number": "+919428117839"
+            "first_name": firstname.text!.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet()),
+            "last_name": lastname.text!.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet()),
+            "password": password.text!.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet()),
+            "email": email.text!.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet()),
+            "birthdate": dob.titleLabel!.text!.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet()),
+            "phone_number": phoneNo.text!.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
         ]
+        
+//        let parameters = [
+//            "first_name": "test",
+//            "last_name": "test",
+//            "password": "test",
+//            "email": "test@test.com",
+//            "birthdate": "1988-04-04",
+//            "phone_number": "+919428117839"
+//        ]
 
         
         let URL =  globalConstants.kAPIURL + globalConstants.kSignUpAPIEndPoint
@@ -210,8 +208,38 @@ class SignUpTableViewController: UITableViewController {
                     return
                 }
                 let post = JSON(value)
-                print("The post is: " + post.description)
+                if let string = post.rawString() {
+                    let responseDic:[String:AnyObject]? = self.convertStringToDictionary(string)
+                    
+                    if response.response?.statusCode == 400{
+                        print("The Response Error is:   \(response.response?.statusCode)")
+                        if let errorData = responseDic?["detail"] {
+                            let errorMessage = errorData[0] as! String
+                            self.displayCommonAlert(errorMessage)
+                            return;
+                        }
+                    }
+                    
+                    if let tokenData = responseDic?["email"] {
+                        self.performSegueWithIdentifier("SMSVerification", sender: nil)
+//                        let tokenString = tokenData as! String
+//                        NSUserDefaults.standardUserDefaults().setObject(tokenString, forKey: "LoginToken")
+//                        print(tokenString)
+                    }
+                }
         }
+    }
+    //MARK: convertStringObject to Dictionary
+    
+    func convertStringToDictionary(text:String) -> [String:AnyObject]? {
+        if let data = text.dataUsingEncoding(NSUTF8StringEncoding) {
+            do {
+                return try NSJSONSerialization.JSONObjectWithData(data, options: []) as? [String:AnyObject]
+            } catch let error as NSError {
+                print(error)
+            }
+        }
+        return nil
     }
 
     
@@ -222,7 +250,8 @@ class SignUpTableViewController: UITableViewController {
             self.selectedDate = date
             let dateFormatter = NSDateFormatter()
             
-            dateFormatter.dateFormat = "dd/MM/yyyy"
+//            "birthdate": "1988-04-04",
+            dateFormatter.dateFormat = "yyyy-MM-dd"
             
             let strDate = dateFormatter.stringFromDate(date)
             self.dob?.setTitleColor(UIColor.blackColor(), forState: UIControlState.Normal)
