@@ -97,6 +97,7 @@
 		15B85A231C09871900831BCB /* venueImage9.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 15B85A191C09871900831BCB /* venueImage9.jpg */; };
 		15B85A261C0987E500831BCB /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15B85A241C0987E500831BCB /* SearchViewController.swift */; };
 		15B85A2A1C09884D00831BCB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 15B85A281C09884D00831BCB /* Main.storyboard */; };
+		15E570351C6EFE3000F3556F /* FollowingRequestCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15E570341C6EFE3000F3556F /* FollowingRequestCell.swift */; };
 		15F0E4B41C52559D00F6D1B3 /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15F0E4B31C52559D00F6D1B3 /* SettingViewController.swift */; };
 		15F0E4BA1C52598D00F6D1B3 /* ChangePasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15F0E4B91C52598D00F6D1B3 /* ChangePasswordViewController.swift */; };
 		5C17F0061BCC097600E027E0 /* ProfileTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C17F0051BCC097600E027E0 /* ProfileTableViewController.swift */; };
@@ -298,6 +299,7 @@
 		15B85A191C09871900831BCB /* venueImage9.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = venueImage9.jpg; sourceTree = "<group>"; };
 		15B85A241C0987E500831BCB /* SearchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		15B85A291C09884D00831BCB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		15E570341C6EFE3000F3556F /* FollowingRequestCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FollowingRequestCell.swift; sourceTree = "<group>"; };
 		15F0E4B31C52559D00F6D1B3 /* SettingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
 		15F0E4B91C52598D00F6D1B3 /* ChangePasswordViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChangePasswordViewController.swift; sourceTree = "<group>"; };
 		5C17F0051BCC097600E027E0 /* ProfileTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ProfileTableViewController.swift; path = MIXR/ProfileTableViewController.swift; sourceTree = SOURCE_ROOT; };
@@ -475,6 +477,7 @@
 		156BCCA81C05E68100AB88A6 /* CustomCell */ = {
 			isa = PBXGroup;
 			children = (
+				15E570341C6EFE3000F3556F /* FollowingRequestCell.swift */,
 				5CF468821C0E8B3B007F87AA /* PromotionsCell.swift */,
 				5CF468801C0E8B0C007F87AA /* NotificationCell.swift */,
 				156BCCA91C05E6BF00AB88A6 /* UserFeedCell.swift */,
@@ -1117,6 +1120,7 @@
 				806122461BBF2EDF00EFF35E /* UserProfileViewController.swift in Sources */,
 				5C520FE71C54FE4D00299990 /* DOAlertController.swift in Sources */,
 				5C27231D1BD899D7007227AA /* VenueProfileTableViewController.swift in Sources */,
+				15E570351C6EFE3000F3556F /* FollowingRequestCell.swift in Sources */,
 				5CF468831C0E8B3B007F87AA /* PromotionsCell.swift in Sources */,
 				806122441BBF2ECF00EFF35E /* VenueProfileViewController.swift in Sources */,
 				5C6E2C4A1BC90B940036259A /* DatePickerDialog.swift in Sources */,
