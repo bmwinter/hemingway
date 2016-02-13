@@ -28,6 +28,7 @@ class UserProfileViewController: BaseViewController, UITableViewDelegate
     
     override func viewWillAppear(animated: Bool)
     {
+        super.viewWillAppear(animated)
         self.navigationController?.navigationBarHidden = true
     }
     

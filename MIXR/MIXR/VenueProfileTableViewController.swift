@@ -43,6 +43,7 @@ class VenueProfileTableViewController: UITableViewController,UIGestureRecognizer
     }
     
     override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
         self.navigationController?.navigationBarHidden = true
     }
     
@@ -128,7 +129,6 @@ class VenueProfileTableViewController: UITableViewController,UIGestureRecognizer
                 print("The post is: " + post.description)
         }
     }
-    
     
     
     /*

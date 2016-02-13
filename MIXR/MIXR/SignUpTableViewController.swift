@@ -63,9 +63,9 @@ class SignUpTableViewController: UITableViewController {
     override func viewDidLoad() {
         
         self.navigationItem.backBarButtonItem = UIBarButtonItem(title:"", style:.Plain, target:nil, action:nil)
-
+        
         self.dob?.setTitleColor(UIColor.lightGrayColor(), forState: UIControlState.Normal)
-
+        
         self.selectedDate = NSDate()
         self.tableView.backgroundView = UIImageView(image: UIImage(named: "BG"))
         self.title = "Sign Up"
@@ -73,13 +73,14 @@ class SignUpTableViewController: UITableViewController {
     }
     
     override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
         self.navigationController?.navigationBarHidden = true
     }
-
+    
     /*
     // Table View delegate methods
     */
-
+    
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 0
     }
@@ -100,11 +101,11 @@ class SignUpTableViewController: UITableViewController {
     /*
     // Custom button methods..
     */
-
+    
     @IBAction func signupButtonTapped(sender: AnyObject){
         
         
-       // self.navigationController?.navigationBarHidden = false
+        // self.navigationController?.navigationBarHidden = false
         self.performSegueWithIdentifier("SMSVerification", sender: nil)
         return
         
@@ -114,7 +115,7 @@ class SignUpTableViewController: UITableViewController {
         let emailString = email.text!.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
         let passwordString = password.text!.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
         let confirmPasswordString = conformPassword.text!.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
-
+        
         if firstnameString.isEmpty{
             self.displayCommonAlert(globalConstants.kfirstnameError)
             return
@@ -140,12 +141,12 @@ class SignUpTableViewController: UITableViewController {
             self.displayCommonAlert(globalConstants.kValidEmailError)
             return
         }
-
+        
         if !compareTwoPassword(passwordString, conformPassword: confirmPasswordString){
             self.displayCommonAlert(globalConstants.kpasswordconfirmPasswordError)
             return
         }
-
+        
         let years = NSDate().yearsFrom(self.selectedDate!)
         
         if(years<=18){
@@ -194,7 +195,7 @@ class SignUpTableViewController: UITableViewController {
                 print("The post is: " + post.description)
         }
     }
-
+    
     
     /* IBActions */
     @IBAction func datePickerTapped(sender: AnyObject) {
@@ -210,7 +211,7 @@ class SignUpTableViewController: UITableViewController {
             self.dob?.setTitle("\(strDate)", forState: UIControlState.Normal)
         }
     }
-
+    
     /*
     // Compare two password
     */
@@ -219,11 +220,11 @@ class SignUpTableViewController: UITableViewController {
         return (password == conformPassword)
     }
     
-
+    
     /*
     // Common alert method need to be used to display alert, by passing alert string as parameter to it.
     */
-
+    
     func displayCommonAlert(alertMesage : NSString){
         
         let alertController = UIAlertController (title: globalConstants.kAppName, message: alertMesage as String?, preferredStyle:.Alert)
@@ -249,7 +250,7 @@ class SignUpTableViewController: UITableViewController {
     /*
     // Segment Control Delegate Method
     */
-
+    
     @IBAction func segmentControlStateChanged(sender: SegmentControl) {
         print("Selected segment = \(sender.selectedIndex)")
         
@@ -258,7 +259,7 @@ class SignUpTableViewController: UITableViewController {
     /*
     // Text field delegate methods..
     */
-
+    
     func textFieldDidBeginEditing(textField: UITextField) {
         
     }
@@ -270,6 +271,6 @@ class SignUpTableViewController: UITableViewController {
         return true
     }
     
-
+    
     
 }

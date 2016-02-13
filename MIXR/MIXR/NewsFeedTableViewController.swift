@@ -36,7 +36,7 @@ NewsFeedTableViewController:UITableViewController,APIConnectionDelegate {
     func pullToReferesh()
     {
         self.refreshControl = UIRefreshControl()
-        self.refreshControl!.attributedTitle = NSAttributedString(string: "Updating")
+        self.refreshControl!.attributedTitle = NSAttributedString(string: "")
         self.refreshControl!.addTarget(self, action: "refresh:", forControlEvents: UIControlEvents.ValueChanged)
         self.tableView.addSubview(self.refreshControl!)
     }

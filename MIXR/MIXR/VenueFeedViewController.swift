@@ -20,6 +20,7 @@ class VenueFeedViewController:BaseViewController {
     }
     
     override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
         //self.navigationController?.navigationBarHidden = false
     }
     
@@ -38,6 +39,13 @@ class VenueFeedViewController:BaseViewController {
         // let postViewController : UserProfileViewController = self.storyboard!.instantiateViewControllerWithIdentifier("UserProfileViewController") as! UserProfileViewController
         // postViewController.feedDict = feedDict
         // self.navigationController!.pushViewController(postViewController, animated: true)
+    }
+    
+    //  MARK:- Button Action -
+    @IBAction func NotificatiDeatil(sender: AnyObject) {
+        
+        let NotificationView : NotificationViewController = self.storyboard!.instantiateViewControllerWithIdentifier("NotificationViewController") as! NotificationViewController
+        self.navigationController!.pushViewController(NotificationView, animated: true)
     }
     
     //    override func prefersStatusBarHidden() -> Bool
