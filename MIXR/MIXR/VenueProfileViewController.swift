@@ -10,7 +10,8 @@ import UIKit
 
 class VenueProfileViewController: BaseViewController  {
     
-    override func viewDidLoad() {
+    override func viewDidLoad()
+    {
         super.viewDidLoad()
         //self.navigationController?.interactivePopGestureRecognizer!.delegate =  self
         //self.navigationController?.interactivePopGestureRecognizer!.enabled = true        

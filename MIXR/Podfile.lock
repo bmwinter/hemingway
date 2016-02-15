@@ -1,7 +1,7 @@
 PODS:
-  - Agrume (2.0.2)
-  - Alamofire (3.1.4)
-  - IQKeyboardManagerSwift (3.3.5)
+  - Agrume (2.0.4)
+  - Alamofire (3.2.0)
+  - IQKeyboardManagerSwift (3.3.7)
   - SwiftyJSON (2.3.2)
 
 DEPENDENCIES:
@@ -11,9 +11,9 @@ DEPENDENCIES:
   - SwiftyJSON
 
 SPEC CHECKSUMS:
-  Agrume: d8f0b55713f0cac8927d410bd87eec0487d74061
-  Alamofire: fbc829692f351fa1d8a31dd75fd7f7f56fea31fb
-  IQKeyboardManagerSwift: 17f1ebf3fe07f7905369c6dca2da1051b6fea805
+  Agrume: 166fb17264340f63c18953fc6fc900c249da87bf
+  Alamofire: 4da478599fccddff361205c8929333d7fe18dceb
+  IQKeyboardManagerSwift: 7d06186460470f3f7e767630861a1303980ee5cf
   SwiftyJSON: 04ccea08915aa0109039157c7974cf0298da292a
 
 COCOAPODS: 0.39.0

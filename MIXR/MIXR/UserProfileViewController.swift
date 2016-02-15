@@ -8,7 +8,6 @@
 
 import UIKit
 
-
 class UserProfileViewController: BaseViewController, UITableViewDelegate
 {
     var feedDict : NSDictionary = NSDictionary()
