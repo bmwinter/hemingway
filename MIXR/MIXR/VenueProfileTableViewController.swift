@@ -13,6 +13,8 @@ import SwiftyJSON
 class VenueProfileTableViewController: UITableViewController,UIGestureRecognizerDelegate,APIConnectionDelegate {
     
     var feedsArray : Array<JSON> = []
+    var feedcount : Int = 0
+    
     @IBOutlet weak var venuePicture: UIImageView!
     @IBOutlet weak var noofFillsImage: UIImageView!
     @IBOutlet weak var btnLike: UIButton!
@@ -39,18 +41,45 @@ class VenueProfileTableViewController: UITableViewController,UIGestureRecognizer
         self.navigationItem.backBarButtonItem = UIBarButtonItem(title:"", style:.Plain, target:nil, action:nil)
         self.tableView.backgroundView = UIImageView(image: UIImage(named: "BG"))
         // Do any additional setup after loading the view, typically from a nib.
+        //self.pullToReferesh()
     }
     
-    
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(animated: Bool)
+    {
         super.viewWillAppear(animated)
         self.navigationController?.navigationBarHidden = true
         loadDummyScrollViewData()
     }
     
-    override func viewDidDisappear(animated: Bool) {
+    override func viewDidDisappear(animated: Bool)
+    {
         //self.navigationController?.navigationBarHidden = false
     }
+    
+    func pullToReferesh()
+    {
+        self.refreshControl = UIRefreshControl()
+        self.refreshControl!.attributedTitle = NSAttributedString(string: "")
+        self.refreshControl!.addTarget(self, action: "refresh:", forControlEvents: UIControlEvents.ValueChanged)
+        self.tableView.addSubview(self.refreshControl!)
+    }
+    
+    func refresh(sender:AnyObject)
+    {
+        feedcount = 0
+        self.loadFeedData()
+        // Code to refresh table view
+        self.performSelector(Selector("endReferesh"), withObject: nil, afterDelay: 1.0)
+    }
+    
+    func endReferesh()
+    {
+        //End refresh control
+        self.refreshControl?.endRefreshing()
+        //Remove refresh control to superview
+        //self.refreshControl?.removeFromSuperview()
+    }
+    
     
     func heightForView(text:String, font:UIFont, width:CGFloat) -> CGFloat{
         let label:UILabel = UILabel(frame: CGRectMake(0, 0, width, CGFloat.max))
@@ -230,7 +259,7 @@ class VenueProfileTableViewController: UITableViewController,UIGestureRecognizer
     
     func reloadTable()
     {
-        tableView.reloadData()
+        self.tableView.reloadData()
     }
     
     @IBAction func onUserBtnClicked(sender: AnyObject)
@@ -297,6 +326,12 @@ class VenueProfileTableViewController: UITableViewController,UIGestureRecognizer
         cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell
     {
         let cell = tableView.dequeueReusableCellWithIdentifier("tableCell", forIndexPath: indexPath) as! UserFeedCell
+        
+        cell.contentView.frame = cell.bounds;
+        
+        //        var cellFrame : CGRect = cell.frame
+        //        cellFrame.origin.y = 0
+        //        cell.frame = cellFrame
         cell.selectionStyle = UITableViewCellSelectionStyle.None
         //let feedDict : Dictionary <String, JSON> = feedsArray[indexPath.row]
         cell.contentView.tag = indexPath.row
@@ -304,7 +339,6 @@ class VenueProfileTableViewController: UITableViewController,UIGestureRecognizer
         cell.venuImageView.image = UIImage(named: feedsArray[indexPath.row]["venueImage"].string!)
         cell.FeedName.text = feedsArray[indexPath.row]["venueName"].string
         cell.lblUserName.text = feedsArray[indexPath.row]["userName"].string
-        
         
         let attachment = NSTextAttachment()
         attachment.image = UIImage(named: "martiniglass_icon.png")
@@ -314,6 +348,10 @@ class VenueProfileTableViewController: UITableViewController,UIGestureRecognizer
         myString.appendAttributedString(NSMutableAttributedString(string: " 250"))
         cell.lblLike.attributedText = myString
         
+        if((indexPath.row == (feedsArray.count-2)) && feedsArray.count > 8)
+        {
+            self.loadFeedData()
+        }
         /*
         cell.venuImageView.image = UIImage(named: feedDict["venueImage"] as! String)
         cell.FeedName.text = feedDict["venueName"] as? String
@@ -393,7 +431,26 @@ class VenueProfileTableViewController: UITableViewController,UIGestureRecognizer
             if ( result != nil)
             {
                 DLog("\(result)")
-                feedsArray = result["data"]!.arrayValue
+                
+                if(feedcount == 0)
+                {
+                    feedsArray = result["data"]!.arrayValue
+                    feedcount = feedsArray.count
+                }
+                else
+                {
+                    if(feedsArray.count > 0)
+                    {
+                        var newData : Array<JSON> = result["data"]!.arrayValue
+                        
+                        for (var cnt = 0; cnt < newData.count ; cnt++)
+                        {
+                            feedsArray.append(newData[cnt])
+                        }
+                        
+                        feedcount = feedsArray.count
+                    }
+                }
                 reloadTable()
                 
                 //                if ( result.isKindOfClass(NSDictionary))

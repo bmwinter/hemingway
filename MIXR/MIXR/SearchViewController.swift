@@ -14,7 +14,6 @@ class SearchViewController: BaseViewController, UITableViewDelegate,UITableViewD
     var refreshControl:UIRefreshControl!
     //var usersArray : Array<JSON> = []
     var usersArray : NSMutableArray = NSMutableArray()
-    var usersArray1 : NSMutableArray = NSMutableArray()
     
     var searchingArray:NSMutableArray!
     let isLocalData = true
@@ -25,7 +24,7 @@ class SearchViewController: BaseViewController, UITableViewDelegate,UITableViewD
     @IBOutlet var backgroundView: UIView!
     @IBOutlet var tableView: UITableView!
     
-    //  MARK:- Tableview delegate -
+    var feedcount : Int = 0
     
     override func viewDidLoad()
     {
@@ -40,7 +39,7 @@ class SearchViewController: BaseViewController, UITableViewDelegate,UITableViewD
         searchingArray = []
         searchBarObj.layer.cornerRadius = 10.0
         
-        //self.pullToReferesh()
+        // self.pullToReferesh()
         // Do any additional setup after loading the view.
     }
     
@@ -54,6 +53,8 @@ class SearchViewController: BaseViewController, UITableViewDelegate,UITableViewD
     
     func refresh(sender:AnyObject)
     {
+        feedcount = 0
+        self.loadData()
         // Code to refresh table view
         self.performSelector(Selector("endReferesh"), withObject: nil, afterDelay: 1.0)
     }
@@ -151,6 +152,10 @@ class SearchViewController: BaseViewController, UITableViewDelegate,UITableViewD
             cell.labelName.text = feedDict["userName"] as! NSString as String
             cell.mobileNumber.text = feedDict["phoneNumber"] as! NSString as String
             //cell.textLabel!.text = searchingArray[indexPath.row] as! NSString as String
+            if(indexPath.row == (searchingArray.count-4) && searchingArray.count > 8)
+            {
+                self.loadData()
+            }
         }
         else
         {
@@ -158,7 +163,13 @@ class SearchViewController: BaseViewController, UITableViewDelegate,UITableViewD
             cell.imagePerson.image  = UIImage(named: feedDict["userImage"] as! String)
             cell.labelName.text = feedDict["userName"] as? String
             cell.mobileNumber.text = feedDict["phoneNumber"] as! NSString as String
+            
+            if(indexPath.row == (usersArray.count-4) && usersArray.count > 8)
+            {
+                self.loadData()
+            }
         }
+        
         return cell
     }
     
@@ -252,17 +263,33 @@ class SearchViewController: BaseViewController, UITableViewDelegate,UITableViewD
         switch action
         {
         case APIName.Users.rawValue:
-            
             if ( result != nil)
             {
                 DLog("\(result)")
-                self.usersArray = (result["data"]?.arrayObject as? NSMutableArray)!
-                reloadTable()
                 
-                //usersArray = result["data"]!.arrayObject
-                //usersArray = result["data"] as! NSMutableArray
+                if(feedcount == 0)
+                {
+                    self.usersArray = (result["data"]!.arrayObject as? NSMutableArray)!
+                    feedcount = self.usersArray.count
+                }
+                else
+                {
+                    if(self.usersArray.count > 0)
+                    {
+                        let newData : NSMutableArray = (result["data"]!.arrayObject as? NSMutableArray)!
+                        
+                        for (var cnt = 0; cnt < newData.count ; cnt++)
+                        {
+                            self.usersArray.addObject(newData[cnt])
+                        }
+                        
+                        feedcount = self.usersArray.count
+                    }
+                }
+                reloadTable()
             }
-            DLog("Venue")
+            
+            DLog("Search")
             
         default:
             DLog("Nothing")

@@ -14,6 +14,7 @@ let isLocalData = false
 class
 NewsFeedTableViewController:UITableViewController,APIConnectionDelegate {
     
+    var feedcount : Int = 0
     var feedsArray : Array<JSON> = []
     //var feedsArray : NSArray <JSON> = NSMutableArray()
     //var refreshControl:UIRefreshControl!
@@ -43,6 +44,8 @@ NewsFeedTableViewController:UITableViewController,APIConnectionDelegate {
     
     func refresh(sender:AnyObject)
     {
+        feedcount = 0
+        self.loadData()
         // Code to refresh table view
         self.performSelector(Selector("endReferesh"), withObject: nil, afterDelay: 1.0)
     }
@@ -160,7 +163,6 @@ NewsFeedTableViewController:UITableViewController,APIConnectionDelegate {
         cell.FeedName.text = feedsArray[indexPath.row]["venueName"].string
         cell.lblUserName.text = feedsArray[indexPath.row]["userName"].string
         
-        
         let attachment = NSTextAttachment()
         attachment.image = UIImage(named: "martiniglass_icon.png")
         let attachmentString = NSAttributedString(attachment: attachment)
@@ -174,6 +176,10 @@ NewsFeedTableViewController:UITableViewController,APIConnectionDelegate {
         cell.FeedName.text = feedDict["venueName"] as? String
         cell.lblUserName.text = feedDict["userName"] as? String
         */
+        if((indexPath.row == (feedsArray.count-2)) && feedsArray.count > 8)
+        {
+            self.loadData()
+        }
         return cell
     }
     
@@ -280,13 +286,27 @@ NewsFeedTableViewController:UITableViewController,APIConnectionDelegate {
             if ( result != nil)
             {
                 DLog("\(result)")
-                feedsArray = result["data"]!.arrayValue
-                reloadTable()
                 
-                //                if ( result.isKindOfClass(NSDictionary))
-                //                {
-                //                    feedsArray = result["data"] as! NSMutableArray
-                //                }
+                if(feedcount == 0)
+                {
+                    feedsArray = result["data"]!.arrayValue
+                    feedcount = feedsArray.count
+                }
+                else
+                {
+                    if(feedsArray.count > 0)
+                    {
+                        var newData : Array<JSON> = result["data"]!.arrayValue
+                        
+                        for (var cnt = 0; cnt < newData.count ; cnt++)
+                        {
+                            feedsArray.append(newData[cnt])
+                        }
+                        
+                        feedcount = feedsArray.count
+                    }
+                }
+                reloadTable()
             }
             DLog("Venue")
             
