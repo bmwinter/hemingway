@@ -40,13 +40,15 @@ class VenueProfileTableViewController: UITableViewController,UIGestureRecognizer
         loadDummyScrollViewData()
         
         // Do any additional setup after loading the view, typically from a nib.
+        //self.pullToReferesh()
     }
     
     override func viewWillAppear(animated: Bool) {
         self.navigationController?.navigationBarHidden = true
     }
     
-    override func viewDidDisappear(animated: Bool) {
+    override func viewDidDisappear(animated: Bool)
+    {
         //self.navigationController?.navigationBarHidden = false
     }
     
