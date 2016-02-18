@@ -14,7 +14,7 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = 'primary'
-               BlueprintIdentifier = 'E56628310331968E9B55073C'
+               BlueprintIdentifier = '681E1C4BC38618D4B5ECD70F'
                BlueprintName = 'Pods-MIXR'
                ReferencedContainer = 'container:Pods.xcodeproj'
                BuildableName = 'Pods_MIXR.framework'>

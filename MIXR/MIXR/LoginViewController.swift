@@ -108,8 +108,8 @@ class LoginViewController: BaseViewController {
             return;
 
         }
-//        self.performLoginAction()
-        self.uploadFileOnServer()
+        self.performLoginAction()
+//        self.uploadFileOnServer()
     }
     
     //MARK: Temp function to check upload file on server.
@@ -196,7 +196,6 @@ class LoginViewController: BaseViewController {
                         let tokenString = tokenData as! String
                         NSUserDefaults.standardUserDefaults().setObject(tokenString, forKey: "LoginToken")
                         print(tokenString)
-//                        self.uploadFileOnServer()
                         self.loadTabar()
                     }
                 }

@@ -1,6 +1,6 @@
 PODS:
   - Agrume (2.0.2)
-  - Alamofire (3.1.4)
+  - Alamofire (3.0.0)
   - BTNavigationDropdownMenu (0.2.1)
   - IQKeyboardManagerSwift (3.3.5)
   - SpringIndicator (1.2.1)
@@ -8,7 +8,7 @@ PODS:
 
 DEPENDENCIES:
   - Agrume
-  - Alamofire (~> 3.0)
+  - Alamofire (= 3.0.0)
   - BTNavigationDropdownMenu
   - IQKeyboardManagerSwift (~> 3.3)
   - SpringIndicator
@@ -16,7 +16,7 @@ DEPENDENCIES:
 
 SPEC CHECKSUMS:
   Agrume: d8f0b55713f0cac8927d410bd87eec0487d74061
-  Alamofire: fbc829692f351fa1d8a31dd75fd7f7f56fea31fb
+  Alamofire: b61782387f81bcc538a0284cf2bb5d7995cd0a80
   BTNavigationDropdownMenu: 9cf4060162c96510ee27c388412e28678320cdc0
   IQKeyboardManagerSwift: 17f1ebf3fe07f7905369c6dca2da1051b6fea805
   SpringIndicator: 2e66169e2595c00cc3ab34329d6bdbeab90680f0
