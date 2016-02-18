@@ -4,26 +4,35 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
+		<key>Agrume.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>Alamofire.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
-			<key>orderHint</key>
-			<integer>0</integer>
+		</dict>
+		<key>BTNavigationDropdownMenu.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
 		</dict>
 		<key>IQKeyboardManagerSwift.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
-			<key>orderHint</key>
-			<integer>1</integer>
 		</dict>
 		<key>Pods-MIXR.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
-			<key>orderHint</key>
-			<integer>2</integer>
+		</dict>
+		<key>SpringIndicator.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
 		</dict>
 		<key>SwiftyJSON.xcscheme</key>
 		<dict>
@@ -33,12 +42,22 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>17945AA69BDA90E07FABC0EB72DA13E3</key>
+		<key>192C8C2413796E089B0A00D1D53C6C09</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>192C8C2413796E089B0A00D1D53C6C09</key>
+		<key>1D9474D36F655026078537A42F4A04C3</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>22AA1B922437086BE7B1840878B7F689</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>425BC913F73FB7CF1E11457D0105CDA8</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -48,7 +67,12 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>654BF66228B1377CD27279BF39C1D8B5</key>
+		<key>D1426E46902A1D4E27B3AB527ECCFB99</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>FD23F1DA220A44C7E84F356B64871271</key>
 		<dict>
 			<key>primary</key>
 			<true/>

@@ -214,6 +214,7 @@
                         <outlet property="userPasswordTextField" destination="6CW-ij-aRa" id="pKp-Z5-zEb"/>
                         <segue destination="pnr-p3-Ud9" kind="push" identifier="ForgotPasswordSegue" id="M7j-dS-sS3"/>
                         <segue destination="XIg-o5-OcS" kind="push" identifier="SignUpSegue" id="OVe-Nk-Z62"/>
+                        <segue destination="Hdj-YD-Mb5" kind="push" identifier="VenueSelection" id="AeM-AF-oSK"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5Tv-ky-wkD" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -264,7 +265,7 @@
                     </connections>
                 </scrollView>
             </objects>
-            <point key="canvasLocation" x="519" y="459"/>
+            <point key="canvasLocation" x="327" y="-737"/>
         </scene>
         <!--Sign Up Table View Controller-->
         <scene sceneID="sTf-yb-Afi">
@@ -602,7 +603,60 @@
                     </connections>
                 </barButtonItem>
             </objects>
-            <point key="canvasLocation" x="-11" y="-387"/>
+            <point key="canvasLocation" x="-59" y="-1127"/>
+        </scene>
+        <!--Venue Selection-->
+        <scene sceneID="Jby-wC-xJQ">
+            <objects>
+                <viewController id="Hdj-YD-Mb5" customClass="VenueSelection" customModule="MIXR" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="43P-qB-3l5"/>
+                        <viewControllerLayoutGuide type="bottom" id="n9A-eV-H1w"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="rvI-x3-M1e">
+                        <rect key="frame" x="0.0" y="64" width="320" height="504"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="o4y-x7-iP2">
+                                <rect key="frame" x="40" y="167" width="240" height="240"/>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" verticalCompressionResistancePriority="749" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Kl0-jU-y6u" customClass="BorderedButton" customModule="MIXR" customModuleProvider="target">
+                                <rect key="frame" x="16" y="441" width="288" height="41"/>
+                                <color key="backgroundColor" red="0.4941176471" green="0.63921568630000003" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="41" id="toP-AP-MB0"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <state key="normal" title="Post">
+                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="loginButtonTapped:" destination="ObV-wh-fIs" eventType="touchUpInside" id="R5e-NM-ojP"/>
+                                    <action selector="postButtonTapped:" destination="Hdj-YD-Mb5" eventType="touchUpInside" id="ZEe-dT-gat"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="o4y-x7-iP2" secondAttribute="trailing" constant="40" id="9bm-Wn-DZz"/>
+                            <constraint firstItem="n9A-eV-H1w" firstAttribute="top" secondItem="Kl0-jU-y6u" secondAttribute="bottom" constant="22" id="T6C-H5-Dyi"/>
+                            <constraint firstItem="Kl0-jU-y6u" firstAttribute="top" secondItem="o4y-x7-iP2" secondAttribute="bottom" constant="34" id="TUt-eb-NHa"/>
+                            <constraint firstItem="o4y-x7-iP2" firstAttribute="top" secondItem="43P-qB-3l5" secondAttribute="bottom" constant="167" id="WWi-ia-7ku"/>
+                            <constraint firstItem="o4y-x7-iP2" firstAttribute="leading" secondItem="rvI-x3-M1e" secondAttribute="leading" constant="40" id="bEJ-m6-X1U"/>
+                            <constraint firstItem="Kl0-jU-y6u" firstAttribute="leading" secondItem="rvI-x3-M1e" secondAttribute="leading" constant="16" id="uVE-Uq-ynZ"/>
+                            <constraint firstAttribute="trailing" secondItem="Kl0-jU-y6u" secondAttribute="trailing" constant="16" id="yzj-bT-h7R"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="lQ9-z0-Bt4"/>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO" prompted="NO"/>
+                    <connections>
+                        <outlet property="capturedImage" destination="o4y-x7-iP2" id="Gc2-Oa-cgP"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Dre-s8-CNO" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="522" y="126"/>
         </scene>
         <!--Recent Photo Vidoe Controller-->
         <scene sceneID="7OX-Bg-Fix">
@@ -1025,7 +1079,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9R8-5r-Fv1" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <barButtonItem title="Done" id="UzD-yg-IM1"/>
             </objects>
-            <point key="canvasLocation" x="1031" y="303"/>
+            <point key="canvasLocation" x="947" y="435"/>
         </scene>
         <!--Forgot Password-->
         <scene sceneID="mWt-C4-6JI">
@@ -1264,7 +1318,7 @@
                             <rect key="frame" x="0.0" y="0.0" width="320" height="50"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
-                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bTE-No-wDp" customClass="SegmentControl" customModule="MIXR" customModuleProvider="target">
+                                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bTE-No-wDp" customClass="SegmentControl" customModule="MIXR" customModuleProvider="target">
                                     <rect key="frame" x="8" y="10" width="304" height="30"/>
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <userDefinedRuntimeAttributes>

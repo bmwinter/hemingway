@@ -45,6 +45,9 @@ class SMSVerification: UITableViewController {
     */
     
     func getVerificationCode(){
+        let appDelegate=AppDelegate() //You create a new instance,not get the exist one
+        appDelegate.startAnimation((self.navigationController?.view)!)
+
         let parameters = [
             "phone_number": self.phoneInput.text!.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet()),
         ]
@@ -63,12 +66,17 @@ class SMSVerification: UITableViewController {
                     print(response.result.error)
                     return
                 }
+                appDelegate.stopAnimation()
+
                 let post = JSON(value)
                 print("The post is: " + post.description)
         }
     }
 
     func checkVerificationCode(){
+        let appDelegate=AppDelegate() //You create a new instance,not get the exist one
+        appDelegate.startAnimation((self.navigationController?.view)!)
+
         let parameters = [
             "phone_number": self.phoneInput.text!.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet()),
             "code": "5626"
@@ -89,6 +97,7 @@ class SMSVerification: UITableViewController {
                     print(response.result.error)
                     return
                 }
+                appDelegate.stopAnimation()
                 let post = JSON(value)
                 print("The post is: " + post.description)
         }

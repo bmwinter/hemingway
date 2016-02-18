@@ -26,6 +26,8 @@ struct globalConstants {
     static let kVerifyCodeAPIEndPoint = "confirmation/check"
     static let kPasswordRecover = "password/recover"
     static let kPasswordRecoverChange = "password/recover/change"
+    static let kProfileUpdate = "profile"
+    
     static let kChangePasswordAPIEndPoint = "ChangePassword"
     static let kVenueDetailsAPIEndPoint = "VenueDetails"
     static let kNotificationsAPIEndPoint = "Notifications"

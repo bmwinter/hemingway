@@ -104,9 +104,9 @@ class SignUpTableViewController: UIViewController {
     @IBAction func signupButtonTapped(sender: AnyObject){
         
         
-        self.navigationController?.navigationBarHidden = false
-        self.performSegueWithIdentifier("SMSVerification", sender: nil)
-        return
+//        self.navigationController?.navigationBarHidden = false
+//        self.performSegueWithIdentifier("SMSVerification", sender: nil)
+//        return
         
         let firstnameString = firstname.text!.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
         let lastnameString = lastname.text!.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
@@ -195,6 +195,9 @@ class SignUpTableViewController: UIViewController {
         
         let URL =  globalConstants.kAPIURL + globalConstants.kSignUpAPIEndPoint
         
+        let appDelegate=AppDelegate() //You create a new instance,not get the exist one
+        appDelegate.startAnimation((self.navigationController?.view)!)
+
         Alamofire.request(.POST, URL , parameters: parameters, encoding: .JSON)
             .responseString { response in
                 guard let value = response.result.value else {
@@ -207,6 +210,8 @@ class SignUpTableViewController: UIViewController {
                     print(response.result.error)
                     return
                 }
+                appDelegate.stopAnimation()
+
                 let post = JSON(value)
                 if let string = post.rawString() {
                     let responseDic:[String:AnyObject]? = self.convertStringToDictionary(string)
@@ -221,6 +226,7 @@ class SignUpTableViewController: UIViewController {
                     }
                     
                     if let tokenData = responseDic?["email"] {
+                        self.navigationController?.navigationBarHidden = false
                         self.performSegueWithIdentifier("SMSVerification", sender: nil)
 //                        let tokenString = tokenData as! String
 //                        NSUserDefaults.standardUserDefaults().setObject(tokenString, forKey: "LoginToken")

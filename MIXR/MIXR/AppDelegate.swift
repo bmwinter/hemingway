@@ -8,6 +8,7 @@
 
 import UIKit
 import IQKeyboardManagerSwift
+import SpringIndicator
 
 
 @UIApplicationMain
@@ -21,7 +22,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     var window: UIWindow?
     var navigationController : UINavigationController?
-    
+    var indicator:SpringIndicator!
+
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
         IQKeyboardManager.sharedManager().enable = true
@@ -50,6 +52,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func applicationWillTerminate(application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+    }
+    
+    func startAnimation(currentView:UIView){
+        self.indicator = SpringIndicator(frame: CGRect(x: (currentView.frame.size.width)/2, y: (currentView.frame.size.height)/2, width: 40, height: 40))
+        self.indicator.lineColor = UIColor(red: (126.0/255.0), green: (163.0/255.0), blue: (102.0/255.0), alpha: 1)
+        currentView.addSubview(self.indicator)
+        indicator.startAnimation()
+    }
+    
+    func stopAnimation(){
+        self.indicator.stopAnimation(false)
     }
     
     

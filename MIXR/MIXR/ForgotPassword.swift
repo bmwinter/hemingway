@@ -57,6 +57,9 @@ class ForgotPassword: UITableViewController {
         
         let URL =  globalConstants.kAPIURL + globalConstants.kPasswordRecover
         
+        let appDelegate=AppDelegate() //You create a new instance,not get the exist one
+        appDelegate.startAnimation((self.navigationController?.view)!)
+
         Alamofire.request(.POST, URL , parameters: parameters, encoding: .JSON)
             .responseString { response in
                 guard let value = response.result.value else {
@@ -69,6 +72,8 @@ class ForgotPassword: UITableViewController {
                     print(response.result.error)
                     return
                 }
+                appDelegate.stopAnimation()
+
                 let post = JSON(value)
                 if let string = post.rawString() {
                     let responseDic:[String:AnyObject]? = self.convertStringToDictionary(string)

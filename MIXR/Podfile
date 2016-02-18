@@ -11,6 +11,8 @@ target 'MIXR' do
     pod 'IQKeyboardManagerSwift', '~> 3.3'
     pod 'SwiftyJSON'
     pod 'Agrume'
+    pod 'BTNavigationDropdownMenu'
+    pod 'SpringIndicator'
 end
 
 target 'MIXRTests' do

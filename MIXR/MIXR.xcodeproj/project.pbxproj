@@ -131,6 +131,7 @@
 		5C520FDF1C54FA9600299990 /* ALImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C520FCF1C54FA9600299990 /* ALImageCell.swift */; };
 		5C520FE01C54FA9600299990 /* ALPermissionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C520FD01C54FA9600299990 /* ALPermissionsView.swift */; };
 		5C520FE71C54FE4D00299990 /* DOAlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C520FE61C54FE4D00299990 /* DOAlertController.swift */; };
+		5C586DF11C6EE77900169A7E /* VenueSelection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C586DF01C6EE77900169A7E /* VenueSelection.swift */; settings = {ASSET_TAGS = (); }; };
 		5C6DF59B1C2FFFEC00F2910B /* Events.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C6DF59A1C2FFFEC00F2910B /* Events.swift */; };
 		5C6DF59D1C3000AE00F2910B /* Specials.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C6DF59C1C3000AE00F2910B /* Specials.swift */; };
 		5C6E2C4A1BC90B940036259A /* DatePickerDialog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C6E2C491BC90B940036259A /* DatePickerDialog.swift */; };
@@ -333,6 +334,7 @@
 		5C520FCF1C54FA9600299990 /* ALImageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ALImageCell.swift; sourceTree = "<group>"; };
 		5C520FD01C54FA9600299990 /* ALPermissionsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ALPermissionsView.swift; sourceTree = "<group>"; };
 		5C520FE61C54FE4D00299990 /* DOAlertController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DOAlertController.swift; sourceTree = "<group>"; };
+		5C586DF01C6EE77900169A7E /* VenueSelection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VenueSelection.swift; sourceTree = "<group>"; };
 		5C6DF59A1C2FFFEC00F2910B /* Events.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Events.swift; sourceTree = "<group>"; };
 		5C6DF59C1C3000AE00F2910B /* Specials.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Specials.swift; sourceTree = "<group>"; };
 		5C6E2C491BC90B940036259A /* DatePickerDialog.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DatePickerDialog.swift; sourceTree = "<group>"; };
@@ -764,6 +766,7 @@
 				5CF4687C1C0E8ABD007F87AA /* PromotionDetail.swift */,
 				5CF4687D1C0E8ABD007F87AA /* Notifications.swift */,
 				5C4BAE841C674FB7009A6BDC /* RecoverPassword.swift */,
+				5C586DF01C6EE77900169A7E /* VenueSelection.swift */,
 			);
 			path = MIXR;
 			sourceTree = "<group>";
@@ -1122,6 +1125,7 @@
 				5CF468831C0E8B3B007F87AA /* PromotionsCell.swift in Sources */,
 				806122441BBF2ECF00EFF35E /* VenueProfileViewController.swift in Sources */,
 				5C6E2C4A1BC90B940036259A /* DatePickerDialog.swift in Sources */,
+				5C586DF11C6EE77900169A7E /* VenueSelection.swift in Sources */,
 				5C17F0061BCC097600E027E0 /* ProfileTableViewController.swift in Sources */,
 				5C520FD71C54FA9600299990 /* ALUtilities.swift in Sources */,
 				15B85A261C0987E500831BCB /* SearchViewController.swift in Sources */,

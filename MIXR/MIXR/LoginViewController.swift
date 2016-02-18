@@ -19,11 +19,11 @@ class LoginViewController: BaseViewController {
     @IBOutlet weak var userEmailTextField: UITextField!
     @IBOutlet weak var userPasswordTextField: UITextField!
     
-    
     override func viewDidLoad() {
         self.title = "Login"
         self.navigationItem.backBarButtonItem = UIBarButtonItem(title:"", style:.Plain, target:nil, action:nil)
         
+
         super.viewDidLoad()
         
         // Do any additional setup after loading the view, typically from a nib.
@@ -73,6 +73,10 @@ class LoginViewController: BaseViewController {
         userEmailTextField.resignFirstResponder()
         userPasswordTextField.resignFirstResponder()
         
+//        self.navigationController?.navigationBarHidden = false
+//        self.performSegueWithIdentifier("VenueSelection", sender: nil)
+//        return;
+        
 //        loadTabar()
         
         let email = userEmailTextField.text!.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
@@ -85,6 +89,7 @@ class LoginViewController: BaseViewController {
             }
             alertController.addAction(okayAction)
             self.presentViewController(alertController, animated: true, completion: nil)
+            return;
         }
         
         if password.isEmpty{
@@ -94,12 +99,50 @@ class LoginViewController: BaseViewController {
             }
             alertController.addAction(okayAction)
             self.presentViewController(alertController, animated: true, completion: nil)
+            return;
+
         }
         
         if !globalConstants.isValidEmail(email){
             self.displayCommonAlert(globalConstants.kValidEmailError)
+            return;
+
         }
-        self.performLoginAction()
+//        self.performLoginAction()
+        self.uploadFileOnServer()
+    }
+    
+    //MARK: Temp function to check upload file on server.
+
+    func uploadFileOnServer(){
+        let fileURL = NSBundle.mainBundle().URLForResource("mixriconApp_icon", withExtension: "png")
+        let URL =  globalConstants.kAPIURL + globalConstants.kProfileUpdate
+        
+//        Alamofire.Manager.sharedInstance.session.configuration.HTTPAdditionalHeaders?.updateValue("application/json", forKey: "Accept")
+        
+//        Token 2952a5dcad5181d80b79c1bc335ab91c97c03f14
+        
+        var tokenString = "token "
+        tokenString +=  "2952a5dcad5181d80b79c1bc335ab91c97c03f14"//NSUserDefaults.standardUserDefaults().objectForKey("LoginToken") as! String
+        
+        
+        Alamofire.Manager.sharedInstance.session.configuration.HTTPAdditionalHeaders?.updateValue(tokenString, forKey: "Authorization")
+        
+        Alamofire.upload(.POST, URL, file: fileURL!)
+            .progress { bytesWritten, totalBytesWritten, totalBytesExpectedToWrite in
+                print(totalBytesWritten)
+                
+                // This closure is NOT called on the main queue for performance
+                // reasons. To update your ui, dispatch to the main queue.
+                dispatch_async(dispatch_get_main_queue()) {
+                    print("Total bytes written on main queue: \(totalBytesWritten)")
+                }
+            }
+            .responseJSON { response in
+                debugPrint(response)
+        }
+        
+        
     }
     
     /*
@@ -107,12 +150,17 @@ class LoginViewController: BaseViewController {
     */
     
     func performLoginAction(){
+        let appDelegate=AppDelegate() //You create a new instance,not get the exist one
+        appDelegate.startAnimation((self.navigationController?.view)!)
+        
         let parameters = [
             "username": userEmailTextField.text!.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet()),
             "password": userPasswordTextField.text!.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())]
         
         let URL =  globalConstants.kAPIURL + globalConstants.kLoginAPIEndPoint
+        
         Alamofire.Manager.sharedInstance.session.configuration.HTTPAdditionalHeaders?.updateValue("application/json", forKey: "Accept")
+
         
         Alamofire.request(.POST, URL , parameters: parameters, encoding: .JSON)
             .responseString { response in
@@ -126,6 +174,8 @@ class LoginViewController: BaseViewController {
                     print(response.result.error)
                     return
                 }
+                
+                appDelegate.stopAnimation()
                 
                 let post = JSON(value)
                 if let string = post.rawString() {
@@ -144,6 +194,7 @@ class LoginViewController: BaseViewController {
                         let tokenString = tokenData as! String
                         NSUserDefaults.standardUserDefaults().setObject(tokenString, forKey: "LoginToken")
                         print(tokenString)
+//                        self.uploadFileOnServer()
                         self.loadTabar()
                     }
                 }
