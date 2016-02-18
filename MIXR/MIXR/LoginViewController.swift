@@ -127,6 +127,8 @@ class LoginViewController: BaseViewController {
         
         
         Alamofire.Manager.sharedInstance.session.configuration.HTTPAdditionalHeaders?.updateValue(tokenString, forKey: "Authorization")
+        Alamofire.Manager.sharedInstance.session.configuration.HTTPAdditionalHeaders?.updateValue("attachment; filename=media_filename.png;", forKey: "Content-Disposition")
+
         
         Alamofire.upload(.POST, URL, file: fileURL!)
             .progress { bytesWritten, totalBytesWritten, totalBytesExpectedToWrite in

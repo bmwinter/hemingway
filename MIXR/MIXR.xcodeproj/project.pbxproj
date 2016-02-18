@@ -164,41 +164,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		15883CD51C3F9DE900595A46 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 15883CCE1C3F9DE800595A46 /* Pods.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 5511C95E7E2EB64EC11DB3AA8B430D7D;
-			remoteInfo = Alamofire;
-		};
-		15883CD71C3F9DE900595A46 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 15883CCE1C3F9DE800595A46 /* Pods.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 461211B0D7792F58938520D5AFA7BCE6;
-			remoteInfo = IQKeyboardManagerSwift;
-		};
-		15883CD91C3F9DE900595A46 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 15883CCE1C3F9DE800595A46 /* Pods.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = F4ABDE9219DC62AC89D1984E9EFD265F;
-			remoteInfo = "Pods-MIXR";
-		};
-		15883CDB1C3F9DE900595A46 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 15883CCE1C3F9DE800595A46 /* Pods.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 0705A1E8F28524468E8085B1FF8DBC32;
-			remoteInfo = SwiftyJSON;
-		};
-		158FA0DC1C60B4A60059540D /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 15883CCE1C3F9DE800595A46 /* Pods.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 2FE165C90FC69E0445B941CEED5AED11;
-			remoteInfo = Agrume;
-		};
 		806122321BBF2D7500EFF35E /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 806122121BBF2D7400EFF35E /* Project object */;
@@ -267,7 +232,6 @@
 		156BCC9C1C05B8CE00AB88A6 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		156BCCA91C05E6BF00AB88A6 /* UserFeedCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserFeedCell.swift; sourceTree = "<group>"; };
 		1577D7DD1C0D9E010033C8D5 /* PostViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostViewController.swift; sourceTree = "<group>"; };
-		15883CCE1C3F9DE800595A46 /* Pods.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Pods.xcodeproj; path = Pods/Pods.xcodeproj; sourceTree = "<group>"; };
 		158F43491C467A4700A2356C /* FollowingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FollowingViewController.swift; sourceTree = "<group>"; };
 		158F434F1C467A9500A2356C /* FollowingCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FollowingCell.swift; sourceTree = "<group>"; };
 		158FA0D51C60B4A60059540D /* PromotionDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PromotionDetailViewController.swift; sourceTree = "<group>"; };
@@ -488,18 +452,6 @@
 			path = CustomCell;
 			sourceTree = "<group>";
 		};
-		15883CCF1C3F9DE800595A46 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				158FA0DD1C60B4A60059540D /* Agrume.framework */,
-				15883CD61C3F9DE900595A46 /* Alamofire.framework */,
-				15883CD81C3F9DE900595A46 /* IQKeyboardManagerSwift.framework */,
-				15883CDA1C3F9DE900595A46 /* Pods_MIXR.framework */,
-				15883CDC1C3F9DE900595A46 /* SwiftyJSON.framework */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
 		15B85A021C0983E900831BCB /* ProjectImage */ = {
 			isa = PBXGroup;
 			children = (
@@ -710,7 +662,6 @@
 				8061221C1BBF2D7400EFF35E /* MIXR */,
 				806122341BBF2D7500EFF35E /* MIXRTests */,
 				8061221B1BBF2D7400EFF35E /* Products */,
-				15883CCE1C3F9DE800595A46 /* Pods.xcodeproj */,
 				7D022D3DCAC350459339E920 /* Pods */,
 				14B036E93F4C01FE0876251F /* Frameworks */,
 			);
@@ -891,12 +842,6 @@
 			mainGroup = 806122111BBF2D7400EFF35E;
 			productRefGroup = 8061221B1BBF2D7400EFF35E /* Products */;
 			projectDirPath = "";
-			projectReferences = (
-				{
-					ProductGroup = 15883CCF1C3F9DE800595A46 /* Products */;
-					ProjectRef = 15883CCE1C3F9DE800595A46 /* Pods.xcodeproj */;
-				},
-			);
 			projectRoot = "";
 			targets = (
 				806122191BBF2D7400EFF35E /* MIXR */,
@@ -904,44 +849,6 @@
 			);
 		};
 /* End PBXProject section */
-
-/* Begin PBXReferenceProxy section */
-		15883CD61C3F9DE900595A46 /* Alamofire.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = Alamofire.framework;
-			remoteRef = 15883CD51C3F9DE900595A46 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		15883CD81C3F9DE900595A46 /* IQKeyboardManagerSwift.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = IQKeyboardManagerSwift.framework;
-			remoteRef = 15883CD71C3F9DE900595A46 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		15883CDA1C3F9DE900595A46 /* Pods_MIXR.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = Pods_MIXR.framework;
-			remoteRef = 15883CD91C3F9DE900595A46 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		15883CDC1C3F9DE900595A46 /* SwiftyJSON.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = SwiftyJSON.framework;
-			remoteRef = 15883CDB1C3F9DE900595A46 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		158FA0DD1C60B4A60059540D /* Agrume.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = Agrume.framework;
-			remoteRef = 158FA0DC1C60B4A60059540D /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		806122181BBF2D7400EFF35E /* Resources */ = {
