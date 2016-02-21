@@ -15,23 +15,35 @@ class SMSVerification: UITableViewController {
     
     @IBOutlet weak var phoneInput: UITextField!
     @IBOutlet weak var btnDone: UIBarButtonItem!
+    var phoneNumber: NSString?
+    var verificationCode: NSString?
     override func viewDidLoad() {
         
         self.navigationItem.backBarButtonItem = UIBarButtonItem(title:"", style:.Plain, target:nil, action:nil)
 
         self.tableView.backgroundView = UIImageView(image: UIImage(named: "BG"))
 //        self.navigationItem.rightBarButtonItem = self.btnDone;
-        self.phoneInput?.text = "+919428117839"
+//        self.phoneInput?.userInteractionEnabled = FALSE
+        self.phoneInput?.text = ""
+        
         self.title = "Verify"
         // Do any additional setup after loading the view, typically from a nib.
         
     }
 
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(true)
+        
+        self.getVerificationCode();
+    }
+    
     @IBAction func btnVerifyClicked (sender:AnyObject){
+        self.phoneInput?.resignFirstResponder()
         self.checkVerificationCode();
 //        self.performSegueWithIdentifier("SettingsSegue", sender: nil)
     }
     @IBAction func btnResendClicked (sender:AnyObject){
+        self.getVerificationCode()
 //        self.performSegueWithIdentifier("SettingsSegue", sender: nil)
     }
 
@@ -41,7 +53,7 @@ class SMSVerification: UITableViewController {
     
     
     /*
-    // checkVerificationCode used to check user entered verification code with server
+    // getVerificationCode used to check user entered verification code with server
     */
     
     func getVerificationCode(){
@@ -49,8 +61,9 @@ class SMSVerification: UITableViewController {
         appDelegate.startAnimation((self.navigationController?.view)!)
 
         let parameters = [
-            "phone_number": self.phoneInput.text!.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet()),
+            "phone_number": self.phoneNumber as! AnyObject
         ]
+        //self.phoneInput.text!.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet()),
         
         let URL =  globalConstants.kAPIURL + globalConstants.kGetVerificationCode
         
@@ -70,16 +83,36 @@ class SMSVerification: UITableViewController {
 
                 let post = JSON(value)
                 print("The post is: " + post.description)
+                
+                if let string = post.rawString() {
+                    let responseDic:[String:AnyObject]? = self.convertStringToDictionary(string)
+                    
+                    if response.response?.statusCode == 400{
+                        print("The Response Error is:   \(response.response?.statusCode)")
+                        if let errorData = responseDic?["detail"] {
+                            let errorMessage = errorData[0] as! String
+                            self.displayCommonAlert(errorMessage)
+                            return;
+                        }
+                    }
+                    
+                    if let tokenData = responseDic?["code"] {
+                        self.verificationCode = tokenData as! String
+                        print(self.verificationCode)
+                    }
+                }
         }
     }
 
+    //MARK: Check Verification Code Function
+    
     func checkVerificationCode(){
         let appDelegate=AppDelegate() //You create a new instance,not get the exist one
         appDelegate.startAnimation((self.navigationController?.view)!)
 
         let parameters = [
-            "phone_number": self.phoneInput.text!.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet()),
-            "code": "5626"
+            "phone_number": self.phoneNumber as! String,
+            "code": self.phoneInput.text!.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())//"5626"
             //phoneInput.text!.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet()),
         ]
         
@@ -99,9 +132,54 @@ class SMSVerification: UITableViewController {
                 }
                 appDelegate.stopAnimation()
                 let post = JSON(value)
-                print("The post is: " + post.description)
+                if let string = post.rawString() {
+                    let responseDic:[String:AnyObject]? = self.convertStringToDictionary(string)
+                    
+                    if response.response?.statusCode == 400{
+                        print("The Response Error is:   \(response.response?.statusCode)")
+                        if let errorData = responseDic?["detail"] {
+                            let errorMessage = errorData[0] as! String
+                            self.displayCommonAlert(errorMessage)
+                            return;
+                        }
+                    }
+                    
+                    if let tokenData = responseDic?["code"] {
+                        self.verificationCode = tokenData as! String
+                        print(self.verificationCode)
+                    }
+                }
         }
     }
+    
+    //MARK: convertStringObject to Dictionary
+    
+    func convertStringToDictionary(text:String) -> [String:AnyObject]? {
+        if let data = text.dataUsingEncoding(NSUTF8StringEncoding) {
+            do {
+                return try NSJSONSerialization.JSONObjectWithData(data, options: []) as? [String:AnyObject]
+            } catch let error as NSError {
+                print(error)
+            }
+        }
+        return nil
+    }
+
+    /*
+    // Common alert method need to be used to display alert, by passing alert string as parameter to it.
+    */
+    
+    func displayCommonAlert(alertMesage : NSString){
+        
+        let alertController = UIAlertController (title: globalConstants.kAppName, message: alertMesage as String?, preferredStyle:.Alert)
+        let okayAction: UIAlertAction = UIAlertAction(title: "Ok", style: .Cancel) { action -> Void in
+            //Just dismiss the action sheet
+        }
+        alertController.addAction(okayAction)
+        self.presentViewController(alertController, animated: true, completion: nil)
+    }
+    
+
     
     /*
     // Table View delegate methods

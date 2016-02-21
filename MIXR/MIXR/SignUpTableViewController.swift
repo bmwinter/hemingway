@@ -228,13 +228,21 @@ class SignUpTableViewController: UIViewController {
                     if let tokenData = responseDic?["email"] {
                         self.navigationController?.navigationBarHidden = false
                         self.performSegueWithIdentifier("SMSVerification", sender: nil)
-//                        let tokenString = tokenData as! String
-//                        NSUserDefaults.standardUserDefaults().setObject(tokenString, forKey: "LoginToken")
-//                        print(tokenString)
                     }
                 }
         }
     }
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject!) {
+        if (segue.identifier == "SMSVerification") {
+            //Checking identifier is crucial as there might be multiple
+            // segues attached to same view
+            let detailVC = segue.destinationViewController as! SMSVerification;
+            detailVC.phoneNumber = phoneNo.text!.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
+        }
+    }
+
+    
     //MARK: convertStringObject to Dictionary
     
     func convertStringToDictionary(text:String) -> [String:AnyObject]? {

@@ -12,6 +12,9 @@ import SwiftyJSON
 
 class VenueProfileTableViewController: UITableViewController,UIGestureRecognizerDelegate {
     
+    var feedsArray : Array<JSON> = []
+    var feedcount : Int = 0
+    
     @IBOutlet weak var venuePicture: UIImageView!
     @IBOutlet weak var noofFillsImage: UIImageView!
     @IBOutlet weak var btnLike: UIButton!
@@ -43,13 +46,50 @@ class VenueProfileTableViewController: UITableViewController,UIGestureRecognizer
         //self.pullToReferesh()
     }
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(animated: Bool)
+    {
+        super.viewWillAppear(animated)
         self.navigationController?.navigationBarHidden = true
     }
     
     override func viewDidDisappear(animated: Bool)
     {
         //self.navigationController?.navigationBarHidden = false
+    }
+    
+    func pullToReferesh()
+    {
+        self.refreshControl = UIRefreshControl()
+        self.refreshControl!.attributedTitle = NSAttributedString(string: "")
+        self.refreshControl!.addTarget(self, action: "refresh:", forControlEvents: UIControlEvents.ValueChanged)
+        self.tableView.addSubview(self.refreshControl!)
+    }
+    
+    func refresh(sender:AnyObject)
+    {
+        feedcount = 0
+        self.loadFeedData()
+        // Code to refresh table view
+        self.performSelector(Selector("endReferesh"), withObject: nil, afterDelay: 1.0)
+    }
+    
+    func endReferesh()
+    {
+        //End refresh control
+        self.refreshControl?.endRefreshing()
+        //Remove refresh control to superview
+        //self.refreshControl?.removeFromSuperview()
+    }
+    
+    
+    func heightForView(text:String, font:UIFont, width:CGFloat) -> CGFloat{
+        let label:UILabel = UILabel(frame: CGRectMake(0, 0, width, CGFloat.max))
+        label.numberOfLines = 0
+        label.lineBreakMode = NSLineBreakMode.ByWordWrapping
+        label.font = font
+        label.text = text
+        label.sizeToFit()
+        return label.frame.height
     }
     
     func loadDummyScrollViewData()
@@ -141,9 +181,9 @@ class VenueProfileTableViewController: UITableViewController,UIGestureRecognizer
         return 0
     }
     
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 0
-    }
+//    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+//        return 0
+//    }
     
     /*
     // IBAction methods
@@ -166,6 +206,246 @@ class VenueProfileTableViewController: UITableViewController,UIGestureRecognizer
         {
             self.btnLike.backgroundColor = UIColor(red: 194/255,green: 194/255.0,blue: 194/255,alpha: 1.0)
         }
+    }
+    
+    func loadFeedData()
+    {
+        if (isLocalData)
+        {
+            feedsArray = [["venueName":"Mad River1","venueImage":"venueImage1.jpg","userName":"Grant Boyle1"],
+                ["venueName":"Mad River2","venueImage":"venueImage2.jpg","userName":"Grant Boyle2"],
+                ["venueName":"Mad River3","venueImage":"venueImage3.jpg","userName":"Grant Boyle3"],
+                ["venueName":"Mad River4","venueImage":"venueImage4.jpg","userName":"Grant Boyle4"],
+                ["venueName":"Mad River5","venueImage":"venueImage5.jpg","userName":"Grant Boyle5"],
+                ["venueName":"Mad River6","venueImage":"venueImage6.jpg","userName":"Grant Boyle6"],
+                ["venueName":"Mad River7","venueImage":"venueImage7.jpg","userName":"Grant Boyle7"],
+                ["venueName":"Mad River8","venueImage":"venueImage8.jpg","userName":"Grant Boyle8"],
+                ["venueName":"Mad River9","venueImage":"venueImage9.jpg","userName":"Grant Boyle9"],
+                ["venueName":"Mad River10","venueImage":"venueImage10.jpg","userName":"Grant Boyle10"]]
+            reloadTable()
+            
+        }
+        else
+        {
+            let param: Dictionary = Dictionary<String, AnyObject>()
+            //call API for to get venues
+            let object = APIConnection().POST(APIName.Venues.rawValue, withAPIName: "VenueList", withMessage: "", withParam: param, withProgresshudShow: true, withHeader: false) as! APIConnection
+//            object.delegate = self
+            
+        }
+    }
+    
+    func reloadTable()
+    {
+        self.tableView.reloadData()
+    }
+    
+    @IBAction func onUserBtnClicked(sender: AnyObject)
+    {
+        // let postViewController : ProfileTableViewController = self.storyboard!.instantiateViewControllerWithIdentifier("ProfileTableViewController") as! ProfileTableViewController
+        // //postViewController.feedDict = feedDict
+        // self.navigationController!.pushViewController(postViewController, animated: true)
+        // return
+        
+        let feedBtn : UIButton = sender as! UIButton
+        let feedTag = feedBtn.superview!.tag
+        NSLog("feedTag = \(feedTag)")
+        //let feedDict : NSDictionary = feedsArray[feedTag].dictionaryObject!
+        let postViewController : PostViewController = self.storyboard!.instantiateViewControllerWithIdentifier("PostViewController") as! PostViewController
+        postViewController.isUserProfile = false
+        self.navigationController!.pushViewController(postViewController, animated: true)
+    }
+    
+    @IBAction func onFeedClicked(sender: AnyObject)
+    {
+        let aVenueProfileViewController : VenueProfileViewController = self.storyboard!.instantiateViewControllerWithIdentifier("VenueProfileViewController") as! VenueProfileViewController
+        self.navigationController!.pushViewController(aVenueProfileViewController, animated: true)
+        
+        return
+    }
+    // MARK: - Table view data source
+    
+//    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+//        // #warning Incomplete implementation, return the number of sections
+//        return 1
+//    }
+//    
+    override func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView?
+    {
+        if(section == 0)
+        {
+            outerView.backgroundColor = UIColor.clearColor()
+            return self.outerView
+        }
+        else
+        {
+            return nil
+        }
+    }
+    
+    override func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat
+    {
+        if(section == 0)
+        {
+            return self.outerView.frame.size.height
+        }
+        else
+        {
+            return 0
+        }
+    }
+    override func tableView(tableView: UITableView,
+        numberOfRowsInSection section: Int) -> Int
+    {
+        return feedsArray.count;
+    }
+    
+    override func tableView(tableView: UITableView,
+        cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell
+    {
+        let cell = tableView.dequeueReusableCellWithIdentifier("tableCell", forIndexPath: indexPath) as! UserFeedCell
+        
+        cell.contentView.frame = cell.bounds;
+        
+        //        var cellFrame : CGRect = cell.frame
+        //        cellFrame.origin.y = 0
+        //        cell.frame = cellFrame
+        cell.selectionStyle = UITableViewCellSelectionStyle.None
+        //let feedDict : Dictionary <String, JSON> = feedsArray[indexPath.row]
+        cell.contentView.tag = indexPath.row
+        
+        cell.venuImageView.image = UIImage(named: feedsArray[indexPath.row]["venueImage"].string!)
+        cell.FeedName.text = feedsArray[indexPath.row]["venueName"].string
+        cell.lblUserName.text = feedsArray[indexPath.row]["userName"].string
+        
+        let attachment = NSTextAttachment()
+        attachment.image = UIImage(named: "martiniglass_icon.png")
+        let attachmentString = NSAttributedString(attachment: attachment)
+        let myString = NSMutableAttributedString(string: " ")
+        myString.appendAttributedString(attachmentString)
+        myString.appendAttributedString(NSMutableAttributedString(string: " 250"))
+        cell.lblLike.attributedText = myString
+        
+        if((indexPath.row == (feedsArray.count-2)) && feedsArray.count > 8)
+        {
+            self.loadFeedData()
+        }
+        /*
+        cell.venuImageView.image = UIImage(named: feedDict["venueImage"] as! String)
+        cell.FeedName.text = feedDict["venueName"] as? String
+        cell.lblUserName.text = feedDict["userName"] as? String
+        */
+        return cell
+    }
+    
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath)
+    {
+        print("indexpath.row = \(indexPath.row)")
+    }
+    
+    override func scrollViewDidScroll(scrollView: UIScrollView) {
+        let scrollOffset = scrollView.contentOffset.y
+        var headerFrame = self.outerView.frame
+        if (scrollOffset < 0) {
+            // Adjust map
+            headerFrame = CGRect(x: self.outerView.frame.origin.x,
+                y: self.outerView.frame.origin.y,
+                width: self.outerView.frame.size.width,
+                height: self.outerView.frame.size.height)
+        } else {
+            // Adjust map
+            headerFrame = CGRect(x: self.outerView.frame.origin.x,
+                y: self.outerView.frame.origin.y,
+                width: self.outerView.frame.size.width,
+                height: self.outerView.frame.size.height)
+        }
+        self.outerView.frame = headerFrame
+        if (self.outerView.superview == nil)
+        {
+            self.tableView.addSubview(self.outerView)
+        }
+    }
+    
+    //MARK: - APIConnection Delegate -
+    
+    func connectionFailedForAction(action: Int, andWithResponse result: Dictionary <String, JSON>!, method : String)
+    {
+        switch action
+        {
+        case APIName.Venues.rawValue:
+            if ( result != nil)
+            {
+                DLog("\(result)")
+            }
+            
+        default:
+            DLog("Nothing")
+        }
+    }
+    
+    func connectionDidFinishedErrorResponceForAction(action: Int, andWithResponse result: Dictionary <String, JSON>!, method : String)
+    {
+        switch action
+        {
+        case APIName.Venues.rawValue:
+            if ( result != nil)
+            {
+                DLog("\(result)")
+                
+            }
+            
+        default:
+            DLog("Nothing")
+        }
+        
+    }
+    
+    func connectionDidFinishedForAction(action: Int, andWithResponse result:Dictionary <String, JSON>!, method : String)
+    {
+        switch action
+        {
+        case APIName.Venues.rawValue:
+            
+            if ( result != nil)
+            {
+                DLog("\(result)")
+                
+                if(feedcount == 0)
+                {
+                    feedsArray = result["data"]!.arrayValue
+                    feedcount = feedsArray.count
+                }
+                else
+                {
+                    if(feedsArray.count > 0)
+                    {
+                        var newData : Array<JSON> = result["data"]!.arrayValue
+                        
+                        for (var cnt = 0; cnt < newData.count ; cnt++)
+                        {
+                            feedsArray.append(newData[cnt])
+                        }
+                        
+                        feedcount = feedsArray.count
+                    }
+                }
+                reloadTable()
+                
+                //                if ( result.isKindOfClass(NSDictionary))
+                //                {
+                //                    feedsArray = result["data"] as! NSMutableArray
+                //                }
+            }
+            DLog("Venue")
+            
+        default:
+            DLog("Nothing")
+        }
+    }
+    
+    func connectionDidUpdateAPIProgress(action: Int,bytesWritten: Int64, totalBytesWritten: Int64 ,totalBytesExpectedToWrite: Int64)
+    {
+        
     }
     
 }

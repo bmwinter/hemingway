@@ -222,52 +222,6 @@
             <point key="canvasLocation" x="104" y="398"/>
         </scene>
         <!--Sign Up Table View Controller-->
-        <scene sceneID="QNm-UB-YBG">
-            <objects>
-                <tableViewController id="NlB-pM-1Gi" customClass="SignUpTableViewController" customModule="MIXR" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="1" sectionFooterHeight="22" id="AA2-ng-zJm">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                        <color key="separatorColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                        <color key="sectionIndexBackgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                        <view key="tableHeaderView" contentMode="scaleToFill" id="xHz-jc-P5c" customClass="UIScrollView">
-                            <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        </view>
-                        <connections>
-                            <outlet property="dataSource" destination="NlB-pM-1Gi" id="dPn-jI-t1M"/>
-                            <outlet property="delegate" destination="NlB-pM-1Gi" id="p1k-IP-k1S"/>
-                        </connections>
-                    </tableView>
-                    <navigationItem key="navigationItem" id="5Qx-Tx-OeC"/>
-                    <connections>
-                        <outlet property="checkmark" destination="dy4-Xv-H7q" id="7aw-1F-5rR"/>
-                        <outlet property="conformPassword" destination="2er-sE-zh9" id="OdQ-hn-Vkd"/>
-                        <outlet property="dob" destination="mgK-mc-LC9" id="ccK-tg-oRQ"/>
-                        <outlet property="email" destination="P2R-qH-8xR" id="WMQ-3m-qsJ"/>
-                        <outlet property="firstname" destination="k0B-3i-7C8" id="4dr-vY-hvs"/>
-                        <outlet property="lastname" destination="Did-XK-Rh0" id="CAH-8e-UII"/>
-                        <outlet property="password" destination="E7w-xt-lJo" id="rDa-hi-UMD"/>
-                        <outlet property="phoneNo" destination="M6F-ce-nV7" id="B49-vc-Nag"/>
-                    </connections>
-                </tableViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="jho-Jk-vVy" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1aO-nY-S5t">
-                    <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="568" id="e0m-QQ-LYC"/>
-                    </constraints>
-                    <connections>
-                        <outlet property="delegate" destination="NlB-pM-1Gi" id="2vs-Ef-Qi3"/>
-                    </connections>
-                </scrollView>
-            </objects>
-            <point key="canvasLocation" x="327" y="-737"/>
-        </scene>
-        <!--Sign Up Table View Controller-->
         <scene sceneID="sTf-yb-Afi">
             <objects>
                 <viewController id="XIg-o5-OcS" customClass="SignUpTableViewController" customModule="MIXR" customModuleProvider="target" sceneMemberID="viewController">
@@ -463,9 +417,6 @@
                                         <color key="value" red="0.52941176469999995" green="0.52941176469999995" blue="0.52941176469999995" alpha="1" colorSpace="calibratedRGB"/>
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
-                                <connections>
-                                    <action selector="segmentControlStateChanged:" destination="NlB-pM-1Gi" eventType="valueChanged" id="XaE-Qq-h8O"/>
-                                </connections>
                             </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -1075,6 +1026,9 @@
                     </tableView>
                     <navigationItem key="navigationItem" id="8RX-ZV-dlG"/>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO" prompted="NO"/>
+                    <connections>
+                        <outlet property="phoneInput" destination="VnF-8R-3T7" id="MWM-LI-utC"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9R8-5r-Fv1" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <barButtonItem title="Done" id="UzD-yg-IM1"/>
@@ -1490,7 +1444,6 @@
                                     </state>
                                     <connections>
                                         <action selector="redeembuttonTapped:" destination="dck-3r-aEL" eventType="touchUpInside" id="zds-fG-CM6"/>
-                                        <action selector="signupButtonTapped:" destination="NlB-pM-1Gi" eventType="touchUpInside" id="Bhx-RQ-sFG"/>
                                     </connections>
                                 </button>
                             </subviews>
