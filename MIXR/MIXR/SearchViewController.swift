@@ -188,17 +188,6 @@ class SearchViewController: BaseViewController, UITableViewDelegate,UITableViewD
         //  cellToDeSelect.contentView.backgroundColor = UIColor.lightGrayColor()
     }
     
-    
-    
-    //  MARK:- Button Action -
-    @IBAction func NotificatiDeatil(sender: AnyObject) {
-        
-        let NotificationView : NotificationViewController = self.storyboard!.instantiateViewControllerWithIdentifier("NotificationViewController") as! NotificationViewController
-        
-        self.navigationController!.pushViewController(NotificationView, animated: true)
-        
-    }
-    
     //  MARK:- Searchbar Delegate -
     func searchBar(searchBar: UISearchBar, textDidChange searchText: String){
         if searchBar.text!.isEmpty{

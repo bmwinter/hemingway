@@ -15,7 +15,7 @@ import MobileCoreServices
 import Agrume
 
 class BaseViewController: UIViewController  ,UIImagePickerControllerDelegate, UINavigationControllerDelegate,UIGestureRecognizerDelegate {
-    
+    @IBOutlet var btnNotificationNumber : UIButton!
     override func viewDidLoad()
     {
         super.viewDidLoad()
@@ -41,6 +41,7 @@ class BaseViewController: UIViewController  ,UIImagePickerControllerDelegate, UI
             self.navigationController!.interactivePopGestureRecognizer!.enabled = false
         }
         
+        self.updateNotificationBadge()
         // Do any additional setup after loading the view.
     }
     
@@ -61,7 +62,6 @@ class BaseViewController: UIViewController  ,UIImagePickerControllerDelegate, UI
     {
         self.navigationController?.popViewControllerAnimated(true)
     }
-    
     
     @IBAction func onCameraClicked(sender: AnyObject)
     {
@@ -116,14 +116,13 @@ class BaseViewController: UIViewController  ,UIImagePickerControllerDelegate, UI
     // MARK:
     // MARK: Open PhotoController
     
-    func openPhotoGallery(){
+    func openPhotoGallery()
+    {
         let cameraViewController = ALCameraViewController(croppingEnabled: true, allowsLibraryAccess: true) { (image) -> Void in
             //            self.imageView.image = image
             self.dismissViewControllerAnimated(true, completion: nil)
         }
-        
         presentViewController(cameraViewController, animated: true, completion: nil)
-        
     }
     
     // MARK:
@@ -195,5 +194,20 @@ class BaseViewController: UIViewController  ,UIImagePickerControllerDelegate, UI
         //            //                animated: false)
         //        }
         agrume.showFrom(self)
+    }
+    
+    func updateNotificationBadge()
+    {
+        if(self.btnNotificationNumber != nil)
+        {
+            self.btnNotificationNumber.layer.cornerRadius = self.btnNotificationNumber.frame.size.width/2
+            self.btnNotificationNumber.setTitle("10", forState: UIControlState.Normal)
+        }
+    }
+    
+    @IBAction func NotificatiDeatil(sender: AnyObject) {
+        
+        let NotificationView : NotificationViewController = self.storyboard!.instantiateViewControllerWithIdentifier("NotificationViewController") as! NotificationViewController
+        self.navigationController!.pushViewController(NotificationView, animated: true)
     }
 }

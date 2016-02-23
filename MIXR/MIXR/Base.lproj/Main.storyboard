@@ -247,7 +247,7 @@
                     <nil key="simulatedBottomBarMetrics"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina55"/>
                     <connections>
-                        <outlet property="btnNotificationNumber" destination="HDa-Rn-2L4" id="qJr-m7-ltW"/>
+                        <outlet property="btnNotificationNumber" destination="HDa-Rn-2L4" id="udx-Fy-Df1"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="W5J-7L-Pyd" sceneMemberID="firstResponder"/>
@@ -1049,7 +1049,7 @@
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina55"/>
                     <connections>
                         <outlet property="backgroundView" destination="IBr-4u-qHY" id="4FI-ZG-Wnx"/>
-                        <outlet property="btnNotificationNumber" destination="4Ws-IJ-Hnc" id="l9A-Em-9E5"/>
+                        <outlet property="btnNotificationNumber" destination="4Ws-IJ-Hnc" id="wxJ-fv-IyJ"/>
                         <outlet property="searchBarObj" destination="OTw-uf-jAb" id="MNm-lj-Bez"/>
                         <outlet property="searchDisplayController" destination="m3f-cY-rv6" id="7pF-vN-gaJ"/>
                         <outlet property="tableView" destination="PkF-s4-rDT" id="B7K-f4-YL9"/>

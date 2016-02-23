@@ -54,7 +54,6 @@ class VenueProfileTableViewController: UITableViewController,UIGestureRecognizer
     
     func loadDummyScrollViewData()
     {
-        
         var eventHeight : CGFloat = 40.0
         for i in 1...15
         {
@@ -63,7 +62,7 @@ class VenueProfileTableViewController: UITableViewController,UIGestureRecognizer
             test.textAlignment = NSTextAlignmentFromCTTextAlignment(CTTextAlignment.Left)
             test.text = "Event Data \(i)"
             test.font = UIFont(name: "ForgottenFuturistRg-Regular", size: 20)
-            test.frame = CGRectMake(5, (CGFloat)(i * 20), self.eventsScrollView.frame.size.width-10, 20);
+            test.frame = CGRectMake(10, (CGFloat)(i * 20), self.eventsScrollView.frame.size.width-20, 20);
             eventHeight = eventHeight + 20
             self.eventsScrollView.addSubview(test)
         }
@@ -80,7 +79,7 @@ class VenueProfileTableViewController: UITableViewController,UIGestureRecognizer
             test.textAlignment = NSTextAlignmentFromCTTextAlignment(CTTextAlignment.Left)
             test.text = "Special Deal \(i)"
             test.font = UIFont(name: "ForgottenFuturistRg-Regular", size: 20)
-            test.frame = CGRectMake(5, (CGFloat)(i * 20), self.venueSpecialScrollView.frame.size.width-10, 20);
+            test.frame = CGRectMake(10, (CGFloat)(i * 20), self.venueSpecialScrollView.frame.size.width-20, 20);
             SpecialHeight = SpecialHeight + 20
             self.venueSpecialScrollView.addSubview(test)
         }
