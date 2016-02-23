@@ -60,10 +60,10 @@ class VenueProfileTableViewController: UITableViewController,UIGestureRecognizer
         {
             let test:UILabel
             test = UILabel()
-            test.textAlignment = NSTextAlignmentFromCTTextAlignment(CTTextAlignment.Center)
+            test.textAlignment = NSTextAlignmentFromCTTextAlignment(CTTextAlignment.Left)
             test.text = "Event Data \(i)"
             test.font = UIFont(name: "ForgottenFuturistRg-Regular", size: 20)
-            test.frame = CGRectMake(0, (CGFloat)(i * 20), self.eventsScrollView.frame.size.width, 20);
+            test.frame = CGRectMake(5, (CGFloat)(i * 20), self.eventsScrollView.frame.size.width-10, 20);
             eventHeight = eventHeight + 20
             self.eventsScrollView.addSubview(test)
         }
@@ -77,10 +77,10 @@ class VenueProfileTableViewController: UITableViewController,UIGestureRecognizer
         {
             let test:UILabel
             test = UILabel()
-            test.textAlignment = NSTextAlignmentFromCTTextAlignment(CTTextAlignment.Center)
+            test.textAlignment = NSTextAlignmentFromCTTextAlignment(CTTextAlignment.Left)
             test.text = "Special Deal \(i)"
             test.font = UIFont(name: "ForgottenFuturistRg-Regular", size: 20)
-            test.frame = CGRectMake(0, (CGFloat)(i * 20), self.venueSpecialScrollView.frame.size.width, 20);
+            test.frame = CGRectMake(5, (CGFloat)(i * 20), self.venueSpecialScrollView.frame.size.width-10, 20);
             SpecialHeight = SpecialHeight + 20
             self.venueSpecialScrollView.addSubview(test)
         }

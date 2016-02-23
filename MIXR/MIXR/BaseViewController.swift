@@ -42,7 +42,6 @@ class BaseViewController: UIViewController  ,UIImagePickerControllerDelegate, UI
         }
         
         // Do any additional setup after loading the view.
-        
     }
     
     func gestureRecognizer(gestureRecognizer: UIGestureRecognizer, shouldBeRequiredToFailByGestureRecognizer otherGestureRecognizer: UIGestureRecognizer) -> Bool {
