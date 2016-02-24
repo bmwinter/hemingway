@@ -45,6 +45,21 @@ class BaseViewController: UIViewController  ,UIImagePickerControllerDelegate, UI
         // Do any additional setup after loading the view.
     }
     
+    override func viewWillAppear(animated: Bool)
+    {
+        // self.loadNotificationsFromServer()
+        self.updateNotificationText(10)
+    }
+    
+    override func viewDidLayoutSubviews()
+    {
+        super.viewDidLayoutSubviews()
+        if (self.btnNotificationNumber != nil)
+        {
+            self.btnNotificationNumber.layer.cornerRadius = self.btnNotificationNumber.frame.size.width / 2
+        }
+    }
+    
     func gestureRecognizer(gestureRecognizer: UIGestureRecognizer, shouldBeRequiredToFailByGestureRecognizer otherGestureRecognizer: UIGestureRecognizer) -> Bool {
         return gestureRecognizer.isKindOfClass(UIScreenEdgePanGestureRecognizer)
     }
@@ -210,4 +225,31 @@ class BaseViewController: UIViewController  ,UIImagePickerControllerDelegate, UI
         let NotificationView : NotificationViewController = self.storyboard!.instantiateViewControllerWithIdentifier("NotificationViewController") as! NotificationViewController
         self.navigationController!.pushViewController(NotificationView, animated: true)
     }
+    
+    
+    func updateNotificationText(notificationCount:Int)
+    {
+        if (self.btnNotificationNumber != nil)
+        {
+            if (notificationCount > 0)
+            {
+                if (notificationCount == 0)
+                {
+                    self.btnNotificationNumber.hidden = true
+                    self.btnNotificationNumber.setTitle("", forState: UIControlState.Normal)
+                }
+                else
+                {
+                    self.btnNotificationNumber.hidden = false
+                    self.btnNotificationNumber.setTitle("\(notificationCount)", forState: UIControlState.Normal)
+                }
+            }
+            else
+            {
+                self.btnNotificationNumber.hidden = true
+                self.btnNotificationNumber.setTitle("", forState: UIControlState.Normal)
+            }
+        }
+    }
+    
 }

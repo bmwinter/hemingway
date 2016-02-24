@@ -163,7 +163,7 @@ class NewsFeedTableViewController:UITableViewController,APIConnectionDelegate {
         cell.lblUserName.text = feedsArray[indexPath.row]["userName"].string
         
         let attachment = NSTextAttachment()
-        attachment.image = UIImage(named: "martiniglass_icon.png")
+        attachment.image = UIImage(named: "martiniglass_iconNew.png")
         let attachmentString = NSAttributedString(attachment: attachment)
         let myString = NSMutableAttributedString(string: " ")
         myString.appendAttributedString(attachmentString)
