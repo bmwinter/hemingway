@@ -92,16 +92,25 @@ class SearchViewController: BaseViewController, UITableViewDelegate,UITableViewD
     {
         if (isLocalData)
         {
-            usersArray.addObject(["userName":"Micheal Clarke","userImage":"userImage1.jpg","phoneNumber":"1234567890"])
-            usersArray.addObject(["userName":"John Woggs","userImage":"userImage2.jpg","phoneNumber":"1234567890"])
-            usersArray.addObject(["userName":"Hinns Hawks","userImage":"userImage3.jpg","phoneNumber":"1234567890"])
-            usersArray.addObject(["userName":"Stuart Jonald","userImage":"userImage4.jpg","phoneNumber":"1234567890"])
-            usersArray.addObject(["userName":"Steve Waugh","userImage":"userImage5.png","phoneNumber":"1234567890"])
-            usersArray.addObject(["userName":"Jimmy Walker","userImage":"userImage6.jpg","phoneNumber":"1234567890"])
-            usersArray.addObject(["userName":"Paul Smith","userImage":"userImage7.jpg","phoneNumber":"1234567890"])
-            usersArray.addObject(["userName":"Martin Samueals","userImage":"userImage8.jpg","phoneNumber":"1234567890"])
-            usersArray.addObject(["userName":"Ronny Hoggs","userImage":"userImage9.png","phoneNumber":"1234567890"])
-            usersArray.addObject(["userName":"Peter Hinns","userImage":"userImage10.jpg","phoneNumber":"1234567890"])
+            //profile_picture, title, subtitle
+            usersArray.addObject(["title":"Micheal Clarke","profile_picture":"userImage1.jpg","subtitle":"1234567890"])
+            usersArray.addObject(["title":"Mad River1","profile_picture":"venueImage1.jpg","subtitle":"Grant Boyle1"])
+            usersArray.addObject(["title":"John Woggs","profile_picture":"userImage2.jpg","subtitle":"1234567890"])
+            usersArray.addObject(["title":"Mad River2","profile_picture":"venueImage2.jpg","subtitle":"Grant Boyle2"])
+            usersArray.addObject(["title":"Hinns Hawks","profile_picture":"userImage3.jpg","subtitle":"1234567890"])
+            usersArray.addObject(["title":"Mad River3","profile_picture":"venueImage3.jpg","subtitle":"Grant Boyle3"])
+            usersArray.addObject(["title":"Stuart Jonald","profile_picture":"userImage4.jpg","subtitle":"1234567890"])
+            usersArray.addObject(["title":"Mad River4","profile_picture":"venueImage4.jpg","subtitle":"Grant Boyle4"])
+            usersArray.addObject(["title":"Steve Waugh","profile_picture":"userImage5.png","subtitle":"1234567890"])
+            usersArray.addObject(["title":"Mad River5","profile_picture":"venueImage5.jpg","subtitle":"Grant Boyle5"])
+            usersArray.addObject(["title":"Jimmy Walker","profile_picture":"userImage6.jpg","subtitle":"1234567890"])
+            usersArray.addObject(["title":"Mad River6","profile_picture":"venueImage6.jpg","subtitle":"Grant Boyle6"])
+            usersArray.addObject(["title":"Paul Smith","profile_picture":"userImage7.jpg","subtitle":"1234567890"])
+            usersArray.addObject(["title":"Martin Samueals","profile_picture":"userImage8.jpg","subtitle":"1234567890"])
+            usersArray.addObject(["title":"Mad River7","profile_picture":"venueImage7.jpg","subtitle":"Grant Boyle7"])
+            usersArray.addObject(["title":"Ronny Hoggs","profile_picture":"userImage9.png","subtitle":"1234567890"])
+            usersArray.addObject(["title":"Peter Hinns","profile_picture":"userImage10.jpg","subtitle":"1234567890"])
+            usersArray.addObject(["title":"Mad River8","profile_picture":"venueImage8.jpg","subtitle":"Grant Boyle8"])
             reloadTable()
         }
         else
@@ -147,9 +156,9 @@ class SearchViewController: BaseViewController, UITableViewDelegate,UITableViewD
         if is_searching == true
         {
             let feedDict : NSDictionary = searchingArray[indexPath.row] as! NSDictionary
-            cell.imagePerson.image  = UIImage(named: feedDict["userImage"] as! String)
-            cell.labelName.text = feedDict["userName"] as! NSString as String
-            cell.mobileNumber.text = feedDict["phoneNumber"] as! NSString as String
+            cell.imagePerson.image  = UIImage(named: feedDict["profile_picture"] as! String)
+            cell.labelName.text = feedDict["title"] as! NSString as String
+            cell.mobileNumber.text = feedDict["subtitle"] as! NSString as String
             //cell.textLabel!.text = searchingArray[indexPath.row] as! NSString as String
             if(indexPath.row == (searchingArray.count-4) && searchingArray.count > 8)
             {
@@ -159,9 +168,9 @@ class SearchViewController: BaseViewController, UITableViewDelegate,UITableViewD
         else
         {
             let feedDict : NSDictionary = usersArray[indexPath.row] as! NSDictionary
-            cell.imagePerson.image  = UIImage(named: feedDict["userImage"] as! String)
-            cell.labelName.text = feedDict["userName"] as? String
-            cell.mobileNumber.text = feedDict["phoneNumber"] as! NSString as String
+            cell.imagePerson.image  = UIImage(named: feedDict["profile_picture"] as! String)
+            cell.labelName.text = feedDict["title"] as? String
+            cell.mobileNumber.text = feedDict["subtitle"] as! NSString as String
             
             if(indexPath.row == (usersArray.count-4) && usersArray.count > 8)
             {
@@ -203,7 +212,7 @@ class SearchViewController: BaseViewController, UITableViewDelegate,UITableViewD
             
             var tempArray : NSMutableArray = []
             
-            let resultPredicate : NSPredicate = NSPredicate(format: "userName contains[c] %@ || phoneNumber contains[c] %@",searchBar.text! as NSString,searchBar.text! as NSString)
+            let resultPredicate : NSPredicate = NSPredicate(format: "title contains[c] %@ || subtitle contains[c] %@",searchBar.text! as NSString,searchBar.text! as NSString)
             let searchResults = self.usersArray.filteredArrayUsingPredicate(resultPredicate)
             self.searchingArray = NSMutableArray(array: searchResults)
             
