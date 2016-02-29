@@ -8,6 +8,13 @@
 
 import Foundation
 
+extension String {
+    func isEqualToString(find: String) -> Bool {
+        return String(format: self) == find
+    }
+}
+
+
 enum APIName : Int
 {
     case AuthenticationTokens       = 1
@@ -45,6 +52,7 @@ struct globalConstants {
     static let kfirstnameError = "Please enter firstname"
     static let klastnameError = "Please enter lastname"
     static let kconfirmPasswordError = "Please enter confirm password"
+    static let kCountryCodeError = "Please enter country code"
     static let kPhoneNoError = "Please enter phone No"
     static let kverificationCodeError = "Please enter verification code"
     static let kNewPassword = "Please enter verification code"

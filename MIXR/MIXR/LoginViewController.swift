@@ -103,13 +103,12 @@ class LoginViewController: BaseViewController {
 
         }
         
-        if !globalConstants.isValidEmail(email){
-            self.displayCommonAlert(globalConstants.kValidEmailError)
-            return;
-
-        }
+//        if !globalConstants.isValidEmail(email){
+//            self.displayCommonAlert(globalConstants.kValidEmailError)
+//            return;
+//        }
+        
         self.performLoginAction()
-//        self.uploadFileOnServer()
     }
     
     //MARK: Temp function to check upload file on server.
@@ -161,7 +160,7 @@ class LoginViewController: BaseViewController {
         
         let URL =  globalConstants.kAPIURL + globalConstants.kLoginAPIEndPoint
         
-        Alamofire.Manager.sharedInstance.session.configuration.HTTPAdditionalHeaders?.updateValue("application/json", forKey: "Accept")
+//        Alamofire.Manager.sharedInstance.session.configuration.HTTPAdditionalHeaders?.updateValue("application/json", forKey: "Accept")
 
         
         Alamofire.request(.POST, URL , parameters: parameters, encoding: .JSON)
@@ -185,6 +184,16 @@ class LoginViewController: BaseViewController {
                     
                     if response.response?.statusCode == 400{
                         print("The Response Error is:   \(response.response?.statusCode)")
+                        
+                        if let val = responseDic?["code"] {
+                            if val.isEqualToString("10") {
+//                                print("Equals")
+                                self.displayCommonAlert(responseDic?["detail"] as! String)
+                                return
+                            }
+                            // now val is not nil and the Optional has been unwrapped, so use it
+                        }
+                        
                         if let errorData = responseDic?["detail"] {
                             let errorMessage = errorData[0] as! String
                             self.displayCommonAlert(errorMessage)
@@ -202,6 +211,16 @@ class LoginViewController: BaseViewController {
         }
     }
     
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject!) {
+        if (segue.identifier == "SMSVerification") {
+            //Checking identifier is crucial as there might be multiple
+            // segues attached to same view
+            let detailVC = segue.destinationViewController as! SMSVerification;
+//            detailVC.phoneNumber = phoneNo.text!.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
+        }
+    }
+    
+
     //MARK: convertStringObject to Dictionary
     
     func convertStringToDictionary(text:String) -> [String:AnyObject]? {

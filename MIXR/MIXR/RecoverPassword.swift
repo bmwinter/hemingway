@@ -18,8 +18,20 @@ class RecoverPassword: UITableViewController {
     @IBOutlet weak var newPassword: UITextField!
     @IBOutlet weak var doneButton: UIButton!
     
+    var phoneNumber:NSString!
     
     
+    override func viewDidLoad() {
+
+        self.phoneNo?.userInteractionEnabled = false
+        self.phoneNo?.text = self.phoneNumber as String
+        
+        self.tableView.backgroundView = UIImageView(image: UIImage(named: "BG"))
+//        self.title = "Recover Password"
+        
+        // Do any additional setup after loading the view, typically from a nib.
+    }
+
     @IBAction func doneButtonTapped (sender:AnyObject){
         self.phoneNo.resignFirstResponder()
         self.verificationCode.resignFirstResponder()
@@ -45,7 +57,6 @@ class RecoverPassword: UITableViewController {
         }
 
         self.recoverPasswordUpdate()
-        //        self.navigationController?.popViewControllerAnimated(true)
     }
     
     /*
@@ -100,16 +111,14 @@ class RecoverPassword: UITableViewController {
                     if response.response?.statusCode == 400{
                         print("The Response Error is:   \(response.response?.statusCode)")
                         if let errorData = responseDic?["detail"] {
-                            let errorMessage = errorData as! String
+                            let errorMessage = errorData[0] as! String
                             self.displayCommonAlert(errorMessage)
                             return;
                         }
                     }
                     
-                    if let tokenData = responseDic?["phone_number"] {
-                        let tokenString = tokenData as! String
-                        self.performSegueWithIdentifier("RecoverPassword", sender: nil)
-                        print(tokenString)
+                    if let tokenData = responseDic?["confirmation"] {
+                        self.navigationController?.popToRootViewControllerAnimated(true)
                     }
                 }
         }

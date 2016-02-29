@@ -80,7 +80,7 @@
                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="bezel" placeholder="Email" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="zkM-Vo-nfK" customClass="BorderedTextField" customModule="MIXR" customModuleProvider="target">
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="bezel" placeholder="Email / PhoneNo" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="zkM-Vo-nfK" customClass="BorderedTextField" customModule="MIXR" customModuleProvider="target">
                                         <rect key="frame" x="16" y="197" width="288" height="35"/>
                                         <color key="tintColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
@@ -215,6 +215,7 @@
                         <segue destination="pnr-p3-Ud9" kind="push" identifier="ForgotPasswordSegue" id="M7j-dS-sS3"/>
                         <segue destination="XIg-o5-OcS" kind="push" identifier="SignUpSegue" id="OVe-Nk-Z62"/>
                         <segue destination="Hdj-YD-Mb5" kind="push" identifier="VenueSelection" id="AeM-AF-oSK"/>
+                        <segue destination="RjX-Sr-ywH" kind="push" identifier="SMSVerification" id="1ar-P0-ggL"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5Tv-ky-wkD" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -229,7 +230,7 @@
                         <viewControllerLayoutGuide type="top" id="meE-yr-1D0"/>
                         <viewControllerLayoutGuide type="bottom" id="rZA-1w-BwJ"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="a7V-i3-UE4" customClass="UIScrollView">
+                    <view key="view" contentMode="scaleToFill" id="a7V-i3-UE4">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
@@ -318,8 +319,8 @@
                                     <outlet property="delegate" destination="XIg-o5-OcS" id="q4m-2f-o39"/>
                                 </connections>
                             </textField>
-                            <textField opaque="NO" clipsSubviews="YES" tag="5" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="bezel" placeholder="Phone No" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="M6F-ce-nV7" customClass="BorderedTextField" customModule="MIXR" customModuleProvider="target">
-                                <rect key="frame" x="9" y="318" width="302" height="35"/>
+                            <textField opaque="NO" clipsSubviews="YES" tag="5" contentMode="scaleToFill" horizontalHuggingPriority="249" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="bezel" placeholder="Phone No" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="M6F-ce-nV7" customClass="BorderedTextField" customModule="MIXR" customModuleProvider="target">
+                                <rect key="frame" x="73" y="318" width="238" height="35"/>
                                 <constraints>
                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="35" id="Dne-FK-HSF"/>
                                     <constraint firstAttribute="height" constant="35" id="zzg-Ju-Pbp"/>
@@ -418,6 +419,14 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </view>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="+1" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="v9v-EW-Xvf" customClass="BorderedTextField" customModule="MIXR" customModuleProvider="target">
+                                <rect key="frame" x="8" y="318" width="63" height="35"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="63" id="wZY-Lq-656"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" keyboardType="phonePad"/>
+                            </textField>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -425,6 +434,7 @@
                             <constraint firstAttribute="trailing" secondItem="mgK-mc-LC9" secondAttribute="trailing" constant="9" id="0aU-ee-75m"/>
                             <constraint firstItem="FAO-1r-c7s" firstAttribute="top" secondItem="WWH-as-KzJ" secondAttribute="bottom" constant="16" id="12H-IU-hov"/>
                             <constraint firstAttribute="trailing" secondItem="FAO-1r-c7s" secondAttribute="trailing" constant="9" id="1mn-Vz-EY4"/>
+                            <constraint firstItem="v9v-EW-Xvf" firstAttribute="bottom" secondItem="M6F-ce-nV7" secondAttribute="bottom" id="2hF-He-c74"/>
                             <constraint firstAttribute="trailing" secondItem="P2R-qH-8xR" secondAttribute="trailing" constant="9" id="3Ho-1k-S0w"/>
                             <constraint firstItem="6Cp-bG-f0B" firstAttribute="centerX" secondItem="P2R-qH-8xR" secondAttribute="centerX" id="3LD-n3-0xW"/>
                             <constraint firstAttribute="trailing" secondItem="Did-XK-Rh0" secondAttribute="trailing" constant="9" id="3Zy-8B-27Z"/>
@@ -434,9 +444,11 @@
                             <constraint firstItem="Qjx-Xz-lJu" firstAttribute="top" secondItem="mgK-mc-LC9" secondAttribute="bottom" constant="13" id="7Xg-yq-NGh"/>
                             <constraint firstItem="Dqn-pV-JR4" firstAttribute="top" secondItem="a7V-i3-UE4" secondAttribute="top" id="7qc-Tq-5xs"/>
                             <constraint firstItem="Dqn-pV-JR4" firstAttribute="leading" secondItem="a7V-i3-UE4" secondAttribute="leading" id="ANT-zQ-iMa"/>
+                            <constraint firstItem="v9v-EW-Xvf" firstAttribute="leading" secondItem="k0B-3i-7C8" secondAttribute="leading" id="BML-h8-5pP"/>
                             <constraint firstAttribute="trailing" secondItem="mgK-mc-LC9" secondAttribute="trailing" constant="9" id="Dpd-w7-tSt"/>
                             <constraint firstItem="WWH-as-KzJ" firstAttribute="top" secondItem="Qjx-Xz-lJu" secondAttribute="bottom" constant="13" id="EbV-tJ-x79"/>
                             <constraint firstItem="k0B-3i-7C8" firstAttribute="bottom" secondItem="Did-XK-Rh0" secondAttribute="bottom" id="FOI-Bc-VaV"/>
+                            <constraint firstItem="v9v-EW-Xvf" firstAttribute="top" secondItem="M6F-ce-nV7" secondAttribute="top" id="G2G-vN-IGg"/>
                             <constraint firstItem="k0B-3i-7C8" firstAttribute="baseline" secondItem="Did-XK-Rh0" secondAttribute="baseline" id="LyR-At-COv"/>
                             <constraint firstItem="dy4-Xv-H7q" firstAttribute="leading" secondItem="a7V-i3-UE4" secondAttribute="leading" constant="9" id="MJf-9r-afl"/>
                             <constraint firstAttribute="trailing" secondItem="E7w-xt-lJo" secondAttribute="trailing" constant="9" id="O1D-4j-6fN"/>
@@ -449,6 +461,7 @@
                             <constraint firstItem="E7w-xt-lJo" firstAttribute="leading" secondItem="a7V-i3-UE4" secondAttribute="leading" constant="9" id="Qxy-cX-BV3"/>
                             <constraint firstItem="P2R-qH-8xR" firstAttribute="top" secondItem="k0B-3i-7C8" secondAttribute="bottom" constant="12" id="RNy-eq-v2k"/>
                             <constraint firstItem="WWH-as-KzJ" firstAttribute="leading" secondItem="dy4-Xv-H7q" secondAttribute="trailing" constant="13" id="Rbs-xZ-A1k"/>
+                            <constraint firstItem="M6F-ce-nV7" firstAttribute="leading" secondItem="v9v-EW-Xvf" secondAttribute="trailing" constant="2" id="Tpo-6f-r2j"/>
                             <constraint firstItem="mgK-mc-LC9" firstAttribute="top" secondItem="M6F-ce-nV7" secondAttribute="bottom" constant="12" id="Tsc-UG-ioH"/>
                             <constraint firstItem="FJp-vs-Gic" firstAttribute="leading" secondItem="a7V-i3-UE4" secondAttribute="leading" constant="9" id="VCl-9N-OI5"/>
                             <constraint firstItem="M6F-ce-nV7" firstAttribute="top" secondItem="2er-sE-zh9" secondAttribute="bottom" constant="12" id="ZkS-1l-tb8"/>
@@ -460,7 +473,6 @@
                             <constraint firstItem="FAO-1r-c7s" firstAttribute="leading" secondItem="a7V-i3-UE4" secondAttribute="leading" constant="9" id="gur-CS-QU0"/>
                             <constraint firstItem="2er-sE-zh9" firstAttribute="top" secondItem="E7w-xt-lJo" secondAttribute="bottom" constant="12" id="hJj-P6-GOl"/>
                             <constraint firstItem="P2R-qH-8xR" firstAttribute="leading" secondItem="a7V-i3-UE4" secondAttribute="leading" constant="9" id="jTH-wQ-Y7o"/>
-                            <constraint firstItem="M6F-ce-nV7" firstAttribute="leading" secondItem="a7V-i3-UE4" secondAttribute="leading" constant="9" id="mZM-QW-p03"/>
                             <constraint firstAttribute="trailing" secondItem="Dqn-pV-JR4" secondAttribute="trailing" id="oBo-Zb-cyr"/>
                             <constraint firstAttribute="trailing" secondItem="Qjx-Xz-lJu" secondAttribute="trailing" constant="8" id="oUR-Bl-7MW"/>
                             <constraint firstItem="2er-sE-zh9" firstAttribute="leading" secondItem="a7V-i3-UE4" secondAttribute="leading" constant="9" id="rVM-ub-SxE"/>
@@ -481,6 +493,7 @@
                         <outlet property="IQLayoutGuideConstraint" destination="0AL-cQ-aZW" id="JAm-ew-6Pq"/>
                         <outlet property="checkmark" destination="dy4-Xv-H7q" id="zne-lt-VnN"/>
                         <outlet property="conformPassword" destination="2er-sE-zh9" id="ZQO-2N-poX"/>
+                        <outlet property="countryCode" destination="v9v-EW-Xvf" id="FxW-L6-zRh"/>
                         <outlet property="dob" destination="mgK-mc-LC9" id="RFT-k5-ZsE"/>
                         <outlet property="email" destination="P2R-qH-8xR" id="gIk-ag-xES"/>
                         <outlet property="firstNameWidth" destination="X9o-7R-KiG" id="lO1-jx-CfK"/>
@@ -607,7 +620,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Dre-s8-CNO" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="522" y="126"/>
+            <point key="canvasLocation" x="458" y="-26"/>
         </scene>
         <!--Recent Photo Vidoe Controller-->
         <scene sceneID="7OX-Bg-Fix">
@@ -1055,10 +1068,10 @@
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="bezel" placeholder="Email" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="5yu-U0-wOD" customClass="BorderedTextField" customModule="MIXR" customModuleProvider="target">
+                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="bezel" placeholder="Phone" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="5yu-U0-wOD" customClass="BorderedTextField" customModule="MIXR" customModuleProvider="target">
                                                     <rect key="frame" x="8" y="6" width="304" height="35"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                    <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
+                                                    <textInputTraits key="textInputTraits" keyboardType="numbersAndPunctuation"/>
                                                     <connections>
                                                         <outlet property="delegate" destination="pnr-p3-Ud9" id="HVJ-fr-jQA"/>
                                                     </connections>
@@ -1505,4 +1518,7 @@
         <image name="logowithName" width="173" height="69"/>
         <image name="martini" width="84" height="69"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="nej-bQ-Tn7"/>
+    </inferredMetricsTieBreakers>
 </document>

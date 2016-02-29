@@ -55,6 +55,7 @@ class SignUpTableViewController: UIViewController {
     @IBOutlet weak var password: UITextField!
     @IBOutlet weak var conformPassword: UITextField!
     @IBOutlet weak var dob: UIButton!
+    @IBOutlet weak var countryCode: UITextField!
     @IBOutlet weak var phoneNo: UITextField!
     @IBOutlet weak var gender: UISegmentedControl!
     @IBOutlet weak var checkmark: UIButton!
@@ -116,6 +117,8 @@ class SignUpTableViewController: UIViewController {
         let confirmPasswordString = conformPassword.text!.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
 
         let phoneNoString = phoneNo.text!.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
+        
+        let countryCodeString = countryCode.text!.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
 
         if firstnameString.isEmpty{
             self.displayCommonAlert(globalConstants.kfirstnameError)
@@ -137,7 +140,13 @@ class SignUpTableViewController: UIViewController {
             self.displayCommonAlert(globalConstants.kconfirmPasswordError)
             return
         }
+
         
+        if countryCodeString.isEmpty{
+            self.displayCommonAlert(globalConstants.kCountryCodeError)
+            return
+        }
+
         if phoneNoString.isEmpty{
             self.displayCommonAlert(globalConstants.kPhoneNoError)
             return
@@ -238,7 +247,13 @@ class SignUpTableViewController: UIViewController {
             //Checking identifier is crucial as there might be multiple
             // segues attached to same view
             let detailVC = segue.destinationViewController as! SMSVerification;
-            detailVC.phoneNumber = phoneNo.text!.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
+            let phoneNumberString = phoneNo.text!.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
+            
+            let countryCodeString = countryCode.text!.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
+            
+            
+            detailVC.phoneNumber = countryCodeString + phoneNumberString
+            
         }
     }
 

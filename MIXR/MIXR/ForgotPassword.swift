@@ -96,10 +96,15 @@ class ForgotPassword: UITableViewController {
                 print("The post is: " + post.description)
         }
     }
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?){
-//        if segue.identifier == "RecoverPassword"{
-//            let destinationVC  = segue.destinationViewController
-//        }
+    
+    //MARK: Navigation Stuff
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject!) {
+        if (segue.identifier == "RecoverPassword") {
+            //Checking identifier is crucial as there might be multiple
+            // segues attached to same view
+            let detailVC = segue.destinationViewController as! RecoverPassword
+            detailVC.phoneNumber = email.text!.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
+        }
     }
     
     //MARK: convertStringObject to Dictionary
