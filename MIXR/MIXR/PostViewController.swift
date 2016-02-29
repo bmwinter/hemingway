@@ -18,6 +18,10 @@ class PostViewController: BaseViewController {
     @IBOutlet weak var feedView: UIView!
     @IBOutlet weak var btnFollowing: UIButton!
     @IBOutlet weak var btnFeedName: UIButton!
+    
+    @IBOutlet weak var cameraBtn: UIButton!
+    @IBOutlet weak var SettingBtn: UIButton!
+    
     var isUserProfile : Bool = false
     
     @IBAction func OnSettingBtnAction(sender: AnyObject)
@@ -27,7 +31,6 @@ class PostViewController: BaseViewController {
         self.navigationController!.pushViewController(aSettingsTableViewController, animated: true)
     }
     
-    @IBOutlet weak var SettingBtn: UIButton!
     override func viewDidLoad()
     {
         super.viewDidLoad()
@@ -35,10 +38,13 @@ class PostViewController: BaseViewController {
         //self.navigationController?.interactivePopGestureRecognizer!.enabled = true        
         self.loadData()
         // Do any additional setup after loading the view.
+        self.btnFeedName.titleLabel?.font = UIFont(name: "ForgottenFuturistRg-Bold", size: 24)
     }
     
     override func viewWillAppear(animated: Bool)
     {
+        super.viewWillAppear(animated)
+        
         self.navigationController?.navigationBarHidden = true
     }
     
@@ -55,10 +61,12 @@ class PostViewController: BaseViewController {
         if (isUserProfile)
         {
             self.SettingBtn.hidden = false
+            self.cameraBtn.hidden = true
         }
         else
         {
             self.SettingBtn.hidden = true
+            self.cameraBtn.hidden = false
         }
         
         for subview in feedView.subviews

@@ -8,8 +8,9 @@
 
 import UIKit
 
-class NotificationCell: UITableViewCell {
-    @IBOutlet weak var notificationText: UILabel!
+class FollowingRequestCell: UITableViewCell
+{
+    @IBOutlet weak var followingRequestLbl: UILabel!
     @IBOutlet weak var notificationTimeStamp: UILabel!
     @IBOutlet weak var userPic: UIImageView!
     @IBOutlet weak var cellBGView: UIView!
@@ -35,11 +36,5 @@ class NotificationCell: UITableViewCell {
         {
             cellBGView.backgroundColor = UIColor.clearColor()
         }
-    }
-    
-    override func layoutSubviews()
-    {
-        super.layoutSubviews()
-        //self.notificationText.frame = CGRectMake(10, 0, self.frame.size.width-40, self.frame.size.height)
     }
 }

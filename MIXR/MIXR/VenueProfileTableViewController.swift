@@ -10,7 +10,10 @@ import UIKit
 import Alamofire
 import SwiftyJSON
 
-class VenueProfileTableViewController: UITableViewController,UIGestureRecognizerDelegate {
+class VenueProfileTableViewController: UITableViewController,UIGestureRecognizerDelegate,APIConnectionDelegate {
+    
+    var feedsArray : Array<JSON> = []
+    var feedcount : Int = 0
     
     var feedsArray : Array<JSON> = []
     var feedcount : Int = 0
@@ -34,22 +37,23 @@ class VenueProfileTableViewController: UITableViewController,UIGestureRecognizer
     {
         super.viewDidLoad()
         //self.navigationController?.interactivePopGestureRecognizer!.delegate =  self
-        //self.navigationController?.interactivePopGestureRecognizer!.enabled = true        
+        //self.navigationController?.interactivePopGestureRecognizer!.enabled = true
         self.title = "Spanky's"
         self.navigationItem.rightBarButtonItem = showLatestVideos;
         
         self.navigationItem.backBarButtonItem = UIBarButtonItem(title:"", style:.Plain, target:nil, action:nil)
         self.tableView.backgroundView = UIImageView(image: UIImage(named: "BG"))
-        loadDummyScrollViewData()
-        
         // Do any additional setup after loading the view, typically from a nib.
         //self.pullToReferesh()
+        self.btnVenueName.titleLabel?.font = UIFont(name: "ForgottenFuturistRg-Bold", size: 24)
+        
     }
     
     override func viewWillAppear(animated: Bool)
     {
         super.viewWillAppear(animated)
         self.navigationController?.navigationBarHidden = true
+        loadDummyScrollViewData()
     }
     
     override func viewDidDisappear(animated: Bool)
@@ -94,53 +98,108 @@ class VenueProfileTableViewController: UITableViewController,UIGestureRecognizer
     
     func loadDummyScrollViewData()
     {
-        
-        var eventHeight : CGFloat = 40.0
+        //self.tableView.sectionHeaderHeight = UITableViewAutomaticDimension
+        //self.tableView.estimatedSectionHeaderHeight = self.outerView.frame.size.height
+        loadFeedData()
+        var eventHeight : CGFloat = 10
         for i in 1...15
         {
             let test:UILabel
-            test = UILabel()
-            test.textAlignment = NSTextAlignmentFromCTTextAlignment(CTTextAlignment.Center)
-            test.text = "Event Data \(i)"
+            test = UILabel(frame: CGRectMake(0, eventHeight, self.eventsScrollView.frame.size.width, CGFloat.max))
+            test.numberOfLines = 0
+            test.textAlignment = NSTextAlignmentFromCTTextAlignment(CTTextAlignment.Left)
+            test.backgroundColor = UIColor.clearColor()
+            //test.text = "This Tuesday and Thursday be sure to stop by since we are offering a buy 2-get-1-free deal."
+            
+            let attachment = NSTextAttachment()
+            attachment.image = UIImage(named: "greenBullat.png")
+            let attachmentString = NSAttributedString(attachment: attachment)
+            let myString = NSMutableAttributedString(string: "")
+            myString.appendAttributedString(attachmentString)
+            myString.appendAttributedString(NSMutableAttributedString(string: " This Tuesday and Thursday be sure to stop by since we are offering a buy 2-get-1-free deal."))
+            test.attributedText = myString
+            
             test.font = UIFont(name: "ForgottenFuturistRg-Regular", size: 20)
-            test.frame = CGRectMake(0, (CGFloat)(i * 20), self.eventsScrollView.frame.size.width, 20);
-            eventHeight = eventHeight + 20
+            test.sizeToFit()
+            let height = heightForView(test.text!, font: test.font!, width: self.eventsScrollView.frame.size.width-20)
+            test.frame = CGRectMake(10, (CGFloat)(eventHeight), self.eventsScrollView.frame.size.width-20, height)
+            
+            eventHeight = eventHeight + height + 5.0
             self.eventsScrollView.addSubview(test)
         }
         
         self.eventsScrollView.layer.borderColor = UIColor(red: (214.0/255.0), green: (214.0/255.0), blue: (214.0/255.0), alpha: 1).CGColor
         self.eventsScrollView.layer.borderWidth = 2.0
+        self.eventsScrollView.backgroundColor = UIColor.clearColor()
         
-        var SpecialHeight : CGFloat = 40.0
+        var SpecialHeight : CGFloat = 10.0
         
-        for i in 1...5
+        for i in 1...10
         {
             let test:UILabel
-            test = UILabel()
-            test.textAlignment = NSTextAlignmentFromCTTextAlignment(CTTextAlignment.Center)
-            test.text = "Special Deal \(i)"
+            test = UILabel(frame: CGRectMake(10, SpecialHeight, self.venueSpecialScrollView.frame.size.width-20, CGFloat.max))
+            test.numberOfLines = 0
+            test.textAlignment = NSTextAlignmentFromCTTextAlignment(CTTextAlignment.Left)
+            test.backgroundColor = UIColor.clearColor()
+            
+            let attachment = NSTextAttachment()
+            attachment.image = UIImage(named: "greenBullat.png")
+            let attachmentString = NSAttributedString(attachment: attachment)
+            let myString = NSMutableAttributedString(string: "")
+            myString.appendAttributedString(attachmentString)
+            myString.appendAttributedString(NSMutableAttributedString(string: " This Sunday and MOnday be sure to stop by since we are offering a buy 2-get-1-free deal."))
+            test.attributedText = myString
+            
+            //test.text = "This Sunday and MOnday be sure to stop by since we are offering a buy 2-get-1-free deal."
             test.font = UIFont(name: "ForgottenFuturistRg-Regular", size: 20)
-            test.frame = CGRectMake(0, (CGFloat)(i * 20), self.venueSpecialScrollView.frame.size.width, 20);
-            SpecialHeight = SpecialHeight + 20
+            test.sizeToFit()
+            let height = heightForView(test.text!, font: test.font!, width: self.venueSpecialScrollView.frame.size.width-20)
+            test.frame = CGRectMake(10, (CGFloat)(SpecialHeight), self.venueSpecialScrollView.frame.size.width-20, height)
+            
+            SpecialHeight = SpecialHeight + height + 5.0
             self.venueSpecialScrollView.addSubview(test)
         }
+        
+        // for i in 1...5
+        // {
+        //     let test:UILabel
+        //     test = UILabel()
+        //
+        //     test.frame = CGRectMake(0, (CGFloat)(eventHeight), self.eventsScrollView.frame.size.width, CGFloat.max);
+        //
+        //     test.textAlignment = NSTextAlignmentFromCTTextAlignment(CTTextAlignment.Center)
+        //     test.text = "Special Deal \(i)"
+        //     test.font = UIFont(name: "ForgottenFuturistRg-Regular", size: 20)
+        //
+        //     test.numberOfLines = 0
+        //     test.lineBreakMode = NSLineBreakMode.ByWordWrapping
+        //
+        //     test.sizeToFit()
+        //
+        //     SpecialHeight = SpecialHeight + test.frame.height
+        //     self.venueSpecialScrollView.addSubview(test)
+        // }
         
         var bottomViewFrame = self.bottomView.frame
         bottomViewFrame.size.height = (eventHeight > SpecialHeight) ? eventHeight: SpecialHeight
         self.bottomView.frame = bottomViewFrame
         var outerViewFrame = self.outerView.frame
-        outerViewFrame.size.height = self.bottomView.frame.origin.y + self.bottomView.frame.size.height
+        outerViewFrame.size.height = self.bottomView.frame.origin.y + self.bottomView.frame.size.height + 50.0
         self.outerView.frame = outerViewFrame
-        
-        self.venueSpecialScrollView.contentSize = CGSizeMake( 145, self.bottomView.frame.size.height)
+        self.bottomView.backgroundColor = UIColor.clearColor()
+        self.outerView.backgroundColor = UIColor.clearColor()
+        self.venueSpecialScrollView.contentSize = CGSizeMake( self.eventsScrollView.frame.size.width, self.bottomView.frame.size.height)
         self.venueSpecialScrollView.scrollEnabled = false
-        self.eventsScrollView.contentSize = CGSizeMake( 145, self.bottomView.frame.size.height)
+        self.eventsScrollView.contentSize = CGSizeMake( self.eventsScrollView.frame.size.width, self.bottomView.frame.size.height)
         self.eventsScrollView.scrollEnabled = false
         self.venueSpecialScrollView.layer.borderColor = UIColor(red: (214.0/255.0), green: (214.0/255.0), blue: (214.0/255.0), alpha: 1).CGColor
         self.venueSpecialScrollView.layer.borderWidth = 2.0
         self.noofFillsImage.layer.borderColor = UIColor(red: (214.0/255.0), green: (214.0/255.0), blue: (214.0/255.0), alpha: 1).CGColor
         self.noofFillsImage.layer.borderWidth = 2.0
         self.btnVenueName.setTitle("Mad River", forState: .Normal)
+        self.tableView.estimatedSectionHeaderHeight = self.outerView.frame.size.height - 650
+        //self.tableView.sectionHeaderHeight = UITableViewAutomaticDimension
+        reloadTable()
     }
     
     /*

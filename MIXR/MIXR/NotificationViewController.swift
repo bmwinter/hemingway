@@ -8,10 +8,15 @@
 
 import UIKit
 
-class NotificationViewController: BaseViewController,UITableViewDelegate,UITableViewDataSource,UISearchBarDelegate {
-    let feedsArray : NSMutableArray = NSMutableArray()
-    let promotersArray : NSMutableArray = NSMutableArray()
+class NotificationViewController: BaseViewController,UITableViewDelegate,UITableViewDataSource,UISearchBarDelegate
+{
+    let feedsArray      : NSMutableArray = NSMutableArray()
+    let promotersArray  : NSMutableArray = NSMutableArray()
+    let followingRequestArray  : NSMutableArray = NSMutableArray()
+    
     @IBOutlet var tblViewNotification: UITableView!
+    @IBOutlet weak var followRequestTableView: UITableView!
+    
     var refreshControl:UIRefreshControl!
     
     //  MARK:- ViewLifecycle -
@@ -19,19 +24,18 @@ class NotificationViewController: BaseViewController,UITableViewDelegate,UITable
     {
         super.viewDidLoad()
         //self.navigationController?.interactivePopGestureRecognizer!.delegate =  self
-        //self.navigationController?.interactivePopGestureRecognizer!.enabled = true        
+        //self.navigationController?.interactivePopGestureRecognizer!.enabled = true
         //self.tblViewNotification.hidden = true
         // Do any additional setup after loading the view.
         (segmentedControl.subviews[1] as UIView).tintColor = UIColor(red: 83/255.0, green:135/255.0, blue: 50/255.0, alpha: 1.0)
         self.pullToReferesh()
         self.loadData()
-        
     }
     
     func pullToReferesh()
     {
         self.refreshControl = UIRefreshControl()
-        self.refreshControl!.attributedTitle = NSAttributedString(string: "Updating")
+        self.refreshControl!.attributedTitle = NSAttributedString(string: "")
         self.refreshControl!.addTarget(self, action: "refresh:", forControlEvents: UIControlEvents.ValueChanged)
         self.tblViewNotification.addSubview(self.refreshControl!)
     }
@@ -58,28 +62,39 @@ class NotificationViewController: BaseViewController,UITableViewDelegate,UITable
     //  MARK:- Function to add feedsarray -
     func loadData()
     {
-        feedsArray.addObject(["venueName":"Mad River1","venueImage":"venueImage1.jpg","userHr":"1 hr"])
-        feedsArray.addObject(["venueName":"Mad River2","venueImage":"venueImage2.jpg","userHr":"12 hr"])
-        feedsArray.addObject(["venueName":"Mad River3","venueImage":"venueImage3.jpg","userHr":"8 hr"])
-        feedsArray.addObject(["venueName":"Mad River4","venueImage":"venueImage4.jpg","userHr":"20 hr"])
-        feedsArray.addObject(["venueName":"Mad River5","venueImage":"venueImage5.jpg","userHr":"30 hr"])
-        feedsArray.addObject(["venueName":"Mad River6","venueImage":"venueImage6.jpg","userHr":"6 hr"])
-        feedsArray.addObject(["venueName":"Mad River7","venueImage":"venueImage7.jpg","userHr":"7 hr"])
-        feedsArray.addObject(["venueName":"Mad River8","venueImage":"venueImage8.jpg","userHr":"12 hr"])
-        feedsArray.addObject(["venueName":"Mad River9","venueImage":"venueImage9.jpg","userHr":"4 hr"])
-        feedsArray.addObject(["venueName":"Mad River10","venueImage":"venueImage10.jpg","userHr":"8 hr"])
+        feedsArray.addObject(["venueName":"Jennifer Lawrence like your photo","venueImage":"venueImage1.jpg","userHr":"1"])
+        feedsArray.addObject(["venueName":"Mark Houser like your photo","venueImage":"venueImage2.jpg","userHr":"2"])
+        feedsArray.addObject(["venueName":"Carl Stuart like your photo","venueImage":"venueImage3.jpg","userHr":"3"])
+        feedsArray.addObject(["venueName":"James Huccane like your photo","venueImage":"venueImage4.jpg","userHr":"4"])
+        feedsArray.addObject(["venueName":"Mawra Samuaels like your photo","venueImage":"venueImage5.jpg","userHr":"4"])
+        feedsArray.addObject(["venueName":"James Carles like your photo","venueImage":"venueImage6.jpg","userHr":"6"])
+        feedsArray.addObject(["venueName":"Heman Hasstle like your photo","venueImage":"venueImage7.jpg","userHr":"7"])
+        feedsArray.addObject(["venueName":"George Stapheny like your photo","venueImage":"venueImage8.jpg","userHr":"12"])
+        feedsArray.addObject(["venueName":"Simon Hughs like your photo","venueImage":"venueImage9.jpg","userHr":"16"])
+        feedsArray.addObject(["venueName":"Leon Smith like your photo","venueImage":"venueImage10.jpg","userHr":"22"])
         
-        promotersArray.addObject(["promoters":"Coupon 1","userHr":"1 hr"])
-        promotersArray.addObject(["promoters":"Coupon 2","userHr":"12 hr"])
-        promotersArray.addObject(["promoters":"Coupon 3","userHr":"8 hr"])
-        promotersArray.addObject(["promoters":"Coupon 4","userHr":"20 hr"])
-        promotersArray.addObject(["promoters":"Coupon 5","userHr":"30 hr"])
-        promotersArray.addObject(["promoters":"Coupon 6","userHr":"6 hr"])
-        promotersArray.addObject(["promoters":"Coupon 7","userHr":"7 hr"])
-        promotersArray.addObject(["promoters":"Coupon 8","userHr":"12 hr"])
-        promotersArray.addObject(["promoters":"Coupon 9","userHr":"4 hr"])
-        promotersArray.addObject(["promoters":"Coupon 10","userHr":"8 hr"])
+        promotersArray.addObject(["promoters":"Spanky's coupon valid until 1/2/2016","userHr":""])
+        promotersArray.addObject(["promoters":"Jennifer's coupon valid until 2/2/2016","userHr":""])
+        promotersArray.addObject(["promoters":"James Huccane's coupon valid until 4/2/2016","userHr":""])
+        promotersArray.addObject(["promoters":"George Stapheny's coupon valid until 5/2/2016","userHr":""])
+        promotersArray.addObject(["promoters":"Simon Hughs's coupon valid until 6/2/2016","userHr":""])
+        promotersArray.addObject(["promoters":"Leon Smith's coupon valid until 7/2/2016","userHr":""])
+        promotersArray.addObject(["promoters":"Heman Hasstle's coupon valid until 7/2/2016","userHr":""])
+        promotersArray.addObject(["promoters":"Mawra Samuaels's coupon valid until 10/2/2016","userHr":""])
+        promotersArray.addObject(["promoters":"Carl Stuart's coupon valid until 12/2/2016","userHr":""])
+        promotersArray.addObject(["promoters":"Mark Houser's coupon valid until 13/2/2016","userHr":""])
         
+        
+        followingRequestArray.addObject(["followingReques":"Jennifer Lawrence wants to follow you","userImage":"venueImage1.jpg","userHr":"1"])
+        followingRequestArray.addObject(["followingReques":"Mark Houser wants to follow you","userImage":"venueImage2.jpg","userHr":"2"])
+        followingRequestArray.addObject(["followingReques":"Carl Stuart wants to follow you","userImage":"venueImage3.jpg","userHr":"3"])
+        followingRequestArray.addObject(["followingReques":"James Huccane wants to follow you","userImage":"venueImage4.jpg","userHr":"4"])
+        followingRequestArray.addObject(["followingReques":"Mawra Samuaels wants to follow you","userImage":"venueImage5.jpg","userHr":"4"])
+        followingRequestArray.addObject(["followingReques":"James Carles wants to follow you","userImage":"venueImage6.jpg","userHr":"6"])
+        followingRequestArray.addObject(["followingReques":"Heman Hasstle wants to follow you","userImage":"venueImage7.jpg","userHr":"7"])
+        followingRequestArray.addObject(["followingReques":"George Stapheny wants to follow you","userImage":"venueImage8.jpg","userHr":"12"])
+        followingRequestArray.addObject(["followingReques":"Simon Hughs wants to follow you","userImage":"venueImage9.jpg","userHr":"16"])
+        followingRequestArray.addObject(["followingReques":"Leon Smith wants to follow you","userImage":"venueImage10.jpg","userHr":"22"])
     }
     
     @IBOutlet var segmentedControl: UISegmentedControl!
@@ -90,21 +105,37 @@ class NotificationViewController: BaseViewController,UITableViewDelegate,UITable
         switch segmentedControl.selectedSegmentIndex
         {
         case 0:
-            
+            self.followRequestTableView.hidden = true
             self.tblViewNotification.hidden = false
             (segmentedControl.subviews[1] as UIView).tintColor = UIColor(red: 83/255.0, green:135/255.0, blue: 50/255.0, alpha: 1.0)
             print("following tab selected")
+            break;
         case 1:
+            self.followRequestTableView.hidden = true
             self.tblViewNotification.hidden = false
             
             (segmentedControl.subviews[0] as UIView).tintColor = UIColor(red: 83/255.0, green:135/255.0, blue: 50/255.0, alpha: 1.0)
             print("Second Segment selected")
+            break;
+            
+        case 2:
+            self.followRequestTableView.hidden = false
+            self.tblViewNotification.hidden = true
+            print("follow Request selected")
+            break;
         default:
-            break; 
+            break;
         }
         
-        self.tblViewNotification.reloadData()
         
+        //if (segmentedControl.selectedSegmentIndex == 2)
+        //{
+        self.followRequestTableView.reloadData()
+        //}
+        //else
+        //{
+        self.tblViewNotification.reloadData()
+        //}
     }
     
     //  MARK:- Tableview Delegates -
@@ -117,41 +148,102 @@ class NotificationViewController: BaseViewController,UITableViewDelegate,UITable
     func tableView(tableView: UITableView,
         numberOfRowsInSection section: Int) -> Int
     {
-        if(segmentedControl.selectedSegmentIndex == 0)
+        if (tableView != self.followRequestTableView)
         {
-            return feedsArray.count
+            if(segmentedControl.selectedSegmentIndex == 0)
+            {
+                return feedsArray.count
+            }
+            else if(segmentedControl.selectedSegmentIndex == 1 && tableView != self.followRequestTableView)
+            {
+                return promotersArray.count
+            }
+            else
+            {
+                return 0
+            }
         }
         else
         {
-            return promotersArray.count
+            if(segmentedControl.selectedSegmentIndex == 2)
+            {
+                return followingRequestArray.count
+                
+            }
+            else
+            {
+                return 0
+            }
         }
     }
     
     func tableView(tableView: UITableView,
         cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell
     {
-        let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as! NotificationCell
-        cell.selectionStyle = UITableViewCellSelectionStyle.None
-        
-        if(segmentedControl.selectedSegmentIndex == 0)
+        if (tableView != self.followRequestTableView)
         {
-            let feedDict : NSDictionary = feedsArray[indexPath.row] as! NSDictionary
-            cell.userPic.image = UIImage(named: feedDict["venueImage"] as! String)
-            cell.notificationText.text = feedDict["venueName"] as? String
-            cell.notificationTimeStamp.text = feedDict["userHr"] as? String
-            //cell.notificationTimeStamp.frame = CGRectMake(146,21, 42, 21)
-            cell.userPic.hidden = false
+            if(segmentedControl.selectedSegmentIndex == 0)
+            {
+                let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as! NotificationCell
+                cell.selectionStyle = UITableViewCellSelectionStyle.None
+                
+                let feedDict : NSDictionary = feedsArray[indexPath.row] as! NSDictionary
+                cell.userPic.image = UIImage(named: feedDict["venueImage"] as! String)
+                let notificationString = "\(feedDict["venueName"] as! String) \(feedDict["userHr"] as! String) hours ago."
+                cell.notificationText.text = notificationString
+                cell.notificationTimeStamp.text = feedDict["userHr"] as? String
+                cell.notificationTimeStamp.hidden = true
+                //cell.notificationTimeStamp.frame = CGRectMake(146,21, 42, 21)
+                cell.userPic.hidden = false
+                cell.notificationText.textAlignment = NSTextAlignmentFromCTTextAlignment(CTTextAlignment.Center)
+                //cell.notificationText.backgroundColor = UIColor.yellowColor()
+                return cell
+                
+            }
+            else if(segmentedControl.selectedSegmentIndex == 1 && tableView != self.followRequestTableView)
+            {
+                let cell = tableView.dequeueReusableCellWithIdentifier("NotificationPromotionCell", forIndexPath: indexPath) as! NotificationPromotionCell
+                cell.selectionStyle = UITableViewCellSelectionStyle.None
+                let feedDict : NSDictionary = promotersArray[indexPath.row] as! NSDictionary
+                cell.notificationText.text = feedDict["promoters"] as? String
+                //cell.notificationTimeStamp.text = "\(feedDict["userHr"] as! String)"
+                //cell.notificationTimeStamp.hidden = false
+                //let superWidth : CGFloat = cell.frame.size.width// cell.notificationText.superview!.frame.size.width
+                //cell.userPic.hidden = true
+                
+                cell.notificationText.textAlignment = NSTextAlignmentFromCTTextAlignment(CTTextAlignment.Left)
+                //cell.notificationText.backgroundColor = UIColor.redColor()
+                cell.notificationText.sizeToFit()
+                return cell
+            }
+            else
+            {
+                let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as! NotificationCell
+                cell.selectionStyle = UITableViewCellSelectionStyle.None
+                //cell.notificationText.backgroundColor = UIColor.blueColor()
+                return cell
+            }
         }
         else
         {
-            let feedDict : NSDictionary = promotersArray[indexPath.row] as! NSDictionary
-            cell.notificationText.text = feedDict["promoters"] as? String
-            cell.notificationTimeStamp.text = feedDict["userHr"] as? String
-            //cell.notificationTimeStamp.frame = CGRectMake(220, 15, 42, 21)
-            cell.userPic.hidden = true
+            if(segmentedControl.selectedSegmentIndex == 2)
+            {
+                let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as! FollowingRequestCell
+                cell.selectionStyle = UITableViewCellSelectionStyle.None
+                let feedDict : NSDictionary = followingRequestArray[indexPath.row] as! NSDictionary
+                cell.followingRequestLbl.text = feedDict["followingReques"] as? String
+                cell.userPic.image = UIImage(named: feedDict["userImage"] as! String)
+                //cell.notificationTimeStamp.frame = CGRectMake(220, 15, 42, 21)
+                cell.userPic.hidden = false
+                return cell
+            }
+            else
+            {
+                let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as! FollowingRequestCell
+                cell.selectionStyle = UITableViewCellSelectionStyle.None
+                return cell
+            }
         }
-        
-        return cell
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath)
