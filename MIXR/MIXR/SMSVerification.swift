@@ -145,6 +145,7 @@ class SMSVerification: UITableViewController {
                     }
                     
                     if let tokenData = responseDic?["code"] {
+                        self.navigationController?.popToRootViewControllerAnimated(true)
                         self.verificationCode = tokenData as! String
                         print(self.verificationCode)
                     }

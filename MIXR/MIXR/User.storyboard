@@ -326,7 +326,7 @@
                                     <constraint firstAttribute="height" constant="35" id="zzg-Ju-Pbp"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" keyboardType="phonePad"/>
                                 <connections>
                                     <outlet property="delegate" destination="XIg-o5-OcS" id="d7H-un-LSg"/>
                                 </connections>
@@ -1285,7 +1285,7 @@
                             <rect key="frame" x="0.0" y="0.0" width="320" height="50"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
-                                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bTE-No-wDp" customClass="SegmentControl" customModule="MIXR" customModuleProvider="target">
+                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bTE-No-wDp" customClass="SegmentControl" customModule="MIXR" customModuleProvider="target">
                                     <rect key="frame" x="8" y="10" width="304" height="30"/>
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <userDefinedRuntimeAttributes>

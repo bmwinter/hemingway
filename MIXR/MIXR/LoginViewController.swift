@@ -76,8 +76,8 @@ class LoginViewController: BaseViewController {
 //        self.navigationController?.navigationBarHidden = false
 //        self.performSegueWithIdentifier("VenueSelection", sender: nil)
         
-         loadTabar()
-         return;
+//         loadTabar()
+//         return;
         
         
         let email = userEmailTextField.text!.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
@@ -187,9 +187,9 @@ class LoginViewController: BaseViewController {
                         print("The Response Error is:   \(response.response?.statusCode)")
                         
                         if let val = responseDic?["code"] {
-                            if val.isEqualToString("10") {
+                            if val[0].isEqualToString("13") {
 //                                print("Equals")
-                                self.displayCommonAlert(responseDic?["detail"] as! String)
+                                self.displayCommonAlert(responseDic?["detail"]?[0] as! String)
                                 return
                             }
                             // now val is not nil and the Optional has been unwrapped, so use it
