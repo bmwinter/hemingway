@@ -98,6 +98,11 @@ class SignUpTableViewController: UIViewController {
         checkmark.selected = !checkmark.selected
     }
     
+    //MARK: Go to login screen. 
+    @IBAction func goBack(sender: AnyObject){
+        self.navigationController?.popViewControllerAnimated(true)
+    }
+    
     /*
     // Custom button methods..
     */
@@ -183,14 +188,23 @@ class SignUpTableViewController: UIViewController {
     */
     
     func performSignUp(){
+        
+        let phoneNumberString = phoneNo.text!.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
+        
+        let countryCodeString = countryCode.text!.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
+
         let parameters = [
             "first_name": firstname.text!.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet()),
             "last_name": lastname.text!.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet()),
             "password": password.text!.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet()),
             "email": email.text!.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet()),
             "birthdate": dob.titleLabel!.text!.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet()),
-            "phone_number": phoneNo.text!.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
+            "phone_number": countryCodeString + phoneNumberString
         ]
+        
+        NSUserDefaults.standardUserDefaults().setObject(parameters, forKey: "UserInfo")
+        NSUserDefaults.standardUserDefaults().synchronize()
+
         
 //        let parameters = [
 //            "first_name": "test",
@@ -209,6 +223,8 @@ class SignUpTableViewController: UIViewController {
 
         Alamofire.request(.POST, URL , parameters: parameters, encoding: .JSON)
             .responseString { response in
+                
+                appDelegate.stopAnimation()
                 guard let value = response.result.value else {
                     print("Error: did not receive data")
                     return
@@ -219,7 +235,7 @@ class SignUpTableViewController: UIViewController {
                     print(response.result.error)
                     return
                 }
-                appDelegate.stopAnimation()
+                
 
                 let post = JSON(value)
                 if let string = post.rawString() {

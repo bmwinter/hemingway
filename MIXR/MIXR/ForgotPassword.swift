@@ -62,6 +62,8 @@ class ForgotPassword: UITableViewController {
 
         Alamofire.request(.POST, URL , parameters: parameters, encoding: .JSON)
             .responseString { response in
+                
+                appDelegate.stopAnimation()
                 guard let value = response.result.value else {
                     print("Error: did not receive data")
                     return
@@ -72,7 +74,7 @@ class ForgotPassword: UITableViewController {
                     print(response.result.error)
                     return
                 }
-                appDelegate.stopAnimation()
+                
 
                 let post = JSON(value)
                 if let string = post.rawString() {

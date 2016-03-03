@@ -39,9 +39,17 @@ class SMSVerification: UITableViewController {
     
     @IBAction func btnVerifyClicked (sender:AnyObject){
         self.phoneInput?.resignFirstResponder()
+        
+        let phoneInputString = self.phoneInput.text!.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
+        
+        if phoneInputString.isEmpty{
+            self.displayCommonAlert(globalConstants.kverificationCodeError)
+            return;
+        }
         self.checkVerificationCode();
-//        self.performSegueWithIdentifier("SettingsSegue", sender: nil)
     }
+    
+    
     @IBAction func btnResendClicked (sender:AnyObject){
         self.getVerificationCode()
 //        self.performSegueWithIdentifier("SettingsSegue", sender: nil)
@@ -69,6 +77,8 @@ class SMSVerification: UITableViewController {
         
         Alamofire.request(.POST, URL , parameters: parameters, encoding: .JSON)
             .responseString { response in
+                
+                appDelegate.stopAnimation()
                 guard let value = response.result.value else {
                     print("Error: did not receive data")
                     return
@@ -79,7 +89,7 @@ class SMSVerification: UITableViewController {
                     print(response.result.error)
                     return
                 }
-                appDelegate.stopAnimation()
+                
 
                 let post = JSON(value)
                 print("The post is: " + post.description)
@@ -120,6 +130,8 @@ class SMSVerification: UITableViewController {
         
         Alamofire.request(.POST, URL , parameters: parameters, encoding: .JSON)
             .responseString { response in
+                
+                appDelegate.stopAnimation()
                 guard let value = response.result.value else {
                     print("Error: did not receive data")
                     return
@@ -130,7 +142,7 @@ class SMSVerification: UITableViewController {
                     print(response.result.error)
                     return
                 }
-                appDelegate.stopAnimation()
+                
                 let post = JSON(value)
                 if let string = post.rawString() {
                     let responseDic:[String:AnyObject]? = self.convertStringToDictionary(string)

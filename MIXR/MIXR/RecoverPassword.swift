@@ -16,6 +16,7 @@ class RecoverPassword: UITableViewController {
     @IBOutlet weak var phoneNo: UITextField!
     @IBOutlet weak var verificationCode: UITextField!
     @IBOutlet weak var newPassword: UITextField!
+    @IBOutlet weak var confirmNewPassword: UITextField!
     @IBOutlet weak var doneButton: UIButton!
     
     var phoneNumber:NSString!
@@ -36,10 +37,14 @@ class RecoverPassword: UITableViewController {
         self.phoneNo.resignFirstResponder()
         self.verificationCode.resignFirstResponder()
         self.newPassword.resignFirstResponder()
+        self.confirmNewPassword.resignFirstResponder()
         
         let phoneString = self.phoneNo.text!.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
         let verificationCodeString = self.verificationCode.text!.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
         let newPasswordString = self.newPassword.text!.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
+        let confirmNewPasswordString = self.confirmNewPassword.text!.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
+
+        
         
         if phoneString.isEmpty{
             self.displayCommonAlert(globalConstants.kPhoneNoError)
@@ -55,9 +60,28 @@ class RecoverPassword: UITableViewController {
             self.displayCommonAlert(globalConstants.kNewPassword)
             return
         }
+        
+        if confirmNewPasswordString.isEmpty{
+            self.displayCommonAlert(globalConstants.kconfirmPasswordError)
+            return
+        }
+        
+        if !compareTwoPassword(newPasswordString, conformPassword: confirmNewPasswordString){
+            self.displayCommonAlert(globalConstants.kpasswordconfirmPasswordError)
+            return
+        }
 
         self.recoverPasswordUpdate()
     }
+    
+    /*
+    // Compare two password
+    */
+    
+    func compareTwoPassword (password: String, conformPassword : NSString) -> Bool{
+        return (password == conformPassword)
+    }
+
     
     /*
     // Common alert method need to be used to display alert, by passing alert string as parameter to it.
@@ -92,6 +116,8 @@ class RecoverPassword: UITableViewController {
 
         Alamofire.request(.POST, URL , parameters: parameters, encoding: .JSON)
             .responseString { response in
+                
+                appDelegate.stopAnimation()
                 guard let value = response.result.value else {
                     print("Error: did not receive data")
                     return
@@ -102,7 +128,7 @@ class RecoverPassword: UITableViewController {
                     print(response.result.error)
                     return
                 }
-                appDelegate.stopAnimation()
+                
 
                 let post = JSON(value)
                 if let string = post.rawString() {
@@ -146,7 +172,7 @@ class RecoverPassword: UITableViewController {
     }
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 4
+        return 5
     }
 
 }
