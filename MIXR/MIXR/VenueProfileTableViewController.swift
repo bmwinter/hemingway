@@ -15,9 +15,6 @@ class VenueProfileTableViewController: UITableViewController,UIGestureRecognizer
     var feedsArray : Array<JSON> = []
     var feedcount : Int = 0
     
-    var feedsArray : Array<JSON> = []
-    var feedcount : Int = 0
-    
     @IBOutlet weak var venuePicture: UIImageView!
     @IBOutlet weak var noofFillsImage: UIImageView!
     @IBOutlet weak var btnLike: UIButton!
