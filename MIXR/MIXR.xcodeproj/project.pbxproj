@@ -70,6 +70,9 @@
 		15606ED71C3D32AC00CD4D50 /* ArrowRight.png in Resources */ = {isa = PBXBuildFile; fileRef = 15606ED11C3D32AC00CD4D50 /* ArrowRight.png */; };
 		15606ED81C3D32AC00CD4D50 /* ArrowRight@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 15606ED21C3D32AC00CD4D50 /* ArrowRight@2x.png */; };
 		15606ED91C3D32AC00CD4D50 /* ArrowRight@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 15606ED31C3D32AC00CD4D50 /* ArrowRight@3x.png */; };
+		15665E0D1C89705300D30ED7 /* martini3-01.png in Resources */ = {isa = PBXBuildFile; fileRef = 15665E0A1C89705300D30ED7 /* martini3-01.png */; };
+		15665E0E1C89705300D30ED7 /* martini3-01@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 15665E0B1C89705300D30ED7 /* martini3-01@2x.png */; };
+		15665E0F1C89705300D30ED7 /* martini3-01@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 15665E0C1C89705300D30ED7 /* martini3-01@3x.png */; };
 		156BCC9D1C05B8CE00AB88A6 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 156BCC9C1C05B8CE00AB88A6 /* libz.tbd */; };
 		156BCCAA1C05E6BF00AB88A6 /* UserFeedCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 156BCCA91C05E6BF00AB88A6 /* UserFeedCell.swift */; };
 		1577D7DE1C0D9E010033C8D5 /* PostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1577D7DD1C0D9E010033C8D5 /* PostViewController.swift */; };
@@ -251,6 +254,9 @@
 		15606ED11C3D32AC00CD4D50 /* ArrowRight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ArrowRight.png; sourceTree = "<group>"; };
 		15606ED21C3D32AC00CD4D50 /* ArrowRight@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ArrowRight@2x.png"; sourceTree = "<group>"; };
 		15606ED31C3D32AC00CD4D50 /* ArrowRight@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ArrowRight@3x.png"; sourceTree = "<group>"; };
+		15665E0A1C89705300D30ED7 /* martini3-01.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "martini3-01.png"; sourceTree = "<group>"; };
+		15665E0B1C89705300D30ED7 /* martini3-01@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "martini3-01@2x.png"; sourceTree = "<group>"; };
+		15665E0C1C89705300D30ED7 /* martini3-01@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "martini3-01@3x.png"; sourceTree = "<group>"; };
 		156BCC9C1C05B8CE00AB88A6 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		156BCCA91C05E6BF00AB88A6 /* UserFeedCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserFeedCell.swift; sourceTree = "<group>"; };
 		1577D7DD1C0D9E010033C8D5 /* PostViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostViewController.swift; sourceTree = "<group>"; };
@@ -413,6 +419,9 @@
 		15606E851C3D309400CD4D50 /* Mixr_icon */ = {
 			isa = PBXGroup;
 			children = (
+				15665E0A1C89705300D30ED7 /* martini3-01.png */,
+				15665E0B1C89705300D30ED7 /* martini3-01@2x.png */,
+				15665E0C1C89705300D30ED7 /* martini3-01@3x.png */,
 				15BF844D1C801B8E00630A76 /* notificationAccept.png */,
 				15BF844E1C801B8E00630A76 /* notificationAccept@2x.png */,
 				15BF844F1C801B8E00630A76 /* notificationAccept@3x.png */,
@@ -948,6 +957,7 @@
 				151212F51C53C551001D6C50 /* searchtab@3x.png in Resources */,
 				154E6E8E1C7CACCD00B00CB4 /* greenBullat@2x.png in Resources */,
 				15AB68DE1C23C69800FB936C /* userImage8.jpg in Resources */,
+				15665E0D1C89705300D30ED7 /* martini3-01.png in Resources */,
 				15B85A1E1C09871900831BCB /* venueImage4.jpg in Resources */,
 				15606ED71C3D32AC00CD4D50 /* ArrowRight.png in Resources */,
 				5C92A1441BC5785A00EB6B9E /* User.storyboard in Resources */,
@@ -956,7 +966,9 @@
 				15606EC21C3D309400CD4D50 /* playbutton_icon.png in Resources */,
 				15606ED91C3D32AC00CD4D50 /* ArrowRight@3x.png in Resources */,
 				15606EB91C3D309400CD4D50 /* magglass_icon.png in Resources */,
+				15665E0F1C89705300D30ED7 /* martini3-01@3x.png in Resources */,
 				15B85A0B1C0983E900831BCB /* backgroundWhiteDrediant@3x.png in Resources */,
+				15665E0E1C89705300D30ED7 /* martini3-01@2x.png in Resources */,
 				151212F61C53C551001D6C50 /* venu_tab.png in Resources */,
 				15606EBE1C3D309400CD4D50 /* martiniglass_icon@3x.png in Resources */,
 				15B85A211C09871900831BCB /* venueImage7.jpg in Resources */,

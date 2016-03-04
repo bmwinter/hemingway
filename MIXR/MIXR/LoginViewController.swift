@@ -23,7 +23,7 @@ class LoginViewController: BaseViewController {
         self.title = "Login"
         self.navigationItem.backBarButtonItem = UIBarButtonItem(title:"", style:.Plain, target:nil, action:nil)
         
-
+        
         super.viewDidLoad()
         
         // Do any additional setup after loading the view, typically from a nib.
@@ -57,8 +57,8 @@ class LoginViewController: BaseViewController {
     */
     
     @IBAction func forgotPasswordButtonTapped(sender: AnyObject){
-//        self.displayActionSheetForCamera()
-//        return;
+        //        self.displayActionSheetForCamera()
+        //        return;
         self.navigationController?.navigationBarHidden = false
         self.performSegueWithIdentifier("ForgotPasswordSegue", sender: nil)
     }
@@ -73,11 +73,11 @@ class LoginViewController: BaseViewController {
         userEmailTextField.resignFirstResponder()
         userPasswordTextField.resignFirstResponder()
         
-//        self.navigationController?.navigationBarHidden = false
-//        self.performSegueWithIdentifier("VenueSelection", sender: nil)
+        //        self.navigationController?.navigationBarHidden = false
+        //        self.performSegueWithIdentifier("VenueSelection", sender: nil)
         
-//         loadTabar()
-//         return;
+        loadTabar()
+        return;
         
         
         let email = userEmailTextField.text!.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
@@ -101,26 +101,26 @@ class LoginViewController: BaseViewController {
             alertController.addAction(okayAction)
             self.presentViewController(alertController, animated: true, completion: nil)
             return;
-
+            
         }
         
-//        if !globalConstants.isValidEmail(email){
-//            self.displayCommonAlert(globalConstants.kValidEmailError)
-//            return;
-//        }
+        //        if !globalConstants.isValidEmail(email){
+        //            self.displayCommonAlert(globalConstants.kValidEmailError)
+        //            return;
+        //        }
         
         self.performLoginAction()
     }
     
     //MARK: Temp function to check upload file on server.
-
+    
     func uploadFileOnServer(){
         let fileURL = NSBundle.mainBundle().URLForResource("mixriconApp_icon", withExtension: "png")
         let URL =  globalConstants.kAPIURL + globalConstants.kProfileUpdate
         
-//        Alamofire.Manager.sharedInstance.session.configuration.HTTPAdditionalHeaders?.updateValue("application/json", forKey: "Accept")
+        //        Alamofire.Manager.sharedInstance.session.configuration.HTTPAdditionalHeaders?.updateValue("application/json", forKey: "Accept")
         
-//        Token 2952a5dcad5181d80b79c1bc335ab91c97c03f14
+        //        Token 2952a5dcad5181d80b79c1bc335ab91c97c03f14
         
         var tokenString = "token "
         tokenString +=  "2952a5dcad5181d80b79c1bc335ab91c97c03f14"//NSUserDefaults.standardUserDefaults().objectForKey("LoginToken") as! String
@@ -128,7 +128,7 @@ class LoginViewController: BaseViewController {
         
         Alamofire.Manager.sharedInstance.session.configuration.HTTPAdditionalHeaders?.updateValue(tokenString, forKey: "Authorization")
         Alamofire.Manager.sharedInstance.session.configuration.HTTPAdditionalHeaders?.updateValue("attachment; filename=media_filename.png;", forKey: "Content-Disposition")
-
+        
         
         Alamofire.upload(.POST, URL, file: fileURL!)
             .progress { bytesWritten, totalBytesWritten, totalBytesExpectedToWrite in
@@ -161,8 +161,8 @@ class LoginViewController: BaseViewController {
         
         let URL =  globalConstants.kAPIURL + globalConstants.kLoginAPIEndPoint
         
-//        Alamofire.Manager.sharedInstance.session.configuration.HTTPAdditionalHeaders?.updateValue("application/json", forKey: "Accept")
-
+        //        Alamofire.Manager.sharedInstance.session.configuration.HTTPAdditionalHeaders?.updateValue("application/json", forKey: "Accept")
+        
         
         Alamofire.request(.POST, URL , parameters: parameters, encoding: .JSON)
             .responseString { response in
@@ -188,7 +188,7 @@ class LoginViewController: BaseViewController {
                         
                         if let val = responseDic?["code"] {
                             if val[0].isEqualToString("13") {
-//                                print("Equals")
+                                //                                print("Equals")
                                 self.displayCommonAlert(responseDic?["detail"]?[0] as! String)
                                 return
                             }
@@ -217,11 +217,11 @@ class LoginViewController: BaseViewController {
             //Checking identifier is crucial as there might be multiple
             // segues attached to same view
             let detailVC = segue.destinationViewController as! SMSVerification;
-//            detailVC.phoneNumber = phoneNo.text!.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
+            //            detailVC.phoneNumber = phoneNo.text!.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
         }
     }
     
-
+    
     //MARK: convertStringObject to Dictionary
     
     func convertStringToDictionary(text:String) -> [String:AnyObject]? {
@@ -234,7 +234,7 @@ class LoginViewController: BaseViewController {
         }
         return nil
     }
-
+    
     /*
     // Common alert method need to be used to display alert, by passing alert string as parameter to it.
     */

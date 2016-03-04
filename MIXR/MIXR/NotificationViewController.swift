@@ -195,7 +195,7 @@ class NotificationViewController: BaseViewController,UITableViewDelegate,UITable
                 cell.notificationTimeStamp.hidden = true
                 //cell.notificationTimeStamp.frame = CGRectMake(146,21, 42, 21)
                 cell.userPic.hidden = false
-                cell.notificationText.textAlignment = NSTextAlignmentFromCTTextAlignment(CTTextAlignment.Center)
+                cell.notificationText.textAlignment = NSTextAlignmentFromCTTextAlignment(CTTextAlignment.Left)
                 //cell.notificationText.backgroundColor = UIColor.yellowColor()
                 return cell
                 
