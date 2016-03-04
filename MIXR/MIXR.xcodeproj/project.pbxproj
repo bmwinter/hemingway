@@ -866,6 +866,7 @@
 				TargetAttributes = {
 					806122191BBF2D7400EFF35E = {
 						CreatedOnToolsVersion = 6.1.1;
+						DevelopmentTeam = FDBX6QZ75V;
 					};
 					806122301BBF2D7500EFF35E = {
 						CreatedOnToolsVersion = 6.1.1;
@@ -1253,14 +1254,14 @@
 			baseConfigurationReference = 608155550307965E8EC9C7BD /* Pods-MIXR.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: David DeWitt (CS3U62UX6Q)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = MIXR/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.nil.lockscreen;
+				PRODUCT_BUNDLE_IDENTIFIER = com.mixrapp.mixr;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "e862e471-2a00-417a-949f-7281d01ee174";
 				SWIFT_INCLUDE_PATHS = ../zlib;
 			};
 			name = Debug;
@@ -1270,14 +1271,14 @@
 			baseConfigurationReference = EC28065CB75E450F3A075861 /* Pods-MIXR.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: David DeWitt (CS3U62UX6Q)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = MIXR/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.nil.lockscreen;
+				PRODUCT_BUNDLE_IDENTIFIER = com.mixrapp.mixr;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "e862e471-2a00-417a-949f-7281d01ee174";
 				SWIFT_INCLUDE_PATHS = ../zlib;
 			};
 			name = Release;
