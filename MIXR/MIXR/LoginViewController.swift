@@ -73,9 +73,6 @@ class LoginViewController: BaseViewController {
         userEmailTextField.resignFirstResponder()
         userPasswordTextField.resignFirstResponder()
         
-        //        self.navigationController?.navigationBarHidden = false
-        //        self.performSegueWithIdentifier("VenueSelection", sender: nil)
-        
 //        loadTabar()
 //        return;
         
