@@ -15,9 +15,6 @@ class VenueProfileTableViewController: UITableViewController,UIGestureRecognizer
     var feedsArray : Array<JSON> = []
     var feedcount : Int = 0
     
-    var feedsArray : Array<JSON> = []
-    var feedcount : Int = 0
-    
     @IBOutlet weak var venuePicture: UIImageView!
     @IBOutlet weak var noofFillsImage: UIImageView!
     @IBOutlet weak var btnLike: UIButton!
@@ -102,7 +99,7 @@ class VenueProfileTableViewController: UITableViewController,UIGestureRecognizer
         //self.tableView.estimatedSectionHeaderHeight = self.outerView.frame.size.height
         loadFeedData()
         var eventHeight : CGFloat = 10
-        for i in 1...15
+        for i in 1...1
         {
             let test:UILabel
             test = UILabel(frame: CGRectMake(0, eventHeight, self.eventsScrollView.frame.size.width, CGFloat.max))
@@ -134,7 +131,7 @@ class VenueProfileTableViewController: UITableViewController,UIGestureRecognizer
         
         var SpecialHeight : CGFloat = 10.0
         
-        for i in 1...10
+        for i in 1...1
         {
             let test:UILabel
             test = UILabel(frame: CGRectMake(10, SpecialHeight, self.venueSpecialScrollView.frame.size.width-20, CGFloat.max))
@@ -184,7 +181,7 @@ class VenueProfileTableViewController: UITableViewController,UIGestureRecognizer
         bottomViewFrame.size.height = (eventHeight > SpecialHeight) ? eventHeight: SpecialHeight
         self.bottomView.frame = bottomViewFrame
         var outerViewFrame = self.outerView.frame
-        outerViewFrame.size.height = self.bottomView.frame.origin.y + self.bottomView.frame.size.height + 50.0
+        outerViewFrame.size.height = self.bottomView.frame.origin.y + self.bottomView.frame.size.height + 20.0
         self.outerView.frame = outerViewFrame
         self.bottomView.backgroundColor = UIColor.clearColor()
         self.outerView.backgroundColor = UIColor.clearColor()
@@ -197,8 +194,16 @@ class VenueProfileTableViewController: UITableViewController,UIGestureRecognizer
         self.noofFillsImage.layer.borderColor = UIColor(red: (214.0/255.0), green: (214.0/255.0), blue: (214.0/255.0), alpha: 1).CGColor
         self.noofFillsImage.layer.borderWidth = 2.0
         self.btnVenueName.setTitle("Mad River", forState: .Normal)
-        self.tableView.estimatedSectionHeaderHeight = self.outerView.frame.size.height - 650
-        //self.tableView.sectionHeaderHeight = UITableViewAutomaticDimension
+        
+        if(self.outerView.frame.size.height > 295)
+        {
+            self.tableView.estimatedSectionHeaderHeight = self.outerView.frame.size.height - 295
+        }
+        else
+        {
+            self.tableView.estimatedSectionHeaderHeight = 0.0
+        }
+        self.tableView.sectionHeaderHeight = UITableViewAutomaticDimension
         reloadTable()
     }
     
@@ -237,12 +242,12 @@ class VenueProfileTableViewController: UITableViewController,UIGestureRecognizer
     */
     
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return 0
+        return 1
     }
     
-//    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-//        return 0
-//    }
+    //    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    //        return 0
+    //    }
     
     /*
     // IBAction methods
@@ -289,7 +294,7 @@ class VenueProfileTableViewController: UITableViewController,UIGestureRecognizer
             let param: Dictionary = Dictionary<String, AnyObject>()
             //call API for to get venues
             let object = APIConnection().POST(APIName.Venues.rawValue, withAPIName: "VenueList", withMessage: "", withParam: param, withProgresshudShow: true, withHeader: false) as! APIConnection
-//            object.delegate = self
+            object.delegate = self
             
         }
     }
@@ -324,11 +329,11 @@ class VenueProfileTableViewController: UITableViewController,UIGestureRecognizer
     }
     // MARK: - Table view data source
     
-//    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-//        // #warning Incomplete implementation, return the number of sections
-//        return 1
-//    }
-//    
+    //    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    //        // #warning Incomplete implementation, return the number of sections
+    //        return 1
+    //    }
+    //    
     override func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView?
     {
         if(section == 0)
