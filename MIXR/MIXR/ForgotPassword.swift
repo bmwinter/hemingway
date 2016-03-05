@@ -15,7 +15,10 @@ class ForgotPassword: UITableViewController {
     @IBOutlet weak var doneButton: UIButton!
     override func viewDidLoad() {
         self.email?.placeholder = "Phone"
-//        self.email?.text = "+919428117839"
+        
+        let userData = NSUserDefaults.standardUserDefaults().objectForKey("UserInfo") as?NSDictionary
+
+        self.email?.text = userData?["phone_number"] as? String
         self.navigationItem.backBarButtonItem = UIBarButtonItem(title:"", style:.Plain, target:nil, action:nil)
 //        self.navigationItem.rightBarButtonItem = self.doneButton
         

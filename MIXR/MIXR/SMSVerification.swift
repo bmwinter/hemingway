@@ -157,13 +157,73 @@ class SMSVerification: UITableViewController {
                     }
                     
                     if let tokenData = responseDic?["code"] {
-                        self.navigationController?.popToRootViewControllerAnimated(true)
+                        self.performSignUp()
                         self.verificationCode = tokenData as! String
                         print(self.verificationCode)
                     }
                 }
         }
     }
+    
+    /*
+    // performLoginAction used to Call the Login API & store logged in user's data in NSUserDefault
+    */
+    
+    func performSignUp(){
+        
+        let parameters = NSUserDefaults.standardUserDefaults().objectForKey("UserInfo") as?[String:AnyObject]
+
+        //        let parameters = [
+        //            "first_name": "test",
+        //            "last_name": "test",
+        //            "password": "test",
+        //            "email": "test@test.com",
+        //            "birthdate": "1988-04-04",
+        //            "phone_number": "+919428117839"
+        //        ]
+        
+        
+        let URL =  globalConstants.kAPIURL + globalConstants.kSignUpAPIEndPoint
+        
+        let appDelegate=AppDelegate() //You create a new instance,not get the exist one
+        appDelegate.startAnimation((self.navigationController?.view)!)
+        
+        Alamofire.request(.POST, URL , parameters: parameters, encoding: .JSON)
+            .responseString { response in
+                
+                appDelegate.stopAnimation()
+                guard let value = response.result.value else {
+                    print("Error: did not receive data")
+                    return
+                }
+                
+                guard response.result.error == nil else {
+                    print("error calling POST on SignUp")
+                    print(response.result.error)
+                    return
+                }
+                
+                
+                let post = JSON(value)
+                if let string = post.rawString() {
+                    let responseDic:[String:AnyObject]? = self.convertStringToDictionary(string)
+                    
+                    if response.response?.statusCode == 400{
+                        print("The Response Error is:   \(response.response?.statusCode)")
+                        if let errorData = responseDic?["detail"] {
+                            let errorMessage = errorData[0] as! String
+                            self.displayCommonAlert(errorMessage)
+                            return;
+                        }
+                    }
+                    
+                    if let tokenData = responseDic?["email"] {
+                        self.navigationController?.popToRootViewControllerAnimated(true)
+                    }
+                }
+        }
+    }
+
     
     //MARK: convertStringObject to Dictionary
     

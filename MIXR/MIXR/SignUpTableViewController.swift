@@ -205,6 +205,10 @@ class SignUpTableViewController: UIViewController {
         NSUserDefaults.standardUserDefaults().setObject(parameters, forKey: "UserInfo")
         NSUserDefaults.standardUserDefaults().synchronize()
 
+        self.navigationController?.navigationBarHidden = false
+        self.performSegueWithIdentifier("SMSVerification", sender: nil)
+
+        return;
         
 //        let parameters = [
 //            "first_name": "test",

@@ -76,8 +76,8 @@ class LoginViewController: BaseViewController {
         //        self.navigationController?.navigationBarHidden = false
         //        self.performSegueWithIdentifier("VenueSelection", sender: nil)
         
-        loadTabar()
-        return;
+//        loadTabar()
+//        return;
         
         
         let email = userEmailTextField.text!.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
