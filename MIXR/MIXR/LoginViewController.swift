@@ -13,6 +13,10 @@ import SwiftyJSON
 import Foundation
 import MobileCoreServices
 
+extension String {
+    var count: Int { return self.characters.count }
+}
+
 
 class LoginViewController: BaseViewController {
     
@@ -101,10 +105,30 @@ class LoginViewController: BaseViewController {
             
         }
         
-        //        if !globalConstants.isValidEmail(email){
-        //            self.displayCommonAlert(globalConstants.kValidEmailError)
-        //            return;
-        //        }
+        
+        let notDigits = NSCharacterSet.decimalDigitCharacterSet().invertedSet
+        
+        if email.rangeOfCharacterFromSet(notDigits) == nil{
+            print("Test string was a number")
+            if email.count < 14{
+                self.displayCommonAlert(globalConstants.kEnterValidPhoneNumber)
+                return;
+            }
+            
+        }else{
+            if !globalConstants.isValidEmail(email){
+                self.displayCommonAlert(globalConstants.kValidEmailError)
+                return;
+            }
+        }
+        
+        
+//        NSCharacterSet* notDigits = [[NSCharacterSet decimalDigitCharacterSet] invertedSet];
+//        if ([newString rangeOfCharacterFromSet:notDigits].location == NSNotFound)
+//        {
+//            // newString consists only of the digits 0 through 9
+//        }
+
         
         self.performLoginAction()
     }

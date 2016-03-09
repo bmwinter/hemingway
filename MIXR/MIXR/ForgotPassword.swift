@@ -151,7 +151,37 @@ class ForgotPassword: UITableViewController {
         alertController.addAction(okayAction)
         self.presentViewController(alertController, animated: true, completion: nil)
     }
+    
 
+    func textFieldDidBeginEditing(textField: UITextField!) {    //delegate method
+        let currentText = textField.text!.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
+        
+        if currentText.count == 0 {
+            textField.text = "+1"
+        }
+    }
+    
+    func textFieldShouldEndEditing(textField: UITextField!) -> Bool {  //delegate method
+        
+        let currentText = textField.text!.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
+        
+        if currentText.isEqualToString("+1") {
+            textField.text = ""
+        }
+
+        return false
+    }
+    
+    func textFieldShouldReturn(textField: UITextField!) -> Bool {   //delegate method
+        textField.resignFirstResponder()
+        
+        return true
+    }
+
+//    - (void)textFieldDidBeginEditing:(UITextField *)textField
+//    - (void)textFieldDi
+//    EndEditing:(UITextField *)textField
+//    - (BOOL)textFieldShouldReturn:(UITextField *)textField
     
     
 }
