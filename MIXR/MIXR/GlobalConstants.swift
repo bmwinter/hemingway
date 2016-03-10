@@ -55,10 +55,11 @@ struct globalConstants {
     static let kCountryCodeError = "Please enter country code"
     static let kPhoneNoError = "Please enter phone No"
     static let kverificationCodeError = "Please enter verification code"
-    static let kNewPassword = "Please enter verification code"
+    static let kNewPassword = "Please enter new password"
     static let kpasswordconfirmPasswordError = "Password and confirm password must be same"
     static let kageRestrictionError = "To use this application, Your age should be greather that 18 years"
     static let ktermsandConditionError = "Please accept terms & condition!"
+    static let kEnterValidPhoneNumber = "Please enter valid phone number with country code"
     
     /*
     // Method to check wether email is valid or not.

@@ -15,7 +15,10 @@ class ForgotPassword: UITableViewController {
     @IBOutlet weak var doneButton: UIButton!
     override func viewDidLoad() {
         self.email?.placeholder = "Phone"
-//        self.email?.text = "+919428117839"
+        
+        let userData = NSUserDefaults.standardUserDefaults().objectForKey("UserInfo") as?NSDictionary
+
+        self.email?.text = userData?["phone_number"] as? String
         self.navigationItem.backBarButtonItem = UIBarButtonItem(title:"", style:.Plain, target:nil, action:nil)
 //        self.navigationItem.rightBarButtonItem = self.doneButton
         
@@ -62,6 +65,8 @@ class ForgotPassword: UITableViewController {
 
         Alamofire.request(.POST, URL , parameters: parameters, encoding: .JSON)
             .responseString { response in
+                
+                appDelegate.stopAnimation()
                 guard let value = response.result.value else {
                     print("Error: did not receive data")
                     return
@@ -72,7 +77,7 @@ class ForgotPassword: UITableViewController {
                     print(response.result.error)
                     return
                 }
-                appDelegate.stopAnimation()
+                
 
                 let post = JSON(value)
                 if let string = post.rawString() {
@@ -146,7 +151,37 @@ class ForgotPassword: UITableViewController {
         alertController.addAction(okayAction)
         self.presentViewController(alertController, animated: true, completion: nil)
     }
+    
 
+    func textFieldDidBeginEditing(textField: UITextField!) {    //delegate method
+        let currentText = textField.text!.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
+        
+        if currentText.count == 0 {
+            textField.text = "+1"
+        }
+    }
+    
+    func textFieldShouldEndEditing(textField: UITextField!) -> Bool {  //delegate method
+        
+        let currentText = textField.text!.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
+        
+        if currentText.isEqualToString("+1") {
+            textField.text = ""
+        }
+
+        return false
+    }
+    
+    func textFieldShouldReturn(textField: UITextField!) -> Bool {   //delegate method
+        textField.resignFirstResponder()
+        
+        return true
+    }
+
+//    - (void)textFieldDidBeginEditing:(UITextField *)textField
+//    - (void)textFieldDi
+//    EndEditing:(UITextField *)textField
+//    - (BOOL)textFieldShouldReturn:(UITextField *)textField
     
     
 }
