@@ -81,10 +81,10 @@ class LoginViewController: BaseViewController {
 //        return;
         
         
-        let email = userEmailTextField.text!.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
+        let username = userEmailTextField.text!.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
         let password = userPasswordTextField.text!.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
         
-        if email.isEmpty{
+        if username.isEmpty{
             let alertController = UIAlertController (title: globalConstants.kAppName , message:globalConstants.kEmailError , preferredStyle:.Alert)
             let okayAction: UIAlertAction = UIAlertAction(title: "Ok", style: .Cancel) { action -> Void in
                 //Just dismiss the action sheet
@@ -105,22 +105,41 @@ class LoginViewController: BaseViewController {
             
         }
         
+        var usernameCheck = username
+        
+        let firstCharacter =  username.substringToIndex(username.startIndex.advancedBy(1))
+        print(firstCharacter) // Check for character
+        
+        // Strip '+' if it exists as the first character
+        if firstCharacter == "+" {
+            usernameCheck = username.substringFromIndex(username.startIndex.advancedBy(1))
+        }
         
         let notDigits = NSCharacterSet.decimalDigitCharacterSet().invertedSet
         
-        if email.rangeOfCharacterFromSet(notDigits) == nil{
-            print("Test string was a number")
-            if email.count < 14{
+        
+        if usernameCheck.rangeOfCharacterFromSet(notDigits) == nil{
+            print("phone option because digits only")
+            
+            if username.count < 12 {
                 self.displayCommonAlert(globalConstants.kEnterValidPhoneNumber)
                 return;
             }
             
-        }else{
-            if !globalConstants.isValidEmail(email){
+        }
+        else {
+            print("email option because no digits")
+
+            if !globalConstants.isValidEmail(usernameCheck){
                 self.displayCommonAlert(globalConstants.kValidEmailError)
                 return;
             }
+            
         }
+
+ 
+//        Nil --  I commented this out for some reason it was printing "Test string..." as well as returning
+  
         
         
 //        NSCharacterSet* notDigits = [[NSCharacterSet decimalDigitCharacterSet] invertedSet];
