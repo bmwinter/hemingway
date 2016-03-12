@@ -161,7 +161,7 @@ class ForgotPassword: UITableViewController {
         }
     }
     
-    func textFieldShouldEndEditing(textField: UITextField!) -> Bool {  //delegate method
+    func textFieldDidEndEditing(textField: UITextField!) -> Bool {  //delegate method
         
         let currentText = textField.text!.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
         
