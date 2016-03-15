@@ -20,6 +20,9 @@ class BaseViewController: UIViewController  ,UIImagePickerControllerDelegate, UI
     {
         super.viewDidLoad()
         
+        self.navigationItem.backBarButtonItem = UIBarButtonItem(title:"", style:.Plain, target:nil, action:nil)
+
+        
         if ((self.navigationController?.respondsToSelector(Selector("interactivePopGestureRecognizer"))) != nil)
         {
             Log("interactivePopGestureRecognizer true \(self.navigationController!.viewControllers.count)")
@@ -96,12 +99,30 @@ class BaseViewController: UIViewController  ,UIImagePickerControllerDelegate, UI
     
     func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
         let tempImage = info[UIImagePickerControllerMediaURL] as! NSURL!
-        let pathString = tempImage.relativePath
         self.dismissViewControllerAnimated(true, completion: {})
         
-        UISaveVideoAtPathToSavedPhotosAlbum(pathString!, self, nil, nil)
+        let videoData = NSData(contentsOfURL: tempImage)
+        let paths = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, NSSearchPathDomainMask.UserDomainMask, true)
+        let documentsDirectory: AnyObject = paths[0]
+        let dataPath = documentsDirectory.stringByAppendingPathComponent("/vid1.mp4")
+        
+        let stored =  videoData?.writeToFile(dataPath, atomically: false)
+        print(stored)
+
+//        UISaveVideoAtPathToSavedPhotosAlbum(pathString!, self, nil, nil)
+        
+        self.pushPreviewController()
+        
     }
     
+    func pushPreviewController(){
+        self.navigationController?.navigationBarHidden = false
+        let storyboard: UIStoryboard = UIStoryboard(name: "User", bundle: nil)
+        let vc = storyboard.instantiateViewControllerWithIdentifier("VenueSelection") as! VenueSelection
+        vc.isVideo = true
+        self.showViewController(vc, sender: self)
+
+    }
     
     // MARK:
     // MARK: Open Video
@@ -136,6 +157,11 @@ class BaseViewController: UIViewController  ,UIImagePickerControllerDelegate, UI
         let cameraViewController = ALCameraViewController(croppingEnabled: true, allowsLibraryAccess: true) { (image) -> Void in
             //            self.imageView.image = image
             self.dismissViewControllerAnimated(true, completion: nil)
+            let storyboard: UIStoryboard = UIStoryboard(name: "User", bundle: nil)
+            let vc = storyboard.instantiateViewControllerWithIdentifier("VenueSelection") as! VenueSelection
+            vc.isVideo = false
+            vc.capturedImageFile = image
+            self.showViewController(vc, sender: self)
         }
         presentViewController(cameraViewController, animated: true, completion: nil)
     }

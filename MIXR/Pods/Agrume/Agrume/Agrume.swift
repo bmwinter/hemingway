@@ -121,7 +121,7 @@ public final class Agrume: UIViewController {
         view.addSubview(spinner)
     }
 
-    private var lastUsedOrientation: UIDeviceOrientation!
+    private var lastUsedOrientation: UIDeviceOrientation?
 
     public override func viewWillAppear(animated: Bool) {
         lastUsedOrientation = UIDeviceOrientation(rawValue: UIApplication.sharedApplication().statusBarOrientation.rawValue)
@@ -177,15 +177,14 @@ extension Agrume {
 
     func orientationDidChange() {
         let orientation = UIDevice.currentDevice().orientation
-        let landscapeToLandscape = UIDeviceOrientationIsLandscape(orientation) && UIDeviceOrientationIsLandscape(lastUsedOrientation)
-        let portraitToPortrait = UIDeviceOrientationIsPortrait(orientation) && UIDeviceOrientationIsLandscape(lastUsedOrientation)
-        if landscapeToLandscape || portraitToPortrait {
-            guard orientation != lastUsedOrientation else { return }
-            lastUsedOrientation = orientation
-            UIView.animateWithDuration(0.6) {
-                [weak self] in
-                self?.updateLayoutsForCurrentOrientation()
-            }
+        guard let lastOrientation = lastUsedOrientation else { return }
+        let landscapeToLandscape = UIDeviceOrientationIsLandscape(orientation) && UIDeviceOrientationIsLandscape(lastOrientation)
+        let portraitToPortrait = UIDeviceOrientationIsPortrait(orientation) && UIDeviceOrientationIsPortrait(lastOrientation)
+        guard (landscapeToLandscape || portraitToPortrait) && orientation != lastUsedOrientation else { return }
+        lastUsedOrientation = orientation
+        UIView.animateWithDuration(0.6) {
+            [weak self] in
+            self?.updateLayoutsForCurrentOrientation()
         }
     }
 
