@@ -252,4 +252,29 @@ class BaseViewController: UIViewController  ,UIImagePickerControllerDelegate, UI
         }
     }
     
+    func convertStringToDictionary(text:String) -> [String:AnyObject]? {
+        if let data = text.dataUsingEncoding(NSUTF8StringEncoding) {
+            do {
+                return try NSJSONSerialization.JSONObjectWithData(data, options: []) as? [String:AnyObject]
+            } catch let error as NSError {
+                print(error)
+            }
+        }
+        return nil
+    }
+    
+    /*
+    // Common alert method need to be used to display alert, by passing alert string as parameter to it.
+    */
+    
+    func displayCommonAlert(alertMesage : NSString){
+        
+        let alertController = UIAlertController (title: globalConstants.kAppName, message: alertMesage as String?, preferredStyle:.Alert)
+        let okayAction: UIAlertAction = UIAlertAction(title: "Ok", style: .Cancel) { action -> Void in
+            //Just dismiss the action sheet
+        }
+        alertController.addAction(okayAction)
+        self.presentViewController(alertController, animated: true, completion: nil)
+    }
+    
 }

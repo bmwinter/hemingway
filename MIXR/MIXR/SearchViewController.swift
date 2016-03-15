@@ -8,6 +8,7 @@
 
 import UIKit
 import SwiftyJSON
+import Alamofire
 
 class SearchViewController: BaseViewController, UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,APIConnectionDelegate {
     
@@ -115,10 +116,116 @@ class SearchViewController: BaseViewController, UITableViewDelegate,UITableViewD
         }
         else
         {
+            /*
+            "id": 4,
+            "user_id": "6",
+            "first_name": "Megan",
+            "last_name": "Rain",
+            "image_url": "https://s3-us-west-2.amazonaws.com/mixrprofile/2016_02_13_07_04_6.jpg"
+            
+            Or
+            
+            "id": 29,
+            "venue_id": "1",
+            "name": "Harry's Bar"
+            */
             let param: Dictionary = Dictionary<String, AnyObject>()
-            //call API for to get venues
             let object = APIConnection().POST(APIName.Users.rawValue, withAPIName:"SearchUser", withMessage:"", withParam: param, withProgresshudShow: true, withHeader: false) as! APIConnection
             object.delegate = self
+        }
+    }
+    
+    func loadSearchData()
+    {
+        let appDelegate=AppDelegate() //You create a new instance,not get the exist one
+        appDelegate.startAnimation((self.navigationController?.view)!)
+        
+        var tokenString = "token "
+        tokenString +=  NSUserDefaults.standardUserDefaults().objectForKey("LoginToken") as! String
+        
+        
+        Alamofire.Manager.sharedInstance.session.configuration.HTTPAdditionalHeaders?.updateValue(tokenString, forKey: "Authorization")
+        let appToken =  NSUserDefaults.standardUserDefaults().objectForKey("LoginToken") as! String
+        
+        let parameters = [
+            "query": self.searchBarObj.text!//.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet()),
+        ]
+        let URL =  globalConstants.kAPIURL + globalConstants.kSearchAPIEndPoint
+        
+        //Alamofire.Manager.sharedInstance.session.configuration.HTTPAdditionalHeaders?.updateValue("application/json", forKey: "Accept")
+        
+        
+        Alamofire.request(.POST, URL , parameters: parameters, encoding: .JSON)
+            .responseString { response in
+                
+                appDelegate.stopAnimation()
+                guard let value = response.result.value else
+                {
+                    print("Error: did not receive data")
+                    return
+                }
+                
+                guard response.result.error == nil else
+                {
+                    print("error calling POST on Login")
+                    print(response.result.error)
+                    return
+                }
+                
+                
+                let post = JSON(value)
+                if let string = post.rawString() {
+                    let responseDic:[String:AnyObject]? = self.convertStringToDictionary(string)
+                    
+                    if response.response?.statusCode == 400{
+                        print("The Response Error is:   \(response.response?.statusCode)")
+                        
+                        if let val = responseDic?["code"] {
+                            if val[0].isEqualToString("13") {
+                                //                                print("Equals")
+                                self.displayCommonAlert(responseDic?["detail"]?[0] as! String)
+                                return
+                            }
+                            // now val is not nil and the Optional has been unwrapped, so use it
+                        }
+                        
+                        if let errorData = responseDic?["detail"] {
+                            
+                            let errorMessage = errorData[0] as! String
+                            self.displayCommonAlert(errorMessage)
+                            return;
+                        }
+                    }
+                    
+                    if let value = response.result.value
+                    {
+                        let jsonResponse = JSON(value)
+                        let responseDic: Dictionary <String, JSON> = jsonResponse.dictionaryValue
+                        DLog("\(responseDic)")
+                        return
+                        if(self.feedcount == 0)
+                        {
+                            self.usersArray = (responseDic["data"]!.arrayObject as? NSMutableArray)!
+                            self.feedcount = self.usersArray.count
+                        }
+                        else
+                        {
+                            if(self.usersArray.count > 0)
+                            {
+                                let newData : NSMutableArray = (responseDic["data"]!.arrayObject as? NSMutableArray)!
+                                
+                                for (var cnt = 0; cnt < newData.count ; cnt++)
+                                {
+                                    self.usersArray.addObject(newData[cnt])
+                                }
+                                
+                                self.feedcount = self.usersArray.count
+                            }
+                        }
+                        self.reloadTable()
+                    }
+                }
+                
         }
     }
     
@@ -198,16 +305,23 @@ class SearchViewController: BaseViewController, UITableViewDelegate,UITableViewD
     }
     
     //  MARK:- Searchbar Delegate -
-    func searchBar(searchBar: UISearchBar, textDidChange searchText: String){
-        if searchBar.text!.isEmpty{
+    func searchBar(searchBar: UISearchBar, textDidChange searchText: String)
+    {
+        if searchBar.text!.isEmpty
+        {
             is_searching = false
             tableView.reloadData()
-        } else {
+        }
+        else
+        {
             print("search text %@ ",searchBar.text! as NSString)
             is_searching = true
             searchingArray.removeAllObjects()
             
             let temp = self.searchBarObj.text
+            self.loadSearchData()
+            
+            return;
             print(self.usersArray)
             
             var tempArray : NSMutableArray = []
