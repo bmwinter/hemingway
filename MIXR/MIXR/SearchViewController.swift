@@ -9,6 +9,7 @@
 import UIKit
 import SwiftyJSON
 import Alamofire
+import AlamofireImage
 
 class SearchViewController: BaseViewController, UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate {
     
@@ -113,9 +114,7 @@ class SearchViewController: BaseViewController, UITableViewDelegate,UITableViewD
                 "query": self.searchBarObj.text!//.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet()),
             ]
             let URL =  globalConstants.kAPIURL + globalConstants.kSearchAPIEndPoint
-            
             //Alamofire.Manager.sharedInstance.session.configuration.HTTPAdditionalHeaders?.updateValue("application/json", forKey: "Accept")
-            
             
             Alamofire.request(.POST, URL , parameters: parameters, encoding: .JSON)
                 .responseString { response in
@@ -217,7 +216,7 @@ class SearchViewController: BaseViewController, UITableViewDelegate,UITableViewD
             {
                 let outPutDict :NSMutableDictionary = NSMutableDictionary(dictionary: inputDict)
                 
-                if let venue_idStr = inputDict["venue_id"] as? String
+                if let _ = inputDict["venue_id"] as? String
                 {
                     outPutDict.setValue("\(inputDict["name"] as! String)", forKey: "title")
                     outPutDict.setValue("", forKey: "profile_picture")
@@ -288,38 +287,40 @@ class SearchViewController: BaseViewController, UITableViewDelegate,UITableViewD
         }
         else
         {
-            let feedDict : NSDictionary = usersArray[indexPath.row] as! NSDictionary
+            let feedDict : NSDictionary = self.usersArray[indexPath.row] as! NSDictionary
             
-            if let imageNameStr = feedDict["profile_picture"] as? String
+            if let imageNameStr = feedDict["image_url"] as? String
             {
                 if (imageNameStr.characters.count > 0)
                 {
-                    if let aImage = UIImage(named: imageNameStr)
-                    {
-                        cell.imagePerson.image  = aImage
-                        // let URL = NSURL(string: imageStr)!
-                        // let placeholderImage = UIImage(named: "placeholder.png")!
-                        // cell.imagePerson.af_setImageWithURL(URL, placeholderImage: placeholderImage)
-                    }
-                    else
-                    {
-                        cell.imagePerson.image = UIImage(named:"placeholder.png")
-                    }
+                    //cell.imagePerson.image  = aImage
+                    let URL = NSURL(string: imageNameStr)!
+                    //let URL = NSURL(string: "https://avatars1.githubusercontent.com/u/1846768?v=3&s=460")!
+                    
+                    cell.imagePerson.af_setImageWithURL(URL, placeholderImage: UIImage(named: "ALPlaceholder"), filter: nil, imageTransition: .None, completion: { (response) -> Void in
+                        print("image: \(cell.imagePerson.image)")
+                        print(response.result.value) //# UIImage
+                        print(response.result.error) //# NSError
+                    })
+                    
+                    //let placeholderImage = UIImage(named: "ALPlaceholder")!
+                    //cell.imagePerson.af_setImageWithURL(URL, placeholderImage: placeholderImage)
+                    
                 }
                 else
                 {
-                    cell.imagePerson.image = UIImage(named:"placeholder.png")
+                    cell.imagePerson.image = UIImage(named:"ALPlaceholder")
                 }
             }
             else
             {
-                cell.imagePerson.image = UIImage(named:"placeholder.png")
+                cell.imagePerson.image = UIImage(named:"ALPlaceholder")
             }
             
             cell.labelName.text = feedDict["title"] as? String
             cell.mobileNumber.text = feedDict["subtitle"] as! NSString as String
             
-            if(indexPath.row == (usersArray.count-4) && usersArray.count > 8)
+            if(indexPath.row == (self.usersArray.count-4) && self.usersArray.count > 8)
             {
                 self.loadData()
             }
@@ -347,8 +348,8 @@ class SearchViewController: BaseViewController, UITableViewDelegate,UITableViewD
     //  MARK:- Searchbar Delegate -
     func searchBar(searchBar: UISearchBar, textDidChange searchText: String)
     {
-        searchingArray.removeAllObjects()
-        usersArray.removeAllObjects()
+        self.searchingArray.removeAllObjects()
+        self.usersArray.removeAllObjects()
         
         if searchBar.text!.isEmpty
         {

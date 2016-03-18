@@ -13,7 +13,7 @@ import SwiftyJSON
 import Foundation
 import MobileCoreServices
 
-var isTesting : Int = 0
+var isTesting : Int = 1
 /*
 b@me.com/test
 */
@@ -104,7 +104,6 @@ class LoginViewController: BaseViewController {
         
         // loadTabar()
         // return;
-        
         
         let username = userEmailTextField.text!.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
         let password = userPasswordTextField.text!.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())

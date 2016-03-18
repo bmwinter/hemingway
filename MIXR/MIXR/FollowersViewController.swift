@@ -214,30 +214,32 @@ class FollowersViewController: BaseViewController, UITableViewDelegate,UITableVi
         //cell.imagePerson.image  = UIImage(named: feedDict["userImage"] as! String)
         cell.labelName.text = feedDict["userName"] as? String
         
-        if let imageNameStr = feedDict["userImage"] as? String
+        if let imageNameStr = feedDict["image_url"] as? String
         {
             if (imageNameStr.characters.count > 0)
             {
-                if let aImage = UIImage(named: imageNameStr)
-                {
-                    cell.imagePerson.image  = aImage
-                    //let URL = NSURL(string: imageStr)!
-                    //let placeholderImage = UIImage(named: "placeholder.png")!
-                    //cell.imagePerson.af_setImageWithURL(URL, placeholderImage: placeholderImage)
-                }
-                else
-                {
-                    cell.imagePerson.image = UIImage(named:"placeholder.png")
-                }
+                //cell.imagePerson.image  = aImage
+                let URL = NSURL(string: imageNameStr)!
+                //let URL = NSURL(string: "https://avatars1.githubusercontent.com/u/1846768?v=3&s=460")!
+                
+                cell.imagePerson.af_setImageWithURL(URL, placeholderImage: UIImage(named: "ALPlaceholder"), filter: nil, imageTransition: .None, completion: { (response) -> Void in
+                    print("image: \(cell.imagePerson.image)")
+                    print(response.result.value) //# UIImage
+                    print(response.result.error) //# NSError
+                })
+                
+                //let placeholderImage = UIImage(named: "ALPlaceholder")!
+                //cell.imagePerson.af_setImageWithURL(URL, placeholderImage: placeholderImage)
+                
             }
             else
             {
-                cell.imagePerson.image = UIImage(named:"placeholder.png")
+                cell.imagePerson.image = UIImage(named:"ALPlaceholder")
             }
         }
         else
         {
-            cell.imagePerson.image = UIImage(named:"placeholder.png")
+            cell.imagePerson.image = UIImage(named:"ALPlaceholder")
         }
         return cell
     }
