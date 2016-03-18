@@ -13,6 +13,10 @@ import SwiftyJSON
 import Foundation
 import MobileCoreServices
 
+var isTesting : Int = 0
+/*
+b@me.com/test
+*/
 extension String {
     var count: Int { return self.characters.count }
 }
@@ -36,7 +40,27 @@ class LoginViewController: BaseViewController {
         self.navigationController?.navigationBarHidden = true
         super.viewDidAppear(animated)
         
-        NSLog("LoginToken = \(NSUserDefaults.standardUserDefaults().objectForKey("LoginToken") as! String)")
+        if (isTesting == 1)
+        {
+            self.userEmailTextField.text = "+919016234505"
+            self.userPasswordTextField.text = "111111"
+        }
+        else if (isTesting == 2)
+        {
+            self.userEmailTextField.text = "b@me.com"
+            self.userPasswordTextField.text = "test"
+        }
+        else
+        {
+            self.userEmailTextField.text = ""
+            self.userPasswordTextField.text = ""
+        }
+        
+        if let loginToken = NSUserDefaults.standardUserDefaults().objectForKey("LoginToken") as? String
+        {
+            NSLog("LoginToken = \(loginToken)")
+            loginToken
+        }
     }
     
     /*
@@ -51,7 +75,8 @@ class LoginViewController: BaseViewController {
         appDelegate.window!.rootViewController = tabBarController
     }
     
-    @IBAction func signupButtonTapped(sender: AnyObject){
+    @IBAction func signupButtonTapped(sender: AnyObject)
+    {
         self.navigationController?.navigationBarHidden = true
         self.performSegueWithIdentifier("SignUpSegue", sender: nil)
     }
@@ -60,9 +85,10 @@ class LoginViewController: BaseViewController {
     // Custom button method for forgot password
     */
     
-    @IBAction func forgotPasswordButtonTapped(sender: AnyObject){
-        //        self.displayActionSheetForCamera()
-        //        return;
+    @IBAction func forgotPasswordButtonTapped(sender: AnyObject)
+    {
+        // self.displayActionSheetForCamera()
+        // return;
         self.navigationController?.navigationBarHidden = false
         self.performSegueWithIdentifier("ForgotPasswordSegue", sender: nil)
     }
@@ -71,14 +97,13 @@ class LoginViewController: BaseViewController {
     // Custom button method for Login
     */
     
-    
     @IBAction func loginButtonTapped(sender: AnyObject){
         
         userEmailTextField.resignFirstResponder()
         userPasswordTextField.resignFirstResponder()
         
-        //        loadTabar()
-        //        return;
+        // loadTabar()
+        // return;
         
         
         let username = userEmailTextField.text!.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())

@@ -13,6 +13,7 @@ target 'MIXR' do
     pod 'Agrume'
     pod 'BTNavigationDropdownMenu'
     pod 'SpringIndicator'
+    pod 'AlamofireImage'
 end
 
 target 'MIXRTests' do

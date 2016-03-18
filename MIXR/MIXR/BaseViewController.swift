@@ -21,7 +21,7 @@ class BaseViewController: UIViewController  ,UIImagePickerControllerDelegate, UI
         super.viewDidLoad()
         
         self.navigationItem.backBarButtonItem = UIBarButtonItem(title:"", style:.Plain, target:nil, action:nil)
-
+        
         
         if ((self.navigationController?.respondsToSelector(Selector("interactivePopGestureRecognizer"))) != nil)
         {
@@ -108,8 +108,8 @@ class BaseViewController: UIViewController  ,UIImagePickerControllerDelegate, UI
         
         let stored =  videoData?.writeToFile(dataPath, atomically: false)
         print(stored)
-
-//        UISaveVideoAtPathToSavedPhotosAlbum(pathString!, self, nil, nil)
+        
+        //        UISaveVideoAtPathToSavedPhotosAlbum(pathString!, self, nil, nil)
         
         self.pushPreviewController()
         
@@ -121,7 +121,7 @@ class BaseViewController: UIViewController  ,UIImagePickerControllerDelegate, UI
         let vc = storyboard.instantiateViewControllerWithIdentifier("VenueSelection") as! VenueSelection
         vc.isVideo = true
         self.showViewController(vc, sender: self)
-
+        
     }
     
     // MARK:
@@ -282,6 +282,17 @@ class BaseViewController: UIViewController  ,UIImagePickerControllerDelegate, UI
         if let data = text.dataUsingEncoding(NSUTF8StringEncoding) {
             do {
                 return try NSJSONSerialization.JSONObjectWithData(data, options: []) as? [String:AnyObject]
+            } catch let error as NSError {
+                print(error)
+            }
+        }
+        return nil
+    }
+    
+    func convertStringToArray(text:String) -> NSArray? {
+        if let data = text.dataUsingEncoding(NSUTF8StringEncoding) {
+            do {
+                return try NSJSONSerialization.JSONObjectWithData(data, options: []) as? NSArray
             } catch let error as NSError {
                 print(error)
             }
