@@ -331,7 +331,26 @@ class SearchViewController: BaseViewController, UITableViewDelegate,UITableViewD
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         print("indexpath.row = \(indexPath.row)")
+        let feedDict : NSDictionary = self.usersArray[indexPath.row] as! NSDictionary
         
+        if let venue_idStr = feedDict["venue_id"] as? String
+        {
+            // Venu Id
+            NSLog("venue_idStr = \(venue_idStr)")
+            let aVenueProfileViewController : VenueProfileViewController = self.storyboard!.instantiateViewControllerWithIdentifier("VenueProfileViewController") as! VenueProfileViewController
+            self.navigationController!.pushViewController(aVenueProfileViewController, animated: true)
+        }
+        else
+        {
+            // User Id 
+            if let user_idStr = feedDict["user_id"] as? String
+            {
+                NSLog("user_idStr = \(user_idStr)")
+                let postViewController : PostViewController = self.storyboard!.instantiateViewControllerWithIdentifier("PostViewController") as! PostViewController
+                postViewController.isUserProfile = true
+                self.navigationController!.pushViewController(postViewController, animated: true)
+            }
+        }
         //let selectedCell:UITableViewCell = tableView.cellForRowAtIndexPath(indexPath)!
         //selectedCell.contentView.backgroundColor = UIColor.clearColor()
     }
