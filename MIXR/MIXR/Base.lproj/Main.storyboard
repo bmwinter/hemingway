@@ -81,6 +81,7 @@
             <string>ForgottenFuturistRg-Regular</string>
             <string>ForgottenFuturistRg-Regular</string>
             <string>ForgottenFuturistRg-Regular</string>
+            <string>ForgottenFuturistRg-Regular</string>
         </mutableArray>
     </customFonts>
     <scenes>
@@ -924,6 +925,14 @@
                                     <imageView hidden="YES" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="backgroundWhiteDrediant.png" translatesAutoresizingMaskIntoConstraints="NO" id="efr-LC-Px5">
                                         <rect key="frame" x="0.0" y="0.0" width="394" height="672"/>
                                     </imageView>
+                                    <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="OTw-uf-jAb">
+                                        <rect key="frame" x="0.0" y="8" width="394" height="44"/>
+                                        <color key="backgroundColor" red="0.72549019609999998" green="0.72549019609999998" blue="0.70588235290000001" alpha="1" colorSpace="calibratedRGB"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                        <connections>
+                                            <outlet property="delegate" destination="hys-vH-0Km" id="uHv-P6-M7N"/>
+                                        </connections>
+                                    </searchBar>
                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="56" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="PkF-s4-rDT">
                                         <rect key="frame" x="0.0" y="52" width="394" height="620"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -1010,14 +1019,16 @@
                                             <outlet property="delegate" destination="hys-vH-0Km" id="DDA-jD-8eT"/>
                                         </connections>
                                     </tableView>
-                                    <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="OTw-uf-jAb">
-                                        <rect key="frame" x="0.0" y="8" width="394" height="44"/>
-                                        <color key="backgroundColor" red="0.72549019609999998" green="0.72549019609999998" blue="0.70588235290000001" alpha="1" colorSpace="calibratedRGB"/>
-                                        <textInputTraits key="textInputTraits"/>
-                                        <connections>
-                                            <outlet property="delegate" destination="hys-vH-0Km" id="uHv-P6-M7N"/>
-                                        </connections>
-                                    </searchBar>
+                                    <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No results found" textAlignment="center" lineBreakMode="tailTruncation" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="9Ft-xg-83g" userLabel="LblUserName">
+                                        <rect key="frame" x="0.0" y="321" width="394" height="30"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="30" id="RiZ-II-kPx"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="ForgottenFuturistRg-Regular" family="Forgotten Futurist" pointSize="24"/>
+                                        <color key="textColor" red="0.2470588235" green="0.2470588235" blue="0.2470588235" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
@@ -1032,6 +1043,9 @@
                                     <constraint firstAttribute="bottom" secondItem="PkF-s4-rDT" secondAttribute="bottom" id="TxO-xK-QXi"/>
                                     <constraint firstAttribute="trailing" secondItem="PkF-s4-rDT" secondAttribute="trailing" id="Vvn-hE-sPK"/>
                                     <constraint firstItem="OTw-uf-jAb" firstAttribute="leading" secondItem="efr-LC-Px5" secondAttribute="leading" id="flJ-bN-Jc0"/>
+                                    <constraint firstItem="9Ft-xg-83g" firstAttribute="centerY" secondItem="IBr-4u-qHY" secondAttribute="centerY" id="kIf-63-GLm"/>
+                                    <constraint firstItem="9Ft-xg-83g" firstAttribute="centerX" secondItem="IBr-4u-qHY" secondAttribute="centerX" id="kvb-mK-7mx"/>
+                                    <constraint firstItem="9Ft-xg-83g" firstAttribute="width" secondItem="IBr-4u-qHY" secondAttribute="width" id="mkr-RW-l7B"/>
                                     <constraint firstItem="PkF-s4-rDT" firstAttribute="leading" secondItem="IBr-4u-qHY" secondAttribute="leading" id="nXD-CI-Bjw"/>
                                     <constraint firstItem="OTw-uf-jAb" firstAttribute="top" secondItem="IBr-4u-qHY" secondAttribute="topMargin" id="nmG-fv-zUz"/>
                                     <constraint firstItem="OTw-uf-jAb" firstAttribute="leading" secondItem="IBr-4u-qHY" secondAttribute="leading" id="qVp-sr-jk6"/>
@@ -1066,6 +1080,7 @@
                     <connections>
                         <outlet property="backgroundView" destination="IBr-4u-qHY" id="4FI-ZG-Wnx"/>
                         <outlet property="btnNotificationNumber" destination="4Ws-IJ-Hnc" id="wxJ-fv-IyJ"/>
+                        <outlet property="lblNoResultFound" destination="9Ft-xg-83g" id="bmm-km-lT4"/>
                         <outlet property="searchBarObj" destination="OTw-uf-jAb" id="MNm-lj-Bez"/>
                         <outlet property="searchDisplayController" destination="m3f-cY-rv6" id="7pF-vN-gaJ"/>
                         <outlet property="tableView" destination="PkF-s4-rDT" id="B7K-f4-YL9"/>

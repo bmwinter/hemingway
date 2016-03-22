@@ -17,6 +17,7 @@ class SearchViewController: BaseViewController, UITableViewDelegate,UITableViewD
     //var usersArray : Array<JSON> = []
     var usersArray : NSMutableArray = NSMutableArray()
     
+    @IBOutlet weak var lblNoResultFound: UILabel!
     var searchingArray:NSMutableArray!
     let isLocalData = true
     @IBOutlet var searchBarObj: UISearchBar!
@@ -97,9 +98,6 @@ class SearchViewController: BaseViewController, UITableViewDelegate,UITableViewD
     
     func loadSearchData()
     {
-        self.usersArray.removeAllObjects()
-        self.searchingArray .removeAllObjects()
-        
         let appDelegate=AppDelegate() //You create a new instance,not get the exist one
         appDelegate.startAnimation((self.navigationController?.view)!)
         
@@ -118,6 +116,9 @@ class SearchViewController: BaseViewController, UITableViewDelegate,UITableViewD
             
             Alamofire.request(.POST, URL , parameters: parameters, encoding: .JSON)
                 .responseString { response in
+                    
+                    self.usersArray.removeAllObjects()
+                    self.searchingArray .removeAllObjects()
                     
                     appDelegate.stopAnimation()
                     guard let value = response.result.value else
@@ -151,7 +152,7 @@ class SearchViewController: BaseViewController, UITableViewDelegate,UITableViewD
                                 if val[0].isEqualToString("13")
                                 {
                                     //print("Equals")
-                                    self.displayCommonAlert(responseDic?["detail"]?[0] as! String)
+                                    //self.displayCommonAlert(responseDic?["detail"]?[0] as! String)
                                     self.reloadTable()
                                     
                                     return
@@ -161,8 +162,8 @@ class SearchViewController: BaseViewController, UITableViewDelegate,UITableViewD
                             
                             if let errorData = responseDic?["detail"]
                             {
-                                let errorMessage = errorData[0] as! String
-                                self.displayCommonAlert(errorMessage)
+                                //let errorMessage = errorData[0] as! String
+                                //self.displayCommonAlert(errorMessage)
                                 self.reloadTable()
                                 
                                 return;
@@ -256,14 +257,32 @@ class SearchViewController: BaseViewController, UITableViewDelegate,UITableViewD
     func tableView(tableView: UITableView,
         numberOfRowsInSection section: Int) -> Int
     {
-        if is_searching == true
+        if (self.usersArray.count > 0)
         {
-            return searchingArray.count
+            self.lblNoResultFound.hidden = true
         }
         else
         {
-            return usersArray.count  //Currently Giving default Value
+            self.lblNoResultFound.hidden = false
         }
+        return self.usersArray.count  //Currently Giving default Value
+        
+//        if is_searching == true
+//        {
+//            return searchingArray.count
+//        }
+//        else
+//        {
+//            if (self.usersArray.count > 0)
+//            {
+//                self.lblNoResultFound.hidden = true
+//            }
+//            else
+//            {
+//                self.lblNoResultFound.hidden = false
+//            }
+//            return self.usersArray.count  //Currently Giving default Value
+//        }
     }
     
     func tableView(tableView: UITableView,
@@ -273,20 +292,20 @@ class SearchViewController: BaseViewController, UITableViewDelegate,UITableViewD
         let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as! SearchTableViewCell
         cell.selectionStyle = UITableViewCellSelectionStyle.None
         
-        if is_searching == true
-        {
-            let feedDict : NSDictionary = searchingArray[indexPath.row] as! NSDictionary
-            cell.imagePerson.image  = UIImage(named: feedDict["profile_picture"] as! String)
-            cell.labelName.text = feedDict["title"] as! NSString as String
-            cell.mobileNumber.text = feedDict["subtitle"] as! NSString as String
-            //cell.textLabel!.text = searchingArray[indexPath.row] as! NSString as String
-            if(indexPath.row == (searchingArray.count-4) && searchingArray.count > 8)
-            {
-                self.loadData()
-            }
-        }
-        else
-        {
+//        if is_searching == true
+//        {
+//            let feedDict : NSDictionary = searchingArray[indexPath.row] as! NSDictionary
+//            cell.imagePerson.image  = UIImage(named: feedDict["profile_picture"] as! String)
+//            cell.labelName.text = feedDict["title"] as! NSString as String
+//            cell.mobileNumber.text = feedDict["subtitle"] as! NSString as String
+//            //cell.textLabel!.text = searchingArray[indexPath.row] as! NSString as String
+//            if(indexPath.row == (searchingArray.count-4) && searchingArray.count > 8)
+//            {
+//                self.loadData()
+//            }
+//        }
+//        else
+//        {
             let feedDict : NSDictionary = self.usersArray[indexPath.row] as! NSDictionary
             
             if let imageNameStr = feedDict["image_url"] as? String
@@ -324,7 +343,7 @@ class SearchViewController: BaseViewController, UITableViewDelegate,UITableViewD
             {
                 self.loadData()
             }
-        }
+        //}
         
         return cell
     }
