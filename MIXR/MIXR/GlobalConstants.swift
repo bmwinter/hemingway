@@ -20,7 +20,7 @@ enum APIName : Int
     case AuthenticationTokens       = 1
     case ProfileImages              = 2
     case Venues                     = 3
-     case Users                     = 4
+    case Users                      = 4
 }
 
 
@@ -44,6 +44,17 @@ struct globalConstants {
     static let kSettingAPIEndPoint = "UserSettings"
     
     
+    static let kSearchAPIEndPoint = "search"
+    static let kFollowingAPIEndPoint = "following"
+    static let kFollowersAPIEndPoint = "followers"
+    
+    static let kFollowRequestAPIEndPoint = "follow/request"
+    static let kFollowRequestUpdateAPIEndPoint = "follow/request/update"
+    
+    static let kNewsfeedAPIEndPoint = "newsfeed"
+    static let kNewsfeedUserAPIEndPoint = "newsfeed/user"
+    static let kNewsfeedMyAPIEndPoint = "newsfeed/my"
+    static let kNewsfeedVenueAPIEndPoint = "newsfeed/venue"
     
     static let kAppName = "MIXR"
     
@@ -74,7 +85,7 @@ struct globalConstants {
         let result = emailTest.evaluateWithObject(testStr)
         return result
     }
-
+    
     
 }
 

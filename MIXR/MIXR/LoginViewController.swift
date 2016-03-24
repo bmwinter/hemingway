@@ -13,6 +13,10 @@ import SwiftyJSON
 import Foundation
 import MobileCoreServices
 
+var isTesting : Int = 1
+/*
+b@me.com/test
+*/
 extension String {
     var count: Int { return self.characters.count }
 }
@@ -27,9 +31,7 @@ class LoginViewController: BaseViewController {
         self.title = "Login"
         self.navigationItem.backBarButtonItem = UIBarButtonItem(title:"", style:.Plain, target:nil, action:nil)
         
-        
         super.viewDidLoad()
-        
         // Do any additional setup after loading the view, typically from a nib.
     }
     
@@ -37,6 +39,28 @@ class LoginViewController: BaseViewController {
     override func viewDidAppear(animated: Bool) {
         self.navigationController?.navigationBarHidden = true
         super.viewDidAppear(animated)
+        
+        if (isTesting == 1)
+        {
+            self.userEmailTextField.text = "+919016234505"
+            self.userPasswordTextField.text = "111111"
+        }
+        else if (isTesting == 2)
+        {
+            self.userEmailTextField.text = "b@me.com"
+            self.userPasswordTextField.text = "test"
+        }
+        else
+        {
+            self.userEmailTextField.text = ""
+            self.userPasswordTextField.text = ""
+        }
+        
+        if let loginToken = NSUserDefaults.standardUserDefaults().objectForKey("LoginToken") as? String
+        {
+            NSLog("LoginToken = \(loginToken)")
+            loginToken
+        }
     }
     
     /*
@@ -51,7 +75,8 @@ class LoginViewController: BaseViewController {
         appDelegate.window!.rootViewController = tabBarController
     }
     
-    @IBAction func signupButtonTapped(sender: AnyObject){
+    @IBAction func signupButtonTapped(sender: AnyObject)
+    {
         self.navigationController?.navigationBarHidden = true
         self.performSegueWithIdentifier("SignUpSegue", sender: nil)
     }
@@ -60,9 +85,10 @@ class LoginViewController: BaseViewController {
     // Custom button method for forgot password
     */
     
-    @IBAction func forgotPasswordButtonTapped(sender: AnyObject){
-        //        self.displayActionSheetForCamera()
-        //        return;
+    @IBAction func forgotPasswordButtonTapped(sender: AnyObject)
+    {
+        // self.displayActionSheetForCamera()
+        // return;
         self.navigationController?.navigationBarHidden = false
         self.performSegueWithIdentifier("ForgotPasswordSegue", sender: nil)
     }
@@ -71,15 +97,13 @@ class LoginViewController: BaseViewController {
     // Custom button method for Login
     */
     
-    
     @IBAction func loginButtonTapped(sender: AnyObject){
         
         userEmailTextField.resignFirstResponder()
         userPasswordTextField.resignFirstResponder()
         
-//        loadTabar()
-//        return;
-        
+        // loadTabar()
+        // return;
         
         let username = userEmailTextField.text!.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
         let password = userPasswordTextField.text!.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
@@ -129,25 +153,25 @@ class LoginViewController: BaseViewController {
         }
         else {
             print("email option because no digits")
-
+            
             if !globalConstants.isValidEmail(usernameCheck){
                 self.displayCommonAlert(globalConstants.kValidEmailError)
                 return;
             }
             
         }
-
- 
-//        Nil --  I commented this out for some reason it was printing "Test string..." as well as returning
-  
         
         
-//        NSCharacterSet* notDigits = [[NSCharacterSet decimalDigitCharacterSet] invertedSet];
-//        if ([newString rangeOfCharacterFromSet:notDigits].location == NSNotFound)
-//        {
-//            // newString consists only of the digits 0 through 9
-//        }
-
+        //        Nil --  I commented this out for some reason it was printing "Test string..." as well as returning
+        
+        
+        
+        //        NSCharacterSet* notDigits = [[NSCharacterSet decimalDigitCharacterSet] invertedSet];
+        //        if ([newString rangeOfCharacterFromSet:notDigits].location == NSNotFound)
+        //        {
+        //            // newString consists only of the digits 0 through 9
+        //        }
+        
         
         self.performLoginAction()
     }
@@ -258,11 +282,11 @@ class LoginViewController: BaseViewController {
         if (segue.identifier == "SMSVerification") {
             //Checking identifier is crucial as there might be multiple
             // segues attached to same view
-//            NSUserDefaults.standardUserDefaults().setObject(parameters, forKey: "UserInfo")
+            //            NSUserDefaults.standardUserDefaults().setObject(parameters, forKey: "UserInfo")
             let detailVC = segue.destinationViewController as! SMSVerification;
             
             let userData = NSUserDefaults.standardUserDefaults().objectForKey("UserInfo") as?NSDictionary
-
+            
             detailVC.phoneNumber = userData?["phone_number"] as? String
         }
     }
@@ -270,7 +294,7 @@ class LoginViewController: BaseViewController {
     
     //MARK: convertStringObject to Dictionary
     
-    func convertStringToDictionary(text:String) -> [String:AnyObject]? {
+    override func convertStringToDictionary(text:String) -> [String:AnyObject]? {
         if let data = text.dataUsingEncoding(NSUTF8StringEncoding) {
             do {
                 return try NSJSONSerialization.JSONObjectWithData(data, options: []) as? [String:AnyObject]
@@ -285,7 +309,7 @@ class LoginViewController: BaseViewController {
     // Common alert method need to be used to display alert, by passing alert string as parameter to it.
     */
     
-    func displayCommonAlert(alertMesage : NSString){
+    override func displayCommonAlert(alertMesage : NSString){
         
         let alertController = UIAlertController (title: globalConstants.kAppName, message: alertMesage as String?, preferredStyle:.Alert)
         let okayAction: UIAlertAction = UIAlertAction(title: "Ok", style: .Cancel) { action -> Void in

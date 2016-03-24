@@ -21,7 +21,7 @@ class BaseViewController: UIViewController  ,UIImagePickerControllerDelegate, UI
         super.viewDidLoad()
         
         self.navigationItem.backBarButtonItem = UIBarButtonItem(title:"", style:.Plain, target:nil, action:nil)
-
+        
         
         if ((self.navigationController?.respondsToSelector(Selector("interactivePopGestureRecognizer"))) != nil)
         {
@@ -108,8 +108,8 @@ class BaseViewController: UIViewController  ,UIImagePickerControllerDelegate, UI
         
         let stored =  videoData?.writeToFile(dataPath, atomically: false)
         print(stored)
-
-//        UISaveVideoAtPathToSavedPhotosAlbum(pathString!, self, nil, nil)
+        
+        //        UISaveVideoAtPathToSavedPhotosAlbum(pathString!, self, nil, nil)
         
         self.pushPreviewController()
         
@@ -121,7 +121,7 @@ class BaseViewController: UIViewController  ,UIImagePickerControllerDelegate, UI
         let vc = storyboard.instantiateViewControllerWithIdentifier("VenueSelection") as! VenueSelection
         vc.isVideo = true
         self.showViewController(vc, sender: self)
-
+        
     }
     
     // MARK:
@@ -276,6 +276,42 @@ class BaseViewController: UIViewController  ,UIImagePickerControllerDelegate, UI
                 self.btnNotificationNumber.setTitle("", forState: UIControlState.Normal)
             }
         }
+    }
+    
+    func convertStringToDictionary(text:String) -> [String:AnyObject]? {
+        if let data = text.dataUsingEncoding(NSUTF8StringEncoding) {
+            do {
+                return try NSJSONSerialization.JSONObjectWithData(data, options: []) as? [String:AnyObject]
+            } catch let error as NSError {
+                print(error)
+            }
+        }
+        return nil
+    }
+    
+    func convertStringToArray(text:String) -> NSArray? {
+        if let data = text.dataUsingEncoding(NSUTF8StringEncoding) {
+            do {
+                return try NSJSONSerialization.JSONObjectWithData(data, options: []) as? NSArray
+            } catch let error as NSError {
+                print(error)
+            }
+        }
+        return nil
+    }
+    
+    /*
+    // Common alert method need to be used to display alert, by passing alert string as parameter to it.
+    */
+    
+    func displayCommonAlert(alertMesage : NSString){
+        
+        let alertController = UIAlertController (title: globalConstants.kAppName, message: alertMesage as String?, preferredStyle:.Alert)
+        let okayAction: UIAlertAction = UIAlertAction(title: "Ok", style: .Cancel) { action -> Void in
+            //Just dismiss the action sheet
+        }
+        alertController.addAction(okayAction)
+        self.presentViewController(alertController, animated: true, completion: nil)
     }
     
 }

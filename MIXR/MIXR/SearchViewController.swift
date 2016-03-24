@@ -8,13 +8,16 @@
 
 import UIKit
 import SwiftyJSON
+import Alamofire
+import AlamofireImage
 
-class SearchViewController: BaseViewController, UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,APIConnectionDelegate {
+class SearchViewController: BaseViewController, UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate {
     
     var refreshControl:UIRefreshControl!
     //var usersArray : Array<JSON> = []
     var usersArray : NSMutableArray = NSMutableArray()
     
+    @IBOutlet weak var lblNoResultFound: UILabel!
     var searchingArray:NSMutableArray!
     let isLocalData = true
     @IBOutlet var searchBarObj: UISearchBar!
@@ -90,36 +93,154 @@ class SearchViewController: BaseViewController, UITableViewDelegate,UITableViewD
     //  MARK:- function OF feedsArray  -
     func loadData()
     {
-        if (isLocalData)
+        
+    }
+    
+    func loadSearchData()
+    {
+        let appDelegate=AppDelegate() //You create a new instance,not get the exist one
+        appDelegate.startAnimation((self.navigationController?.view)!)
+        
+        var tokenString = "token "
+        if let appToken =  NSUserDefaults.standardUserDefaults().objectForKey("LoginToken") as? String
         {
-            //profile_picture, title, subtitle
-            usersArray.addObject(["title":"Micheal Clarke","profile_picture":"userImage1.jpg","subtitle":"1234567890"])
-            usersArray.addObject(["title":"Mad River1","profile_picture":"venueImage1.jpg","subtitle":"Grant Boyle1"])
-            usersArray.addObject(["title":"John Woggs","profile_picture":"userImage2.jpg","subtitle":"1234567890"])
-            usersArray.addObject(["title":"Mad River2","profile_picture":"venueImage2.jpg","subtitle":"Grant Boyle2"])
-            usersArray.addObject(["title":"Hinns Hawks","profile_picture":"userImage3.jpg","subtitle":"1234567890"])
-            usersArray.addObject(["title":"Mad River3","profile_picture":"venueImage3.jpg","subtitle":"Grant Boyle3"])
-            usersArray.addObject(["title":"Stuart Jonald","profile_picture":"userImage4.jpg","subtitle":"1234567890"])
-            usersArray.addObject(["title":"Mad River4","profile_picture":"venueImage4.jpg","subtitle":"Grant Boyle4"])
-            usersArray.addObject(["title":"Steve Waugh","profile_picture":"userImage5.png","subtitle":"1234567890"])
-            usersArray.addObject(["title":"Mad River5","profile_picture":"venueImage5.jpg","subtitle":"Grant Boyle5"])
-            usersArray.addObject(["title":"Jimmy Walker","profile_picture":"userImage6.jpg","subtitle":"1234567890"])
-            usersArray.addObject(["title":"Mad River6","profile_picture":"venueImage6.jpg","subtitle":"Grant Boyle6"])
-            usersArray.addObject(["title":"Paul Smith","profile_picture":"userImage7.jpg","subtitle":"1234567890"])
-            usersArray.addObject(["title":"Martin Samueals","profile_picture":"userImage8.jpg","subtitle":"1234567890"])
-            usersArray.addObject(["title":"Mad River7","profile_picture":"venueImage7.jpg","subtitle":"Grant Boyle7"])
-            usersArray.addObject(["title":"Ronny Hoggs","profile_picture":"userImage9.png","subtitle":"1234567890"])
-            usersArray.addObject(["title":"Peter Hinns","profile_picture":"userImage10.jpg","subtitle":"1234567890"])
-            usersArray.addObject(["title":"Mad River8","profile_picture":"venueImage8.jpg","subtitle":"Grant Boyle8"])
-            reloadTable()
+            tokenString +=  appToken
+            
+            Alamofire.Manager.sharedInstance.session.configuration.HTTPAdditionalHeaders?.updateValue(tokenString, forKey: "authorization")
+            
+            let parameters = [
+                "query": self.searchBarObj.text!//.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet()),
+            ]
+            let URL =  globalConstants.kAPIURL + globalConstants.kSearchAPIEndPoint
+            //Alamofire.Manager.sharedInstance.session.configuration.HTTPAdditionalHeaders?.updateValue("application/json", forKey: "Accept")
+            
+            Alamofire.request(.POST, URL , parameters: parameters, encoding: .JSON)
+                .responseString { response in
+                    
+                    self.usersArray.removeAllObjects()
+                    self.searchingArray .removeAllObjects()
+                    
+                    appDelegate.stopAnimation()
+                    guard let value = response.result.value else
+                    {
+                        print("Error: did not receive data")
+                        self.reloadTable()
+                        
+                        return
+                    }
+                    
+                    guard response.result.error == nil else
+                    {
+                        print("error calling POST on Login")
+                        print(response.result.error)
+                        self.reloadTable()
+                        
+                        return
+                    }
+                    
+                    
+                    let post = JSON(value)
+                    if let string = post.rawString()
+                    {
+                        if response.response?.statusCode == 400
+                        {
+                            let responseDic:[String:AnyObject]? = self.convertStringToDictionary(string)
+                            print("The Response Error is:   \(response.response?.statusCode)")
+                            
+                            if let val = responseDic?["code"]
+                            {
+                                if val[0].isEqualToString("13")
+                                {
+                                    //print("Equals")
+                                    //self.displayCommonAlert(responseDic?["detail"]?[0] as! String)
+                                    self.reloadTable()
+                                    
+                                    return
+                                }
+                                // now val is not nil and the Optional has been unwrapped, so use it
+                            }
+                            
+                            if let errorData = responseDic?["detail"]
+                            {
+                                //let errorMessage = errorData[0] as! String
+                                //self.displayCommonAlert(errorMessage)
+                                self.reloadTable()
+                                
+                                return;
+                            }
+                        }
+                        else if (response.response?.statusCode == 200 || response.response?.statusCode == 201)
+                        {
+                            let responseArray:NSArray? = self.convertStringToArray(string)
+                            if let searchArray = responseArray as? NSMutableArray
+                            {
+                                //    if(self.feedcount == 0)
+                                //    {
+                                //        self.usersArray = self.createDisplayArray(searchArray)
+                                //        self.feedcount = self.usersArray.count
+                                //    }
+                                //    else
+                                //    {
+                                //        if(self.usersArray.count > 0)
+                                //        {
+                                //            let newData : NSMutableArray = self.createDisplayArray(searchArray)
+                                //            
+                                //            for (var cnt = 0; cnt < newData.count ; cnt++)
+                                //            {
+                                //                self.usersArray.addObject(newData[cnt])
+                                //            }
+                                //            
+                                //            self.feedcount = self.usersArray.count
+                                //        }
+                                //    }
+                                
+                                self.usersArray = self.createDisplayArray(searchArray)
+                                self.feedcount = self.usersArray.count
+                                self.searchingArray = self.usersArray
+                                
+                            }
+                        }
+                        
+                        self.reloadTable()
+                    }
+            }
         }
-        else
+    }
+    
+    func createDisplayArray(inputArray :NSMutableArray)->NSMutableArray
+    {
+        let newData : NSMutableArray = []
+        
+        for (var cnt = 0 ; cnt < inputArray.count; cnt++ )
         {
-            let param: Dictionary = Dictionary<String, AnyObject>()
-            //call API for to get venues
-            let object = APIConnection().POST(APIName.Users.rawValue, withAPIName:"SearchUser", withMessage:"", withParam: param, withProgresshudShow: true, withHeader: false) as! APIConnection
-            object.delegate = self
+            if let inputDict = inputArray[cnt] as? NSDictionary
+            {
+                let outPutDict :NSMutableDictionary = NSMutableDictionary(dictionary: inputDict)
+                
+                if let _ = inputDict["venue_id"] as? String
+                {
+                    outPutDict.setValue("\(inputDict["name"] as! String)", forKey: "title")
+                    outPutDict.setValue("", forKey: "profile_picture")
+                    outPutDict.setValue("", forKey: "subtitle")
+                }
+                else
+                {
+                    if let first_nameStr = inputDict["first_name"] as? String
+                    {
+                        outPutDict.setValue("\(first_nameStr) \(inputDict["last_name"] as! String)", forKey: "title")
+                    }
+                    
+                    if let image_url_Str = inputDict["image_url"] as? String
+                    {
+                        outPutDict.setValue(image_url_Str, forKey: "profile_picture")
+                    }
+                }
+                
+                outPutDict.setValue("", forKey: "subtitle")
+                newData.addObject(outPutDict)
+            }
         }
+        return newData
     }
     
     func reloadTable()
@@ -136,14 +257,32 @@ class SearchViewController: BaseViewController, UITableViewDelegate,UITableViewD
     func tableView(tableView: UITableView,
         numberOfRowsInSection section: Int) -> Int
     {
-        if is_searching == true
+        if (self.usersArray.count > 0)
         {
-            return searchingArray.count
+            self.lblNoResultFound.hidden = true
         }
         else
         {
-            return usersArray.count  //Currently Giving default Value
+            self.lblNoResultFound.hidden = false
         }
+        return self.usersArray.count  //Currently Giving default Value
+        
+//        if is_searching == true
+//        {
+//            return searchingArray.count
+//        }
+//        else
+//        {
+//            if (self.usersArray.count > 0)
+//            {
+//                self.lblNoResultFound.hidden = true
+//            }
+//            else
+//            {
+//                self.lblNoResultFound.hidden = false
+//            }
+//            return self.usersArray.count  //Currently Giving default Value
+//        }
     }
     
     func tableView(tableView: UITableView,
@@ -153,37 +292,84 @@ class SearchViewController: BaseViewController, UITableViewDelegate,UITableViewD
         let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as! SearchTableViewCell
         cell.selectionStyle = UITableViewCellSelectionStyle.None
         
-        if is_searching == true
-        {
-            let feedDict : NSDictionary = searchingArray[indexPath.row] as! NSDictionary
-            cell.imagePerson.image  = UIImage(named: feedDict["profile_picture"] as! String)
-            cell.labelName.text = feedDict["title"] as! NSString as String
-            cell.mobileNumber.text = feedDict["subtitle"] as! NSString as String
-            //cell.textLabel!.text = searchingArray[indexPath.row] as! NSString as String
-            if(indexPath.row == (searchingArray.count-4) && searchingArray.count > 8)
+//        if is_searching == true
+//        {
+//            let feedDict : NSDictionary = searchingArray[indexPath.row] as! NSDictionary
+//            cell.imagePerson.image  = UIImage(named: feedDict["profile_picture"] as! String)
+//            cell.labelName.text = feedDict["title"] as! NSString as String
+//            cell.mobileNumber.text = feedDict["subtitle"] as! NSString as String
+//            //cell.textLabel!.text = searchingArray[indexPath.row] as! NSString as String
+//            if(indexPath.row == (searchingArray.count-4) && searchingArray.count > 8)
+//            {
+//                self.loadData()
+//            }
+//        }
+//        else
+//        {
+            let feedDict : NSDictionary = self.usersArray[indexPath.row] as! NSDictionary
+            
+            if let imageNameStr = feedDict["image_url"] as? String
             {
-                self.loadData()
+                if (imageNameStr.characters.count > 0)
+                {
+                    //cell.imagePerson.image  = aImage
+                    let URL = NSURL(string: imageNameStr)!
+                    //let URL = NSURL(string: "https://avatars1.githubusercontent.com/u/1846768?v=3&s=460")!
+                    
+                    cell.imagePerson.af_setImageWithURL(URL, placeholderImage: UIImage(named: "ALPlaceholder"), filter: nil, imageTransition: .None, completion: { (response) -> Void in
+                        print("image: \(cell.imagePerson.image)")
+                        print(response.result.value) //# UIImage
+                        print(response.result.error) //# NSError
+                    })
+                    
+                    //let placeholderImage = UIImage(named: "ALPlaceholder")!
+                    //cell.imagePerson.af_setImageWithURL(URL, placeholderImage: placeholderImage)
+                    
+                }
+                else
+                {
+                    cell.imagePerson.image = UIImage(named:"ALPlaceholder")
+                }
             }
-        }
-        else
-        {
-            let feedDict : NSDictionary = usersArray[indexPath.row] as! NSDictionary
-            cell.imagePerson.image  = UIImage(named: feedDict["profile_picture"] as! String)
+            else
+            {
+                cell.imagePerson.image = UIImage(named:"ALPlaceholder")
+            }
+            
             cell.labelName.text = feedDict["title"] as? String
             cell.mobileNumber.text = feedDict["subtitle"] as! NSString as String
             
-            if(indexPath.row == (usersArray.count-4) && usersArray.count > 8)
+            if(indexPath.row == (self.usersArray.count-4) && self.usersArray.count > 8)
             {
                 self.loadData()
             }
-        }
+        //}
         
         return cell
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         print("indexpath.row = \(indexPath.row)")
+        let feedDict : NSDictionary = self.usersArray[indexPath.row] as! NSDictionary
         
+        if let venue_idStr = feedDict["venue_id"] as? String
+        {
+            // Venu Id
+            NSLog("venue_idStr = \(venue_idStr)")
+            let aVenueProfileViewController : VenueProfileViewController = self.storyboard!.instantiateViewControllerWithIdentifier("VenueProfileViewController") as! VenueProfileViewController
+            self.navigationController!.pushViewController(aVenueProfileViewController, animated: true)
+        }
+        else
+        {
+            // User Id 
+            if let user_idStr = feedDict["user_id"] as? String
+            {
+                NSLog("user_idStr = \(user_idStr)")
+                let postViewController : PostViewController = self.storyboard!.instantiateViewControllerWithIdentifier("PostViewController") as! PostViewController
+                postViewController.isUserProfile = true
+                self.navigationController!.pushViewController(postViewController, animated: true)
+            }
+        }
         //let selectedCell:UITableViewCell = tableView.cellForRowAtIndexPath(indexPath)!
         //selectedCell.contentView.backgroundColor = UIColor.clearColor()
     }
@@ -198,16 +384,25 @@ class SearchViewController: BaseViewController, UITableViewDelegate,UITableViewD
     }
     
     //  MARK:- Searchbar Delegate -
-    func searchBar(searchBar: UISearchBar, textDidChange searchText: String){
-        if searchBar.text!.isEmpty{
-            is_searching = false
-            tableView.reloadData()
-        } else {
-            print("search text %@ ",searchBar.text! as NSString)
+    func searchBar(searchBar: UISearchBar, textDidChange searchText: String)
+    {
+        self.searchingArray.removeAllObjects()
+        self.usersArray.removeAllObjects()
+        
+        if searchBar.text!.isEmpty
+        {
             is_searching = true
+            tableView.reloadData()
+        }
+        else
+        {
+            print("search text %@ ",searchBar.text! as NSString)
+            is_searching = false
             searchingArray.removeAllObjects()
-            
             let temp = self.searchBarObj.text
+            self.loadSearchData()
+            
+            return;
             print(self.usersArray)
             
             var tempArray : NSMutableArray = []
@@ -220,81 +415,5 @@ class SearchViewController: BaseViewController, UITableViewDelegate,UITableViewD
             
             tableView.reloadData()
         }
-    }
-    
-    //MARK: - APIConnection Delegate -
-    
-    func connectionFailedForAction(action: Int, andWithResponse result: Dictionary <String, JSON>!, method : String)
-    {
-        switch action
-        {
-        case APIName.Users.rawValue:
-            if ( result != nil)
-            {
-                DLog("\(result)")
-            }
-            
-        default:
-            DLog("Nothing")
-        }
-    }
-    
-    func connectionDidFinishedErrorResponceForAction(action: Int, andWithResponse result: Dictionary <String, JSON>!, method : String)
-    {
-        switch action
-        {
-        case APIName.Users.rawValue:
-            if ( result != nil)
-            {
-                DLog("\(result)")
-            }
-            
-        default:
-            DLog("Nothing")
-        }
-        
-    }
-    
-    func connectionDidFinishedForAction(action: Int, andWithResponse result: Dictionary <String, JSON>!, method : String)
-    {
-        switch action
-        {
-        case APIName.Users.rawValue:
-            if ( result != nil)
-            {
-                DLog("\(result)")
-                
-                if(feedcount == 0)
-                {
-                    self.usersArray = (result["data"]!.arrayObject as? NSMutableArray)!
-                    feedcount = self.usersArray.count
-                }
-                else
-                {
-                    if(self.usersArray.count > 0)
-                    {
-                        let newData : NSMutableArray = (result["data"]!.arrayObject as? NSMutableArray)!
-                        
-                        for (var cnt = 0; cnt < newData.count ; cnt++)
-                        {
-                            self.usersArray.addObject(newData[cnt])
-                        }
-                        
-                        feedcount = self.usersArray.count
-                    }
-                }
-                reloadTable()
-            }
-            
-            DLog("Search")
-            
-        default:
-            DLog("Nothing")
-        }
-    }
-    
-    func connectionDidUpdateAPIProgress(action: Int,bytesWritten: Int64, totalBytesWritten: Int64 ,totalBytesExpectedToWrite: Int64)
-    {
-        
     }
 }

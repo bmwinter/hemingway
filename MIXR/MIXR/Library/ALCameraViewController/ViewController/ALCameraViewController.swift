@@ -136,30 +136,41 @@ public class ALCameraViewController: UIViewController {
         }
     }
     
-    private func commonInit() {
-        if UIScreen.mainScreen().bounds.size.width <= 320 {
+    private func commonInit()
+    {
+        if UIScreen.mainScreen().bounds.size.width <= 320
+        {
             verticalPadding = 15
             horizontalPadding = 15
         }
     }
     
-    private func checkPermissions() {
-        if AVCaptureDevice.authorizationStatusForMediaType(AVMediaTypeVideo) == AVAuthorizationStatus.Authorized {
+    private func checkPermissions()
+    {
+        if AVCaptureDevice.authorizationStatusForMediaType(AVMediaTypeVideo) == AVAuthorizationStatus.Authorized
+        {
             startCamera()
-        } else {
-            AVCaptureDevice.requestAccessForMediaType(AVMediaTypeVideo) { granted in
-                dispatch_async(dispatch_get_main_queue()) {
-                    if granted == true {
-                        self.startCamera()
-                    } else {
-                        self.showNoPermissionsView()
+        }
+        else
+        {
+            AVCaptureDevice.requestAccessForMediaType(AVMediaTypeVideo)
+                {
+                    granted in dispatch_async(dispatch_get_main_queue())
+                        {
+                            if granted == true
+                            {
+                                self.startCamera()
+                            } else
+                            {
+                                self.showNoPermissionsView()
+                            }
                     }
-                }
             }
         }
     }
     
-    private func showNoPermissionsView() {
+    private func showNoPermissionsView()
+    {
         let permissionsView = ALPermissionsView(frame: view.bounds)
         view.addSubview(permissionsView)
         view.addSubview(closeButton)

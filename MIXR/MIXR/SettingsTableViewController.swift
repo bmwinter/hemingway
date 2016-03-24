@@ -13,8 +13,12 @@ enum settingsTag:Int {
     case editProfile
     case changePassword
     case changeName
+    case privateAccount
     case privacyPolicy
-    case termsAndCondition
+    case TermsCondition
+    case following
+    case follower
+    /*case termsAndCondition*/
     case logout
 }
 
@@ -44,6 +48,8 @@ class SettingsTableViewController: UITableViewController,UIGestureRecognizerDele
     @IBAction func settingsButtonTapped (sender:AnyObject)
     {
         let button = sender as? UIButton
+        NSLog("button tag = \(button?.tag)")
+        
         switch (button?.tag)
         {
         case settingsTag.editProfile.rawValue? :
@@ -59,22 +65,28 @@ class SettingsTableViewController: UITableViewController,UIGestureRecognizerDele
             print("Change password")
             
         case settingsTag.changeName.rawValue? :
-            let aNotificationViewController : NotificationViewController = self.storyboard!.instantiateViewControllerWithIdentifier("NotificationViewController") as! NotificationViewController
-            self.navigationController!.pushViewController(aNotificationViewController, animated: true)
-            //self.performSegueWithIdentifier("Notification", sender: nil)
+            //            let aNotificationViewController : NotificationViewController = self.storyboard!.instantiateViewControllerWithIdentifier("NotificationViewController") as! NotificationViewController
+            //            self.navigationController!.pushViewController(aNotificationViewController, animated: true)
+            //            //self.performSegueWithIdentifier("Notification", sender: nil)
             print("Change Name")
             
         case settingsTag.privacyPolicy.rawValue? :
-            let aVenueProfileViewController : VenueProfileViewController = self.storyboard!.instantiateViewControllerWithIdentifier("VenueProfileViewController") as! VenueProfileViewController
-            self.navigationController!.pushViewController(aVenueProfileViewController, animated: true)
-            //self.performSegueWithIdentifier("VenueProfile", sender: nil)
+            //            let aVenueProfileViewController : VenueProfileViewController = self.storyboard!.instantiateViewControllerWithIdentifier("VenueProfileViewController") as! VenueProfileViewController
+            //            self.navigationController!.pushViewController(aVenueProfileViewController, animated: true)
+            //            //self.performSegueWithIdentifier("VenueProfile", sender: nil)
             print("Privary Policy")
             
-        case settingsTag.termsAndCondition.rawValue? :
+        case settingsTag.following.rawValue? :
             let followingViewController : FollowingViewController = self.storyboard!.instantiateViewControllerWithIdentifier("FollowingViewController") as! FollowingViewController
             //postViewController.feedDict = feedDict
             self.navigationController!.pushViewController(followingViewController, animated: true)
-            print("Terms & Condition")
+            print("Following")
+            
+        case settingsTag.follower.rawValue? :
+            let followersViewController : FollowersViewController = self.storyboard!.instantiateViewControllerWithIdentifier("FollowersViewController") as! FollowersViewController
+            //postViewController.feedDict = feedDict
+            self.navigationController!.pushViewController(followersViewController, animated: true)
+            print("Followers")
             
         case settingsTag.logout.rawValue? :
             print("Logout")
@@ -116,7 +128,7 @@ class SettingsTableViewController: UITableViewController,UIGestureRecognizerDele
     }
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 8
+        return 9
     }
     
     

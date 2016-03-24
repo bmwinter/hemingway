@@ -7,12 +7,14 @@
 //
 
 import UIKit
+import SwiftyJSON
+import Alamofire
 
 class NotificationViewController: BaseViewController,UITableViewDelegate,UITableViewDataSource,UISearchBarDelegate
 {
     let feedsArray      : NSMutableArray = NSMutableArray()
     let promotersArray  : NSMutableArray = NSMutableArray()
-    let followingRequestArray  : NSMutableArray = NSMutableArray()
+    var followingRequestArray  : NSMutableArray = NSMutableArray()
     
     @IBOutlet var tblViewNotification: UITableView!
     @IBOutlet weak var followRequestTableView: UITableView!
@@ -85,6 +87,8 @@ class NotificationViewController: BaseViewController,UITableViewDelegate,UITable
         promotersArray.addObject(["promoters":"Mark Houser's coupon valid until 13/2/2016","userHr":""])
         
         
+        //self.loadfollowingRequestData()
+        
         followingRequestArray.addObject(["followingReques":"Jennifer Lawrence wants to follow you","userImage":"venueImage1.jpg","userHr":"1"])
         followingRequestArray.addObject(["followingReques":"Mark Houser wants to follow you","userImage":"venueImage2.jpg","userHr":"2"])
         followingRequestArray.addObject(["followingReques":"Carl Stuart wants to follow you","userImage":"venueImage3.jpg","userHr":"3"])
@@ -95,6 +99,132 @@ class NotificationViewController: BaseViewController,UITableViewDelegate,UITable
         followingRequestArray.addObject(["followingReques":"George Stapheny wants to follow you","userImage":"venueImage8.jpg","userHr":"12"])
         followingRequestArray.addObject(["followingReques":"Simon Hughs wants to follow you","userImage":"venueImage9.jpg","userHr":"16"])
         followingRequestArray.addObject(["followingReques":"Leon Smith wants to follow you","userImage":"venueImage10.jpg","userHr":"22"])
+        
+    }
+    
+    func loadfollowingRequestData()
+    {
+        self.followingRequestArray.removeAllObjects()
+        
+        let appDelegate=AppDelegate() //You create a new instance,not get the exist one
+        appDelegate.startAnimation((self.navigationController?.view)!)
+        
+        var tokenString = "token "
+        if let appToken =  NSUserDefaults.standardUserDefaults().objectForKey("LoginToken") as? String
+        {
+            tokenString +=  appToken
+            
+            let URL =  globalConstants.kAPIURL + globalConstants.kFollowRequestAPIEndPoint
+            
+            let headers = [
+                "Authorization": tokenString,
+            ]
+            
+            Alamofire.request(.GET, URL , parameters: nil, encoding: .JSON, headers : headers)
+                .responseString { response in
+                    
+                    print("response \(response)")
+                    appDelegate.stopAnimation()
+                    
+                    guard let value = response.result.value else
+                    {
+                        print("Error: did not receive data")
+                        self.followRequestTableView.reloadData()
+                        
+                        return
+                    }
+                    
+                    guard response.result.error == nil else
+                    {
+                        print("error calling POST on Login")
+                        print(response.result.error)
+                        self.followRequestTableView.reloadData()
+                        
+                        return
+                    }
+                    
+                    let post = JSON(value)
+                    if let string = post.rawString()
+                    {
+                        if (response.response?.statusCode == 400 || response.response?.statusCode == 401)
+                        {
+                            let responseDic:[String:AnyObject]? = self.convertStringToDictionary(string)
+                            print("The Response Error is:   \(response.response?.statusCode)")
+                            
+                            if let val = responseDic?["code"]
+                            {
+                                if val[0].isEqualToString("13")
+                                {
+                                    //print("Equals")
+                                    self.displayCommonAlert(responseDic?["detail"]?[0] as! String)
+                                    self.followRequestTableView.reloadData()
+                                    
+                                    return
+                                }
+                                // now val is not nil and the Optional has been unwrapped, so use it
+                            }
+                            
+                            if let errorData = responseDic?["detail"]
+                            {
+                                let errorMessage = errorData as! String
+                                self.displayCommonAlert(errorMessage)
+                                self.followRequestTableView.reloadData()
+                                
+                                return;
+                            }
+                        }
+                        else if (response.response?.statusCode == 200 || response.response?.statusCode == 201)
+                        {
+                            let responseArray:NSArray? = self.convertStringToArray(string)
+                            if let searchArray = responseArray as? NSMutableArray
+                            {
+                                self.followingRequestArray = self.createDisplayArray(searchArray)
+                            }
+                        }
+                        else
+                        {
+                            
+                        }
+                        self.followRequestTableView.reloadData()
+                    }
+            }
+        }
+    }
+    
+    func createDisplayArray(inputArray :NSMutableArray)->NSMutableArray
+    {
+        let newData : NSMutableArray = []
+        
+        for (var cnt = 0 ; cnt < inputArray.count; cnt++ )
+        {
+            if let inputDict = inputArray[cnt] as? NSDictionary
+            {
+                let outPutDict :NSMutableDictionary = NSMutableDictionary(dictionary: inputDict)
+                
+                if let venue_idStr = inputDict["venue_id"] as? String
+                {
+                    outPutDict.setValue("\(inputDict["name"] as! String)", forKey: "title")
+                    outPutDict.setValue("", forKey: "profile_picture")
+                    outPutDict.setValue("", forKey: "subtitle")
+                }
+                else
+                {
+                    if let first_nameStr = inputDict["first_name"] as? String
+                    {
+                        outPutDict.setValue("\(first_nameStr) \(inputDict["last_name"] as! String)", forKey: "userName")
+                    }
+                    
+                    if let image_url_Str = inputDict["image_url"] as? String
+                    {
+                        outPutDict.setValue(image_url_Str, forKey: "userImage")
+                    }
+                }
+                
+                outPutDict.setValue("", forKey: "subtitle")
+                newData.addObject(outPutDict)
+            }
+        }
+        return newData
     }
     
     @IBOutlet var segmentedControl: UISegmentedControl!

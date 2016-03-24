@@ -1,8 +1,8 @@
 //
-//  FollowingViewController.swift
+//  FollowersViewController.Swift
 //  MIXR
 //
-//  Created by Sujal Bandhara on 30/17/16.
+//  Created by Sujal Bandhara on 30/16/16.
 //  Copyright © 2015 MIXR LLC. All rights reserved.
 //
 
@@ -10,7 +10,7 @@ import UIKit
 import SwiftyJSON
 import Alamofire
 
-class FollowingViewController: BaseViewController, UITableViewDelegate,UITableViewDataSource {
+class FollowersViewController: BaseViewController, UITableViewDelegate,UITableViewDataSource {
     
     //var usersArray : Array<JSON> = []
     var usersArray : NSMutableArray = NSMutableArray()
@@ -28,7 +28,7 @@ class FollowingViewController: BaseViewController, UITableViewDelegate,UITableVi
         
         super.viewDidLoad()
         //self.navigationController?.interactivePopGestureRecognizer!.delegate =  self
-        //self.navigationController?.interactivePopGestureRecognizer!.enabled = true        
+        //self.navigationController?.interactivePopGestureRecognizer!.enabled = true
         
         is_searching = false
         self.tableView.separatorColor = UIColor .clearColor()
@@ -71,7 +71,7 @@ class FollowingViewController: BaseViewController, UITableViewDelegate,UITableVi
         {
             tokenString +=  appToken
             
-            let URL =  globalConstants.kAPIURL + globalConstants.kFollowingAPIEndPoint
+            let URL =  globalConstants.kAPIURL + globalConstants.kFollowersAPIEndPoint
             
             let headers = [
                 "Authorization": tokenString,
