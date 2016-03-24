@@ -11,9 +11,10 @@ import UIKit
 import BTNavigationDropdownMenu
 import AVFoundation
 import MediaPlayer
-
+import Alamofire
 class VenueSelection : UIViewController,UIGestureRecognizerDelegate {
     @IBOutlet weak var capturedImage: UIImageView!
+    @IBOutlet weak var videoIcon: UIImageView!
     var isVideo: Bool!
     var capturedImageFile: UIImage!
     var moviePlayer : MPMoviePlayerController?
@@ -124,6 +125,8 @@ class VenueSelection : UIViewController,UIGestureRecognizerDelegate {
 //        self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.whiteColor()]
         
         menuView = BTNavigationDropdownMenu(navigationController: self.navigationController, title: items.first!, items: items)
+        menuView.arrowImage = UIImage(named: "ArrowDown")
+        menuView.checkMarkImage = UIImage(named: "checkMark")
         menuView.cellHeight = 50
         menuView.cellBackgroundColor = self.navigationController?.navigationBar.barTintColor
         menuView.cellSelectionColor = UIColor(red: (126.0/255.0), green: (163.0/255.0), blue: (102.0/255.0), alpha: 1)//UIColor(red: 0.0/255.0, green:160.0/255.0, blue:195.0/255.0, alpha: 1.0)
@@ -166,6 +169,7 @@ class VenueSelection : UIViewController,UIGestureRecognizerDelegate {
         self.navigationController?.navigationBarHidden = false
         super.viewWillAppear(true)
         if self.isVideo == true {
+            self.videoIcon.hidden = false
             let paths = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, NSSearchPathDomainMask.UserDomainMask, true)
             let documentsDirectory: AnyObject = paths[0]
             let dataPath = documentsDirectory.stringByAppendingPathComponent("/vid1.mp4")
@@ -175,14 +179,103 @@ class VenueSelection : UIViewController,UIGestureRecognizerDelegate {
                 let cgImage = try imgGenerator.copyCGImageAtTime(CMTimeMake(0, 1), actualTime: nil)
                 let uiImage = UIImage(CGImage: cgImage)
                 capturedImage.image = uiImage
+                capturedImage.transform = CGAffineTransformMakeRotation(CGFloat(M_PI_2));
+
             } catch let error as NSError {
                 print("Error generating thumbnail: \(error)")
             }
         }else{
+            self.videoIcon.hidden = true
             capturedImage.image = self.capturedImageFile
         }
+        self.shareVenuePhotoVideo()
     }
     
+    //MARK: Temp function to check upload file on server.
+    
+    func shareVenuePhotoVideo(){
+        /*
+        let fileURL = NSBundle.mainBundle().URLForResource("mixriconApp_icon", withExtension: "png")
+        
+        let URL =  globalConstants.kAPIURL + globalConstants.kPostVenuePhotoVideo
+        
+        var tokenString = "token "
+        tokenString +=  NSUserDefaults.standardUserDefaults().objectForKey("LoginToken") as! String
+        
+        
+        
+        
+        Alamofire.Manager.sharedInstance.session.configuration.HTTPAdditionalHeaders?.updateValue(tokenString, forKey: "Authorization")
+        Alamofire.Manager.sharedInstance.session.configuration.HTTPAdditionalHeaders?.updateValue("attachment; filename=media_filename.png;", forKey: "Content-Disposition")
+        
+        Alamofire.upload(.POST, URL, file: fileURL!)
+            .progress { bytesWritten, totalBytesWritten, totalBytesExpectedToWrite in
+                print(totalBytesWritten)
+                
+                // This closure is NOT called on the main queue for performance
+                // reasons. To update your ui, dispatch to the main queue.
+                dispatch_async(dispatch_get_main_queue()) {
+                    print("Total bytes written on main queue: \(totalBytesWritten)")
+                }
+            }
+            .responseJSON { response in
+                debugPrint(response)
+        }
+*/
+        
+        let parameters = [
+            "file": "file.png",
+            "venue_id": "1"]
+        
+        let URL = globalConstants.kAPIURL + globalConstants.kPostVenuePhotoVideo
+        
+//        let image = UIImage(named: "mixriconApp_icon.png")
+        
+        var tokenString = "token "
+        tokenString +=  NSUserDefaults.standardUserDefaults().objectForKey("LoginToken") as! String
+        
+        Alamofire.Manager.sharedInstance.session.configuration.HTTPAdditionalHeaders?.updateValue(tokenString, forKey: "Authorization")
+        Alamofire.Manager.sharedInstance.session.configuration.HTTPAdditionalHeaders?.updateValue("attachment; filename=media_filename.png;", forKey: "Content-Disposition")
+        
+        let paths = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, NSSearchPathDomainMask.UserDomainMask, true)
+        let documentsDirectory: AnyObject = paths[0]
+        let dataPath = documentsDirectory.stringByAppendingPathComponent("/vid1.mp4")
+//        let asset = AVURLAsset(URL: NSURL(fileURLWithPath: dataPath), options: nil)
+        
+        Alamofire.upload(.POST, URL, multipartFormData: {
+            multipartFormData in
+            
+//            if let _image = image {
+//                if let imageData = UIImageJPEGRepresentation(_image, 0.5) {
+//                    multipartFormData.appendBodyPart(data: imageData, name: "file", fileName: "file.png", mimeType: "image/png")
+//                }
+//            }
+            
+            multipartFormData.appendBodyPart(fileURL: NSURL(fileURLWithPath: dataPath), name: "video",fileName: "test.mp4", mimeType: "video/mp4")
+            
+//            multipartFormData.appendBodyPart(fileURL: NSURL(fileURLWithPath: dataPath), name: "video")
+            
+            for (key, value) in parameters {
+                multipartFormData.appendBodyPart(data: value.dataUsingEncoding(NSUTF8StringEncoding)!, name: key)
+            }
+            
+            }, encodingCompletion: {
+                encodingResult in
+                
+                switch encodingResult {
+                case .Success(let upload, _, _):
+                    upload.responseJSON { response in
+                        debugPrint(response)
+                    }
+                case .Failure(let encodingError):
+                    print(encodingError)
+                }
+        })
+
+        
+        
+    }
+
     
     @IBAction func postButtonTapped(sender: AnyObject){
     }

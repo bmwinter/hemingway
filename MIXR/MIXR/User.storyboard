@@ -529,6 +529,10 @@
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="o4y-x7-iP2">
                                 <rect key="frame" x="40" y="167" width="240" height="240"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="240" id="LQ3-NC-jbv"/>
+                                    <constraint firstAttribute="width" constant="240" id="hHg-5L-95b"/>
+                                </constraints>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" verticalCompressionResistancePriority="749" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Kl0-jU-y6u" customClass="BorderedButton" customModule="MIXR" customModuleProvider="target">
                                 <rect key="frame" x="16" y="441" width="288" height="41"/>
@@ -546,6 +550,9 @@
                                     <action selector="postButtonTapped:" destination="Hdj-YD-Mb5" eventType="touchUpInside" id="ZEe-dT-gat"/>
                                 </connections>
                             </button>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="PlayButton" translatesAutoresizingMaskIntoConstraints="NO" id="K4w-fb-1aq">
+                                <rect key="frame" x="95" y="222" width="130" height="130"/>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -562,6 +569,7 @@
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO" prompted="NO"/>
                     <connections>
                         <outlet property="capturedImage" destination="o4y-x7-iP2" id="Gc2-Oa-cgP"/>
+                        <outlet property="videoIcon" destination="K4w-fb-1aq" id="yTv-nt-UMh"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Dre-s8-CNO" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -937,6 +945,7 @@
         <image name="ArrowLeft.png" width="12" height="21"/>
         <image name="BG" width="320" height="480"/>
         <image name="Chcked" width="16" height="16"/>
+        <image name="PlayButton" width="170" height="170"/>
         <image name="UnChecked" width="16" height="16"/>
         <image name="logowithName" width="173" height="69"/>
     </resources>
