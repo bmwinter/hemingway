@@ -7,6 +7,9 @@
 //
 
 import UIKit
+import SwiftyJSON
+import Alamofire
+import AlamofireImage
 
 class PostViewController: BaseViewController {
     
@@ -21,8 +24,9 @@ class PostViewController: BaseViewController {
     
     @IBOutlet weak var cameraBtn: UIButton!
     @IBOutlet weak var SettingBtn: UIButton!
-    
+    var userId: String! = ""
     var isUserProfile : Bool = false
+    var followIndex = 0
     
     @IBAction func OnSettingBtnAction(sender: AnyObject)
     {
@@ -34,11 +38,11 @@ class PostViewController: BaseViewController {
     override func viewDidLoad()
     {
         super.viewDidLoad()
+        self.initUI()
         //self.navigationController?.interactivePopGestureRecognizer!.delegate =  self
         //self.navigationController?.interactivePopGestureRecognizer!.enabled = true        
-        self.loadData()
+        loadUserData()
         // Do any additional setup after loading the view.
-        self.btnFeedName.titleLabel?.font = UIFont(name: "ForgottenFuturistRg-Bold", size: 24)
     }
     
     override func viewWillAppear(animated: Bool)
@@ -48,16 +52,254 @@ class PostViewController: BaseViewController {
         self.navigationController?.navigationBarHidden = true
     }
     
+    func loadUserData()
+    {
+        self.userId = "1"
+        let appDelegate=AppDelegate() //You create a new instance,not get the exist one
+        appDelegate.startAnimation((self.navigationController?.view)!)
+        
+        var tokenString = "token "
+        if let appToken =  NSUserDefaults.standardUserDefaults().objectForKey("LoginToken") as? String
+        {
+            tokenString +=  appToken
+            
+            let URL =  globalConstants.kAPIURL + globalConstants.kProfileOther
+            
+            
+            let headers = [
+                "Authorization": tokenString,
+            ]
+            
+            let parameters = [
+                "user_id": self.userId//.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet()),
+            ]
+            Alamofire.request(.POST, URL , parameters: parameters, encoding: .JSON, headers : headers)
+                .responseString { response in
+                    
+                    print("response \(response)")
+                    appDelegate.stopAnimation()
+                    guard let value = response.result.value else
+                    {
+                        print("Error: did not receive data")
+                       self.loadData()
+                        
+                        return
+                    }
+                    
+                    guard response.result.error == nil else
+                    {
+                        print("error calling POST on Login")
+                        print(response.result.error)
+                        self.loadData()
+                        
+                        return
+                    }
+                    
+                    
+                    let post = JSON(value)
+                    if let string = post.rawString()
+                    {
+                        if (response.response?.statusCode == 400 || response.response?.statusCode == 401)
+                        {
+                            let responseDic:[String:AnyObject]? = self.convertStringToDictionary(string)
+                            print("The Response Error is:   \(response.response?.statusCode)")
+                            
+                            if let val = responseDic?["code"]
+                            {
+                                if val[0].isEqualToString("13")
+                                {
+                                    //print("Equals")
+                                    self.displayCommonAlert(responseDic?["detail"]?[0] as! String)
+                                    self.loadData()
+                                    
+                                    return
+                                }
+                                // now val is not nil and the Optional has been unwrapped, so use it
+                            }
+                            
+                            if let errorData = responseDic?["detail"]
+                            {
+                                let errorMessage = errorData as! String
+                                self.displayCommonAlert(errorMessage)
+                                self.loadData()
+                                
+                                return;
+                            }
+                        }
+                        else if (response.response?.statusCode == 200 || response.response?.statusCode == 201)
+                        {
+                             let responseDic:[String:AnyObject]? = self.convertStringToDictionary(string)
+                            self.feedDict = responseDic!
+                             print("The  responseDic is:   \(self.feedDict)")
+                             print("The  user_id is:   \(self.feedDict["user_id"]!)")
+                             print("The  name is:   \(self.feedDict["name"]!)")
+                             print("The  image_url is:   \(self.feedDict["image_url"]!)")
+                            /*
+                            "user_id": 1,
+                            "name": "Brendan Winter",
+                            "image_url": "https://s3-us-west-2.amazonaws.com/mixrprofile/2016_03_04_03_58_1.jpg"
+                            */
+                            
+                        }
+                        else
+                        {
+                            
+                        }
+                        
+                        self.loadData()
+                    }
+            }
+        }
+    }
+    
+    func setFollowBtn()
+    {
+        let appDelegate=AppDelegate() //You create a new instance,not get the exist one
+        appDelegate.startAnimation((self.navigationController?.view)!)
+        
+        var tokenString = "token "
+        if let appToken =  NSUserDefaults.standardUserDefaults().objectForKey("LoginToken") as? String
+        {
+            tokenString +=  appToken
+            
+            let URL =  globalConstants.kAPIURL + globalConstants.kFollowRequestAPIEndPoint
+            
+            
+            let headers = [
+                "Authorization": tokenString,
+            ]
+            
+            let parameters = [
+                "follower_id": self.userId//.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet()),
+            ]
+            Alamofire.request(.POST, URL , parameters: parameters, encoding: .JSON, headers : headers)
+                .responseString { response in
+                    
+                    print("response \(response)")
+                    appDelegate.stopAnimation()
+                    guard let value = response.result.value else
+                    {
+                        print("Error: did not receive data")
+                        //self.loadData()
+                        
+                        return
+                    }
+                    
+                    guard response.result.error == nil else
+                    {
+                        print("error calling POST on Login")
+                        print(response.result.error)
+                        //self.loadData()
+                        
+                        return
+                    }
+                    
+                    
+                    let post = JSON(value)
+                    if let string = post.rawString()
+                    {
+                        if (response.response?.statusCode == 400 || response.response?.statusCode == 401)
+                        {
+                            let responseDic:[String:AnyObject]? = self.convertStringToDictionary(string)
+                            print("The Response Error is:   \(response.response?.statusCode)")
+                            
+                            if let val = responseDic?["code"]
+                            {
+                                if val[0].isEqualToString("13")
+                                {
+                                    //print("Equals")
+                                    self.displayCommonAlert(responseDic?["detail"]?[0] as! String)
+                                    //self.loadData()
+                                    
+                                    return
+                                }
+                                // now val is not nil and the Optional has been unwrapped, so use it
+                            }
+                            
+                            if let errorData = responseDic?["detail"]
+                            {
+                                let errorMessage = errorData as! String
+                                self.displayCommonAlert(errorMessage)
+                                //self.loadData()
+                                
+                                return;
+                            }
+                        }
+                        else if (response.response?.statusCode == 200 || response.response?.statusCode == 201)
+                        {
+                            let responseDic:[String:AnyObject]? = self.convertStringToDictionary(string)
+                            print("The  responseDic is:   \(responseDic)")
+                            print("The  follow_status is:   \(responseDic!["follow_status"])")
+                            self.followIndex = (responseDic!["follow_status"]?.integerValue)!
+                            
+                            print("The  self.followIndex is:   \(self.followIndex)")
+
+                            /*
+                            "user_id": 1,
+                            "name": "Brendan Winter",
+                            "image_url": "https://s3-us-west-2.amazonaws.com/mixrprofile/2016_03_04_03_58_1.jpg"
+                            */
+                            
+                        }
+                        else
+                        {
+                            
+                        }
+                        
+                        //self.loadData()
+                    }
+            }
+        }
+    }
+
     func loadData()
     {
+       
+        self.setFollowBtn()
+
         if (feedDict.allKeys.count > 0)
         {
-            self.userImageView.image = UIImage(named: "userImage4.jpg")
-            self.venuImageView.image = UIImage(named: feedDict["venueImage"] as! String)
-            //self.FeedName.text = feedDict["venueName"] as? String
-            //self.lblUserName.text = feedDict["userName"] as? String
+            if let imageNameStr = self.feedDict["image_url"] as? String
+            {
+                if (imageNameStr.characters.count > 0)
+                {
+                    //cell.imagePerson.image  = aImage
+                    let URL = NSURL(string: imageNameStr)!
+                    //let URL = NSURL(string: "https://avatars1.githubusercontent.com/u/1846768?v=3&s=460")!
+                    Request.addAcceptableImageContentTypes(["binary/octet-stream"])
+                    let filter = AspectScaledToFillSizeWithRoundedCornersFilter(
+                        size: self.userImageView.frame.size,
+                        radius: 0.0
+                    )
+                    self.userImageView.af_setImageWithURL(URL, placeholderImage: UIImage(named: "ALPlaceholder"), filter: filter, imageTransition: .None, completion: { (response) -> Void in
+                        print("image: \(self.userImageView.image)")
+                        print(response.result.value) //# UIImage
+                        if (response.result.value == nil)
+                        {
+                            self.userImageView.image = UIImage(named:"ALPlaceholder")
+                        }
+                        print(response.result.error) //# NSError
+                    })
+                    
+                    //let placeholderImage = UIImage(named: "ALPlaceholder")!
+                    //cell.imagePerson.af_setImageWithURL(URL, placeholderImage: placeholderImage)
+                    
+                }
+                else
+                {
+                    self.userImageView.image = UIImage(named:"ALPlaceholder")
+                }
+            }
+            else
+            {
+                self.userImageView.image = UIImage(named:"ALPlaceholder")
+            }
+            self.btnFeedName.setTitle(feedDict["name"] as? String, forState: UIControlState.Normal)
         }
-        
+    }
+    
+    func initUI()
+    {
         if (isUserProfile)
         {
             self.SettingBtn.hidden = false
@@ -76,6 +318,8 @@ class PostViewController: BaseViewController {
                 subview.layer.cornerRadius = 0.0
             }
         }
+        self.btnFeedName.titleLabel?.font = UIFont(name: "ForgottenFuturistRg-Bold", size: 24)
+        
     }
     
     override func didReceiveMemoryWarning()

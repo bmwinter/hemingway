@@ -11,7 +11,7 @@ PODS:
 
 DEPENDENCIES:
   - Agrume
-  - Alamofire (= 3.0.0)
+  - Alamofire
   - AlamofireImage
   - BTNavigationDropdownMenu
   - IQKeyboardManagerSwift (~> 3.3)

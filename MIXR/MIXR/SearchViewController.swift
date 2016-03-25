@@ -174,30 +174,29 @@ class SearchViewController: BaseViewController, UITableViewDelegate,UITableViewD
                             let responseArray:NSArray? = self.convertStringToArray(string)
                             if let searchArray = responseArray as? NSMutableArray
                             {
-                                //    if(self.feedcount == 0)
-                                //    {
-                                //        self.usersArray = self.createDisplayArray(searchArray)
-                                //        self.feedcount = self.usersArray.count
-                                //    }
-                                //    else
-                                //    {
-                                //        if(self.usersArray.count > 0)
-                                //        {
-                                //            let newData : NSMutableArray = self.createDisplayArray(searchArray)
-                                //            
-                                //            for (var cnt = 0; cnt < newData.count ; cnt++)
-                                //            {
-                                //                self.usersArray.addObject(newData[cnt])
-                                //            }
-                                //            
-                                //            self.feedcount = self.usersArray.count
-                                //        }
-                                //    }
+                                // if(self.feedcount == 0)
+                                // {
+                                //     self.usersArray = self.createDisplayArray(searchArray)
+                                //     self.feedcount = self.usersArray.count
+                                // }
+                                // else
+                                // {
+                                //     if(self.usersArray.count > 0)
+                                //     {
+                                //         let newData : NSMutableArray = self.createDisplayArray(searchArray)
+                                //         
+                                //         for (var cnt = 0; cnt < newData.count ; cnt++)
+                                //         {
+                                //             self.usersArray.addObject(newData[cnt])
+                                //         }
+                                //         
+                                //         self.feedcount = self.usersArray.count
+                                //     }
+                                // }
                                 
                                 self.usersArray = self.createDisplayArray(searchArray)
                                 self.feedcount = self.usersArray.count
                                 self.searchingArray = self.usersArray
-                                
                             }
                         }
                         
@@ -316,7 +315,12 @@ class SearchViewController: BaseViewController, UITableViewDelegate,UITableViewD
                     let URL = NSURL(string: imageNameStr)!
                     //let URL = NSURL(string: "https://avatars1.githubusercontent.com/u/1846768?v=3&s=460")!
                     
-                    cell.imagePerson.af_setImageWithURL(URL, placeholderImage: UIImage(named: "ALPlaceholder"), filter: nil, imageTransition: .None, completion: { (response) -> Void in
+                    Request.addAcceptableImageContentTypes(["binary/octet-stream"])
+                    let filter = AspectScaledToFillSizeWithRoundedCornersFilter(
+                        size: cell.imagePerson.frame.size,
+                        radius: 0.0
+                    )
+                    cell.imagePerson.af_setImageWithURL(URL, placeholderImage: UIImage(named: "ALPlaceholder"), filter: filter, imageTransition: .None, completion: { (response) -> Void in
                         print("image: \(cell.imagePerson.image)")
                         print(response.result.value) //# UIImage
                         print(response.result.error) //# NSError
@@ -367,6 +371,7 @@ class SearchViewController: BaseViewController, UITableViewDelegate,UITableViewD
                 NSLog("user_idStr = \(user_idStr)")
                 let postViewController : PostViewController = self.storyboard!.instantiateViewControllerWithIdentifier("PostViewController") as! PostViewController
                 postViewController.isUserProfile = true
+                postViewController.userId = user_idStr
                 self.navigationController!.pushViewController(postViewController, animated: true)
             }
         }

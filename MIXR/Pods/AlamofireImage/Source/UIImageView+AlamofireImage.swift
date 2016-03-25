@@ -382,7 +382,8 @@ extension UIImageView {
     private func URLRequestWithURL(URL: NSURL) -> NSURLRequest {
         let mutableURLRequest = NSMutableURLRequest(URL: URL)
         mutableURLRequest.addValue("image/*", forHTTPHeaderField: "Accept")
-
+        //mutableURLRequest.addValue("application/octet-stream", forHTTPHeaderField: "Accept")
+        mutableURLRequest.addValue("binary/octet-stream", forHTTPHeaderField: "Accept")
         return mutableURLRequest
     }
 
