@@ -14,6 +14,7 @@ target 'MIXR' do
     pod 'BTNavigationDropdownMenu'
     pod 'SpringIndicator'
     pod 'AlamofireImage'
+    pod 'Mapbox-iOS-SDK'
 end
 
 target 'MIXRTests' do

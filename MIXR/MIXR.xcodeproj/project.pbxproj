@@ -178,6 +178,7 @@
 		80B1958B1C333250009B265C /* forgotten futurist rg.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 80B195871C333250009B265C /* forgotten futurist rg.ttf */; };
 		80B1958C1C333250009B265C /* forgotten futurist bd it.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 80B195881C333250009B265C /* forgotten futurist bd it.ttf */; };
 		80B1958D1C333250009B265C /* forgotten futurist bd.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 80B195891C333250009B265C /* forgotten futurist bd.ttf */; };
+		A3274FFF1CA38DFB00E7E048 /* VenueAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3274FFE1CA38DFB00E7E048 /* VenueAnnotation.swift */; };
 		F3B565B4B07FC51D1A04C946 /* Pods_MIXR.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CCB483A3B820ED5B04645C4E /* Pods_MIXR.framework */; };
 /* End PBXBuildFile section */
 
@@ -368,6 +369,7 @@
 		80B195871C333250009B265C /* forgotten futurist rg.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "forgotten futurist rg.ttf"; sourceTree = "<group>"; };
 		80B195881C333250009B265C /* forgotten futurist bd it.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "forgotten futurist bd it.ttf"; sourceTree = "<group>"; };
 		80B195891C333250009B265C /* forgotten futurist bd.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "forgotten futurist bd.ttf"; sourceTree = "<group>"; };
+		A3274FFE1CA38DFB00E7E048 /* VenueAnnotation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VenueAnnotation.swift; sourceTree = "<group>"; };
 		CCB483A3B820ED5B04645C4E /* Pods_MIXR.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MIXR.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		EC28065CB75E450F3A075861 /* Pods-MIXR.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MIXR.release.xcconfig"; path = "Pods/Target Support Files/Pods-MIXR/Pods-MIXR.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -749,6 +751,7 @@
 				158FA0D51C60B4A60059540D /* PromotionDetailViewController.swift */,
 				154900311C55F70500EB64E8 /* BaseViewController.swift */,
 				806122231BBF2D7400EFF35E /* MapViewController.swift */,
+				A3274FFE1CA38DFB00E7E048 /* VenueAnnotation.swift */,
 				806122411BBF2E8100EFF35E /* UserFeedViewController.swift */,
 				15E6AB951C9AC5EF00BEC1ED /* FollowersViewController.swift */,
 				158F43491C467A4700A2356C /* FollowingViewController.swift */,
@@ -1138,6 +1141,7 @@
 				5C1CF1731BDBC5CC00B863F6 /* BorderedButton.swift in Sources */,
 				158F43501C467A9500A2356C /* FollowingCell.swift in Sources */,
 				5CF468811C0E8B0C007F87AA /* NotificationCell.swift in Sources */,
+				A3274FFF1CA38DFB00E7E048 /* VenueAnnotation.swift in Sources */,
 				156BCCAA1C05E6BF00AB88A6 /* UserFeedCell.swift in Sources */,
 				15149F9E1C7D8D1400274778 /* NotificationPromotionCell.swift in Sources */,
 				5C520FD31C54FA9600299990 /* ALImageModel.swift in Sources */,
@@ -1271,6 +1275,11 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEFINES_MODULE = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = MIXR/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -1288,6 +1297,11 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEFINES_MODULE = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = MIXR/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

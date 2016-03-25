@@ -55,6 +55,8 @@ struct globalConstants {
     static let kNewsfeedMyAPIEndPoint = "newsfeed/my"
     static let kNewsfeedVenueAPIEndPoint = "newsfeed/venue"
     
+    static let kVenueCoordinatesAPIEndPoint = "venue" // get coordinates for map
+    
     static let kAppName = "MIXR"
     
     static let kValidEmailError = "Please enter valid email"
