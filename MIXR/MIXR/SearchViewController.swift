@@ -162,10 +162,20 @@ class SearchViewController: BaseViewController, UITableViewDelegate,UITableViewD
                             
                             if let errorData = responseDic?["detail"]
                             {
-                                //let errorMessage = errorData[0] as! String
-                                //self.displayCommonAlert(errorMessage)
-                                self.reloadTable()
                                 
+                                if let errorMessage = errorData as? String
+                                {
+                                    self.displayCommonAlert(errorMessage)
+                                    
+                                }
+                                else if let errorMessage = errorData as? NSArray
+                                {
+                                    if let errorMessageStr = errorMessage[0] as? String
+                                    {
+                                        self.displayCommonAlert(errorMessageStr)
+                                    }
+                                }
+                                self.loadData()
                                 return;
                             }
                         }
@@ -361,6 +371,7 @@ class SearchViewController: BaseViewController, UITableViewDelegate,UITableViewD
             // Venu Id
             NSLog("venue_idStr = \(venue_idStr)")
             let aVenueProfileViewController : VenueProfileViewController = self.storyboard!.instantiateViewControllerWithIdentifier("VenueProfileViewController") as! VenueProfileViewController
+            appDelegate.selectedVenueId = venue_idStr
             self.navigationController!.pushViewController(aVenueProfileViewController, animated: true)
         }
         else

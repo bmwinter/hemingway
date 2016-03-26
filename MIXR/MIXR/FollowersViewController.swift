@@ -123,10 +123,20 @@ class FollowersViewController: BaseViewController, UITableViewDelegate,UITableVi
                             
                             if let errorData = responseDic?["detail"]
                             {
-                                let errorMessage = errorData as! String
-                                self.displayCommonAlert(errorMessage)
-                                self.reloadTable()
                                 
+                                if let errorMessage = errorData as? String
+                                {
+                                    self.displayCommonAlert(errorMessage)
+                                    
+                                }
+                                else if let errorMessage = errorData as? NSArray
+                                {
+                                    if let errorMessageStr = errorMessage[0] as? String
+                                    {
+                                        self.displayCommonAlert(errorMessageStr)
+                                    }
+                                }
+                                self.loadData()
                                 return;
                             }
                         }

@@ -9,11 +9,17 @@
 import UIKit
 import Alamofire
 import SwiftyJSON
+import SwiftyJSON
+import Alamofire
+import AlamofireImage
 
-class VenueProfileTableViewController: UITableViewController,UIGestureRecognizerDelegate,APIConnectionDelegate {
+class VenueProfileTableViewController: UITableViewController,UIGestureRecognizerDelegate {
     
     var feedsArray : Array<JSON> = []
+    var venueSpecialArray : NSArray = []
+    var venueEventArray : NSArray = []
     var feedcount : Int = 0
+    var venueDict : NSDictionary = NSDictionary()
     
     @IBOutlet weak var venuePicture: UIImageView!
     @IBOutlet weak var noofFillsImage: UIImageView!
@@ -30,6 +36,8 @@ class VenueProfileTableViewController: UITableViewController,UIGestureRecognizer
     @IBOutlet weak var showLatestVideos: UIBarButtonItem!
     @IBOutlet weak var bottomView: UIView!
     
+    var venuId: String! = ""
+
     override func viewDidLoad()
     {
         super.viewDidLoad()
@@ -50,7 +58,8 @@ class VenueProfileTableViewController: UITableViewController,UIGestureRecognizer
     {
         super.viewWillAppear(animated)
         self.navigationController?.navigationBarHidden = true
-        loadDummyScrollViewData()
+
+        loadData()
     }
     
     override func viewDidDisappear(animated: Bool)
@@ -97,10 +106,59 @@ class VenueProfileTableViewController: UITableViewController,UIGestureRecognizer
     {
         //self.tableView.sectionHeaderHeight = UITableViewAutomaticDimension
         //self.tableView.estimatedSectionHeaderHeight = self.outerView.frame.size.height
+        
+        if(self.venueDict.allKeys.count > 0)
+        {
+            if let venueName = self.venueDict["name"]! as? String
+            {
+                self.btnVenueName.setTitle(venueName, forState: UIControlState.Normal)
+            }
+            
+            if let operating_hours = self.venueDict["operating_hours"]! as? String
+            {
+                self.barTiming.text = operating_hours
+            }
+            
+            if let locationDict = self.venueDict["location"]! as? NSDictionary
+            {
+                print("The location is: \(self.venueDict["location"]!)")
+                self.venueAddress.text = "\(locationDict["address"]!) \(locationDict["city"]!) \(locationDict["state"]!) \(locationDict["zipcode"]!)"
+            }
+        }
+
         loadFeedData()
         var eventHeight : CGFloat = 10
-        for i in 1...1
+        for (var i = 0 ; i < self.venueEventArray.count ; i++ )
         {
+            var eventDetail = " This Tuesday and Thursday be sure to stop by since we are offering a buy 2-get-1-free deal."
+            let venueEventResponseDic:[String:AnyObject]? = self.venueEventArray[i] as? [String : AnyObject]
+            print("The venueEventResponseDic   \(venueEventResponseDic)")
+            
+            if let eventDict = venueEventResponseDic!["event"] as? NSDictionary
+            {
+                if let description = eventDict["description"] as? String
+                {
+                    eventDetail = " \(description)"
+                }
+            }
+            /*
+            [
+                {
+                    "event": 
+                    {
+                        "description": "Stop by for the race track beer keg stand!",
+                        "venue_id": "1"
+                    }
+                },
+                {
+                    "event": 
+                    {
+                        "description": "Stop by for the race track beer keg stand!",
+                        "venue_id": "1"
+                    }
+                }
+            ]
+            */
             let test:UILabel
             test = UILabel(frame: CGRectMake(0, eventHeight, self.eventsScrollView.frame.size.width, CGFloat.max))
             test.numberOfLines = 0
@@ -113,7 +171,7 @@ class VenueProfileTableViewController: UITableViewController,UIGestureRecognizer
             let attachmentString = NSAttributedString(attachment: attachment)
             let myString = NSMutableAttributedString(string: "")
             myString.appendAttributedString(attachmentString)
-            myString.appendAttributedString(NSMutableAttributedString(string: " This Tuesday and Thursday be sure to stop by since we are offering a buy 2-get-1-free deal."))
+            myString.appendAttributedString(NSMutableAttributedString(string:eventDetail ))
             test.attributedText = myString
             
             test.font = UIFont(name: "ForgottenFuturistRg-Regular", size: 20)
@@ -131,8 +189,36 @@ class VenueProfileTableViewController: UITableViewController,UIGestureRecognizer
         
         var SpecialHeight : CGFloat = 10.0
         
-        for i in 1...1
+        for (var i = 0 ; i < self.venueSpecialArray.count ; i++ )
         {
+            let venueSpecialResponseDic:[String:AnyObject]? = self.venueSpecialArray[i] as? [String : AnyObject]
+            var specialDetail = " This Sunday and MOnday be sure to stop by since we are offering a buy 2-get-1-free deal."
+            print("The  venueSpecialResponseDic   \(venueSpecialResponseDic)")
+            if let specialDict = venueSpecialResponseDic!["special"] as? NSDictionary
+            {
+                if let description = specialDict["description"] as? String
+                {
+                    specialDetail = " \(description)"
+                }
+            }
+            /*
+            [
+                {
+                    "special": 
+                    {
+                        "description": "Free Baileys if you purchase shot of expresso.",
+                        "venue_id": "1"
+                    }
+                },
+                {
+                    "special": 
+                    {
+                        "description": "Free Baileys if you purchase shot of expresso.",
+                        "venue_id": "1"
+                    }
+                }
+            ]
+            */
             let test:UILabel
             test = UILabel(frame: CGRectMake(10, SpecialHeight, self.venueSpecialScrollView.frame.size.width-20, CGFloat.max))
             test.numberOfLines = 0
@@ -144,7 +230,7 @@ class VenueProfileTableViewController: UITableViewController,UIGestureRecognizer
             let attachmentString = NSAttributedString(attachment: attachment)
             let myString = NSMutableAttributedString(string: "")
             myString.appendAttributedString(attachmentString)
-            myString.appendAttributedString(NSMutableAttributedString(string: " This Sunday and MOnday be sure to stop by since we are offering a buy 2-get-1-free deal."))
+            myString.appendAttributedString(NSMutableAttributedString(string: specialDetail))
             test.attributedText = myString
             
             //test.text = "This Sunday and MOnday be sure to stop by since we are offering a buy 2-get-1-free deal."
@@ -193,7 +279,7 @@ class VenueProfileTableViewController: UITableViewController,UIGestureRecognizer
         self.venueSpecialScrollView.layer.borderWidth = 2.0
         self.noofFillsImage.layer.borderColor = UIColor(red: (214.0/255.0), green: (214.0/255.0), blue: (214.0/255.0), alpha: 1).CGColor
         self.noofFillsImage.layer.borderWidth = 2.0
-        self.btnVenueName.setTitle("Mad River", forState: .Normal)
+        //self.btnVenueName.setTitle("Mad River", forState: .Normal)
         
         if(self.outerView.frame.size.height > 295)
         {
@@ -236,7 +322,6 @@ class VenueProfileTableViewController: UITableViewController,UIGestureRecognizer
     }
     
     
-    
     /*
     // Table View delegate methods
     */
@@ -274,7 +359,7 @@ class VenueProfileTableViewController: UITableViewController,UIGestureRecognizer
     
     func loadFeedData()
     {
-        if (isLocalData)
+        if (!isLocalData)
         {
             feedsArray = [["venueName":"Mad River1","venueImage":"venueImage1.jpg","userName":"Grant Boyle1"],
                 ["venueName":"Mad River2","venueImage":"venueImage2.jpg","userName":"Grant Boyle2"],
@@ -289,14 +374,14 @@ class VenueProfileTableViewController: UITableViewController,UIGestureRecognizer
             reloadTable()
             
         }
-        else
-        {
-            let param: Dictionary = Dictionary<String, AnyObject>()
-            //call API for to get venues
-            let object = APIConnection().POST(APIName.Venues.rawValue, withAPIName: "VenueList", withMessage: "", withParam: param, withProgresshudShow: true, withHeader: false) as! APIConnection
-            object.delegate = self
-            
-        }
+//        else
+//        {
+//            let param: Dictionary = Dictionary<String, AnyObject>()
+//            //call API for to get venues
+//            let object = APIConnection().POST(APIName.Venues.rawValue, withAPIName: "VenueList", withMessage: "", withParam: param, withProgresshudShow: true, withHeader: false) as! APIConnection
+//            object.delegate = self
+//            
+//        }
     }
     
     func reloadTable()
@@ -307,14 +392,14 @@ class VenueProfileTableViewController: UITableViewController,UIGestureRecognizer
     @IBAction func onUserBtnClicked(sender: AnyObject)
     {
         // let postViewController : ProfileTableViewController = self.storyboard!.instantiateViewControllerWithIdentifier("ProfileTableViewController") as! ProfileTableViewController
-        // //postViewController.feedDict = feedDict
+        // //postViewController.venueDict = venueDict
         // self.navigationController!.pushViewController(postViewController, animated: true)
         // return
         
         let feedBtn : UIButton = sender as! UIButton
         let feedTag = feedBtn.superview!.tag
         NSLog("feedTag = \(feedTag)")
-        //let feedDict : NSDictionary = feedsArray[feedTag].dictionaryObject!
+        //let venueDict : NSDictionary = feedsArray[feedTag].dictionaryObject!
         let postViewController : PostViewController = self.storyboard!.instantiateViewControllerWithIdentifier("PostViewController") as! PostViewController
         postViewController.isUserProfile = false
         self.navigationController!.pushViewController(postViewController, animated: true)
@@ -375,7 +460,7 @@ class VenueProfileTableViewController: UITableViewController,UIGestureRecognizer
         //        cellFrame.origin.y = 0
         //        cell.frame = cellFrame
         cell.selectionStyle = UITableViewCellSelectionStyle.None
-        //let feedDict : Dictionary <String, JSON> = feedsArray[indexPath.row]
+        //let venueDict : Dictionary <String, JSON> = feedsArray[indexPath.row]
         cell.contentView.tag = indexPath.row
         
         cell.venuImageView.image = UIImage(named: feedsArray[indexPath.row]["venueImage"].string!)
@@ -395,9 +480,9 @@ class VenueProfileTableViewController: UITableViewController,UIGestureRecognizer
             self.loadFeedData()
         }
         /*
-        cell.venuImageView.image = UIImage(named: feedDict["venueImage"] as! String)
-        cell.FeedName.text = feedDict["venueName"] as? String
-        cell.lblUserName.text = feedDict["userName"] as? String
+        cell.venuImageView.image = UIImage(named: venueDict["venueImage"] as! String)
+        cell.FeedName.text = venueDict["venueName"] as? String
+        cell.lblUserName.text = venueDict["userName"] as? String
         */
         return cell
     }
@@ -429,87 +514,423 @@ class VenueProfileTableViewController: UITableViewController,UIGestureRecognizer
             self.tableView.addSubview(self.outerView)
         }
     }
-    
-    //MARK: - APIConnection Delegate -
-    
-    func connectionFailedForAction(action: Int, andWithResponse result: Dictionary <String, JSON>!, method : String)
+ 
+    func loadData()
     {
-        switch action
+        if (appDelegate.selectedVenueId.count == 0)
         {
-        case APIName.Venues.rawValue:
-            if ( result != nil)
-            {
-                DLog("\(result)")
-            }
-            
-        default:
-            DLog("Nothing")
+            self.venuId = "1"
         }
-    }
-    
-    func connectionDidFinishedErrorResponceForAction(action: Int, andWithResponse result: Dictionary <String, JSON>!, method : String)
-    {
-        switch action
+        else
         {
-        case APIName.Venues.rawValue:
-            if ( result != nil)
-            {
-                DLog("\(result)")
-                
-            }
-            
-        default:
-            DLog("Nothing")
+            self.venuId = appDelegate.selectedVenueId
         }
         
+        self.venueSpecialArray = []
+        self.loadVenueSpecialData()
+
+        self.venueEventArray = []
+        self.loadVenueEventData()
+        
+        self.venueDict = NSDictionary()
+        self.loadVenueData()
     }
     
-    func connectionDidFinishedForAction(action: Int, andWithResponse result:Dictionary <String, JSON>!, method : String)
+    func loadVenueData()
     {
-        switch action
+        
+        let appDelegate=AppDelegate() //You create a new instance,not get the exist one
+        appDelegate.startAnimation((self.navigationController?.view)!)
+        
+        var tokenString = "token "
+        if let appToken =  NSUserDefaults.standardUserDefaults().objectForKey("LoginToken") as? String
         {
-        case APIName.Venues.rawValue:
+            tokenString +=  appToken
             
-            if ( result != nil)
-            {
-                DLog("\(result)")
-                
-                if(feedcount == 0)
-                {
-                    feedsArray = result["data"]!.arrayValue
-                    feedcount = feedsArray.count
-                }
-                else
-                {
-                    if(feedsArray.count > 0)
+            let URL =  globalConstants.kAPIURL + globalConstants.kProfileVenue
+            
+            
+            let headers = [
+                "Authorization": tokenString,
+            ]
+            
+            let parameters = [
+                "venue_id": self.venuId//.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet()),
+            ]
+            Alamofire.request(.POST, URL , parameters: parameters, encoding: .JSON, headers : headers)
+                .responseString { response in
+                    
+                    print("response \(response)")
+                    appDelegate.stopAnimation()
+                    guard let value = response.result.value else
                     {
-                        var newData : Array<JSON> = result["data"]!.arrayValue
+                        print("Error: did not receive data")
+                        self.loadDummyScrollViewData()
                         
-                        for (var cnt = 0; cnt < newData.count ; cnt++)
+                        return
+                    }
+                    
+                    guard response.result.error == nil else
+                    {
+                        print("error calling POST on Login")
+                        print(response.result.error)
+                        self.loadDummyScrollViewData()
+                        
+                        return
+                    }
+                    
+                    let post = JSON(value)
+                    if let string = post.rawString()
+                    {
+                        if (response.response?.statusCode == 400 || response.response?.statusCode == 401)
                         {
-                            feedsArray.append(newData[cnt])
+                            let responseDic:[String:AnyObject]? = self.convertStringToDictionary(string)
+                            print("The Response Error is:   \(response.response?.statusCode)")
+                            
+                            if let val = responseDic?["code"]
+                            {
+                                if val[0].isEqualToString("13")
+                                {
+                                    //print("Equals")
+                                    self.displayCommonAlert(responseDic?["detail"]?[0] as! String)
+                                    self.loadDummyScrollViewData()
+                                    
+                                    return
+                                }
+                                // now val is not nil and the Optional has been unwrapped, so use it
+                            }
+                            
+                            if let errorData = responseDic?["detail"]
+                            {
+                                
+                                if let errorMessage = errorData as? String
+                                {
+                                    self.displayCommonAlert(errorMessage)
+                                    
+                                }
+                                else if let errorMessage = errorData as? NSArray
+                                {
+                                    if let errorMessageStr = errorMessage[0] as? String
+                                    {
+                                        self.displayCommonAlert(errorMessageStr)
+                                    }
+                                }
+                                self.loadDummyScrollViewData()
+                                return;
+                            }
+                            
+                        }
+                        else if (response.response?.statusCode == 200 || response.response?.statusCode == 201)
+                        {
+                            let responseArray : NSArray =  self.convertStringToArray(string)!
+                            let responseDic:[String:AnyObject]? = responseArray[0] as? [String : AnyObject]
+                            self.venueDict = responseDic!
+                            print("The  responseDic is:   \(self.venueDict)")
+                            print("The  id is:   \(self.venueDict["id"]!)")
+                            print("The  name is:   \(self.venueDict["name"]!)")
+                            print("The  location is:   \(self.venueDict["location"]!)")
+                            print("The  operating_hours is:   \(self.venueDict["operating_hours"]!)")
+                            /*
+                            {
+                                "id": "1",
+                                "name": "Harry's Bar",
+                                "operating_hours": "5pm-3am",
+                                "location": 
+                                    {
+                                        "address": "169 Grandview Road",
+                                        "city": "Springfield",
+                                        "state": "Pennsylvania",
+                                        "zipcode": "19064",
+                                        "longitude": "-75.337555",
+                                        "latitude": "39.9392799"
+                                    }
+                                }
+                            */
+                            
+                        }
+                        else
+                        {
+                            
                         }
                         
-                        feedcount = feedsArray.count
+                        self.loadDummyScrollViewData()
                     }
-                }
-                reloadTable()
-                
-                //                if ( result.isKindOfClass(NSDictionary))
-                //                {
-                //                    feedsArray = result["data"] as! NSMutableArray
-                //                }
             }
-            DLog("Venue")
-            
-        default:
-            DLog("Nothing")
         }
     }
     
-    func connectionDidUpdateAPIProgress(action: Int,bytesWritten: Int64, totalBytesWritten: Int64 ,totalBytesExpectedToWrite: Int64)
+    func loadVenueSpecialData()
     {
+        let appDelegate=AppDelegate() //You create a new instance,not get the exist one
+        appDelegate.startAnimation((self.navigationController?.view)!)
         
+        var tokenString = "token "
+        if let appToken =  NSUserDefaults.standardUserDefaults().objectForKey("LoginToken") as? String
+        {
+            tokenString +=  appToken
+            
+            let URL =  globalConstants.kAPIURL + globalConstants.kProfileVenueSpecial
+            
+            
+            let headers = [
+                "Authorization": tokenString,
+            ]
+            
+            let parameters = [
+                "venue_id": self.venuId//.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet()),
+            ]
+            Alamofire.request(.POST, URL , parameters: parameters, encoding: .JSON, headers : headers)
+                .responseString { response in
+                    
+                    print("response \(response)")
+                    appDelegate.stopAnimation()
+                    guard let value = response.result.value else
+                    {
+                        print("Error: did not receive data")
+                        self.loadDummyScrollViewData()
+                        
+                        return
+                    }
+                    
+                    guard response.result.error == nil else
+                    {
+                        print("error calling POST on Login")
+                        print(response.result.error)
+                        self.loadDummyScrollViewData()
+                        
+                        return
+                    }
+                    
+                    
+                    let post = JSON(value)
+                    if let string = post.rawString()
+                    {
+                        if (response.response?.statusCode == 400 || response.response?.statusCode == 401)
+                        {
+                            let responseDic:[String:AnyObject]? = self.convertStringToDictionary(string)
+                            print("The Response Error is:   \(response.response?.statusCode)")
+                            
+                            if let val = responseDic?["code"]
+                            {
+                                if val[0].isEqualToString("13")
+                                {
+                                    //print("Equals")
+                                    self.displayCommonAlert(responseDic?["detail"]?[0] as! String)
+                                    self.loadDummyScrollViewData()
+                                    
+                                    return
+                                }
+                                // now val is not nil and the Optional has been unwrapped, so use it
+                            }
+                            
+                            if let errorData = responseDic?["detail"]
+                            {
+                                
+                                if let errorMessage = errorData as? String
+                                {
+                                    self.displayCommonAlert(errorMessage)
+                                    
+                                }
+                                else if let errorMessage = errorData as? NSArray
+                                {
+                                    if let errorMessageStr = errorMessage[0] as? String
+                                    {
+                                        self.displayCommonAlert(errorMessageStr)
+                                    }
+                                }
+                                self.loadDummyScrollViewData()
+                                return;
+                            }
+                        }
+                        else if (response.response?.statusCode == 200 || response.response?.statusCode == 201)
+                        {
+                            //let responseArray : NSArray =  self.convertStringToArray(string)!
+                            //let responseDic:[String:AnyObject]? = responseArray[0] as? [String : AnyObject]
+                            self.venueSpecialArray = self.convertStringToArray(string)!
+                            print("The  venueSpecialArray is:   \(self.venueSpecialArray)")
+                           
+                            /*
+                            {
+                            "id": "1",
+                            "name": "Harry's Bar",
+                            "operating_hours": "5pm-3am",
+                            "location":
+                            {
+                            "address": "169 Grandview Road",
+                            "city": "Springfield",
+                            "state": "Pennsylvania",
+                            "zipcode": "19064",
+                            "longitude": "-75.337555",
+                            "latitude": "39.9392799"
+                            }
+                            }
+                            */
+                            
+                        }
+                        else
+                        {
+                            
+                        }
+                        
+                        self.loadDummyScrollViewData()
+                    }
+            }
+        }
     }
     
+    func loadVenueEventData()
+    {
+        let appDelegate=AppDelegate() //You create a new instance,not get the exist one
+        appDelegate.startAnimation((self.navigationController?.view)!)
+        
+        var tokenString = "token "
+        if let appToken =  NSUserDefaults.standardUserDefaults().objectForKey("LoginToken") as? String
+        {
+            tokenString +=  appToken
+            
+            let URL =  globalConstants.kAPIURL + globalConstants.kProfileVenueEvent
+            
+            
+            let headers = [
+                "Authorization": tokenString,
+            ]
+            
+            let parameters = [
+                "venue_id": self.venuId//.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet()),
+            ]
+            Alamofire.request(.POST, URL , parameters: parameters, encoding: .JSON, headers : headers)
+                .responseString { response in
+                    
+                    print("response \(response)")
+                    appDelegate.stopAnimation()
+                    guard let value = response.result.value else
+                    {
+                        print("Error: did not receive data")
+                        self.loadDummyScrollViewData()
+                        
+                        return
+                    }
+                    
+                    guard response.result.error == nil else
+                    {
+                        print("error calling POST on Login")
+                        print(response.result.error)
+                        self.loadDummyScrollViewData()
+                        
+                        return
+                    }
+                    
+                    
+                    let post = JSON(value)
+                    if let string = post.rawString()
+                    {
+                        if (response.response?.statusCode == 400 || response.response?.statusCode == 401)
+                        {
+                            let responseDic:[String:AnyObject]? = self.convertStringToDictionary(string)
+                            print("The Response Error is:   \(response.response?.statusCode)")
+                            
+                            if let val = responseDic?["code"]
+                            {
+                                if val[0].isEqualToString("13")
+                                {
+                                    //print("Equals")
+                                    self.displayCommonAlert(responseDic?["detail"]?[0] as! String)
+                                    self.loadDummyScrollViewData()
+                                    
+                                    return
+                                }
+                                // now val is not nil and the Optional has been unwrapped, so use it
+                            }
+                            
+                            if let errorData = responseDic?["detail"]
+                            {
+                                
+                                if let errorMessage = errorData as? String
+                                {
+                                    self.displayCommonAlert(errorMessage)
+                                    
+                                }
+                                else if let errorMessage = errorData as? NSArray
+                                {
+                                    if let errorMessageStr = errorMessage[0] as? String
+                                    {
+                                        self.displayCommonAlert(errorMessageStr)
+                                    }
+                                }
+                                self.loadDummyScrollViewData()
+                                return;
+                            }
+                        }
+                        else if (response.response?.statusCode == 200 || response.response?.statusCode == 201)
+                        {
+                            //let responseArray : NSArray =  self.convertStringToArray(string)!
+                            //let responseDic:[String:AnyObject]? = responseArray[0] as? [String : AnyObject]
+                            self.venueEventArray = self.convertStringToArray(string)!
+                            print("The  venueEventArray is:   \(self.venueEventArray)")
+                            
+                            /*
+                            {
+                            "id": "1",
+                            "name": "Harry's Bar",
+                            "operating_hours": "5pm-3am",
+                            "location":
+                            {
+                            "address": "169 Grandview Road",
+                            "city": "Springfield",
+                            "state": "Pennsylvania",
+                            "zipcode": "19064",
+                            "longitude": "-75.337555",
+                            "latitude": "39.9392799"
+                            }
+                            }
+                            */
+                            
+                        }
+                        else
+                        {
+                            
+                        }
+                        
+                        self.loadDummyScrollViewData()
+                    }
+            }
+        }
+    }
+    
+    func convertStringToDictionary(text:String) -> [String:AnyObject]? {
+        if let data = text.dataUsingEncoding(NSUTF8StringEncoding) {
+            do {
+                return try NSJSONSerialization.JSONObjectWithData(data, options: []) as? [String:AnyObject]
+            } catch let error as NSError {
+                print(error)
+            }
+        }
+        return nil
+    }
+    
+    func convertStringToArray(text:String) -> NSArray? {
+        if let data = text.dataUsingEncoding(NSUTF8StringEncoding) {
+            do {
+                return try NSJSONSerialization.JSONObjectWithData(data, options: []) as? NSArray
+            } catch let error as NSError {
+                print(error)
+            }
+        }
+        return nil
+    }
+    
+    /*
+    // Common alert method need to be used to display alert, by passing alert string as parameter to it.
+    */
+    
+    func displayCommonAlert(alertMesage : NSString){
+        
+        let alertController = UIAlertController (title: globalConstants.kAppName, message: alertMesage as String?, preferredStyle:.Alert)
+        let okayAction: UIAlertAction = UIAlertAction(title: "Ok", style: .Cancel) { action -> Void in
+            //Just dismiss the action sheet
+        }
+        alertController.addAction(okayAction)
+        self.presentViewController(alertController, animated: true, completion: nil)
+    }
+
 }

@@ -13,7 +13,7 @@ import AlamofireImage
 
 class PostViewController: BaseViewController {
     
-    var feedDict : NSDictionary = NSDictionary()
+    var userDict : NSDictionary = NSDictionary()
     @IBOutlet weak var FeedName: UILabel!
     @IBOutlet weak var lblUserName: UILabel!
     @IBOutlet weak var venuImageView: UIImageView!
@@ -31,7 +31,7 @@ class PostViewController: BaseViewController {
     @IBAction func OnSettingBtnAction(sender: AnyObject)
     {
         let aSettingsTableViewController : SettingViewController = self.storyboard!.instantiateViewControllerWithIdentifier("SettingViewController") as! SettingViewController
-        //postViewController.feedDict = feedDict
+        //postViewController.userDict = userDict
         self.navigationController!.pushViewController(aSettingsTableViewController, animated: true)
     }
     
@@ -54,7 +54,11 @@ class PostViewController: BaseViewController {
     
     func loadUserData()
     {
-        self.userId = "1"
+        if (self.userId.count == 0)
+        {
+            self.userId = "1"
+        }
+        
         let appDelegate=AppDelegate() //You create a new instance,not get the exist one
         appDelegate.startAnimation((self.navigationController?.view)!)
         
@@ -119,21 +123,31 @@ class PostViewController: BaseViewController {
                             
                             if let errorData = responseDic?["detail"]
                             {
-                                let errorMessage = errorData as! String
-                                self.displayCommonAlert(errorMessage)
-                                self.loadData()
                                 
+                                if let errorMessage = errorData as? String
+                                {
+                                    self.displayCommonAlert(errorMessage)
+                                   
+                                }
+                                else if let errorMessage = errorData as? NSArray
+                                {
+                                    if let errorMessageStr = errorMessage[0] as? String
+                                    {
+                                        self.displayCommonAlert(errorMessageStr)
+                                    }
+                                }
+                                self.loadData()
                                 return;
                             }
                         }
                         else if (response.response?.statusCode == 200 || response.response?.statusCode == 201)
                         {
                              let responseDic:[String:AnyObject]? = self.convertStringToDictionary(string)
-                            self.feedDict = responseDic!
-                             print("The  responseDic is:   \(self.feedDict)")
-                             print("The  user_id is:   \(self.feedDict["user_id"]!)")
-                             print("The  name is:   \(self.feedDict["name"]!)")
-                             print("The  image_url is:   \(self.feedDict["image_url"]!)")
+                            self.userDict = responseDic!
+                             print("The  responseDic is:   \(self.userDict)")
+                             print("The  user_id is:   \(self.userDict["user_id"]!)")
+                             print("The  name is:   \(self.userDict["name"]!)")
+                             print("The  image_url is:   \(self.userDict["image_url"]!)")
                             /*
                             "user_id": 1,
                             "name": "Brendan Winter",
@@ -152,7 +166,117 @@ class PostViewController: BaseViewController {
         }
     }
     
-    func setFollowBtn()
+    func setFollowBtnGet()
+    {
+        let appDelegate=AppDelegate() //You create a new instance,not get the exist one
+        appDelegate.startAnimation((self.navigationController?.view)!)
+        
+        var tokenString = "token "
+        if let appToken =  NSUserDefaults.standardUserDefaults().objectForKey("LoginToken") as? String
+        {
+            tokenString +=  appToken
+            
+            let URL =  globalConstants.kAPIURL + globalConstants.kFollowRequestAPIEndPoint
+            
+            
+            let headers = [
+                "Authorization": tokenString,
+            ]
+            
+            let parameters = [
+                "follower_id": self.userId//.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet()),
+            ]
+            Alamofire.request(.GET, URL , parameters: parameters, encoding: .JSON, headers : headers)
+                .responseString { response in
+                    
+                    print("response \(response)")
+                    appDelegate.stopAnimation()
+                    guard let value = response.result.value else
+                    {
+                        print("Error: did not receive data")
+                        //self.loadData()
+                        
+                        return
+                    }
+                    
+                    guard response.result.error == nil else
+                    {
+                        print("error calling POST on Login")
+                        print(response.result.error)
+                        //self.loadData()
+                        
+                        return
+                    }
+                    
+                    
+                    let post = JSON(value)
+                    if let string = post.rawString()
+                    {
+                        if (response.response?.statusCode == 400 || response.response?.statusCode == 401)
+                        {
+                            let responseDic:[String:AnyObject]? = self.convertStringToDictionary(string)
+                            print("The Response Error is:   \(response.response?.statusCode)")
+                            
+                            if let val = responseDic?["code"]
+                            {
+                                if val[0].isEqualToString("13")
+                                {
+                                    //print("Equals")
+                                    self.displayCommonAlert(responseDic?["detail"]?[0] as! String)
+                                    //self.loadData()
+                                    
+                                    return
+                                }
+                                // now val is not nil and the Optional has been unwrapped, so use it
+                            }
+                            
+                            if let errorData = responseDic?["detail"]
+                            {
+                                
+                                if let errorMessage = errorData as? String
+                                {
+                                    self.displayCommonAlert(errorMessage)
+                                    
+                                }
+                                else if let errorMessage = errorData as? NSArray
+                                {
+                                    if let errorMessageStr = errorMessage[0] as? String
+                                    {
+                                        self.displayCommonAlert(errorMessageStr)
+                                    }
+                                }
+                                self.loadData()
+                                return;
+                            }
+                        }
+                        else if (response.response?.statusCode == 200 || response.response?.statusCode == 201)
+                        {
+                            let responseDic:[String:AnyObject]? = self.convertStringToDictionary(string)
+                            print("The  responseDic is:   \(responseDic)")
+                            print("The  follow_status is:   \(responseDic!["follow_status"])")
+                            self.followIndex = (responseDic!["follow_status"]?.integerValue)!
+                            
+                            print("The  self.followIndex is:   \(self.followIndex)")
+
+                            /*
+                            "user_id": 1,
+                            "name": "Brendan Winter",
+                            "image_url": "https://s3-us-west-2.amazonaws.com/mixrprofile/2016_03_04_03_58_1.jpg"
+                            */
+                            
+                        }
+                        else
+                        {
+                            
+                        }
+                        
+                        self.setupFollowBtnState()
+                    }
+            }
+        }
+    }
+
+    func setFollowBtnPost()
     {
         let appDelegate=AppDelegate() //You create a new instance,not get the exist one
         appDelegate.startAnimation((self.navigationController?.view)!)
@@ -218,10 +342,20 @@ class PostViewController: BaseViewController {
                             
                             if let errorData = responseDic?["detail"]
                             {
-                                let errorMessage = errorData as! String
-                                self.displayCommonAlert(errorMessage)
-                                //self.loadData()
                                 
+                                if let errorMessage = errorData as? String
+                                {
+                                    self.displayCommonAlert(errorMessage)
+                                    
+                                }
+                                else if let errorMessage = errorData as? NSArray
+                                {
+                                    if let errorMessageStr = errorMessage[0] as? String
+                                    {
+                                        self.displayCommonAlert(errorMessageStr)
+                                    }
+                                }
+                                self.loadData()
                                 return;
                             }
                         }
@@ -233,7 +367,7 @@ class PostViewController: BaseViewController {
                             self.followIndex = (responseDic!["follow_status"]?.integerValue)!
                             
                             print("The  self.followIndex is:   \(self.followIndex)")
-
+                            
                             /*
                             "user_id": 1,
                             "name": "Brendan Winter",
@@ -246,20 +380,40 @@ class PostViewController: BaseViewController {
                             
                         }
                         
-                        //self.loadData()
+                        self.setupFollowBtnState()
                     }
             }
         }
     }
-
+    
+    func setupFollowBtnState()
+    {
+         self.btnFollowing.enabled = true
+        if (self.followIndex == 0)
+        {
+            self.btnFollowing.selected = false
+        }
+        else if (self.followIndex == 1)
+        {
+            self.btnFollowing.selected = false
+        }
+        else if (self.followIndex == 2)
+        {
+            self.btnFollowing.selected = true
+        }
+        else if (self.followIndex == 3)
+        {
+             self.btnFollowing.enabled = false
+        }
+    }
+    
     func loadData()
     {
-       
-        self.setFollowBtn()
-
-        if (feedDict.allKeys.count > 0)
+        self.setFollowBtnPost()
+        //self.setFollowBtnGet()
+        if (userDict.allKeys.count > 0)
         {
-            if let imageNameStr = self.feedDict["image_url"] as? String
+            if let imageNameStr = self.userDict["image_url"] as? String
             {
                 if (imageNameStr.characters.count > 0)
                 {
@@ -294,7 +448,7 @@ class PostViewController: BaseViewController {
             {
                 self.userImageView.image = UIImage(named:"ALPlaceholder")
             }
-            self.btnFeedName.setTitle(feedDict["name"] as? String, forState: UIControlState.Normal)
+            self.btnFeedName.setTitle(userDict["name"] as? String, forState: UIControlState.Normal)
         }
     }
     
@@ -339,6 +493,7 @@ class PostViewController: BaseViewController {
         else
         {
             self.btnFollowing.backgroundColor = UIColor(red: 194/255,green: 194/255.0,blue: 194/255,alpha: 1.0)
+            self.setFollowBtnPost()
         }
     }
     

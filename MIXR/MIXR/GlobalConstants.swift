@@ -38,6 +38,9 @@ struct globalConstants {
     static let kProfileOther = "profile/other"
     static let kProfileVenue = "profile/venue"
     
+    static let kProfileVenueSpecial = "venue/specials"
+    static let kProfileVenueEvent = "venue/events"
+    
     static let kChangePasswordAPIEndPoint = "ChangePassword"
     static let kVenueDetailsAPIEndPoint = "VenueDetails"
     static let kNotificationsAPIEndPoint = "Notifications"
