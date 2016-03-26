@@ -224,7 +224,6 @@ class VenueSelection : UIViewController,UIGestureRecognizerDelegate {
 */
         
         let parameters = [
-            "file": "file.png",
             "venue_id": "1"]
         
         let URL = globalConstants.kAPIURL + globalConstants.kPostVenuePhotoVideo
@@ -235,8 +234,12 @@ class VenueSelection : UIViewController,UIGestureRecognizerDelegate {
         tokenString +=  NSUserDefaults.standardUserDefaults().objectForKey("LoginToken") as! String
         
         Alamofire.Manager.sharedInstance.session.configuration.HTTPAdditionalHeaders?.updateValue(tokenString, forKey: "Authorization")
-        Alamofire.Manager.sharedInstance.session.configuration.HTTPAdditionalHeaders?.updateValue("attachment; filename=media_filename.png;", forKey: "Content-Disposition")
-        
+        Alamofire.Manager.sharedInstance.session.configuration
+            .HTTPAdditionalHeaders?.updateValue("multipart/form-data",
+                forKey: "Content-Type")
+
+//        Alamofire.Manager.sharedInstance.session.configuration.HTTPAdditionalHeaders?.updateValue("attachment; filename=media_filename.png;", forKey: "Content-Disposition")
+//        
         let paths = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, NSSearchPathDomainMask.UserDomainMask, true)
         let documentsDirectory: AnyObject = paths[0]
         let dataPath = documentsDirectory.stringByAppendingPathComponent("/vid1.mp4")
@@ -251,7 +254,7 @@ class VenueSelection : UIViewController,UIGestureRecognizerDelegate {
 //                }
 //            }
             
-            multipartFormData.appendBodyPart(fileURL: NSURL(fileURLWithPath: dataPath), name: "video",fileName: "test.mp4", mimeType: "video/mp4")
+            multipartFormData.appendBodyPart(fileURL: NSURL(fileURLWithPath: dataPath), name: "file",fileName: "test.mp4", mimeType: "video/mp4")
             
 //            multipartFormData.appendBodyPart(fileURL: NSURL(fileURLWithPath: dataPath), name: "video")
             

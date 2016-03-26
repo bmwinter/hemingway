@@ -8,6 +8,7 @@
 
 import UIKit
 import SwiftyJSON
+import Alamofire
 
 let isLocalData = false
 
@@ -30,7 +31,6 @@ class NewsFeedTableViewController:UITableViewController,APIConnectionDelegate {
         
         view.backgroundColor = UIColor.clearColor()
         //performSelector(Selector(setFrames()), withObject: nil, afterDelay: 1.0)
-        self.loadData()
     }
     
     func pullToReferesh()
@@ -59,9 +59,15 @@ class NewsFeedTableViewController:UITableViewController,APIConnectionDelegate {
     
     override func viewWillAppear(animated: Bool)
     {
+        super.viewWillAppear(true)
         self.navigationController?.navigationBarHidden = true
     }
-    
+
+    override func viewDidAppear(animated: Bool) {
+        self.loadData()
+        super.viewDidAppear(true)
+    }
+
     func loadData()
     {
         if (isLocalData)
@@ -81,13 +87,104 @@ class NewsFeedTableViewController:UITableViewController,APIConnectionDelegate {
         }
         else
         {
-            let param: Dictionary = Dictionary<String, AnyObject>()
-            //call API for to get venues
-            let object = APIConnection().POST(APIName.Venues.rawValue, withAPIName: "VenueList", withMessage: "", withParam: param, withProgresshudShow: true, withHeader: false) as! APIConnection
-            object.delegate = self
+            self.getAllNewsFeed();
+//            let param: Dictionary = Dictionary<String, AnyObject>()
+//            //call API for to get venues
+//            let object = APIConnection().POST(APIName.Venues.rawValue, withAPIName: "VenueList", withMessage: "", withParam: param, withProgresshudShow: true, withHeader: false) as! APIConnection
+//            object.delegate = self
             
         }
     }
+    
+    // MARK: Retrieve All News Feed data.
+    func getAllNewsFeed(){
+        
+        let appDelegate=AppDelegate() //You create a new instance,not get the exist one
+        appDelegate.startAnimation((self.navigationController?.view)!)
+
+        var tokenString = "token "
+        if let appToken =  NSUserDefaults.standardUserDefaults().objectForKey("LoginToken") as? String
+        {
+            tokenString +=  appToken
+        }
+        
+        Alamofire.Manager.sharedInstance.session.configuration.HTTPAdditionalHeaders?.updateValue(tokenString, forKey: "Authorization")
+        
+        let URL =  globalConstants.kAPIURL + globalConstants.kAllNewsFeed
+        
+        //        Alamofire.Manager.sharedInstance.session.configuration.HTTPAdditionalHeaders?.updateValue("application/json", forKey: "Accept")
+        
+        
+        Alamofire.request(.GET, URL , parameters: nil, encoding: .JSON)
+            .responseString { response in
+                
+                appDelegate.stopAnimation()
+                guard let value = response.result.value else {
+                    print("Error: did not receive data")
+                    return
+                }
+                
+                guard response.result.error == nil else {
+                    print("error calling POST on Login")
+                    print(response.result.error)
+                    return
+                }
+                
+                
+                let post = JSON(value)
+                if let string = post.rawString() {
+                    let responseDic:[String:AnyObject]? = self.convertStringToDictionary(string)
+                    
+                    if response.response?.statusCode == 400{
+                        print("The Response Error is:   \(response.response?.statusCode)")
+                        
+                        if let val = responseDic?["code"] {
+                            if val[0].isEqualToString("13") {
+                                //                                print("Equals")
+                                self.displayCommonAlert(responseDic?["detail"]?[0] as! String)
+                                return
+                            }
+                            // now val is not nil and the Optional has been unwrapped, so use it
+                        }
+                        
+                        if let errorData = responseDic?["detail"] {
+                            
+                            let errorMessage = errorData[0] as! String
+                            self.displayCommonAlert(errorMessage)
+                            return;
+                        }
+                    }
+                }
+        }
+    }
+    
+    //MARK: convertStringObject to Dictionary
+    
+    func convertStringToDictionary(text:String) -> [String:AnyObject]? {
+        if let data = text.dataUsingEncoding(NSUTF8StringEncoding) {
+            do {
+                return try NSJSONSerialization.JSONObjectWithData(data, options: []) as? [String:AnyObject]
+            } catch let error as NSError {
+                print(error)
+            }
+        }
+        return nil
+    }
+    /*
+    // Common alert method need to be used to display alert, by passing alert string as parameter to it.
+    */
+    
+    func displayCommonAlert(alertMesage : NSString){
+        
+        let alertController = UIAlertController (title: globalConstants.kAppName, message: alertMesage as String?, preferredStyle:.Alert)
+        let okayAction: UIAlertAction = UIAlertAction(title: "Ok", style: .Cancel) { action -> Void in
+            //Just dismiss the action sheet
+        }
+        alertController.addAction(okayAction)
+        self.presentViewController(alertController, animated: true, completion: nil)
+    }
+    
+
     
     func reloadTable()
     {
