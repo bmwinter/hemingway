@@ -2,6 +2,8 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>Enable location to view local bars and restaurants!</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleExecutable</key>
@@ -52,6 +54,8 @@
 			<false/>
 		</dict>
 	</dict>
+	<key>MGLMapboxAccessToken</key>
+	<string>pk.eyJ1IjoibWl4cmFwcCIsImEiOiJjaW01Z2R6NGgwMW1hdWZtNjFkeDBvNm10In0.yTy8dOKb_egm2VoTeMVggA</string>
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>

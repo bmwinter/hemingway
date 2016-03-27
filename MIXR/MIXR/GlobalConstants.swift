@@ -33,7 +33,13 @@ struct globalConstants {
     static let kVerifyCodeAPIEndPoint = "confirmation/check"
     static let kPasswordRecover = "password/recover"
     static let kPasswordRecoverChange = "password/recover/change"
+    
     static let kProfileUpdate = "profile"
+    static let kProfileOther = "profile/other"
+    static let kProfileVenue = "profile/venue"
+    
+    static let kProfileVenueSpecial = "venue/specials"
+    static let kProfileVenueEvent = "venue/events"
     
     static let kChangePasswordAPIEndPoint = "ChangePassword"
     static let kVenueDetailsAPIEndPoint = "VenueDetails"

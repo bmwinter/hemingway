@@ -50,7 +50,8 @@ class ChangePassword: UITableViewController {
     // getSettingsData used to retrieve user settings data
     */
     
-    func changePasswordAPICall(){
+    func changePasswordAPICall()
+    {
         let parameters = [
             "currentPassword": currentPassword.text!.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet()),
             "changedPassword": changePassword.text!.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
@@ -86,6 +87,4 @@ class ChangePassword: UITableViewController {
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 4
     }
-    
-    
 }

@@ -7,13 +7,14 @@ platform :ios, '8.0'
 use_frameworks!
 
 target 'MIXR' do
-    pod 'Alamofire', '3.0.0'
+    pod 'Alamofire'
     pod 'IQKeyboardManagerSwift', '~> 3.3'
     pod 'SwiftyJSON'
     pod 'Agrume'
     pod 'BTNavigationDropdownMenu'
     pod 'SpringIndicator'
     pod 'AlamofireImage'
+    pod 'Mapbox-iOS-SDK'
 end
 
 target 'MIXRTests' do
