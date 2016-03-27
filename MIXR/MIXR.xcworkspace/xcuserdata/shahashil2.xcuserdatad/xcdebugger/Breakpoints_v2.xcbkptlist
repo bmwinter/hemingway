@@ -36,11 +36,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MIXR/VenueSelection.swift"
-            timestampString = "480534910.882158"
+            timestampString = "480746153.938547"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "248"
-            endingLineNumber = "248"
+            startingLineNumber = "322"
+            endingLineNumber = "322"
             landmarkName = "shareVenuePhotoVideo()"
             landmarkType = "5">
             <Locations>
@@ -52,27 +52,27 @@
                   moduleName = "MIXR"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/shahashil2/Desktop/Odesk/Brendan%20Winter%20(MIXR)/GItCode/14th%20Jan%202016/hemingway/MIXR/MIXR/VenueSelection.swift"
-                  timestampString = "480534921.079275"
+                  timestampString = "480747108.32749"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "248"
-                  endingLineNumber = "248"
-                  offsetFromSymbolStart = "2992">
+                  startingLineNumber = "322"
+                  endingLineNumber = "322"
+                  offsetFromSymbolStart = "4240">
                </Location>
                <Location
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "MIXR.VenueSelection.(shareVenuePhotoVideo (MIXR.VenueSelection) -&gt; () -&gt; ()).(closure #1)"
+                  symbolName = "function signature specialization &lt;Arg[2] = Dead, Arg[3] = Value Promoted from InOut&gt; of MIXR.VenueSelection.(shareVenuePhotoVideo (MIXR.VenueSelection) -&gt; () -&gt; ()).(closure #1)"
                   moduleName = "MIXR"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/shahashil2/Desktop/Odesk/Brendan%20Winter%20(MIXR)/GItCode/14th%20Jan%202016/hemingway/MIXR/MIXR/VenueSelection.swift"
-                  timestampString = "480534921.079523"
+                  timestampString = "480747108.327805"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "257"
-                  endingLineNumber = "257"
-                  offsetFromSymbolStart = "36">
+                  startingLineNumber = "331"
+                  endingLineNumber = "331"
+                  offsetFromSymbolStart = "40">
                </Location>
             </Locations>
          </BreakpointContent>
@@ -84,11 +84,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MIXR/VenueSelection.swift"
-            timestampString = "480534910.882158"
+            timestampString = "480746153.938547"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "266"
-            endingLineNumber = "266"
+            startingLineNumber = "343"
+            endingLineNumber = "343"
             landmarkName = "shareVenuePhotoVideo()"
             landmarkType = "5">
          </BreakpointContent>
@@ -100,11 +100,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MIXR/VenueSelection.swift"
-            timestampString = "480534910.882158"
+            timestampString = "480746153.938547"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "271"
-            endingLineNumber = "271"
+            startingLineNumber = "350"
+            endingLineNumber = "350"
             landmarkName = "shareVenuePhotoVideo()"
             landmarkType = "5">
          </BreakpointContent>
@@ -116,11 +116,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MIXR/VenueSelection.swift"
-            timestampString = "480534910.882158"
+            timestampString = "480746153.938547"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "274"
-            endingLineNumber = "274"
+            startingLineNumber = "354"
+            endingLineNumber = "354"
             landmarkName = "shareVenuePhotoVideo()"
             landmarkType = "5">
          </BreakpointContent>
@@ -218,6 +218,38 @@
             startingLineNumber = "121"
             endingLineNumber = "121"
             landmarkName = "getAllNewsFeed()"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "MIXR/VenueSelection.swift"
+            timestampString = "480746153.938547"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "331"
+            endingLineNumber = "331"
+            landmarkName = "shareVenuePhotoVideo()"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "MIXR/VenueSelection.swift"
+            timestampString = "480746153.938547"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "276"
+            endingLineNumber = "276"
+            landmarkName = "viewWillAppear(_:)"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

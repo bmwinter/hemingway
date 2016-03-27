@@ -74,6 +74,9 @@ struct globalConstants {
     static let ktermsandConditionError = "Please accept terms & condition!"
     static let kEnterValidPhoneNumber = "Please enter valid phone number with country code"
     
+    static let kTempVideoFileName = "video.mp4"
+    static let kTempImageFileNmae = "image.png"
+    
     /*
     // Method to check wether email is valid or not.
     */
@@ -87,6 +90,22 @@ struct globalConstants {
         return result
     }
     
+    static func storeImageVideoToDocumentDirectory(rowData:NSData, name:NSString)->Bool{
+        let paths = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, NSSearchPathDomainMask.UserDomainMask, true)
+        let documentsDirectory: AnyObject = paths[0]
+        let dataPath = documentsDirectory.stringByAppendingPathComponent(name as String)
+        
+        let stored =  rowData.writeToFile(dataPath, atomically: false)
+        print(stored)
+        return stored
+    }
+    
+    static func getStoreImageVideoPath(filename:NSString)->NSString{
+        let paths = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, NSSearchPathDomainMask.UserDomainMask, true)
+        let documentsDirectory: AnyObject = paths[0]
+        let dataPath = documentsDirectory.stringByAppendingPathComponent(filename as String)
+        return dataPath
+    }
     
 }
 

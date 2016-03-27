@@ -99,20 +99,12 @@ class BaseViewController: UIViewController  ,UIImagePickerControllerDelegate, UI
     
     func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
         let tempImage = info[UIImagePickerControllerMediaURL] as! NSURL!
-        self.dismissViewControllerAnimated(true, completion: {})
-        
-        let videoData = NSData(contentsOfURL: tempImage)
-        let paths = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, NSSearchPathDomainMask.UserDomainMask, true)
-        let documentsDirectory: AnyObject = paths[0]
-        let dataPath = documentsDirectory.stringByAppendingPathComponent("/vid1.mp4")
-        
-        let stored =  videoData?.writeToFile(dataPath, atomically: false)
-        print(stored)
-        
-        //        UISaveVideoAtPathToSavedPhotosAlbum(pathString!, self, nil, nil)
-        
-        self.pushPreviewController()
-        
+        self.dismissViewControllerAnimated(true, completion: {
+            let videoData = NSData(contentsOfURL: tempImage)
+            if globalConstants.storeImageVideoToDocumentDirectory(videoData!, name: globalConstants.kTempVideoFileName) {
+                self.pushPreviewController()
+            }
+        })
     }
     
     func pushPreviewController(){
@@ -140,6 +132,7 @@ class BaseViewController: UIViewController  ,UIImagePickerControllerDelegate, UI
             imagePicker.videoMaximumDuration = 10.0
             imagePicker.showsCameraControls = true
             
+            
             self.presentViewController(imagePicker, animated: true, completion: nil)
             
         }
@@ -155,13 +148,18 @@ class BaseViewController: UIViewController  ,UIImagePickerControllerDelegate, UI
     func openPhotoGallery()
     {
         let cameraViewController = ALCameraViewController(croppingEnabled: true, allowsLibraryAccess: true) { (image) -> Void in
-            //            self.imageView.image = image
+            
             self.dismissViewControllerAnimated(true, completion: nil)
-            let storyboard: UIStoryboard = UIStoryboard(name: "User", bundle: nil)
-            let vc = storyboard.instantiateViewControllerWithIdentifier("VenueSelection") as! VenueSelection
-            vc.isVideo = false
-            vc.capturedImageFile = image
-            self.showViewController(vc, sender: self)
+            if image != nil{
+                let imageData = UIImageJPEGRepresentation(image!, 0.5)
+                if globalConstants.storeImageVideoToDocumentDirectory(imageData!, name: globalConstants.kTempImageFileNmae) {
+                    let storyboard: UIStoryboard = UIStoryboard(name: "User", bundle: nil)
+                    let vc = storyboard.instantiateViewControllerWithIdentifier("VenueSelection") as! VenueSelection
+                    vc.isVideo = false
+                    vc.capturedImageFile = image
+                    self.showViewController(vc, sender: self)
+                }
+            }
         }
         presentViewController(cameraViewController, animated: true, completion: nil)
     }
