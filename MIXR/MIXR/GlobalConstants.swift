@@ -34,8 +34,6 @@ struct globalConstants {
     static let kPasswordRecover = "password/recover"
     static let kPasswordRecoverChange = "password/recover/change"
     static let kProfileUpdate = "profile"
-    static let kPostVenuePhotoVideo = "post"
-    static let kAllNewsFeed = "newsfeed"
     
     static let kChangePasswordAPIEndPoint = "ChangePassword"
     static let kVenueDetailsAPIEndPoint = "VenueDetails"
@@ -56,6 +54,10 @@ struct globalConstants {
     static let kNewsfeedUserAPIEndPoint = "newsfeed/user"
     static let kNewsfeedMyAPIEndPoint = "newsfeed/my"
     static let kNewsfeedVenueAPIEndPoint = "newsfeed/venue"
+    
+    static let kPostVenuePhotoVideo = "post"
+    static let kAllNewsFeed = "newsfeed"
+
     
     static let kAppName = "MIXR"
     
