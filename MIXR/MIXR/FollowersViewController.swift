@@ -136,7 +136,7 @@ class FollowersViewController: BaseViewController, UITableViewDelegate,UITableVi
                                         self.displayCommonAlert(errorMessageStr)
                                     }
                                 }
-                                self.loadData()
+                                self.reloadTable()
                                 return;
                             }
                         }

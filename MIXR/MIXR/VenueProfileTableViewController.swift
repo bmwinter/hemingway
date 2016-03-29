@@ -14,7 +14,7 @@ import Alamofire
 import AlamofireImage
 
 class VenueProfileTableViewController: UITableViewController,UIGestureRecognizerDelegate {
-    
+    var venueFeedArray:NSMutableArray = []
     var feedsArray : Array<JSON> = []
     var venueSpecialArray : NSArray = []
     var venueEventArray : NSArray = []
@@ -359,6 +359,8 @@ class VenueProfileTableViewController: UITableViewController,UIGestureRecognizer
     
     func loadFeedData()
     {
+        self.getVenueNewsFeed()
+        return
         if (!isLocalData)
         {
             feedsArray = [["venueName":"Mad River1","venueImage":"venueImage1.jpg","userName":"Grant Boyle1"],
@@ -446,7 +448,7 @@ class VenueProfileTableViewController: UITableViewController,UIGestureRecognizer
     override func tableView(tableView: UITableView,
         numberOfRowsInSection section: Int) -> Int
     {
-        return feedsArray.count;
+        return self.venueFeedArray.count;
     }
     
     override func tableView(tableView: UITableView,
@@ -463,19 +465,69 @@ class VenueProfileTableViewController: UITableViewController,UIGestureRecognizer
         //let venueDict : Dictionary <String, JSON> = feedsArray[indexPath.row]
         cell.contentView.tag = indexPath.row
         
-        cell.venuImageView.image = UIImage(named: feedsArray[indexPath.row]["venueImage"].string!)
-        cell.FeedName.text = feedsArray[indexPath.row]["venueName"].string
-        cell.lblUserName.text = feedsArray[indexPath.row]["userName"].string
+        if let imageNameStr = self.venueFeedArray[indexPath.row]["image_url"] as? String
+        {
+            if (imageNameStr.characters.count > 0)
+            {
+                //cell.imagePerson.image  = aImage
+                let URL = NSURL(string: imageNameStr)!
+                //let URL = NSURL(string: "https://avatars1.githubusercontent.com/u/1846768?v=3&s=460")!
+            
+                Request.addAcceptableImageContentTypes(["application/xml"])
+                Request.addAcceptableImageContentTypes(["binary/octet-stream"])
+                let filter = AspectScaledToFillSizeWithRoundedCornersFilter(
+                    size: cell.venuImageView.frame.size,
+                    radius: 0.0
+                )
+                cell.venuImageView.af_setImageWithURL(URL, placeholderImage: UIImage(named: "ALPlaceholder"), filter: filter, imageTransition: .None, completion: { (response) -> Void in
+                    print("image: \(cell.venuImageView.image)")
+                    print(response.result.value) //# UIImage
+                    print(response.result.error) //# NSError
+                })
+                
+                //let placeholderImage = UIImage(named: "ALPlaceholder")!
+                //cell.imagePerson.af_setImageWithURL(URL, placeholderImage: placeholderImage)
+                
+            }
+            else
+            {
+                cell.venuImageView.image = UIImage(named:"ALPlaceholder")
+            }
+        }
+        else
+        {
+            cell.venuImageView.image = UIImage(named:"ALPlaceholder")
+        }
+        
+        //cell.venuImageView.image = UIImage(named: self.venueFeedArray[indexPath.row]["venueImage"]!!.string!)
+        if let venue_nameStr = self.venueFeedArray[indexPath.row]["venue_name"] as? String
+        {
+            cell.FeedName.text = venue_nameStr
+        }
+        
+        if let post_idStr = self.venueFeedArray[indexPath.row]["post_id"] as? Int
+        {
+            cell.lblUserName.text = "\(post_idStr)"
+        }
         
         let attachment = NSTextAttachment()
         attachment.image = UIImage(named: "martiniglass_icon.png")
         let attachmentString = NSAttributedString(attachment: attachment)
         let myString = NSMutableAttributedString(string: " ")
         myString.appendAttributedString(attachmentString)
-        myString.appendAttributedString(NSMutableAttributedString(string: " 250"))
+        
+        if let likesStr = self.venueFeedArray[indexPath.row]["likes"] as? String
+        {
+             myString.appendAttributedString(NSMutableAttributedString(string: " \(likesStr)"))
+        }
+        else
+        {
+            myString.appendAttributedString(NSMutableAttributedString(string: " 0"))
+        }
+       
         cell.lblLike.attributedText = myString
         
-        if((indexPath.row == (feedsArray.count-2)) && feedsArray.count > 8)
+        if((indexPath.row == (self.venueFeedArray.count-2)) && self.venueFeedArray.count > 8)
         {
             self.loadFeedData()
         }
@@ -897,6 +949,181 @@ class VenueProfileTableViewController: UITableViewController,UIGestureRecognizer
         }
     }
     
+    func getVenueNewsFeed()
+    {
+        let appDelegate=AppDelegate() //You create a new instance,not get the exist one
+        appDelegate.startAnimation((self.navigationController?.view)!)
+        
+        var tokenString = "token "
+        
+        if let appToken =  NSUserDefaults.standardUserDefaults().objectForKey("LoginToken") as? String
+        {
+            tokenString +=  appToken
+            
+            let URL =  globalConstants.kAPIURL + globalConstants.kNewsfeedVenueAPIEndPoint
+            
+            
+            let headers = [
+                "Authorization": tokenString,
+            ]
+            
+            let parameters = [
+                "venue_id": self.venuId//.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet()),
+            ]
+            Alamofire.request(.POST, URL , parameters: parameters, encoding: .JSON, headers : headers)
+                .responseString { response in
+
+//                    
+//                    
+//        if let appToken =  NSUserDefaults.standardUserDefaults().objectForKey("LoginToken") as? String
+//        {
+//            tokenString +=  appToken
+//            
+//            Alamofire.Manager.sharedInstance.session.configuration.HTTPAdditionalHeaders?.updateValue(tokenString, forKey: "authorization")
+//            
+//            let parameters = [
+//                "venue_id": self.venuId!//.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet()),
+//            ]
+//            let URL =  globalConstants.kAPIURL + globalConstants.kNewsfeedVenueAPIEndPoint
+//            //Alamofire.Manager.sharedInstance.session.configuration.HTTPAdditionalHeaders?.updateValue("application/json", forKey: "Accept")
+//            
+//            Alamofire.request(.POST, URL , parameters: parameters, encoding: .JSON)
+//                .responseString { response in
+                    
+                    self.venueFeedArray.removeAllObjects()
+                    
+                    appDelegate.stopAnimation()
+                    guard let value = response.result.value else
+                    {
+                        print("Error: did not receive data")
+                        self.reloadTable()
+                        
+                        return
+                    }
+                    
+                    guard response.result.error == nil else
+                    {
+                        print("error calling POST on Login")
+                        print(response.result.error)
+                        self.reloadTable()
+                        
+                        return
+                    }
+                    
+                    
+                    let post = JSON(value)
+                    if let string = post.rawString()
+                    {
+                        if response.response?.statusCode == 400
+                        {
+                            let responseDic:[String:AnyObject]? = self.convertStringToDictionary(string)
+                            print("The Response Error is:   \(response.response?.statusCode)")
+                            
+                            if let val = responseDic?["code"]
+                            {
+                                if val[0].isEqualToString("13")
+                                {
+                                    //print("Equals")
+                                    //self.displayCommonAlert(responseDic?["detail"]?[0] as! String)
+                                    self.reloadTable()
+                                    
+                                    return
+                                }
+                                // now val is not nil and the Optional has been unwrapped, so use it
+                            }
+                            
+                            if let errorData = responseDic?["detail"]
+                            {
+                                
+                                if let errorMessage = errorData as? String
+                                {
+                                    self.displayCommonAlert(errorMessage)
+                                    
+                                }
+                                else if let errorMessage = errorData as? NSArray
+                                {
+                                    if let errorMessageStr = errorMessage[0] as? String
+                                    {
+                                        self.displayCommonAlert(errorMessageStr)
+                                    }
+                                }
+                                 self.reloadTable()
+                                return;
+                            }
+                        }
+                        else if (response.response?.statusCode == 200 || response.response?.statusCode == 201)
+                        {
+                            let responseArray:NSArray? = self.convertStringToArray(string)
+                            if let FeedArray = responseArray as? NSMutableArray
+                            {
+                                // if(self.feedcount == 0)
+                                // {
+                                //     self.usersArray = self.createDisplayArray(searchArray)
+                                //     self.feedcount = self.usersArray.count
+                                // }
+                                // else
+                                // {
+                                //     if(self.usersArray.count > 0)
+                                //     {
+                                //         let newData : NSMutableArray = self.createDisplayArray(searchArray)
+                                //
+                                //         for (var cnt = 0; cnt < newData.count ; cnt++)
+                                //         {
+                                //             self.usersArray.addObject(newData[cnt])
+                                //         }
+                                //
+                                //         self.feedcount = self.usersArray.count
+                                //     }
+                                // }
+                                
+                                self.venueFeedArray = self.createDisplayArray(FeedArray)
+                            }
+                        }
+                        
+                        self.reloadTable()
+                    }
+            }
+        }
+    }
+    
+    func createDisplayArray(inputArray :NSMutableArray)->NSMutableArray
+    {
+        let newData : NSMutableArray = []
+        
+        for (var cnt = 0 ; cnt < inputArray.count; cnt++ )
+        {
+            
+            if let inputDict = inputArray[cnt] as? NSDictionary
+            {
+                let outPutDict :NSMutableDictionary = NSMutableDictionary(dictionary: inputDict)
+                /* ["venueName":"Mad River2","venueImage":"venueImage2.jpg","userName":"Grant Boyle2"] */
+                
+                /*
+                "image_url": "https://s3-us-west-2.amazonaws.com/mixruploads/2016_03_04_04_04.jpg_1",
+                "venue_id": 1,
+                "post_id": 1,
+                "venue_name": "Harry's Bar",
+                "likes": 2
+                */
+                if let _ = inputDict["venue_id"] as? String
+                {
+                    outPutDict.setValue("\(inputDict["venue_name"] as! String)", forKey: "venueName")
+                    outPutDict.setValue("\(inputDict["image_url"] as! String)", forKey: "venueImage")
+                    outPutDict.setValue("\(inputDict["post_id"] as! Int)", forKey: "userName")
+                }
+                else if let _ = inputDict["venue_id"] as? Int
+                {
+                    outPutDict.setValue("\(inputDict["venue_name"] as! String)", forKey: "venueName")
+                    outPutDict.setValue("\(inputDict["image_url"] as! String)", forKey: "venueImage")
+                    outPutDict.setValue("\(inputDict["post_id"] as! Int)", forKey: "userName")
+                }
+
+                newData.addObject(outPutDict)
+            }
+        }
+        return newData
+    }
+    
     func convertStringToDictionary(text:String) -> [String:AnyObject]? {
         if let data = text.dataUsingEncoding(NSUTF8StringEncoding) {
             do {
@@ -908,7 +1135,8 @@ class VenueProfileTableViewController: UITableViewController,UIGestureRecognizer
         return nil
     }
     
-    func convertStringToArray(text:String) -> NSArray? {
+    func convertStringToArray(text:String) -> NSArray?
+    {
         if let data = text.dataUsingEncoding(NSUTF8StringEncoding) {
             do {
                 return try NSJSONSerialization.JSONObjectWithData(data, options: []) as? NSArray

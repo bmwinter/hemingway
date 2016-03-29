@@ -13,7 +13,7 @@ import SwiftyJSON
 import Foundation
 import MobileCoreServices
 
-var isTesting : Int = 1
+var isTesting : Int = 2
 /*
 b@me.com/test
 */
@@ -49,6 +49,11 @@ class LoginViewController: BaseViewController {
         {
             self.userEmailTextField.text = "b@me.com"
             self.userPasswordTextField.text = "test"
+        }
+        else if (isTesting == 3)
+        {
+            self.userEmailTextField.text = "re@re.co"
+            self.userPasswordTextField.text = "1234"
         }
         else
         {
