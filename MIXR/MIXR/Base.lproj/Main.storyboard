@@ -1343,6 +1343,9 @@
                                                                 <constraint firstAttribute="width" secondItem="rXc-DY-aeI" secondAttribute="height" multiplier="1:1" id="HG3-zg-jsU"/>
                                                             </constraints>
                                                             <state key="normal" image="notificationAccept.png"/>
+                                                            <connections>
+                                                                <action selector="onAcceptFollowRequestClicked:" destination="Nw6-UJ-J8B" eventType="touchUpInside" id="L7e-vJ-aJY"/>
+                                                            </connections>
                                                         </button>
                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" reversesTitleShadowWhenHighlighted="YES" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VSz-8e-rJe" userLabel="cancelButton">
                                                             <rect key="frame" x="342" y="16" width="28" height="28"/>
@@ -1351,6 +1354,9 @@
                                                                 <constraint firstAttribute="width" secondItem="VSz-8e-rJe" secondAttribute="height" multiplier="1:1" id="4cY-j9-V9I"/>
                                                             </constraints>
                                                             <state key="normal" image="notificationReject.png"/>
+                                                            <connections>
+                                                                <action selector="onRejectFollowRequestClicked:" destination="Nw6-UJ-J8B" eventType="touchUpInside" id="LJY-96-3XG"/>
+                                                            </connections>
                                                         </button>
                                                     </subviews>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -1385,8 +1391,10 @@
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <connections>
+                                            <outlet property="acceptFollowRequestBtn" destination="rXc-DY-aeI" id="1go-Ny-c2O"/>
                                             <outlet property="cellBGView" destination="9QS-97-AeZ" id="bYd-Nb-9Ut"/>
                                             <outlet property="followingRequestLbl" destination="Re8-wq-Nay" id="ovg-Q9-HI0"/>
+                                            <outlet property="rejectFollowRequestBtn" destination="VSz-8e-rJe" id="O1w-oR-19n"/>
                                             <outlet property="userPic" destination="wzw-q0-WkP" id="rT3-pA-tck"/>
                                         </connections>
                                     </tableViewCell>

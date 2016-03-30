@@ -14,6 +14,8 @@ class FollowingRequestCell: UITableViewCell
     @IBOutlet weak var notificationTimeStamp: UILabel!
     @IBOutlet weak var userPic: UIImageView!
     @IBOutlet weak var cellBGView: UIView!
+    @IBOutlet weak var acceptFollowRequestBtn : UIButton!
+    @IBOutlet weak var rejectFollowRequestBtn : UIButton!
     
     override func awakeFromNib()
     {

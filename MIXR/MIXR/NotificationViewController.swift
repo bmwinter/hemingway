@@ -284,7 +284,7 @@ class NotificationViewController: BaseViewController,UITableViewDelegate,UITable
         //}
     }
     
-    //  MARK:- Tableview Delegates -
+        //  MARK:- Tableview Delegates -
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int
     {
@@ -377,6 +377,8 @@ class NotificationViewController: BaseViewController,UITableViewDelegate,UITable
                 cell.selectionStyle = UITableViewCellSelectionStyle.None
                 let feedDict : NSDictionary = followingRequestArray[indexPath.row] as! NSDictionary
                 cell.followingRequestLbl.text = feedDict["followingReques"] as? String
+                cell.acceptFollowRequestBtn.tag = indexPath.row
+                cell.rejectFollowRequestBtn.tag = indexPath.row
                 //cell.userPic.image = UIImage(named: feedDict["userImage"] as! String)
                 if let imageNameStr = feedDict["image_url"] as? String
                 {
@@ -419,6 +421,8 @@ class NotificationViewController: BaseViewController,UITableViewDelegate,UITable
             {
                 let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as! FollowingRequestCell
                 cell.selectionStyle = UITableViewCellSelectionStyle.None
+                cell.acceptFollowRequestBtn.tag = indexPath.row
+                cell.rejectFollowRequestBtn.tag = indexPath.row
                 return cell
             }
         }
@@ -434,6 +438,146 @@ class NotificationViewController: BaseViewController,UITableViewDelegate,UITable
         }
     }
     
+    @IBAction func onAcceptFollowRequestClicked(sender: AnyObject)
+    {
+        if let btn = sender as? UIButton
+        {
+            if (followingRequestArray.count > btn.tag)
+            {
+                let followRequestDict : NSDictionary = followingRequestArray[btn.tag] as! NSDictionary
+                print("onAcceptFollowRequestClicked = \(btn.tag)")
+
+                print("followRequestDict = \(followRequestDict)")
+                if let user_idStr = followRequestDict["user_id"] as? Int
+                {
+                    print("user_idStr = \(user_idStr)")
+                    print("follow_status = 3") //denied: 2 or accepted: 3
+                    self.setResponseOfFollowRequest("\(user_idStr)", follow_status: "3")
+                }
+            }
+        }
+    }
+    
+    @IBAction func onRejectFollowRequestClicked(sender: AnyObject)
+    {
+        if let btn = sender as? UIButton
+        {
+            if (followingRequestArray.count > btn.tag)
+            {
+                let followRequestDict : NSDictionary = followingRequestArray[btn.tag] as! NSDictionary
+                print("onRejectFollowRequestClicked = \(btn.tag)")
+                
+                print("followRequestDict = \(followRequestDict)")
+                if let user_idStr = followRequestDict["user_id"] as? Int
+                {
+                    print("user_idStr = \(user_idStr)")
+                    print("follow_status = 2") //denied: 2 or accepted: 3
+                    self.setResponseOfFollowRequest("\(user_idStr)", follow_status: "2")
+                }
+            }
+        }
+    }
+    
+    func setResponseOfFollowRequest(owner_id:String,follow_status:String)
+    {
+        self.followingRequestArray.removeAllObjects()
+        
+        let appDelegate=AppDelegate() //You create a new instance,not get the exist one
+        appDelegate.startAnimation((self.navigationController?.view)!)
+        
+        var tokenString = "token "
+        if let appToken =  NSUserDefaults.standardUserDefaults().objectForKey("LoginToken") as? String
+        {
+            tokenString +=  appToken
+            
+            let URL =  globalConstants.kAPIURL + globalConstants.kFollowRequestUpdateAPIEndPoint
+            
+            Alamofire.Manager.sharedInstance.session.configuration.HTTPAdditionalHeaders?.updateValue(tokenString, forKey: "authorization")
+            let headers = [
+                "Authorization": tokenString,
+            ]
+            
+            let parameters = [
+                "owner_id": owner_id,
+                "follow_status":follow_status
+            ]
+            
+            Alamofire.request(.POST, URL , parameters: parameters, encoding: .JSON, headers : headers)
+                .responseString { response in
+                    
+                    print("response \(response)")
+                    appDelegate.stopAnimation()
+                    
+                    guard let value = response.result.value else
+                    {
+                        print("Error: did not receive data")
+                        self.loadData()
+                        return
+                    }
+                    
+                    guard response.result.error == nil else
+                    {
+                        print("error calling POST on Login")
+                        print(response.result.error)
+                        self.loadData()
+                        return
+                    }
+                    
+                    let post = JSON(value)
+                    if let string = post.rawString()
+                    {
+                        if (response.response?.statusCode == 400 || response.response?.statusCode == 401)
+                        {
+                            let responseDic:[String:AnyObject]? = self.convertStringToDictionary(string)
+                            print("The Response Error is:   \(response.response?.statusCode)")
+                            
+                            if let val = responseDic?["code"]
+                            {
+                                if val[0].isEqualToString("13")
+                                {
+                                    //print("Equals")
+                                    self.displayCommonAlert(responseDic?["detail"]?[0] as! String)
+                                    self.loadData()
+                                    
+                                    return
+                                }
+                                // now val is not nil and the Optional has been unwrapped, so use it
+                            }
+                            
+                            if let errorData = responseDic?["detail"]
+                            {
+                                
+                                if let errorMessage = errorData as? String
+                                {
+                                    self.displayCommonAlert(errorMessage)
+                                    
+                                }
+                                else if let errorMessage = errorData as? NSArray
+                                {
+                                    if let errorMessageStr = errorMessage[0] as? String
+                                    {
+                                        self.displayCommonAlert(errorMessageStr)
+                                    }
+                                }
+                                self.loadData()
+                                return;
+                            }
+                            
+                        }
+                        else if (response.response?.statusCode == 200 || response.response?.statusCode == 201)
+                        {
+                            print("The Response stringis:   \(string)")
+                        }
+                        else
+                        {
+                            
+                        }
+                        self.loadData()
+                    }
+            }
+        }
+    }
+
     /*
     // MARK: - Navigation
     
