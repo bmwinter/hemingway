@@ -12,6 +12,7 @@ import SwiftyJSON
 import SwiftyJSON
 import Alamofire
 import AlamofireImage
+import MediaPlayer
 
 class VenueProfileTableViewController: UITableViewController,UIGestureRecognizerDelegate {
     var venueFeedArray:NSMutableArray = []
@@ -20,7 +21,11 @@ class VenueProfileTableViewController: UITableViewController,UIGestureRecognizer
     var venueEventArray : NSArray = []
     var feedcount : Int = 0
     var venueDict : NSDictionary = NSDictionary()
-    
+    var moviePlayer:MPMoviePlayerController!
+    var vwVideoPreview:UIView = UIView()
+    var vwCenterVideoPreview:UIView = UIView()
+    @IBOutlet weak var movieViewController : MPMoviePlayerViewController?
+
     @IBOutlet weak var venuePicture: UIImageView!
     @IBOutlet weak var noofFillsImage: UIImageView!
     @IBOutlet weak var btnLike: UIButton!
@@ -409,10 +414,27 @@ class VenueProfileTableViewController: UITableViewController,UIGestureRecognizer
     
     @IBAction func onFeedClicked(sender: AnyObject)
     {
+        if let btn :UIButton = sender as? UIButton
+        {
+            print("index = \(btn.tag)")
+            if let mediaStr = self.venueFeedArray[btn.tag]["media"] as? String
+            {
+                if (mediaStr == "image") // video
+                {
+                    if let videoUrlStr = self.venueFeedArray[btn.tag]["image_url"] as? String
+                    {
+                        self.playVideoWithURL(NSURL(string:videoUrlStr)!)
+                        //playVideo()
+                        //self.playVideoWithURL(NSURL(string:"http://jplayer.org/video/m4v/Big_Buck_Bunny_Trailer.m4v")!)
+                        //self.playVideoWithURL(NSURL(string:"https://mixrapp.slack.com/files/sujal/F0WQSA542/2016_03_24_17_51_1.mov")!)
+                        return
+                    }
+                }
+            }
+        }
+       
         let aVenueProfileViewController : VenueProfileViewController = self.storyboard!.instantiateViewControllerWithIdentifier("VenueProfileViewController") as! VenueProfileViewController
         self.navigationController!.pushViewController(aVenueProfileViewController, animated: true)
-        
-        return
     }
     // MARK: - Table view data source
     
@@ -505,7 +527,7 @@ class VenueProfileTableViewController: UITableViewController,UIGestureRecognizer
             cell.FeedName.text = venue_nameStr
         }
         
-        if let post_idStr = self.venueFeedArray[indexPath.row]["post_id"] as? Int
+        if let post_idStr = self.venueFeedArray[indexPath.row]["full_name"] as? Int
         {
             cell.lblUserName.text = "\(post_idStr)"
         }
@@ -542,6 +564,7 @@ class VenueProfileTableViewController: UITableViewController,UIGestureRecognizer
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath)
     {
         print("indexpath.row = \(indexPath.row)")
+        
     }
     
     override func scrollViewDidScroll(scrollView: UIScrollView) {
@@ -1161,4 +1184,76 @@ class VenueProfileTableViewController: UITableViewController,UIGestureRecognizer
         self.presentViewController(alertController, animated: true, completion: nil)
     }
 
+    func playVideo() {
+        
+        //let url = NSURL (string: "https://mixrapp.slack.com/files/sujal/F0WQSA542/2016_03_24_17_51_1.mov")
+        let url = NSURL (string: "http://jplayer.org/video/m4v/Big_Buck_Bunny_Trailer.m4v")
+        self.moviePlayer = MPMoviePlayerController(contentURL: url)
+        if let player = self.moviePlayer {
+            player.view.frame = self.view.bounds
+            player.prepareToPlay()
+            player.scalingMode = .AspectFill
+            self.view.addSubview(player.view)
+        }
+    }
+
+    
+    func playVideoWithURL(path: NSURL)
+    {
+        if self.moviePlayer != nil
+        {
+            self.moviePlayer.stop()
+            self.moviePlayer.view.removeFromSuperview()
+            self.moviePlayer = nil
+        }
+
+        self.moviePlayer = MPMoviePlayerController(contentURL: path)
+        if let player = self.moviePlayer
+        {
+            self.tableView.scrollEnabled = false
+            player.view.frame = self.view.bounds
+            //player.view.sizeToFit()
+            player.scalingMode = MPMovieScalingMode.AspectFit
+            player.fullscreen = false
+            player.controlStyle = MPMovieControlStyle.Fullscreen
+            player.movieSourceType = MPMovieSourceType.Streaming
+            player.repeatMode = MPMovieRepeatMode.None
+            
+            player.prepareToPlay()
+            player.play()
+           
+            NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("movieFinishedCallback:"), name: MPMoviePlayerPlaybackDidFinishNotification, object: nil)
+//            if (self.vwVideoPreview.superview == nil)
+//            {
+//                self.vwVideoPreview = player.view
+//                self.view.addSubview(self.vwVideoPreview)
+//            }
+            self.view.addSubview(player.view)
+            self.view.bringSubviewToFront(player.view)
+        }
+    }
+    
+    func movieFinishedCallback(notification: NSNotification)
+    {
+        NSNotificationCenter.defaultCenter().removeObserver(self, name: MPMoviePlayerPlaybackDidFinishNotification, object: nil)
+        
+        self.tableView.scrollEnabled = true
+        if (self.moviePlayer != nil)
+        {
+            self.moviePlayer.stop()
+            
+            if(self.moviePlayer.view.superview != nil)
+            {
+                self.moviePlayer.view.removeFromSuperview()
+            }
+        }
+    }
+
+    func playVideoWithURLNew(path: NSURL)
+    {
+        var url = NSURL(string: "http://jplayer.org/video/m4v/Big_Buck_Bunny_Trailer.m4v")!
+        movieViewController = MPMoviePlayerViewController(contentURL: url)
+        movieViewController?.moviePlayer.fullscreen = true
+        movieViewController?.moviePlayer.controlStyle = .Embedded
+    }
 }
