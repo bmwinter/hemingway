@@ -2357,7 +2357,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9T0-NH-fq4" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1363" y="-227"/>
+            <point key="canvasLocation" x="1167" y="-227"/>
         </scene>
         <!--Following View Controller-->
         <scene sceneID="4Pl-W9-Kpv">
@@ -2431,10 +2431,10 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vw4-vJ-GaP">
-                                <rect key="frame" x="10" y="64" width="394" height="672"/>
+                                <rect key="frame" x="10" y="74" width="394" height="652"/>
                                 <subviews>
                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="56" sectionHeaderHeight="1" sectionFooterHeight="1" translatesAutoresizingMaskIntoConstraints="NO" id="3g2-aO-fFa">
-                                        <rect key="frame" x="0.0" y="0.0" width="394" height="672"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="394" height="652"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <color key="separatorColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <color key="sectionIndexBackgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -2528,9 +2528,9 @@
                             <constraint firstItem="xGD-pS-HbP" firstAttribute="top" secondItem="rhn-Jc-Wlu" secondAttribute="bottom" id="aKE-CS-xKF"/>
                             <constraint firstItem="rhn-Jc-Wlu" firstAttribute="top" secondItem="R45-m7-KJ6" secondAttribute="top" id="af3-EW-ye5"/>
                             <constraint firstItem="rhn-Jc-Wlu" firstAttribute="leading" secondItem="R45-m7-KJ6" secondAttribute="leading" id="gwx-Aw-Sbt"/>
-                            <constraint firstItem="vw4-vJ-GaP" firstAttribute="top" secondItem="AII-gC-3sw" secondAttribute="bottom" id="n1e-eZ-BPK"/>
+                            <constraint firstItem="vw4-vJ-GaP" firstAttribute="top" secondItem="AII-gC-3sw" secondAttribute="bottom" constant="10" id="n1e-eZ-BPK"/>
                             <constraint firstItem="rhn-Jc-Wlu" firstAttribute="top" secondItem="R45-m7-KJ6" secondAttribute="top" id="q3M-oP-APL"/>
-                            <constraint firstItem="xGD-pS-HbP" firstAttribute="top" secondItem="vw4-vJ-GaP" secondAttribute="bottom" id="qsG-CB-NSU"/>
+                            <constraint firstItem="xGD-pS-HbP" firstAttribute="top" secondItem="vw4-vJ-GaP" secondAttribute="bottom" constant="10" id="qsG-CB-NSU"/>
                             <constraint firstItem="vw4-vJ-GaP" firstAttribute="leading" secondItem="R45-m7-KJ6" secondAttribute="leadingMargin" constant="-10" id="wZV-bR-kjt"/>
                             <constraint firstAttribute="trailing" secondItem="rhn-Jc-Wlu" secondAttribute="trailing" id="zit-h7-JTl"/>
                         </constraints>
@@ -2550,7 +2550,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gjs-1x-9eq" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <searchDisplayController id="iJP-MY-OW2"/>
             </objects>
-            <point key="canvasLocation" x="1778" y="-687"/>
+            <point key="canvasLocation" x="1375" y="-687"/>
         </scene>
         <!--Settings Table View Controller-->
         <scene sceneID="UuF-Xu-nir">
@@ -3964,10 +3964,10 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8E9-0T-bbD">
-                                <rect key="frame" x="10" y="64" width="394" height="672"/>
+                                <rect key="frame" x="10" y="74" width="394" height="652"/>
                                 <subviews>
                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="56" sectionHeaderHeight="1" sectionFooterHeight="1" translatesAutoresizingMaskIntoConstraints="NO" id="JwQ-vt-eKQ">
-                                        <rect key="frame" x="0.0" y="0.0" width="394" height="672"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="394" height="652"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <color key="separatorColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <color key="sectionIndexBackgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -4052,11 +4052,11 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="trailingMargin" secondItem="8E9-0T-bbD" secondAttribute="trailing" constant="-10" id="3fl-lI-ISU"/>
-                            <constraint firstItem="8E9-0T-bbD" firstAttribute="top" secondItem="C6w-pR-vD9" secondAttribute="bottom" id="4mW-Im-JDi"/>
+                            <constraint firstItem="8E9-0T-bbD" firstAttribute="top" secondItem="C6w-pR-vD9" secondAttribute="bottom" constant="10" id="4mW-Im-JDi"/>
                             <constraint firstItem="C6w-pR-vD9" firstAttribute="trailing" secondItem="h1R-6Z-Ygh" secondAttribute="trailing" id="CRb-Nn-mPG"/>
                             <constraint firstItem="Plf-g5-F1m" firstAttribute="top" secondItem="h1R-6Z-Ygh" secondAttribute="bottom" id="H76-BI-qmq"/>
                             <constraint firstItem="8E9-0T-bbD" firstAttribute="leading" secondItem="Dh2-MM-uy2" secondAttribute="leadingMargin" constant="-10" id="HgY-sv-5wf"/>
-                            <constraint firstItem="Plf-g5-F1m" firstAttribute="top" secondItem="8E9-0T-bbD" secondAttribute="bottom" id="LOo-cP-BUW"/>
+                            <constraint firstItem="Plf-g5-F1m" firstAttribute="top" secondItem="8E9-0T-bbD" secondAttribute="bottom" constant="10" id="LOo-cP-BUW"/>
                             <constraint firstAttribute="trailing" secondItem="h1R-6Z-Ygh" secondAttribute="trailing" id="OXI-Xf-obw"/>
                             <constraint firstItem="Plf-g5-F1m" firstAttribute="top" secondItem="h1R-6Z-Ygh" secondAttribute="bottom" id="U6i-6a-zao"/>
                             <constraint firstItem="C6w-pR-vD9" firstAttribute="top" secondItem="h1R-6Z-Ygh" secondAttribute="top" id="XrI-PN-MRX"/>
@@ -4083,7 +4083,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="J3r-FT-kKP" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <searchDisplayController id="9Cr-gA-uWx"/>
             </objects>
-            <point key="canvasLocation" x="2217" y="-590"/>
+            <point key="canvasLocation" x="1856" y="-519"/>
         </scene>
     </scenes>
     <resources>

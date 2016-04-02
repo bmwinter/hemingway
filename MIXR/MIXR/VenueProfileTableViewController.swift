@@ -133,52 +133,21 @@ class VenueProfileTableViewController: UITableViewController,UIGestureRecognizer
 
         loadFeedData()
         var eventHeight : CGFloat = 10
-        for (var i = 0 ; i < self.venueEventArray.count ; i++ )
+
+        var subViews = self.eventsScrollView.subviews
+        for subview in subViews{
+            subview.removeFromSuperview()
+        }
+        
+        if (self.venueEventArray.count == 0)
         {
-            var eventDetail = " This Tuesday and Thursday be sure to stop by since we are offering a buy 2-get-1-free deal."
-            let venueEventResponseDic:[String:AnyObject]? = self.venueEventArray[i] as? [String : AnyObject]
-            print("The venueEventResponseDic   \(venueEventResponseDic)")
-            
-            if let eventDict = venueEventResponseDic!["event"] as? NSDictionary
-            {
-                if let description = eventDict["description"] as? String
-                {
-                    eventDetail = " \(description)"
-                }
-            }
-            /*
-            [
-                {
-                    "event": 
-                    {
-                        "description": "Stop by for the race track beer keg stand!",
-                        "venue_id": "1"
-                    }
-                },
-                {
-                    "event": 
-                    {
-                        "description": "Stop by for the race track beer keg stand!",
-                        "venue_id": "1"
-                    }
-                }
-            ]
-            */
             let test:UILabel
             test = UILabel(frame: CGRectMake(0, eventHeight, self.eventsScrollView.frame.size.width, CGFloat.max))
             test.numberOfLines = 0
             test.textAlignment = NSTextAlignmentFromCTTextAlignment(CTTextAlignment.Left)
             test.backgroundColor = UIColor.clearColor()
-            //test.text = "This Tuesday and Thursday be sure to stop by since we are offering a buy 2-get-1-free deal."
             
-            let attachment = NSTextAttachment()
-            attachment.image = UIImage(named: "greenBullat.png")
-            let attachmentString = NSAttributedString(attachment: attachment)
-            let myString = NSMutableAttributedString(string: "")
-            myString.appendAttributedString(attachmentString)
-            myString.appendAttributedString(NSMutableAttributedString(string:eventDetail ))
-            test.attributedText = myString
-            
+            test.text = "Not Available"
             test.font = UIFont(name: "ForgottenFuturistRg-Regular", size: 20)
             test.sizeToFit()
             let height = heightForView(test.text!, font: test.font!, width: self.eventsScrollView.frame.size.width-20)
@@ -187,58 +156,83 @@ class VenueProfileTableViewController: UITableViewController,UIGestureRecognizer
             eventHeight = eventHeight + height + 5.0
             self.eventsScrollView.addSubview(test)
         }
-        
+        else
+        {
+            for (var i = 0 ; i < self.venueEventArray.count ; i++ )
+            {
+                var eventDetail = " This Tuesday and Thursday be sure to stop by since we are offering a buy 2-get-1-free deal."
+                let venueEventResponseDic:[String:AnyObject]? = self.venueEventArray[i] as? [String : AnyObject]
+                print("The venueEventResponseDic   \(venueEventResponseDic)")
+                
+                if let eventDict = venueEventResponseDic!["event"] as? NSDictionary
+                {
+                    if let description = eventDict["description"] as? String
+                    {
+                        eventDetail = " \(description)"
+                    }
+                }
+                /*
+                [
+                {
+                "event":
+                {
+                "description": "Stop by for the race track beer keg stand!",
+                "venue_id": "1"
+                }
+                },
+                {
+                "event":
+                {
+                "description": "Stop by for the race track beer keg stand!",
+                "venue_id": "1"
+                }
+                }
+                ]
+                */
+                let test:UILabel
+                test = UILabel(frame: CGRectMake(0, eventHeight, self.eventsScrollView.frame.size.width, CGFloat.max))
+                test.numberOfLines = 0
+                test.textAlignment = NSTextAlignmentFromCTTextAlignment(CTTextAlignment.Left)
+                test.backgroundColor = UIColor.clearColor()
+                //test.text = "This Tuesday and Thursday be sure to stop by since we are offering a buy 2-get-1-free deal."
+                
+                let attachment = NSTextAttachment()
+                attachment.image = UIImage(named: "greenBullat.png")
+                let attachmentString = NSAttributedString(attachment: attachment)
+                let myString = NSMutableAttributedString(string: "")
+                myString.appendAttributedString(attachmentString)
+                myString.appendAttributedString(NSMutableAttributedString(string:eventDetail ))
+                test.attributedText = myString
+                
+                test.font = UIFont(name: "ForgottenFuturistRg-Regular", size: 20)
+                test.sizeToFit()
+                let height = heightForView(test.text!, font: test.font!, width: self.eventsScrollView.frame.size.width-20)
+                test.frame = CGRectMake(10, (CGFloat)(eventHeight), self.eventsScrollView.frame.size.width-20, height)
+                
+                eventHeight = eventHeight + height + 5.0
+                self.eventsScrollView.addSubview(test)
+            }
+        }
         self.eventsScrollView.layer.borderColor = UIColor(red: (214.0/255.0), green: (214.0/255.0), blue: (214.0/255.0), alpha: 1).CGColor
         self.eventsScrollView.layer.borderWidth = 2.0
         self.eventsScrollView.backgroundColor = UIColor.clearColor()
         
+        subViews = self.venueSpecialScrollView.subviews
+        for subview in subViews{
+            subview.removeFromSuperview()
+        }
+        
         var SpecialHeight : CGFloat = 10.0
         
-        for (var i = 0 ; i < self.venueSpecialArray.count ; i++ )
+        if (self.venueSpecialArray.count == 0)
         {
-            let venueSpecialResponseDic:[String:AnyObject]? = self.venueSpecialArray[i] as? [String : AnyObject]
-            var specialDetail = " This Sunday and MOnday be sure to stop by since we are offering a buy 2-get-1-free deal."
-            print("The  venueSpecialResponseDic   \(venueSpecialResponseDic)")
-            if let specialDict = venueSpecialResponseDic!["special"] as? NSDictionary
-            {
-                if let description = specialDict["description"] as? String
-                {
-                    specialDetail = " \(description)"
-                }
-            }
-            /*
-            [
-                {
-                    "special": 
-                    {
-                        "description": "Free Baileys if you purchase shot of expresso.",
-                        "venue_id": "1"
-                    }
-                },
-                {
-                    "special": 
-                    {
-                        "description": "Free Baileys if you purchase shot of expresso.",
-                        "venue_id": "1"
-                    }
-                }
-            ]
-            */
             let test:UILabel
             test = UILabel(frame: CGRectMake(10, SpecialHeight, self.venueSpecialScrollView.frame.size.width-20, CGFloat.max))
             test.numberOfLines = 0
             test.textAlignment = NSTextAlignmentFromCTTextAlignment(CTTextAlignment.Left)
             test.backgroundColor = UIColor.clearColor()
             
-            let attachment = NSTextAttachment()
-            attachment.image = UIImage(named: "greenBullat.png")
-            let attachmentString = NSAttributedString(attachment: attachment)
-            let myString = NSMutableAttributedString(string: "")
-            myString.appendAttributedString(attachmentString)
-            myString.appendAttributedString(NSMutableAttributedString(string: specialDetail))
-            test.attributedText = myString
-            
-            //test.text = "This Sunday and MOnday be sure to stop by since we are offering a buy 2-get-1-free deal."
+            test.text = "Not Available"
             test.font = UIFont(name: "ForgottenFuturistRg-Regular", size: 20)
             test.sizeToFit()
             let height = heightForView(test.text!, font: test.font!, width: self.venueSpecialScrollView.frame.size.width-20)
@@ -247,6 +241,63 @@ class VenueProfileTableViewController: UITableViewController,UIGestureRecognizer
             SpecialHeight = SpecialHeight + height + 5.0
             self.venueSpecialScrollView.addSubview(test)
         }
+        else
+        {
+            for (var i = 0 ; i < self.venueSpecialArray.count ; i++ )
+            {
+                let venueSpecialResponseDic:[String:AnyObject]? = self.venueSpecialArray[i] as? [String : AnyObject]
+                var specialDetail = " This Sunday and MOnday be sure to stop by since we are offering a buy 2-get-1-free deal."
+                print("The  venueSpecialResponseDic   \(venueSpecialResponseDic)")
+                if let specialDict = venueSpecialResponseDic!["special"] as? NSDictionary
+                {
+                    if let description = specialDict["description"] as? String
+                    {
+                        specialDetail = " \(description)"
+                    }
+                }
+                /*
+                [
+                {
+                "special":
+                {
+                "description": "Free Baileys if you purchase shot of expresso.",
+                "venue_id": "1"
+                }
+                },
+                {
+                "special":
+                {
+                "description": "Free Baileys if you purchase shot of expresso.",
+                "venue_id": "1"
+                }
+                }
+                ]
+                */
+                let test:UILabel
+                test = UILabel(frame: CGRectMake(10, SpecialHeight, self.venueSpecialScrollView.frame.size.width-20, CGFloat.max))
+                test.numberOfLines = 0
+                test.textAlignment = NSTextAlignmentFromCTTextAlignment(CTTextAlignment.Left)
+                test.backgroundColor = UIColor.clearColor()
+                
+                let attachment = NSTextAttachment()
+                attachment.image = UIImage(named: "greenBullat.png")
+                let attachmentString = NSAttributedString(attachment: attachment)
+                let myString = NSMutableAttributedString(string: "")
+                myString.appendAttributedString(attachmentString)
+                myString.appendAttributedString(NSMutableAttributedString(string: specialDetail))
+                test.attributedText = myString
+                
+                //test.text = "This Sunday and MOnday be sure to stop by since we are offering a buy 2-get-1-free deal."
+                test.font = UIFont(name: "ForgottenFuturistRg-Regular", size: 20)
+                test.sizeToFit()
+                let height = heightForView(test.text!, font: test.font!, width: self.venueSpecialScrollView.frame.size.width-20)
+                test.frame = CGRectMake(10, (CGFloat)(SpecialHeight), self.venueSpecialScrollView.frame.size.width-20, height)
+                
+                SpecialHeight = SpecialHeight + height + 5.0
+                self.venueSpecialScrollView.addSubview(test)
+            }
+        }
+        
         
         // for i in 1...5
         // {
@@ -995,24 +1046,7 @@ class VenueProfileTableViewController: UITableViewController,UIGestureRecognizer
             ]
             Alamofire.request(.POST, URL , parameters: parameters, encoding: .JSON, headers : headers)
                 .responseString { response in
-
-//                    
-//                    
-//        if let appToken =  NSUserDefaults.standardUserDefaults().objectForKey("LoginToken") as? String
-//        {
-//            tokenString +=  appToken
-//            
-//            Alamofire.Manager.sharedInstance.session.configuration.HTTPAdditionalHeaders?.updateValue(tokenString, forKey: "authorization")
-//            
-//            let parameters = [
-//                "venue_id": self.venuId!//.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet()),
-//            ]
-//            let URL =  globalConstants.kAPIURL + globalConstants.kNewsfeedVenueAPIEndPoint
-//            //Alamofire.Manager.sharedInstance.session.configuration.HTTPAdditionalHeaders?.updateValue("application/json", forKey: "Accept")
-//            
-//            Alamofire.request(.POST, URL , parameters: parameters, encoding: .JSON)
-//                .responseString { response in
-                    
+                   
                     self.venueFeedArray.removeAllObjects()
                     
                     appDelegate.stopAnimation()
@@ -1079,26 +1113,6 @@ class VenueProfileTableViewController: UITableViewController,UIGestureRecognizer
                             let responseArray:NSArray? = self.convertStringToArray(string)
                             if let FeedArray = responseArray as? NSMutableArray
                             {
-                                // if(self.feedcount == 0)
-                                // {
-                                //     self.usersArray = self.createDisplayArray(searchArray)
-                                //     self.feedcount = self.usersArray.count
-                                // }
-                                // else
-                                // {
-                                //     if(self.usersArray.count > 0)
-                                //     {
-                                //         let newData : NSMutableArray = self.createDisplayArray(searchArray)
-                                //
-                                //         for (var cnt = 0; cnt < newData.count ; cnt++)
-                                //         {
-                                //             self.usersArray.addObject(newData[cnt])
-                                //         }
-                                //
-                                //         self.feedcount = self.usersArray.count
-                                //     }
-                                // }
-                                
                                 self.venueFeedArray = self.createDisplayArray(FeedArray)
                             }
                         }
