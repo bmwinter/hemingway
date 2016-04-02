@@ -13,6 +13,7 @@ import SwiftyJSON
 import Foundation
 import MobileCoreServices
 import Agrume
+import MediaPlayer
 
 class BaseViewController: UIViewController  ,UIImagePickerControllerDelegate, UINavigationControllerDelegate,UIGestureRecognizerDelegate {
     @IBOutlet var btnNotificationNumber : UIButton!
@@ -107,6 +108,28 @@ class BaseViewController: UIViewController  ,UIImagePickerControllerDelegate, UI
         })
     }
     
+    //MARK: - Get Image From Video URL
+    func videoSnapshot(filePathLocal: NSString) -> UIImage? {
+        
+        let vidURL = NSURL(fileURLWithPath:filePathLocal as String)
+        let asset = AVURLAsset(URL: vidURL)
+        let generator = AVAssetImageGenerator(asset: asset)
+        generator.appliesPreferredTrackTransform = true
+        
+        let timestamp = CMTime(seconds: 1, preferredTimescale: 60)
+        
+        do {
+            let imageRef = try generator.copyCGImageAtTime(timestamp, actualTime: nil)
+            return UIImage(CGImage: imageRef)
+        }
+        catch let error as NSError
+        {
+            print("Image generation failed with error \(error)")
+            return nil
+        }
+    }
+
+    //MARK: - Push Preview View Controller
     func pushPreviewController(){
         self.navigationController?.navigationBarHidden = false
         let storyboard: UIStoryboard = UIStoryboard(name: "User", bundle: nil)

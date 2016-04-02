@@ -88,8 +88,10 @@ if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "Pods-MIXR/Alamofire.framework"
   install_framework "Pods-MIXR/AlamofireImage.framework"
   install_framework "Pods-MIXR/BTNavigationDropdownMenu.framework"
+  install_framework "Pods-MIXR/Haneke.framework"
   install_framework "Pods-MIXR/IQKeyboardManagerSwift.framework"
   install_framework "${PODS_ROOT}/Mapbox-iOS-SDK/dynamic/Mapbox.framework"
+  install_framework "Pods-MIXR/Player.framework"
   install_framework "Pods-MIXR/SpringIndicator.framework"
   install_framework "Pods-MIXR/SwiftyJSON.framework"
 fi
@@ -98,8 +100,10 @@ if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "Pods-MIXR/Alamofire.framework"
   install_framework "Pods-MIXR/AlamofireImage.framework"
   install_framework "Pods-MIXR/BTNavigationDropdownMenu.framework"
+  install_framework "Pods-MIXR/Haneke.framework"
   install_framework "Pods-MIXR/IQKeyboardManagerSwift.framework"
   install_framework "${PODS_ROOT}/Mapbox-iOS-SDK/dynamic/Mapbox.framework"
+  install_framework "Pods-MIXR/Player.framework"
   install_framework "Pods-MIXR/SpringIndicator.framework"
   install_framework "Pods-MIXR/SwiftyJSON.framework"
 fi

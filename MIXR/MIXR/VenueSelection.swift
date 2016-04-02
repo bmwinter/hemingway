@@ -304,10 +304,11 @@ class VenueSelection : UIViewController,UIGestureRecognizerDelegate {
         tokenString +=  NSUserDefaults.standardUserDefaults().objectForKey("LoginToken") as! String
         
         Alamofire.Manager.sharedInstance.session.configuration.HTTPAdditionalHeaders?.updateValue(tokenString, forKey: "Authorization")
-        Alamofire.Manager.sharedInstance.session.configuration
-            .HTTPAdditionalHeaders?.updateValue("multipart/form-data",
-                forKey: "Content-Type")
-    Alamofire.Manager.sharedInstance.session.configuration.HTTPAdditionalHeaders?.updateValue("attachment; filename=media_filename.png;", forKey: "Content-Disposition")
+//        Alamofire.Manager.sharedInstance.session.configuration
+//            .HTTPAdditionalHeaders?.updateValue("multipart/form-data",
+//                forKey: "Content-Type")
+
+        //    Alamofire.Manager.sharedInstance.session.configuration.HTTPAdditionalHeaders?.updateValue("attachment; filename=media_filename.png;", forKey: "Content-Disposition")
 
         var dataPath:NSString
         
@@ -330,7 +331,7 @@ class VenueSelection : UIViewController,UIGestureRecognizerDelegate {
             if (self.isVideo == true){
                 multipartFormData.appendBodyPart(fileURL: NSURL(fileURLWithPath: dataPath as String), name: "file",fileName: globalConstants.kTempVideoFileName, mimeType: "video/mp4")
             }else{
-                multipartFormData.appendBodyPart(fileURL: NSURL(fileURLWithPath: dataPath as String), name: "file",fileName: globalConstants.kTempImageFileNmae, mimeType: "image/png")
+                multipartFormData.appendBodyPart(fileURL: NSURL(fileURLWithPath: dataPath as String), name: "file",fileName: globalConstants.kTempImageFileNmae, mimeType:"binary/octet-stream")//"image/png"
             }
 //            multipartFormData.appendBodyPart(fileURL: NSURL(fileURLWithPath: dataPath), name: "video")
             

@@ -9,18 +9,31 @@
 import UIKit
 import SwiftyJSON
 import Alamofire
+import Haneke
+import AlamofireImage
+import MediaPlayer
+import Player
+import AssetsLibrary
+
 
 let isLocalData = false
+//let videoUrl = NSURL(string: "https://v.cdn.vine.co/r/videos/AA3C120C521177175800441692160_38f2cbd1ffb.1.5.13763579289575020226.mp4")!
 
-class NewsFeedTableViewController:UITableViewController,APIConnectionDelegate {
+let videoUrl = NSURL(string: "https://s3-us-west-2.amazonaws.com/mixruploads/2016_03_27_04_57_66.mp4")!
+
+class NewsFeedTableViewController:UITableViewController,PlayerDelegate {
     
     var feedcount : Int = 0
-    var feedsArray : Array<JSON> = []
-    //var feedsArray : NSArray <JSON> = NSMutableArray()
+//    var feedsArray : Array<JSON> = []
+    var feedsArray : NSMutableArray  = NSMutableArray()
     //var refreshControl:UIRefreshControl!
-    
+    private var player: Player!
+    var moviePlayer : MPMoviePlayerController?
+
     override func viewDidLoad()
     {
+        
+//        self.playVideoFile()
         super.viewDidLoad()
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
@@ -32,7 +45,28 @@ class NewsFeedTableViewController:UITableViewController,APIConnectionDelegate {
         view.backgroundColor = UIColor.clearColor()
         //performSelector(Selector(setFrames()), withObject: nil, afterDelay: 1.0)
     }
-    
+    func playVideoFile(){
+        self.view.autoresizingMask = ([UIViewAutoresizing.FlexibleWidth, UIViewAutoresizing.FlexibleHeight])
+        
+        self.player = Player()
+        self.player.delegate = self
+        self.player.view.frame = self.view.bounds
+        
+        self.addChildViewController(self.player)
+        self.view.addSubview(self.player.view)
+        self.player.didMoveToParentViewController(self)
+        
+        self.player.setUrl(videoUrl)
+        
+        self.player.playbackLoops = true
+        self.player.fillMode = AVLayerVideoGravityResizeAspect
+
+        
+        let tapGestureRecognizer: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "handleTapGestureRecognizer:")
+        tapGestureRecognizer.numberOfTapsRequired = 1
+        self.player.view.addGestureRecognizer(tapGestureRecognizer)
+
+    }
     func pullToReferesh()
     {
         self.refreshControl = UIRefreshControl()
@@ -133,9 +167,9 @@ class NewsFeedTableViewController:UITableViewController,APIConnectionDelegate {
                 
                 let post = JSON(value)
                 if let string = post.rawString() {
-                    let responseDic:[String:AnyObject]? = self.convertStringToDictionary(string)
                     
                     if response.response?.statusCode == 400{
+                        let responseDic:[String:AnyObject]? = globalConstants.convertStringToDictionary(string)
                         print("The Response Error is:   \(response.response?.statusCode)")
                         
                         if let val = responseDic?["code"] {
@@ -153,23 +187,18 @@ class NewsFeedTableViewController:UITableViewController,APIConnectionDelegate {
                             self.displayCommonAlert(errorMessage)
                             return;
                         }
+                    }else{
+                        let responseArray:NSArray? = globalConstants.convertStringToArray(string)
+                        if let searchArray = responseArray as? NSMutableArray
+                        {
+                            self.feedsArray = searchArray
+                            self.reloadTable()
+                        }
                     }
                 }
         }
     }
     
-    //MARK: convertStringObject to Dictionary
-    
-    func convertStringToDictionary(text:String) -> [String:AnyObject]? {
-        if let data = text.dataUsingEncoding(NSUTF8StringEncoding) {
-            do {
-                return try NSJSONSerialization.JSONObjectWithData(data, options: []) as? [String:AnyObject]
-            } catch let error as NSError {
-                print(error)
-            }
-        }
-        return nil
-    }
     /*
     // Common alert method need to be used to display alert, by passing alert string as parameter to it.
     */
@@ -183,8 +212,6 @@ class NewsFeedTableViewController:UITableViewController,APIConnectionDelegate {
         alertController.addAction(okayAction)
         self.presentViewController(alertController, animated: true, completion: nil)
     }
-    
-
     
     func reloadTable()
     {
@@ -209,30 +236,56 @@ class NewsFeedTableViewController:UITableViewController,APIConnectionDelegate {
     
     @IBAction func onFeedClicked(sender: AnyObject)
     {
-        let aVenueProfileViewController : VenueProfileViewController = self.storyboard!.instantiateViewControllerWithIdentifier("VenueProfileViewController") as! VenueProfileViewController
-        self.navigationController!.pushViewController(aVenueProfileViewController, animated: true)
+//        let aVenueProfileViewController : VenueProfileViewController = self.storyboard!.instantiateViewControllerWithIdentifier("VenueProfileViewController") as! VenueProfileViewController
+//        self.navigationController!.pushViewController(aVenueProfileViewController, animated: true)
+//        
+//        return
+//        
+//        let followingViewController : FollowingViewController = self.storyboard!.instantiateViewControllerWithIdentifier("FollowingViewController") as! FollowingViewController
+//        self.navigationController!.pushViewController(followingViewController, animated: true)
+//        
+//        return;
         
-        return
         
-        let followingViewController : FollowingViewController = self.storyboard!.instantiateViewControllerWithIdentifier("FollowingViewController") as! FollowingViewController
-        self.navigationController!.pushViewController(followingViewController, animated: true)
-        
-        return;
         let feedBtn : UIButton = sender as! UIButton
-        let feedTag = feedBtn.superview!.tag
+        var feedTag = feedBtn.superview!.tag
+        feedTag = 5
         NSLog("feedTag = \(feedTag)")
-        let feedDict : NSDictionary = feedsArray[feedTag].dictionaryObject!
         
+        let dicPost : NSDictionary = self.feedsArray[feedTag] as! NSDictionary
+        if dicPost["media"] as! String == "video"{
+            self.startPlayingVideo(dicPost["image_url"] as! String)
+        }else{
+            let postViewController : PostViewController = self.storyboard!.instantiateViewControllerWithIdentifier("PostViewController") as! PostViewController
+            postViewController.isUserProfile = false
+            self.navigationController!.pushViewController(postViewController, animated: true)
+        }
         
-        let postViewController : PostViewController = self.storyboard!.instantiateViewControllerWithIdentifier("PostViewController") as! PostViewController
-        postViewController.isUserProfile = false
-        self.navigationController!.pushViewController(postViewController, animated: true)
     }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
+    //MARK : GET Preview Image From Video URL
+    
+    func getPreviewImageForVideoAtURL(videoURL: NSURL, atInterval: Int) -> UIImage? {
+        print("Taking pic at \(atInterval) second")
+        let asset = AVAsset(URL: videoURL)
+        let assetImgGenerate = AVAssetImageGenerator(asset: asset)
+        assetImgGenerate.appliesPreferredTrackTransform = true
+        let time = CMTimeMakeWithSeconds(Float64(atInterval), 100)
+        do {
+            let img = try assetImgGenerate.copyCGImageAtTime(time, actualTime: nil)
+            let frameImg = UIImage(CGImage: img)
+            return frameImg
+        } catch {
+            /* error handling here */
+        }
+        return nil
+    }
+
     
     // MARK: - Table view data source
     
@@ -255,16 +308,68 @@ class NewsFeedTableViewController:UITableViewController,APIConnectionDelegate {
         //let feedDict : Dictionary <String, JSON> = feedsArray[indexPath.row]
         cell.contentView.tag = indexPath.row
         
-        cell.venuImageView.image = UIImage(named: feedsArray[indexPath.row]["venueImage"].string!)
-        cell.FeedName.text = feedsArray[indexPath.row]["venueName"].string
-        cell.lblUserName.text = feedsArray[indexPath.row]["userName"].string
+//        let cache = Shared.imageCache
+
+//        let URL = NSURL(string: "http://haneke.io/icon.png")!
+//        let fetcher = NetworkFetcher<UIImage>(URL: URL)
+//        cache.fetch(fetcher: fetcher).onSuccess { image in
+//            // Do something with image
+//            cell.venuImageView.image = image
+//
+//        }
+
+        if let imageNameStr = feedsArray[indexPath.row]["image_url"] as? String
+        {
+            if (imageNameStr.characters.count > 0)
+            {
+                let URL = NSURL(string: imageNameStr)!
+                if feedsArray[indexPath.row]["media"] as? String == "video"{
+                    
+//                    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) {
+//                        let data = NSData(contentsOfURL: URL) //make sure your image in this url does exist, otherwise unwrap in a if let check
+//                        dispatch_async(dispatch_get_main_queue(), {
+//                            cell.venuImageView.image = UIImage(data: data!)
+//                        });
+//                    }
+
+                    
+                    ALAssetsLibrary().assetForURL(URL, resultBlock: { (asset) -> Void in
+                        if let ast = asset {
+                            cell.venuImageView.image = UIImage(CGImage: ast.defaultRepresentation().fullResolutionImage().takeUnretainedValue())
+                        }
+                        }, failureBlock: { (error) -> Void in
+                            print("Video Error \(indexPath.row)")
+                        })
+                    
+                }else{
+                    Request.addAcceptableImageContentTypes(["binary/octet-stream"])
+                    cell.venuImageView.af_setImageWithURL(URL, placeholderImage: UIImage(named: "ALPlaceholder"), filter: nil, imageTransition: .None, completion: { (response) -> Void in
+                        print("image: \(cell.venuImageView.image)")
+                        print(response.result.value) //# UIImage
+                        print(response.result.error) //# NSError
+                    })
+                }
+            }
+            else
+            {
+                cell.venuImageView.image = UIImage(named:"ALPlaceholder")
+            }
+        }
+        else
+        {
+            cell.venuImageView.image = UIImage(named:"ALPlaceholder")
+        }
+
+        cell.FeedName.text = feedsArray[indexPath.row]["venue_name"] as? String
+        cell.lblUserName.text = feedsArray[indexPath.row]["full_name"] as? String
+        
         
         let attachment = NSTextAttachment()
         attachment.image = UIImage(named: "martiniglass_iconNew.png")
         let attachmentString = NSAttributedString(attachment: attachment)
         let myString = NSMutableAttributedString(string: " ")
         myString.appendAttributedString(attachmentString)
-        myString.appendAttributedString(NSMutableAttributedString(string: " 250"))
+        myString.appendAttributedString(NSMutableAttributedString(string: String(feedsArray[indexPath.row]["likes"] as! NSInteger)))
         cell.lblLike.attributedText = myString
         
         /*
@@ -283,6 +388,132 @@ class NewsFeedTableViewController:UITableViewController,APIConnectionDelegate {
     {
         print("indexpath.row = \(indexPath.row)")
     }
+    
+    
+    // MARK: UIGestureRecognizer
+    
+    func handleTapGestureRecognizer(gestureRecognizer: UITapGestureRecognizer) {
+        switch (self.player.playbackState.rawValue) {
+        case PlaybackState.Stopped.rawValue:
+            self.player.playFromBeginning()
+        case PlaybackState.Paused.rawValue:
+            self.player.playFromCurrentTime()
+        case PlaybackState.Playing.rawValue:
+            self.player.pause()
+        case PlaybackState.Failed.rawValue:
+            self.player.pause()
+        default:
+            self.player.pause()
+        }
+    }
+    
+    // MARK: PlayerDelegate
+    
+    func playerReady(player: Player) {
+    }
+    
+    func playerPlaybackStateDidChange(player: Player) {
+    }
+    
+    func playerBufferingStateDidChange(player: Player) {
+    }
+    
+    func playerPlaybackWillStartFromBeginning(player: Player) {
+    }
+    
+    func playerPlaybackDidEnd(player: Player) {
+    }
+
+    
+    
+    func videoHasFinishedPlaying(notification: NSNotification){
+        
+        print("Video finished playing")
+        
+        /* Find out what the reason was for the player to stop */
+        let reason =
+        notification.userInfo![MPMoviePlayerPlaybackDidFinishReasonUserInfoKey]
+            as! NSNumber?
+        
+        if let theReason = reason{
+            
+            let reasonValue = MPMovieFinishReason(rawValue: theReason.integerValue)
+            
+            switch reasonValue!{
+            case .PlaybackEnded:
+                /* The movie ended normally */
+                print("Playback Ended")
+            case .PlaybackError:
+                /* An error happened and the movie ended */
+                print("Error happened")
+            case .UserExited:
+                /* The user exited the player */
+                print("User exited")
+            }
+            
+            print("Finish Reason = \(theReason)")
+            stopPlayingVideo()
+        }
+        
+    }
+    
+    func stopPlayingVideo() {
+        
+        if let player = moviePlayer{
+            NSNotificationCenter.defaultCenter().removeObserver(self)
+            player.stop()
+            player.view.removeFromSuperview()
+        }
+        
+    }
+    
+    func startPlayingVideo(urlString:NSString){
+        
+        /* First let's construct the URL of the file in our application bundle
+        that needs to get played by the movie player */
+        
+//        let dataPath = globalConstants.getStoreImageVideoPath(globalConstants.kTempVideoFileName)
+        //documentsDirectory.stringByAppendingPathComponent("/vid1.mp4")
+        let url = NSURL(string: urlString as String)
+        
+        /* If we have already created a movie player before,
+        let's try to stop it */
+        if let _ = moviePlayer{
+            stopPlayingVideo()
+        }
+        
+        /* Now create a new movie player using the URL */
+        moviePlayer = MPMoviePlayerController(contentURL: url)
+        
+        if let player = moviePlayer{
+            
+            /* Listen for the notification that the movie player sends us
+            whenever it finishes playing */
+            NSNotificationCenter.defaultCenter().addObserver(self,
+                selector: "videoHasFinishedPlaying:",
+                name: MPMoviePlayerPlaybackDidFinishNotification,
+                object: nil)
+            
+            print("Successfully instantiated the movie player")
+            
+            /* Scale the movie player to fit the aspect ratio */
+            player.scalingMode = .AspectFit
+            player.movieSourceType = .Streaming
+            player.contentURL = url
+            view.addSubview(player.view)
+            
+            player.setFullscreen(true, animated: false)
+            
+            /* Let's start playing the video in full screen mode */
+            player.play()
+            
+        } else {
+            print("Failed to instantiate the movie player")
+        }
+        
+    }
+    
+
     
     /*
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -340,7 +571,7 @@ class NewsFeedTableViewController:UITableViewController,APIConnectionDelegate {
     */
     
     //MARK: - APIConnection Delegate -
-    
+    /*
     func connectionFailedForAction(action: Int, andWithResponse result: Dictionary <String, JSON>!, method : String)
     {
         switch action
@@ -385,7 +616,7 @@ class NewsFeedTableViewController:UITableViewController,APIConnectionDelegate {
                 
                 if(feedcount == 0)
                 {
-                    feedsArray = result["data"]!.arrayValue
+//                    feedsArray = result["data"]!.arrayValue
                     feedcount = feedsArray.count
                 }
                 else
@@ -396,7 +627,7 @@ class NewsFeedTableViewController:UITableViewController,APIConnectionDelegate {
                         
                         for (var cnt = 0; cnt < newData.count ; cnt++)
                         {
-                            feedsArray.append(newData[cnt])
+//                            feedsArray.append(newData[cnt])
                         }
                         
                         feedcount = feedsArray.count
@@ -415,7 +646,7 @@ class NewsFeedTableViewController:UITableViewController,APIConnectionDelegate {
     {
         
     }
-    
+    */
 }
 
 

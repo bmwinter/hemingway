@@ -131,6 +131,7 @@
 		5C27231D1BD899D7007227AA /* VenueProfileTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C27231C1BD899D7007227AA /* VenueProfileTableViewController.swift */; };
 		5C2A9E941BD2063E008669AB /* RecentPhotoVidoeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C2A9E931BD2063E008669AB /* RecentPhotoVidoeController.swift */; };
 		5C3408121BE4F411006CB35C /* SettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C3408111BE4F411006CB35C /* SettingsTableViewController.swift */; };
+		5C4011BC1CADAA4A002ADD1E /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5C4011BB1CADAA4A002ADD1E /* MediaPlayer.framework */; };
 		5C4BAE851C674FB7009A6BDC /* RecoverPassword.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C4BAE841C674FB7009A6BDC /* RecoverPassword.swift */; };
 		5C520FD11C54FA9600299990 /* ALCameraView.strings in Resources */ = {isa = PBXBuildFile; fileRef = 5C520FBD1C54FA9600299990 /* ALCameraView.strings */; };
 		5C520FD21C54FA9600299990 /* ALCameraViewAssets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5C520FBE1C54FA9600299990 /* ALCameraViewAssets.xcassets */; };
@@ -317,6 +318,7 @@
 		5C27231C1BD899D7007227AA /* VenueProfileTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VenueProfileTableViewController.swift; sourceTree = "<group>"; };
 		5C2A9E931BD2063E008669AB /* RecentPhotoVidoeController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecentPhotoVidoeController.swift; sourceTree = "<group>"; };
 		5C3408111BE4F411006CB35C /* SettingsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsTableViewController.swift; sourceTree = "<group>"; };
+		5C4011BB1CADAA4A002ADD1E /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
 		5C4BAE841C674FB7009A6BDC /* RecoverPassword.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecoverPassword.swift; sourceTree = "<group>"; };
 		5C520FBD1C54FA9600299990 /* ALCameraView.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = ALCameraView.strings; sourceTree = "<group>"; };
 		5C520FBE1C54FA9600299990 /* ALCameraViewAssets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = ALCameraViewAssets.xcassets; sourceTree = "<group>"; };
@@ -379,6 +381,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5C4011BC1CADAA4A002ADD1E /* MediaPlayer.framework in Frameworks */,
 				156BCC9D1C05B8CE00AB88A6 /* libz.tbd in Frameworks */,
 				F3B565B4B07FC51D1A04C946 /* Pods_MIXR.framework in Frameworks */,
 			);
@@ -397,6 +400,7 @@
 		14B036E93F4C01FE0876251F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				5C4011BB1CADAA4A002ADD1E /* MediaPlayer.framework */,
 				156BCC9C1C05B8CE00AB88A6 /* libz.tbd */,
 				CCB483A3B820ED5B04645C4E /* Pods_MIXR.framework */,
 			);

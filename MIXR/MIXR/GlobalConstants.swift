@@ -65,6 +65,7 @@ struct globalConstants {
     
     static let kPostVenuePhotoVideo = "post"
     static let kAllNewsFeed = "newsfeed"
+    static let kMakeProfilePublicPrivate = "profile/public"
 
     static let kAppName = "MIXR"
     
@@ -116,5 +117,27 @@ struct globalConstants {
         return dataPath
     }
     
+    static func convertStringToArray(text:String) -> NSArray? {
+        if let data = text.dataUsingEncoding(NSUTF8StringEncoding) {
+            do {
+                return try NSJSONSerialization.JSONObjectWithData(data, options: []) as? NSArray
+            } catch let error as NSError {
+                print(error)
+            }
+        }
+        return nil
+    }
+
+    static func convertStringToDictionary(text:String) -> [String:AnyObject]? {
+        if let data = text.dataUsingEncoding(NSUTF8StringEncoding) {
+            do {
+                return try NSJSONSerialization.JSONObjectWithData(data, options: []) as? [String:AnyObject]
+            } catch let error as NSError {
+                print(error)
+            }
+        }
+        return nil
+    }
+
 }
 

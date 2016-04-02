@@ -4,8 +4,10 @@ PODS:
   - AlamofireImage (2.0.0):
     - Alamofire (~> 3.0)
   - BTNavigationDropdownMenu (0.2.1)
+  - HanekeSwift (0.10.1)
   - IQKeyboardManagerSwift (3.3.7)
   - Mapbox-iOS-SDK (3.1.2)
+  - Player (0.1.0)
   - SpringIndicator (1.2.1)
   - SwiftyJSON (2.3.2)
 
@@ -14,8 +16,10 @@ DEPENDENCIES:
   - Alamofire
   - AlamofireImage
   - BTNavigationDropdownMenu
+  - HanekeSwift
   - IQKeyboardManagerSwift (~> 3.3)
   - Mapbox-iOS-SDK
+  - Player
   - SpringIndicator
   - SwiftyJSON
 
@@ -24,8 +28,10 @@ SPEC CHECKSUMS:
   Alamofire: b61782387f81bcc538a0284cf2bb5d7995cd0a80
   AlamofireImage: 5cecda9b1031f86067c89ddba1d91ead0a8c3f0e
   BTNavigationDropdownMenu: 9cf4060162c96510ee27c388412e28678320cdc0
+  HanekeSwift: 08e47d3d0f2899ec58e5d257beba0de619aca9e8
   IQKeyboardManagerSwift: 7d06186460470f3f7e767630861a1303980ee5cf
   Mapbox-iOS-SDK: 0a910c2cce1aa8cff5b9ec2a990e7a32332a776a
+  Player: e05be4073ea64fce1981869898ad9796c27cdd2b
   SpringIndicator: 2e66169e2595c00cc3ab34329d6bdbeab90680f0
   SwiftyJSON: 04ccea08915aa0109039157c7974cf0298da292a
 

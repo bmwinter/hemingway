@@ -13,7 +13,7 @@ import SwiftyJSON
 import Foundation
 import MobileCoreServices
 
-var isTesting : Int = 1
+var isTesting : Int = 2
 /*
 b@me.com/test
 */
@@ -35,6 +35,17 @@ class LoginViewController: BaseViewController {
         // Do any additional setup after loading the view, typically from a nib.
     }
     
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(true)
+        if let loginToken = NSUserDefaults.standardUserDefaults().objectForKey("LoginToken") as? String
+        {
+            print(loginToken)
+            if loginToken.count > 0{
+                self.loadTabar()
+            }
+            
+        }
+    }
     
     override func viewDidAppear(animated: Bool) {
         self.navigationController?.navigationBarHidden = true
@@ -47,7 +58,7 @@ class LoginViewController: BaseViewController {
         }
         else if (isTesting == 2)
         {
-            self.userEmailTextField.text = "b@me.com"
+            self.userEmailTextField.text = "bwears.com@gmail.com"
             self.userPasswordTextField.text = "test"
         }
         else
@@ -56,11 +67,6 @@ class LoginViewController: BaseViewController {
             self.userPasswordTextField.text = ""
         }
         
-        if let loginToken = NSUserDefaults.standardUserDefaults().objectForKey("LoginToken") as? String
-        {
-            NSLog("LoginToken = \(loginToken)")
-            loginToken
-        }
     }
     
     /*
@@ -71,8 +77,12 @@ class LoginViewController: BaseViewController {
     {
         let storyboard: UIStoryboard = UIStoryboard(name:"Main", bundle: NSBundle.mainBundle())
         let tabBarController: UITabBarController = storyboard.instantiateViewControllerWithIdentifier("TabBarController") as! UITabBarController
-        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
-        appDelegate.window!.rootViewController = tabBarController
+        self.navigationController?.navigationBarHidden = true
+        self.presentViewController(tabBarController, animated: false) { () -> Void in
+            
+        }
+//        self.navigationController?.pushViewController(tabBarController, animated: true)
+//        appDelegate.window!.rootViewController = tabBarController
     }
     
     @IBAction func signupButtonTapped(sender: AnyObject)

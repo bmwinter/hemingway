@@ -15,6 +15,9 @@ target 'MIXR' do
     pod 'SpringIndicator'
     pod 'AlamofireImage'
     pod 'Mapbox-iOS-SDK'
+    pod 'HanekeSwift'
+    pod 'Player'
+
 end
 
 target 'MIXRTests' do
