@@ -1437,6 +1437,9 @@
                                                                 <constraint firstAttribute="width" secondItem="rXc-DY-aeI" secondAttribute="height" multiplier="1:1" id="HG3-zg-jsU"/>
                                                             </constraints>
                                                             <state key="normal" image="notificationAccept.png"/>
+                                                            <connections>
+                                                                <action selector="onAcceptFollowRequestClicked:" destination="Nw6-UJ-J8B" eventType="touchUpInside" id="L7e-vJ-aJY"/>
+                                                            </connections>
                                                         </button>
                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" reversesTitleShadowWhenHighlighted="YES" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VSz-8e-rJe" userLabel="cancelButton">
                                                             <rect key="frame" x="342" y="16" width="28" height="28"/>
@@ -1446,6 +1449,9 @@
                                                                 <constraint firstAttribute="width" secondItem="VSz-8e-rJe" secondAttribute="height" multiplier="1:1" id="4cY-j9-V9I"/>
                                                             </constraints>
                                                             <state key="normal" image="notificationReject.png"/>
+                                                            <connections>
+                                                                <action selector="onRejectFollowRequestClicked:" destination="Nw6-UJ-J8B" eventType="touchUpInside" id="LJY-96-3XG"/>
+                                                            </connections>
                                                         </button>
                                                     </subviews>
                                                     <animations/>
@@ -1483,8 +1489,10 @@
                                         <animations/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <connections>
+                                            <outlet property="acceptFollowRequestBtn" destination="rXc-DY-aeI" id="1go-Ny-c2O"/>
                                             <outlet property="cellBGView" destination="9QS-97-AeZ" id="bYd-Nb-9Ut"/>
                                             <outlet property="followingRequestLbl" destination="Re8-wq-Nay" id="ovg-Q9-HI0"/>
+                                            <outlet property="rejectFollowRequestBtn" destination="VSz-8e-rJe" id="O1w-oR-19n"/>
                                             <outlet property="userPic" destination="wzw-q0-WkP" id="rT3-pA-tck"/>
                                         </connections>
                                     </tableViewCell>
@@ -2603,7 +2611,7 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vw4-vJ-GaP">
-                                <rect key="frame" x="10" y="64" width="394" height="672"/>
+                                <rect key="frame" x="10" y="74" width="394" height="652"/>
                                 <subviews>
                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="56" sectionHeaderHeight="1" sectionFooterHeight="1" translatesAutoresizingMaskIntoConstraints="NO" id="3g2-aO-fFa">
                                         <rect key="frame" x="0.0" y="0.0" width="394" height="672"/>
@@ -2709,9 +2717,9 @@
                             <constraint firstItem="xGD-pS-HbP" firstAttribute="top" secondItem="rhn-Jc-Wlu" secondAttribute="bottom" id="aKE-CS-xKF"/>
                             <constraint firstItem="rhn-Jc-Wlu" firstAttribute="top" secondItem="R45-m7-KJ6" secondAttribute="top" id="af3-EW-ye5"/>
                             <constraint firstItem="rhn-Jc-Wlu" firstAttribute="leading" secondItem="R45-m7-KJ6" secondAttribute="leading" id="gwx-Aw-Sbt"/>
-                            <constraint firstItem="vw4-vJ-GaP" firstAttribute="top" secondItem="AII-gC-3sw" secondAttribute="bottom" id="n1e-eZ-BPK"/>
+                            <constraint firstItem="vw4-vJ-GaP" firstAttribute="top" secondItem="AII-gC-3sw" secondAttribute="bottom" constant="10" id="n1e-eZ-BPK"/>
                             <constraint firstItem="rhn-Jc-Wlu" firstAttribute="top" secondItem="R45-m7-KJ6" secondAttribute="top" id="q3M-oP-APL"/>
-                            <constraint firstItem="xGD-pS-HbP" firstAttribute="top" secondItem="vw4-vJ-GaP" secondAttribute="bottom" id="qsG-CB-NSU"/>
+                            <constraint firstItem="xGD-pS-HbP" firstAttribute="top" secondItem="vw4-vJ-GaP" secondAttribute="bottom" constant="10" id="qsG-CB-NSU"/>
                             <constraint firstItem="vw4-vJ-GaP" firstAttribute="leading" secondItem="R45-m7-KJ6" secondAttribute="leadingMargin" constant="-10" id="wZV-bR-kjt"/>
                             <constraint firstAttribute="trailing" secondItem="rhn-Jc-Wlu" secondAttribute="trailing" id="zit-h7-JTl"/>
                         </constraints>
@@ -2731,7 +2739,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gjs-1x-9eq" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <searchDisplayController id="iJP-MY-OW2"/>
             </objects>
-            <point key="canvasLocation" x="1778" y="-687"/>
+            <point key="canvasLocation" x="1375" y="-687"/>
         </scene>
         <!--Settings Table View Controller-->
         <scene sceneID="UuF-Xu-nir">
@@ -4239,7 +4247,7 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8E9-0T-bbD">
-                                <rect key="frame" x="10" y="64" width="394" height="672"/>
+                                <rect key="frame" x="10" y="74" width="394" height="652"/>
                                 <subviews>
                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="56" sectionHeaderHeight="1" sectionFooterHeight="1" translatesAutoresizingMaskIntoConstraints="NO" id="JwQ-vt-eKQ">
                                         <rect key="frame" x="0.0" y="0.0" width="394" height="672"/>
@@ -4336,11 +4344,11 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="trailingMargin" secondItem="8E9-0T-bbD" secondAttribute="trailing" constant="-10" id="3fl-lI-ISU"/>
-                            <constraint firstItem="8E9-0T-bbD" firstAttribute="top" secondItem="C6w-pR-vD9" secondAttribute="bottom" id="4mW-Im-JDi"/>
+                            <constraint firstItem="8E9-0T-bbD" firstAttribute="top" secondItem="C6w-pR-vD9" secondAttribute="bottom" constant="10" id="4mW-Im-JDi"/>
                             <constraint firstItem="C6w-pR-vD9" firstAttribute="trailing" secondItem="h1R-6Z-Ygh" secondAttribute="trailing" id="CRb-Nn-mPG"/>
                             <constraint firstItem="Plf-g5-F1m" firstAttribute="top" secondItem="h1R-6Z-Ygh" secondAttribute="bottom" id="H76-BI-qmq"/>
                             <constraint firstItem="8E9-0T-bbD" firstAttribute="leading" secondItem="Dh2-MM-uy2" secondAttribute="leadingMargin" constant="-10" id="HgY-sv-5wf"/>
-                            <constraint firstItem="Plf-g5-F1m" firstAttribute="top" secondItem="8E9-0T-bbD" secondAttribute="bottom" id="LOo-cP-BUW"/>
+                            <constraint firstItem="Plf-g5-F1m" firstAttribute="top" secondItem="8E9-0T-bbD" secondAttribute="bottom" constant="10" id="LOo-cP-BUW"/>
                             <constraint firstAttribute="trailing" secondItem="h1R-6Z-Ygh" secondAttribute="trailing" id="OXI-Xf-obw"/>
                             <constraint firstItem="Plf-g5-F1m" firstAttribute="top" secondItem="h1R-6Z-Ygh" secondAttribute="bottom" id="U6i-6a-zao"/>
                             <constraint firstItem="C6w-pR-vD9" firstAttribute="top" secondItem="h1R-6Z-Ygh" secondAttribute="top" id="XrI-PN-MRX"/>
@@ -4367,7 +4375,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="J3r-FT-kKP" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <searchDisplayController id="9Cr-gA-uWx"/>
             </objects>
-            <point key="canvasLocation" x="2217" y="-590"/>
+            <point key="canvasLocation" x="1856" y="-519"/>
         </scene>
     </scenes>
     <resources>

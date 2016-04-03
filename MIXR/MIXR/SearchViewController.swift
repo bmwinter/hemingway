@@ -106,7 +106,11 @@ class SearchViewController: BaseViewController, UITableViewDelegate,UITableViewD
         {
             tokenString +=  appToken
             
-            Alamofire.Manager.sharedInstance.session.configuration.HTTPAdditionalHeaders?.updateValue(tokenString, forKey: "authorization")
+            //Alamofire.Manager.sharedInstance.session.configuration.HTTPAdditionalHeaders?.updateValue(tokenString, forKey: "authorization")
+           
+            let headers = [
+                "Authorization": tokenString,
+            ]
             
             let parameters = [
                 "query": self.searchBarObj.text!//.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet()),
@@ -114,8 +118,10 @@ class SearchViewController: BaseViewController, UITableViewDelegate,UITableViewD
             let URL =  globalConstants.kAPIURL + globalConstants.kSearchAPIEndPoint
             //Alamofire.Manager.sharedInstance.session.configuration.HTTPAdditionalHeaders?.updateValue("application/json", forKey: "Accept")
             
-            Alamofire.request(.POST, URL , parameters: parameters, encoding: .JSON)
+            Alamofire.request(.POST, URL , parameters: parameters, encoding: .JSON, headers : headers)
                 .responseString { response in
+//            Alamofire.request(.POST, URL , parameters: parameters, encoding: .JSON)
+//                .responseString { response in
                     
                     self.usersArray.removeAllObjects()
                     self.searchingArray .removeAllObjects()

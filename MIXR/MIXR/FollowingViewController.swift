@@ -136,7 +136,7 @@ class FollowingViewController: BaseViewController, UITableViewDelegate,UITableVi
                                         self.displayCommonAlert(errorMessageStr)
                                     }
                                 }
-                                self.loadData()
+                                self.reloadTable()
                                 return;
                             }
                         }

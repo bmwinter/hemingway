@@ -61,6 +61,11 @@ class LoginViewController: BaseViewController {
             self.userEmailTextField.text = "bwears.com@gmail.com"
             self.userPasswordTextField.text = "test"
         }
+        else if (isTesting == 3)
+        {
+            self.userEmailTextField.text = "re@re.co"
+            self.userPasswordTextField.text = "1234"
+        }
         else
         {
             self.userEmailTextField.text = ""

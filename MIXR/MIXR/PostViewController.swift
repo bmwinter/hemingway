@@ -166,115 +166,6 @@ class PostViewController: BaseViewController {
         }
     }
     
-    func setFollowBtnGet()
-    {
-        let appDelegate=AppDelegate() //You create a new instance,not get the exist one
-        appDelegate.startAnimation((self.navigationController?.view)!)
-        
-        var tokenString = "token "
-        if let appToken =  NSUserDefaults.standardUserDefaults().objectForKey("LoginToken") as? String
-        {
-            tokenString +=  appToken
-            
-            let URL =  globalConstants.kAPIURL + globalConstants.kFollowRequestAPIEndPoint
-            
-            
-            let headers = [
-                "Authorization": tokenString,
-            ]
-            
-            let parameters = [
-                "follower_id": self.userId//.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet()),
-            ]
-            Alamofire.request(.GET, URL , parameters: parameters, encoding: .JSON, headers : headers)
-                .responseString { response in
-                    
-                    print("response \(response)")
-                    appDelegate.stopAnimation()
-                    guard let value = response.result.value else
-                    {
-                        print("Error: did not receive data")
-                        //self.loadData()
-                        
-                        return
-                    }
-                    
-                    guard response.result.error == nil else
-                    {
-                        print("error calling POST on Login")
-                        print(response.result.error)
-                        //self.loadData()
-                        
-                        return
-                    }
-                    
-                    
-                    let post = JSON(value)
-                    if let string = post.rawString()
-                    {
-                        if (response.response?.statusCode == 400 || response.response?.statusCode == 401)
-                        {
-                            let responseDic:[String:AnyObject]? = self.convertStringToDictionary(string)
-                            print("The Response Error is:   \(response.response?.statusCode)")
-                            
-                            if let val = responseDic?["code"]
-                            {
-                                if val[0].isEqualToString("13")
-                                {
-                                    //print("Equals")
-                                    self.displayCommonAlert(responseDic?["detail"]?[0] as! String)
-                                    //self.loadData()
-                                    
-                                    return
-                                }
-                                // now val is not nil and the Optional has been unwrapped, so use it
-                            }
-                            
-                            if let errorData = responseDic?["detail"]
-                            {
-                                
-                                if let errorMessage = errorData as? String
-                                {
-                                    self.displayCommonAlert(errorMessage)
-                                    
-                                }
-                                else if let errorMessage = errorData as? NSArray
-                                {
-                                    if let errorMessageStr = errorMessage[0] as? String
-                                    {
-                                        self.displayCommonAlert(errorMessageStr)
-                                    }
-                                }
-                                self.loadData()
-                                return;
-                            }
-                        }
-                        else if (response.response?.statusCode == 200 || response.response?.statusCode == 201)
-                        {
-                            let responseDic:[String:AnyObject]? = self.convertStringToDictionary(string)
-                            print("The  responseDic is:   \(responseDic)")
-                            print("The  follow_status is:   \(responseDic!["follow_status"])")
-                            self.followIndex = (responseDic!["follow_status"]?.integerValue)!
-                            
-                            print("The  self.followIndex is:   \(self.followIndex)")
-
-                            /*
-                            "user_id": 1,
-                            "name": "Brendan Winter",
-                            "image_url": "https://s3-us-west-2.amazonaws.com/mixrprofile/2016_03_04_03_58_1.jpg"
-                            */
-                            
-                        }
-                        else
-                        {
-                            
-                        }
-                        
-                        self.setupFollowBtnState()
-                    }
-            }
-        }
-    }
 
     func setFollowBtnPost()
     {
@@ -409,8 +300,6 @@ class PostViewController: BaseViewController {
     
     func loadData()
     {
-        self.setFollowBtnPost()
-        //self.setFollowBtnGet()
         if (userDict.allKeys.count > 0)
         {
             if let imageNameStr = self.userDict["image_url"] as? String
@@ -489,11 +378,12 @@ class PostViewController: BaseViewController {
         if(btn.selected)
         {
             self.btnFollowing.backgroundColor = UIColor(red: 96/255,green: 134/255.0,blue: 72/255,alpha: 1.0)
+            self.setFollowBtnPost()
+
         }
         else
         {
             self.btnFollowing.backgroundColor = UIColor(red: 194/255,green: 194/255.0,blue: 194/255,alpha: 1.0)
-            self.setFollowBtnPost()
         }
     }
     
