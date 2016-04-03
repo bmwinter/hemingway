@@ -357,7 +357,7 @@ class NewsFeedTableViewController:UITableViewController,PlayerDelegate {
                         }, failureBlock: { (error) -> Void in
                             print("Video Error \(indexPath.row)")
                         })
-                    
+                    cell.venuImageView.image = UIImage(named:"ALPlaceholder")
                 }else{
                     Request.addAcceptableImageContentTypes(["binary/octet-stream"])
                     cell.venuImageView.af_setImageWithURL(URL, placeholderImage: UIImage(named: "ALPlaceholder"), filter: nil, imageTransition: .None, completion: { (response) -> Void in
