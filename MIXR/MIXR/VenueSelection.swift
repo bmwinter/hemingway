@@ -191,7 +191,7 @@ class VenueSelection : UIViewController,UIGestureRecognizerDelegate {
             print("Successfully instantiated the movie player")
             
             /* Scale the movie player to fit the aspect ratio */
-            player.scalingMode = .AspectFit
+            player.scalingMode = .AspectFill
             
             view.addSubview(player.view)
             
@@ -268,26 +268,51 @@ class VenueSelection : UIViewController,UIGestureRecognizerDelegate {
 
             let dataPath = globalConstants.getStoreImageVideoPath(globalConstants.kTempVideoFileName)
             do {
-                let asset = AVURLAsset(URL: NSURL(fileURLWithPath: dataPath as String), options: nil)
-                let imgGenerator = AVAssetImageGenerator(asset: asset)
-                let cgImage = try imgGenerator.copyCGImageAtTime(CMTimeMake(0, 1), actualTime: nil)
-                let uiImage = UIImage(CGImage: cgImage, scale: 1.0, orientation: .Up)//UIImage(CGImage: cgImage)
-                
-                let finalImage = UIImage(CGImage: uiImage.CGImage!, scale: 1.0, orientation: .Up)
-
-                print(finalImage.description)
-//                capturedImage.transform = CGAffineTransformMakeRotation(CGFloat(M_PI_2));
-                capturedImage.image = finalImage
-                print(capturedImage.description)
+//                let asset = AVURLAsset(URL: NSURL(fileURLWithPath: dataPath as String), options: nil)
+//                let imgGenerator = AVAssetImageGenerator(asset: asset)
+//                let cgImage = try imgGenerator.copyCGImageAtTime(CMTimeMake(0, 1), actualTime: nil)
+//                let uiImage = UIImage(CGImage: cgImage, scale: 1.0, orientation: .Up)//UIImage(CGImage: cgImage)
+//                
+//                let finalImage = UIImage(CGImage: uiImage.CGImage!, scale: 1.0, orientation: .Up)
+//
+//                print(finalImage.description)
+////                capturedImage.transform = CGAffineTransformMakeRotation(CGFloat(M_PI_2));
+//                capturedImage.image = finalImage
+//                print(capturedImage.description)
+            
+                capturedImage.contentMode = .ScaleToFill
+                capturedImage.image = self.videoSnapshot(dataPath)
             } catch let error as NSError {
                 print("Error generating thumbnail: \(error)")
             }
         }else{
             self.videoIcon.hidden = true
+            capturedImage.contentMode = .ScaleToFill
             capturedImage.image = self.capturedImageFile
         }
     }
     
+    //MARK: - Get Image From Video URL
+    func videoSnapshot(filePathLocal: NSString) -> UIImage? {
+        
+        let vidURL = NSURL(fileURLWithPath:filePathLocal as String)
+        let asset = AVURLAsset(URL: vidURL)
+        let generator = AVAssetImageGenerator(asset: asset)
+        generator.appliesPreferredTrackTransform = true
+        
+        let timestamp = CMTime(seconds: 1, preferredTimescale: 60)
+        
+        do {
+            let imageRef = try generator.copyCGImageAtTime(timestamp, actualTime: nil)
+            return UIImage(CGImage: imageRef)
+        }
+        catch let error as NSError
+        {
+            print("Image generation failed with error \(error)")
+            return nil
+        }
+    }
+
     //MARK: Temp function to check upload file on server.
     
     func shareVenuePhotoVideo(){

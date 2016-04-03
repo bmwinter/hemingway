@@ -269,7 +269,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="W5J-7L-Pyd" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-109" y="-506"/>
+            <point key="canvasLocation" x="195" y="-1542"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="DmL-9H-vWR">
@@ -1703,7 +1703,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xGB-qc-txc" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="322" y="-495"/>
+            <point key="canvasLocation" x="-34" y="-567"/>
         </scene>
         <!--User Profile View Controller-->
         <scene sceneID="dJa-Xu-dp6">
@@ -2524,7 +2524,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9T0-NH-fq4" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1363" y="-227"/>
+            <point key="canvasLocation" x="1183" y="-575"/>
         </scene>
         <!--Following View Controller-->
         <scene sceneID="4Pl-W9-Kpv">
@@ -3037,7 +3037,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="GgU-XH-tcu" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1301" y="343"/>
+            <point key="canvasLocation" x="1405" y="1007"/>
         </scene>
         <!--Venue Profile Table View Controller-->
         <scene sceneID="px5-G2-K3r">
@@ -3430,13 +3430,13 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="pD2-MT-Erf" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="818" y="-554"/>
+            <point key="canvasLocation" x="798" y="-1394"/>
         </scene>
         <!--Change Password-->
         <scene sceneID="RWO-OR-6Wj">
             <objects>
                 <tableViewController storyboardIdentifier="ChangePassword" useStoryboardIdentifierAsRestorationIdentifier="YES" id="lzP-os-sJf" customClass="ChangePassword" customModule="MIXR" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="8Qr-95-aqs">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" allowsSelection="NO" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="8Qr-95-aqs">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="671"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <animations/>
@@ -3583,7 +3583,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="NjY-76-CAr" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <barButtonItem title="Done" id="Zcw-1q-RF5"/>
             </objects>
-            <point key="canvasLocation" x="2180" y="246.5"/>
+            <point key="canvasLocation" x="2423" y="1702.5"/>
         </scene>
         <!--Setting View Controller-->
         <scene sceneID="3hT-Kj-yq2">
@@ -3799,7 +3799,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="PuO-M8-nma" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1778" y="338"/>
+            <point key="canvasLocation" x="2050" y="930"/>
         </scene>
         <!--Promotion Detail View Controller-->
         <scene sceneID="gWm-7b-aAv">
@@ -4388,6 +4388,6 @@
         <image name="venu_tab.png" width="25" height="25"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="XyO-qq-pzR"/>
+        <segue reference="ddW-Rk-pP3"/>
     </inferredMetricsTieBreakers>
 </document>

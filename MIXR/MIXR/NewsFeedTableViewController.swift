@@ -95,6 +95,8 @@ class NewsFeedTableViewController:UITableViewController,PlayerDelegate {
     {
         super.viewWillAppear(true)
         self.navigationController?.navigationBarHidden = true
+        print(self.parentViewController?.description)
+        print(self.description)
     }
 
     override func viewDidAppear(animated: Bool) {
@@ -144,8 +146,23 @@ class NewsFeedTableViewController:UITableViewController,PlayerDelegate {
         
         Alamofire.Manager.sharedInstance.session.configuration.HTTPAdditionalHeaders?.updateValue(tokenString, forKey: "Authorization")
         
-        let URL =  globalConstants.kAPIURL + globalConstants.kAllNewsFeed
+        var urlString = ""
         
+        if self.parentViewController!.isKindOfClass(VenueFeedViewController){
+            urlString = globalConstants.kAPIURL + globalConstants.kAllNewsFeed
+        }else if self.parentViewController!.isKindOfClass(PostViewController){
+            urlString = globalConstants.kAPIURL + globalConstants.kNewsfeedMyAPIEndPoint
+        }
+        else{
+            urlString = globalConstants.kAPIURL + globalConstants.kAllNewsFeed
+        }
+        
+        
+        
+        let URL =  urlString
+        
+        
+//        self.parentViewController?.description
         //        Alamofire.Manager.sharedInstance.session.configuration.HTTPAdditionalHeaders?.updateValue("application/json", forKey: "Accept")
         
         

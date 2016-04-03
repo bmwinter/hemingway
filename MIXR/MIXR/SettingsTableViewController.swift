@@ -17,7 +17,7 @@ enum settingsTag:Int {
     case TermsCondition
     case following
     case follower
-    case termsAndCondition
+    /*case termsAndCondition*/
     case logout
 }
 
@@ -174,7 +174,8 @@ class SettingsTableViewController: UITableViewController,UIGestureRecognizerDele
             
         case settingsTag.changePassword.rawValue? :
             //self.performSegueWithIdentifier("ChangePassword", sender: nil)
-            let aChangePassword : ChangePasswordViewController = self.storyboard!.instantiateViewControllerWithIdentifier("ChangePasswordViewController") as! ChangePasswordViewController
+            let aChangePassword : ChangePassword = self.storyboard!.instantiateViewControllerWithIdentifier("ChangePassword") as! ChangePassword
+            self.navigationController?.navigationBarHidden = false
             self.navigationController!.pushViewController(aChangePassword, animated: true)
             print("Change password")
         case settingsTag.privateAccount.rawValue? :

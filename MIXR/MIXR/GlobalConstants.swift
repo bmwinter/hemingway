@@ -41,7 +41,8 @@ struct globalConstants {
     static let kProfileVenueSpecial = "venue/specials"
     static let kProfileVenueEvent = "venue/events"
     
-    static let kChangePasswordAPIEndPoint = "ChangePassword"
+    static let kChangePasswordAPIEndPoint = "password/change"
+    
     static let kVenueDetailsAPIEndPoint = "VenueDetails"
     static let kNotificationsAPIEndPoint = "Notifications"
     static let kPromotionAPIEndPoint = "Promotions"
@@ -83,6 +84,8 @@ struct globalConstants {
     static let kageRestrictionError = "To use this application, Your age should be greather that 18 years"
     static let ktermsandConditionError = "Please accept terms & condition!"
     static let kEnterValidPhoneNumber = "Please enter valid phone number with country code"
+    static let kCurrentPassword = "Please enter current password"
+    
     
     static let kTempVideoFileName = "video.mp4"
     static let kTempImageFileNmae = "image.png"

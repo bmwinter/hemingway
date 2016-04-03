@@ -103,6 +103,8 @@ class BaseViewController: UIViewController  ,UIImagePickerControllerDelegate, UI
         self.dismissViewControllerAnimated(true, completion: {
             let videoData = NSData(contentsOfURL: tempImage)
             if globalConstants.storeImageVideoToDocumentDirectory(videoData!, name: globalConstants.kTempVideoFileName) {
+                let tempImage = self.videoSnapshot(globalConstants.getStoreImageVideoPath(globalConstants.kTempVideoFileName))
+                
                 self.pushPreviewController()
             }
         })
