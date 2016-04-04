@@ -92,9 +92,18 @@ class SettingsTableViewController: UITableViewController,UIGestureRecognizerDele
                             let responseDic:[String:AnyObject]? = globalConstants.convertStringToDictionary(string)
                             print("The Response Error is:   \(response.response?.statusCode)")
                             if let errorData = responseDic?["detail"] {
-                                
-                                let errorMessage = errorData[0] as! String
-                                self.displayCommonAlert(errorMessage)
+                                if let errorMessage = errorData as? String
+                                {
+                                    self.displayCommonAlert(errorMessage)
+                                    
+                                }
+                                else if let errorMessage = errorData as? NSArray
+                                {
+                                    if let errorMessageStr = errorMessage[0] as? String
+                                    {
+                                        self.displayCommonAlert(errorMessageStr)
+                                    }
+                                }
                                 return;
                             }
                         }else{
@@ -128,8 +137,18 @@ class SettingsTableViewController: UITableViewController,UIGestureRecognizerDele
                             print("The Response Error is:   \(response.response?.statusCode)")
                             if let errorData = responseDic?["detail"] {
                                 
-                                let errorMessage = errorData[0] as! String
-                                self.displayCommonAlert(errorMessage)
+                                if let errorMessage = errorData as? String
+                                {
+                                    self.displayCommonAlert(errorMessage)
+                                    
+                                }
+                                else if let errorMessage = errorData as? NSArray
+                                {
+                                    if let errorMessageStr = errorMessage[0] as? String
+                                    {
+                                        self.displayCommonAlert(errorMessageStr)
+                                    }
+                                }
                                 return;
                             }
                         }else{
