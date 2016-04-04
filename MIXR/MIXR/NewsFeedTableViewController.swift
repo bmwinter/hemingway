@@ -70,7 +70,7 @@ class NewsFeedTableViewController:UITableViewController,PlayerDelegate {
     func pullToReferesh()
     {
         self.refreshControl = UIRefreshControl()
-        self.refreshControl!.attributedTitle = NSAttributedString(string: "Updating")
+        self.refreshControl!.attributedTitle = NSAttributedString(string: "")//Updating
         self.refreshControl!.addTarget(self, action: "refresh:", forControlEvents: UIControlEvents.ValueChanged)
         self.tableView.addSubview(self.refreshControl!)
     }
@@ -255,14 +255,10 @@ class NewsFeedTableViewController:UITableViewController,PlayerDelegate {
     {
 //        let aVenueProfileViewController : VenueProfileViewController = self.storyboard!.instantiateViewControllerWithIdentifier("VenueProfileViewController") as! VenueProfileViewController
 //        self.navigationController!.pushViewController(aVenueProfileViewController, animated: true)
-//        
 //        return
-//        
 //        let followingViewController : FollowingViewController = self.storyboard!.instantiateViewControllerWithIdentifier("FollowingViewController") as! FollowingViewController
 //        self.navigationController!.pushViewController(followingViewController, animated: true)
-//        
 //        return;
-        
         
         let feedBtn : UIButton = sender as! UIButton
         var feedTag = feedBtn.superview!.tag
@@ -323,7 +319,7 @@ class NewsFeedTableViewController:UITableViewController,PlayerDelegate {
         let cell = tableView.dequeueReusableCellWithIdentifier("tableCell", forIndexPath: indexPath) as! UserFeedCell
         cell.selectionStyle = UITableViewCellSelectionStyle.None
         //let feedDict : Dictionary <String, JSON> = feedsArray[indexPath.row]
-        cell.contentView.tag = indexPath.row
+        cell.venuBackground.tag = indexPath.row
         
 //        let cache = Shared.imageCache
 

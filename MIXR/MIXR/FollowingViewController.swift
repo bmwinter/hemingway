@@ -14,11 +14,11 @@ class FollowingViewController: BaseViewController, UITableViewDelegate,UITableVi
     
     //var usersArray : Array<JSON> = []
     var usersArray : NSMutableArray = NSMutableArray()
-    
     let isLocalData = true
-    
     var is_searching:Bool!
     
+    var refreshControl : UIRefreshControl = UIRefreshControl()
+
     @IBOutlet var backgroundView: UIView!
     @IBOutlet var tableView: UITableView!
     
@@ -32,12 +32,38 @@ class FollowingViewController: BaseViewController, UITableViewDelegate,UITableVi
         
         is_searching = false
         self.tableView.separatorColor = UIColor .clearColor()
-        self.loadData()
         
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "dismissKeyboard")
         view.addGestureRecognizer(tap)
-        
         // Do any additional setup after loading the view.
+        self.pullToReferesh()
+    }
+    
+    override func viewWillAppear(animated: Bool)
+    {
+        self.loadData()
+    }
+
+    func pullToReferesh()
+    {
+        self.refreshControl.attributedTitle = NSAttributedString(string: "")//Updating
+        self.refreshControl.addTarget(self, action: "refresh:", forControlEvents: UIControlEvents.ValueChanged)
+        self.tableView.addSubview(self.refreshControl)
+    }
+    
+    func refresh(sender:AnyObject)
+    {
+        self.loadData()
+        // Code to refresh table view
+        self.performSelector(Selector("endReferesh"), withObject: nil, afterDelay: 1.0)
+    }
+    
+    func endReferesh()
+    {
+        //End refresh control
+        self.refreshControl.endRefreshing()
+        //Remove refresh control to superview
+        //self.refreshControl?.removeFromSuperview()
     }
     
     override func didReceiveMemoryWarning() {

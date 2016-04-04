@@ -135,7 +135,8 @@ class VenueProfileTableViewController: UITableViewController,UIGestureRecognizer
         var eventHeight : CGFloat = 10
 
         var subViews = self.eventsScrollView.subviews
-        for subview in subViews{
+        for subview in subViews
+        {
             subview.removeFromSuperview()
         }
         
@@ -537,6 +538,8 @@ class VenueProfileTableViewController: UITableViewController,UIGestureRecognizer
         cell.selectionStyle = UITableViewCellSelectionStyle.None
         //let venueDict : Dictionary <String, JSON> = feedsArray[indexPath.row]
         cell.contentView.tag = indexPath.row
+        cell.userBtn.tag = indexPath.row
+        cell.feedBtn.tag = indexPath.row
         
         if let imageNameStr = self.venueFeedArray[indexPath.row]["image_url"] as? String
         {
@@ -718,7 +721,7 @@ class VenueProfileTableViewController: UITableViewController,UIGestureRecognizer
                                 if val[0].isEqualToString("13")
                                 {
                                     //print("Equals")
-                                    self.displayCommonAlert(responseDic?["detail"]?[0] as! String)
+                                    //self.displayCommonAlert(responseDic?["detail"]?[0] as! String)
                                     self.loadDummyScrollViewData()
                                     
                                     return
@@ -731,14 +734,14 @@ class VenueProfileTableViewController: UITableViewController,UIGestureRecognizer
                                 
                                 if let errorMessage = errorData as? String
                                 {
-                                    self.displayCommonAlert(errorMessage)
+                                    //self.displayCommonAlert(errorMessage)
                                     
                                 }
                                 else if let errorMessage = errorData as? NSArray
                                 {
                                     if let errorMessageStr = errorMessage[0] as? String
                                     {
-                                        self.displayCommonAlert(errorMessageStr)
+                                        //self.displayCommonAlert(errorMessageStr)
                                     }
                                 }
                                 self.loadDummyScrollViewData()
@@ -841,7 +844,7 @@ class VenueProfileTableViewController: UITableViewController,UIGestureRecognizer
                                 if val[0].isEqualToString("13")
                                 {
                                     //print("Equals")
-                                    self.displayCommonAlert(responseDic?["detail"]?[0] as! String)
+                                    //self.displayCommonAlert(responseDic?["detail"]?[0] as! String)
                                     self.loadDummyScrollViewData()
                                     
                                     return
@@ -854,14 +857,14 @@ class VenueProfileTableViewController: UITableViewController,UIGestureRecognizer
                                 
                                 if let errorMessage = errorData as? String
                                 {
-                                    self.displayCommonAlert(errorMessage)
+                                    //self.displayCommonAlert(errorMessage)
                                     
                                 }
                                 else if let errorMessage = errorData as? NSArray
                                 {
                                     if let errorMessageStr = errorMessage[0] as? String
                                     {
-                                        self.displayCommonAlert(errorMessageStr)
+                                        //self.displayCommonAlert(errorMessageStr)
                                     }
                                 }
                                 self.loadDummyScrollViewData()
@@ -960,7 +963,7 @@ class VenueProfileTableViewController: UITableViewController,UIGestureRecognizer
                                 if val[0].isEqualToString("13")
                                 {
                                     //print("Equals")
-                                    self.displayCommonAlert(responseDic?["detail"]?[0] as! String)
+                                    //self.displayCommonAlert(responseDic?["detail"]?[0] as! String)
                                     self.loadDummyScrollViewData()
                                     
                                     return
@@ -973,14 +976,14 @@ class VenueProfileTableViewController: UITableViewController,UIGestureRecognizer
                                 
                                 if let errorMessage = errorData as? String
                                 {
-                                    self.displayCommonAlert(errorMessage)
+                                    //self.displayCommonAlert(errorMessage)
                                     
                                 }
                                 else if let errorMessage = errorData as? NSArray
                                 {
                                     if let errorMessageStr = errorMessage[0] as? String
                                     {
-                                        self.displayCommonAlert(errorMessageStr)
+                                        //self.displayCommonAlert(errorMessageStr)
                                     }
                                 }
                                 self.loadDummyScrollViewData()
@@ -1094,14 +1097,14 @@ class VenueProfileTableViewController: UITableViewController,UIGestureRecognizer
                                 
                                 if let errorMessage = errorData as? String
                                 {
-                                    self.displayCommonAlert(errorMessage)
+                                    //self.displayCommonAlert(errorMessage)
                                     
                                 }
                                 else if let errorMessage = errorData as? NSArray
                                 {
                                     if let errorMessageStr = errorMessage[0] as? String
                                     {
-                                        self.displayCommonAlert(errorMessageStr)
+                                        //self.displayCommonAlert(errorMessageStr)
                                     }
                                 }
                                  self.reloadTable()

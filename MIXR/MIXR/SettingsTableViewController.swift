@@ -109,7 +109,10 @@ class SettingsTableViewController: UITableViewController,UIGestureRecognizerDele
                         }else{
                             //                        "{\"public\":false}"
                             let responseDic:[String:AnyObject]? = globalConstants.convertStringToDictionary(string)
-                            self.publicPrivateSwitch.on = responseDic?["public"] as! Bool
+                            if (self.publicPrivateSwitch != nil)
+                            {
+                                self.publicPrivateSwitch.on = responseDic?["public"] as! Bool
+                            }
                         }
                     }
             }
