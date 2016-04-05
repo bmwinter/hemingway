@@ -171,17 +171,18 @@ class SearchViewController: BaseViewController, UITableViewDelegate,UITableViewD
                                 
                                 if let errorMessage = errorData as? String
                                 {
-                                    self.displayCommonAlert(errorMessage)
+                                    //self.displayCommonAlert(errorMessage)
                                     
                                 }
                                 else if let errorMessage = errorData as? NSArray
                                 {
                                     if let errorMessageStr = errorMessage[0] as? String
                                     {
-                                        self.displayCommonAlert(errorMessageStr)
+                                        //self.displayCommonAlert(errorMessageStr)
                                     }
                                 }
-                                self.loadData()
+                                self.reloadTable()
+
                                 return;
                             }
                         }
@@ -368,29 +369,38 @@ class SearchViewController: BaseViewController, UITableViewDelegate,UITableViewD
         return cell
     }
     
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath)
+    {
         print("indexpath.row = \(indexPath.row)")
-        let feedDict : NSDictionary = self.usersArray[indexPath.row] as! NSDictionary
         
-        if let venue_idStr = feedDict["venue_id"] as? String
+        if (self.usersArray.count > indexPath.row)
         {
-            // Venu Id
-            NSLog("venue_idStr = \(venue_idStr)")
-            let aVenueProfileViewController : VenueProfileViewController = self.storyboard!.instantiateViewControllerWithIdentifier("VenueProfileViewController") as! VenueProfileViewController
-            appDelegate.selectedVenueId = venue_idStr
-            self.navigationController!.pushViewController(aVenueProfileViewController, animated: true)
+            let feedDict : NSDictionary = self.usersArray[indexPath.row] as! NSDictionary
+            
+            if let venue_idStr = feedDict["venue_id"] as? String
+            {
+                // Venu Id
+                NSLog("venue_idStr = \(venue_idStr)")
+                let aVenueProfileViewController : VenueProfileViewController = self.storyboard!.instantiateViewControllerWithIdentifier("VenueProfileViewController") as! VenueProfileViewController
+                appDelegate.selectedVenueId = venue_idStr
+                self.navigationController!.pushViewController(aVenueProfileViewController, animated: true)
+            }
+            else
+            {
+                // User Id
+                if let user_idStr = feedDict["user_id"] as? String
+                {
+                    NSLog("user_idStr = \(user_idStr)")
+                    let postViewController : PostViewController = self.storyboard!.instantiateViewControllerWithIdentifier("PostViewController") as! PostViewController
+                    postViewController.isUserProfile = true
+                    postViewController.userId = user_idStr
+                    self.navigationController!.pushViewController(postViewController, animated: true)
+                }
+            }
         }
         else
         {
-            // User Id 
-            if let user_idStr = feedDict["user_id"] as? String
-            {
-                NSLog("user_idStr = \(user_idStr)")
-                let postViewController : PostViewController = self.storyboard!.instantiateViewControllerWithIdentifier("PostViewController") as! PostViewController
-                postViewController.isUserProfile = true
-                postViewController.userId = user_idStr
-                self.navigationController!.pushViewController(postViewController, animated: true)
-            }
+            reloadTable()
         }
         //let selectedCell:UITableViewCell = tableView.cellForRowAtIndexPath(indexPath)!
         //selectedCell.contentView.backgroundColor = UIColor.clearColor()

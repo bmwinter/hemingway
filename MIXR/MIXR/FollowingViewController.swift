@@ -32,7 +32,8 @@ class FollowingViewController: BaseViewController, UITableViewDelegate,UITableVi
         
         is_searching = false
         self.tableView.separatorColor = UIColor .clearColor()
-        
+        self.tableView.delegate = self
+        self.tableView.dataSource = self
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "dismissKeyboard")
         view.addGestureRecognizer(tap)
         // Do any additional setup after loading the view.
@@ -244,7 +245,7 @@ class FollowingViewController: BaseViewController, UITableViewDelegate,UITableVi
     {
         
         let cell = tableView.dequeueReusableCellWithIdentifier("FollowingCell", forIndexPath: indexPath) as! FollowingCell
-        cell.selectionStyle = UITableViewCellSelectionStyle.None
+        //cell.selectionStyle = UITableViewCellSelectionStyle.None
         let feedDict : NSDictionary = usersArray[indexPath.row] as! NSDictionary
         //cell.imagePerson.image  = UIImage(named: feedDict["userImage"] as! String)
         cell.labelName.text = feedDict["userName"] as? String
@@ -281,10 +282,39 @@ class FollowingViewController: BaseViewController, UITableViewDelegate,UITableVi
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath)
     {
-        print("indexpath.row = \(indexPath.row)")
-        let postViewController : PostViewController = self.storyboard!.instantiateViewControllerWithIdentifier("PostViewController") as! PostViewController
-        postViewController.isUserProfile = true
-        self.navigationController!.pushViewController(postViewController, animated: true)
+        if (self.usersArray.count > indexPath.row)
+        {
+            let feedDict : NSDictionary = self.usersArray[indexPath.row] as! NSDictionary
+            
+            if let venue_idStr = feedDict["venue_id"] as? Int
+            {
+                // Venu Id
+                NSLog("venue_idStr = \(venue_idStr)")
+                let aVenueProfileViewController : VenueProfileViewController = self.storyboard!.instantiateViewControllerWithIdentifier("VenueProfileViewController") as! VenueProfileViewController
+                appDelegate.selectedVenueId = "\(venue_idStr)"
+                self.navigationController!.pushViewController(aVenueProfileViewController, animated: true)
+            }
+            else
+            {
+                // User Id
+                if let user_idStr = feedDict["user_id"] as? Int
+                {
+                    NSLog("user_idStr = \(user_idStr)")
+                    let postViewController : PostViewController = self.storyboard!.instantiateViewControllerWithIdentifier("PostViewController") as! PostViewController
+                    postViewController.isUserProfile = true
+                    postViewController.userId = "\(user_idStr)"
+                    self.navigationController!.pushViewController(postViewController, animated: true)
+                }
+            }
+        }
+        else
+        {
+            reloadTable()
+        }
+//        print("indexpath.row = \(indexPath.row)")
+//        let postViewController : PostViewController = self.storyboard!.instantiateViewControllerWithIdentifier("PostViewController") as! PostViewController
+//        postViewController.isUserProfile = true
+//        self.navigationController!.pushViewController(postViewController, animated: true)
         
     }
 }

@@ -686,6 +686,7 @@ class VenueProfileTableViewController: UITableViewController,UIGestureRecognizer
             let parameters = [
                 "venue_id": self.venuId//.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet()),
             ]
+            
             Alamofire.request(.POST, URL , parameters: parameters, encoding: .JSON, headers : headers)
                 .responseString { response in
                     

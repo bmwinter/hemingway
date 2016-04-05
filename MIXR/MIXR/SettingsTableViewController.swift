@@ -111,7 +111,14 @@ class SettingsTableViewController: UITableViewController,UIGestureRecognizerDele
                             let responseDic:[String:AnyObject]? = globalConstants.convertStringToDictionary(string)
                             if (self.publicPrivateSwitch != nil)
                             {
-                                self.publicPrivateSwitch.on = responseDic?["public"] as! Bool
+                                if let isPublic = responseDic!["public"] as? Bool
+                                {
+                                    self.publicPrivateSwitch.on = isPublic
+                                }
+                                else
+                                {
+                                    self.publicPrivateSwitch.on = false
+                                }
                             }
                         }
                     }

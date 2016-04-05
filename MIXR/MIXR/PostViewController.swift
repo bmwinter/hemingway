@@ -54,7 +54,7 @@ class PostViewController: BaseViewController {
     
     func loadUserData()
     {
-        if (self.userId.count == 0)
+        if (self.userId.characters.count == 0)
         {
             self.userId = "1"
         }

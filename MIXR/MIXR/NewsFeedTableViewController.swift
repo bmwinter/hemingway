@@ -67,6 +67,7 @@ class NewsFeedTableViewController:UITableViewController,PlayerDelegate {
         self.player.view.addGestureRecognizer(tapGestureRecognizer)
 
     }
+    
     func pullToReferesh()
     {
         self.refreshControl = UIRefreshControl()
