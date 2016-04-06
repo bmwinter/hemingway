@@ -7,14 +7,13 @@
 //
 
 import UIKit
-import SwiftyJSON
-import Alamofire
 import Haneke
-import AlamofireImage
 import MediaPlayer
 import Player
 import AssetsLibrary
-
+import SwiftyJSON
+import Alamofire
+import AlamofireImage
 
 let isLocalData = false
 //let videoUrl = NSURL(string: "https://v.cdn.vine.co/r/videos/AA3C120C521177175800441692160_38f2cbd1ffb.1.5.13763579289575020226.mp4")!
@@ -339,13 +338,13 @@ class NewsFeedTableViewController:UITableViewController,PlayerDelegate {
                 let URL = NSURL(string: imageNameStr)!
                 if feedsArray[indexPath.row]["media"] as? String == "video"{
                     
-//                    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) {
-//                        let data = NSData(contentsOfURL: URL) //make sure your image in this url does exist, otherwise unwrap in a if let check
-//                        dispatch_async(dispatch_get_main_queue(), {
-//                            cell.venuImageView.image = UIImage(data: data!)
-//                        });
-//                    }
-
+                    //                    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) {
+                    //                        let data = NSData(contentsOfURL: URL) //make sure your image in this url does exist, otherwise unwrap in a if let check
+                    //                        dispatch_async(dispatch_get_main_queue(), {
+                    //                            cell.venuImageView.image = UIImage(data: data!)
+                    //                        });
+                    //                    }
+                    
                     
                     ALAssetsLibrary().assetForURL(URL, resultBlock: { (asset) -> Void in
                         if let ast = asset {
@@ -353,11 +352,17 @@ class NewsFeedTableViewController:UITableViewController,PlayerDelegate {
                         }
                         }, failureBlock: { (error) -> Void in
                             print("Video Error \(indexPath.row)")
-                        })
+                    })
                     cell.venuImageView.image = UIImage(named:"ALPlaceholder")
-                }else{
+                }
+                else
+                {
                     Request.addAcceptableImageContentTypes(["binary/octet-stream"])
-                    cell.venuImageView.af_setImageWithURL(URL, placeholderImage: UIImage(named: "ALPlaceholder"), filter: nil, imageTransition: .None, completion: { (response) -> Void in
+                    let filter = AspectScaledToFillSizeWithRoundedCornersFilter(
+                        size: cell.venuImageView.frame.size,
+                        radius: 0.0
+                    )
+                    cell.venuImageView.af_setImageWithURL(URL, placeholderImage: UIImage(named: "ALPlaceholder"), filter: filter, imageTransition: .None, completion: { (response) -> Void in
                         print("image: \(cell.venuImageView.image)")
                         print(response.result.value) //# UIImage
                         print(response.result.error) //# NSError

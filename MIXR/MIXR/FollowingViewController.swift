@@ -9,42 +9,45 @@
 import UIKit
 import SwiftyJSON
 import Alamofire
+import AlamofireImage
 
 class FollowingViewController: BaseViewController, UITableViewDelegate,UITableViewDataSource {
     
     //var usersArray : Array<JSON> = []
     var usersArray : NSMutableArray = NSMutableArray()
+    
     let isLocalData = true
+    
     var is_searching:Bool!
     
-    var refreshControl : UIRefreshControl = UIRefreshControl()
-
     @IBOutlet var backgroundView: UIView!
     @IBOutlet var tableView: UITableView!
     
+    var refreshControl : UIRefreshControl = UIRefreshControl()
     //  MARK:- Tableview delegate -
     
     override func viewDidLoad() {
         
         super.viewDidLoad()
         //self.navigationController?.interactivePopGestureRecognizer!.delegate =  self
-        //self.navigationController?.interactivePopGestureRecognizer!.enabled = true        
+        //self.navigationController?.interactivePopGestureRecognizer!.enabled = true
         
         is_searching = false
         self.tableView.separatorColor = UIColor .clearColor()
-        self.tableView.delegate = self
-        self.tableView.dataSource = self
-        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "dismissKeyboard")
-        view.addGestureRecognizer(tap)
+        
+        //        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "dismissKeyboard")
+        //        view.addGestureRecognizer(tap)
+        
         // Do any additional setup after loading the view.
         self.pullToReferesh()
+        self.dismissKeyboard()
     }
     
     override func viewWillAppear(animated: Bool)
     {
         self.loadData()
     }
-
+    
     func pullToReferesh()
     {
         self.refreshControl.attributedTitle = NSAttributedString(string: "")//Updating
@@ -257,8 +260,11 @@ class FollowingViewController: BaseViewController, UITableViewDelegate,UITableVi
                 //cell.imagePerson.image  = aImage
                 let URL = NSURL(string: imageNameStr)!
                 //let URL = NSURL(string: "https://avatars1.githubusercontent.com/u/1846768?v=3&s=460")!
-                
-                cell.imagePerson.af_setImageWithURL(URL, placeholderImage: UIImage(named: "ALPlaceholder"), filter: nil, imageTransition: .None, completion: { (response) -> Void in
+                let filter = AspectScaledToFillSizeWithRoundedCornersFilter(
+                    size: cell.imagePerson.frame.size,
+                    radius: 0.0
+                )
+                cell.imagePerson.af_setImageWithURL(URL, placeholderImage: UIImage(named: "ALPlaceholder"), filter: filter, imageTransition: .None, completion: { (response) -> Void in
                     print("image: \(cell.imagePerson.image)")
                     print(response.result.value) //# UIImage
                     print(response.result.error) //# NSError
@@ -311,10 +317,10 @@ class FollowingViewController: BaseViewController, UITableViewDelegate,UITableVi
         {
             reloadTable()
         }
-//        print("indexpath.row = \(indexPath.row)")
-//        let postViewController : PostViewController = self.storyboard!.instantiateViewControllerWithIdentifier("PostViewController") as! PostViewController
-//        postViewController.isUserProfile = true
-//        self.navigationController!.pushViewController(postViewController, animated: true)
+        //        print("indexpath.row = \(indexPath.row)")
+        //        let postViewController : PostViewController = self.storyboard!.instantiateViewControllerWithIdentifier("PostViewController") as! PostViewController
+        //        postViewController.isUserProfile = true
+        //        self.navigationController!.pushViewController(postViewController, animated: true)
         
     }
 }

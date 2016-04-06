@@ -7,12 +7,10 @@
 //
 
 import UIKit
-import Alamofire
-import SwiftyJSON
+import MediaPlayer
 import SwiftyJSON
 import Alamofire
 import AlamofireImage
-import MediaPlayer
 
 class VenueProfileTableViewController: UITableViewController,UIGestureRecognizerDelegate {
     var venueFeedArray:NSMutableArray = []
