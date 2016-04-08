@@ -217,7 +217,8 @@ class SMSVerification: UITableViewController {
                         }
                     }
                     
-                    if let tokenData = responseDic?["email"] {
+                    if (responseDic?["email"]) != nil
+                    {
                         self.navigationController?.popToRootViewControllerAnimated(true)
                     }
                 }

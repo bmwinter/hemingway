@@ -61,7 +61,7 @@ class NewsFeedTableViewController:UITableViewController,PlayerDelegate {
         self.player.fillMode = AVLayerVideoGravityResizeAspect
 
         
-        let tapGestureRecognizer: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "handleTapGestureRecognizer:")
+        let tapGestureRecognizer: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(NewsFeedTableViewController.handleTapGestureRecognizer(_:)))
         tapGestureRecognizer.numberOfTapsRequired = 1
         self.player.view.addGestureRecognizer(tapGestureRecognizer)
 
@@ -71,7 +71,7 @@ class NewsFeedTableViewController:UITableViewController,PlayerDelegate {
     {
         self.refreshControl = UIRefreshControl()
         self.refreshControl!.attributedTitle = NSAttributedString(string: "")//Updating
-        self.refreshControl!.addTarget(self, action: "refresh:", forControlEvents: UIControlEvents.ValueChanged)
+        self.refreshControl!.addTarget(self, action: #selector(NewsFeedTableViewController.refresh(_:)), forControlEvents: UIControlEvents.ValueChanged)
         self.tableView.addSubview(self.refreshControl!)
     }
     
@@ -80,7 +80,7 @@ class NewsFeedTableViewController:UITableViewController,PlayerDelegate {
         feedcount = 0
         self.loadData()
         // Code to refresh table view
-        self.performSelector(Selector("endReferesh"), withObject: nil, afterDelay: 1.0)
+        self.performSelector(#selector(NewsFeedTableViewController.endReferesh), withObject: nil, afterDelay: 1.0)
     }
     
     func endReferesh()
@@ -200,7 +200,8 @@ class NewsFeedTableViewController:UITableViewController,PlayerDelegate {
                         
                         if let errorData = responseDic?["detail"] {
                             
-                            let errorMessage = errorData[0] as! String
+                            let errorMessage = errorData.objectAtIndex(0) as! String
+                            //let errorMessage = errorData[0] as! String
                             self.displayCommonAlert(errorMessage)
                             return;
                         }
@@ -509,7 +510,7 @@ class NewsFeedTableViewController:UITableViewController,PlayerDelegate {
             /* Listen for the notification that the movie player sends us
             whenever it finishes playing */
             NSNotificationCenter.defaultCenter().addObserver(self,
-                selector: "videoHasFinishedPlaying:",
+                selector: #selector(NewsFeedTableViewController.videoHasFinishedPlaying(_:)),
                 name: MPMoviePlayerPlaybackDidFinishNotification,
                 object: nil)
             

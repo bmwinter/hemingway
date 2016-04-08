@@ -74,7 +74,7 @@ class VenueProfileTableViewController: UITableViewController,UIGestureRecognizer
     {
         self.refreshControl = UIRefreshControl()
         self.refreshControl!.attributedTitle = NSAttributedString(string: "")
-        self.refreshControl!.addTarget(self, action: "refresh:", forControlEvents: UIControlEvents.ValueChanged)
+        self.refreshControl!.addTarget(self, action: #selector(VenueProfileTableViewController.refresh(_:)), forControlEvents: UIControlEvents.ValueChanged)
         self.tableView.addSubview(self.refreshControl!)
     }
     
@@ -83,7 +83,7 @@ class VenueProfileTableViewController: UITableViewController,UIGestureRecognizer
         feedcount = 0
         self.loadFeedData()
         // Code to refresh table view
-        self.performSelector(Selector("endReferesh"), withObject: nil, afterDelay: 1.0)
+        self.performSelector(#selector(VenueProfileTableViewController.endReferesh), withObject: nil, afterDelay: 1.0)
     }
     
     func endReferesh()
@@ -157,7 +157,7 @@ class VenueProfileTableViewController: UITableViewController,UIGestureRecognizer
         }
         else
         {
-            for (var i = 0 ; i < self.venueEventArray.count ; i++ )
+            for i in 0  ..< self.venueEventArray.count
             {
                 var eventDetail = " This Tuesday and Thursday be sure to stop by since we are offering a buy 2-get-1-free deal."
                 let venueEventResponseDic:[String:AnyObject]? = self.venueEventArray[i] as? [String : AnyObject]
@@ -242,7 +242,7 @@ class VenueProfileTableViewController: UITableViewController,UIGestureRecognizer
         }
         else
         {
-            for (var i = 0 ; i < self.venueSpecialArray.count ; i++ )
+            for i in 0  ..< self.venueSpecialArray.count
             {
                 let venueSpecialResponseDic:[String:AnyObject]? = self.venueSpecialArray[i] as? [String : AnyObject]
                 var specialDetail = " This Sunday and MOnday be sure to stop by since we are offering a buy 2-get-1-free deal."
@@ -416,6 +416,7 @@ class VenueProfileTableViewController: UITableViewController,UIGestureRecognizer
     {
         self.getVenueNewsFeed()
         return
+        /*
         if (!isLocalData)
         {
             feedsArray = [["venueName":"Mad River1","venueImage":"venueImage1.jpg","userName":"Grant Boyle1"],
@@ -439,6 +440,7 @@ class VenueProfileTableViewController: UITableViewController,UIGestureRecognizer
 //            object.delegate = self
 //            
 //        }
+ */
     }
     
     func reloadTable()
@@ -731,14 +733,14 @@ class VenueProfileTableViewController: UITableViewController,UIGestureRecognizer
                             if let errorData = responseDic?["detail"]
                             {
                                 
-                                if let errorMessage = errorData as? String
+                                if errorData is String
                                 {
                                     //self.displayCommonAlert(errorMessage)
                                     
                                 }
                                 else if let errorMessage = errorData as? NSArray
                                 {
-                                    if let errorMessageStr = errorMessage[0] as? String
+                                    if errorMessage[0] is String
                                     {
                                         //self.displayCommonAlert(errorMessageStr)
                                     }
@@ -854,14 +856,14 @@ class VenueProfileTableViewController: UITableViewController,UIGestureRecognizer
                             if let errorData = responseDic?["detail"]
                             {
                                 
-                                if let errorMessage = errorData as? String
+                                if errorData is String
                                 {
                                     //self.displayCommonAlert(errorMessage)
                                     
                                 }
                                 else if let errorMessage = errorData as? NSArray
                                 {
-                                    if let errorMessageStr = errorMessage[0] as? String
+                                    if errorMessage[0] is String
                                     {
                                         //self.displayCommonAlert(errorMessageStr)
                                     }
@@ -973,14 +975,14 @@ class VenueProfileTableViewController: UITableViewController,UIGestureRecognizer
                             if let errorData = responseDic?["detail"]
                             {
                                 
-                                if let errorMessage = errorData as? String
+                                if errorData is String
                                 {
                                     //self.displayCommonAlert(errorMessage)
                                     
                                 }
                                 else if let errorMessage = errorData as? NSArray
                                 {
-                                    if let errorMessageStr = errorMessage[0] as? String
+                                    if errorMessage[0] is String
                                     {
                                         //self.displayCommonAlert(errorMessageStr)
                                     }
@@ -1094,14 +1096,14 @@ class VenueProfileTableViewController: UITableViewController,UIGestureRecognizer
                             if let errorData = responseDic?["detail"]
                             {
                                 
-                                if let errorMessage = errorData as? String
+                                if errorData is String
                                 {
                                     //self.displayCommonAlert(errorMessage)
                                     
                                 }
                                 else if let errorMessage = errorData as? NSArray
                                 {
-                                    if let errorMessageStr = errorMessage[0] as? String
+                                    if errorMessage[0] is String
                                     {
                                         //self.displayCommonAlert(errorMessageStr)
                                     }
@@ -1129,7 +1131,7 @@ class VenueProfileTableViewController: UITableViewController,UIGestureRecognizer
     {
         let newData : NSMutableArray = []
         
-        for (var cnt = 0 ; cnt < inputArray.count; cnt++ )
+        for cnt in 0  ..< inputArray.count
         {
             
             if let inputDict = inputArray[cnt] as? NSDictionary
@@ -1238,7 +1240,7 @@ class VenueProfileTableViewController: UITableViewController,UIGestureRecognizer
             player.prepareToPlay()
             player.play()
            
-            NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("movieFinishedCallback:"), name: MPMoviePlayerPlaybackDidFinishNotification, object: nil)
+            NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(VenueProfileTableViewController.movieFinishedCallback(_:)), name: MPMoviePlayerPlaybackDidFinishNotification, object: nil)
 //            if (self.vwVideoPreview.superview == nil)
 //            {
 //                self.vwVideoPreview = player.view
@@ -1267,7 +1269,7 @@ class VenueProfileTableViewController: UITableViewController,UIGestureRecognizer
 
     func playVideoWithURLNew(path: NSURL)
     {
-        var url = NSURL(string: "http://jplayer.org/video/m4v/Big_Buck_Bunny_Trailer.m4v")!
+        let url = NSURL(string: "http://jplayer.org/video/m4v/Big_Buck_Bunny_Trailer.m4v")!
         movieViewController = MPMoviePlayerViewController(contentURL: url)
         movieViewController?.moviePlayer.fullscreen = true
         movieViewController?.moviePlayer.controlStyle = .Embedded

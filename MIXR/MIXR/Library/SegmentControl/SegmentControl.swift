@@ -135,7 +135,7 @@ class SegmentControl : UIControl {
     //Set button frame
     button.frame = segmentFrameForIndex(index)
 
-    button.addTarget(self, action: "buttonTapped:", forControlEvents: UIControlEvents.TouchUpInside)
+    button.addTarget(self, action: #selector(SegmentControl.buttonTapped(_:)), forControlEvents: UIControlEvents.TouchUpInside)
 
     return button
 

@@ -51,7 +51,7 @@ class FollowersViewController: BaseViewController, UITableViewDelegate,UITableVi
     func pullToReferesh()
     {
         self.refreshControl.attributedTitle = NSAttributedString(string: "")//Updating
-        self.refreshControl.addTarget(self, action: "refresh:", forControlEvents: UIControlEvents.ValueChanged)
+        self.refreshControl.addTarget(self, action: #selector(FollowersViewController.refresh(_:)), forControlEvents: UIControlEvents.ValueChanged)
         self.tableView.addSubview(self.refreshControl)
     }
     

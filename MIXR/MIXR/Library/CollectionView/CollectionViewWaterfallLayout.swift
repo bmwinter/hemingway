@@ -112,7 +112,7 @@ public class CollectionViewWaterfallLayout: UICollectionViewLayout {
         allItemAttributes.removeAll(keepCapacity: false)
         sectionItemAttributes.removeAll(keepCapacity: false)
         
-        for  idx in 0..<columnCount {
+        for  _ in 0..<columnCount {
             self.columnHeights.append(0)
         }
         
@@ -256,7 +256,7 @@ public class CollectionViewWaterfallLayout: UICollectionViewLayout {
             idx = min(idx + unionSize, itemCounts) - 1
             let rect2 = allItemAttributes[idx].frame
             unionRects.append(CGRectUnion(rect1, rect2))
-            ++idx
+            idx += 1
         }
     }
     
@@ -272,7 +272,7 @@ public class CollectionViewWaterfallLayout: UICollectionViewLayout {
         return contentSize!
     }
     
-    override public func layoutAttributesForItemAtIndexPath(indexPath: NSIndexPath) -> UICollectionViewLayoutAttributes! {
+    override public func layoutAttributesForItemAtIndexPath(indexPath: NSIndexPath) -> UICollectionViewLayoutAttributes? {
         if indexPath.section >= sectionItemAttributes.count {
             return nil
         }
@@ -284,7 +284,7 @@ public class CollectionViewWaterfallLayout: UICollectionViewLayout {
         return sectionItemAttributes[indexPath.section][indexPath.item]
     }
     
-    override public func layoutAttributesForSupplementaryViewOfKind(elementKind: String, atIndexPath indexPath: NSIndexPath) -> UICollectionViewLayoutAttributes! {
+    override public func layoutAttributesForSupplementaryViewOfKind(elementKind: String, atIndexPath indexPath: NSIndexPath) -> UICollectionViewLayoutAttributes? {
         var attribute: UICollectionViewLayoutAttributes?
         
         if elementKind == CollectionViewWaterfallElementKindSectionHeader {
@@ -314,7 +314,7 @@ public class CollectionViewWaterfallLayout: UICollectionViewLayout {
                 break
             }
         }
-        for var i = begin; i < end; i++ {
+        for i in begin ..< end {
             let attr = allItemAttributes[i]
             if CGRectIntersectsRect(rect, attr.frame) {
                 attrs.append(attr)

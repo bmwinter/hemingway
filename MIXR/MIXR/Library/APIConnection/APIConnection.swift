@@ -558,7 +558,7 @@ func encodeStringToBase64(str : String) -> String
 
 //MARK: - DLog -
 
-func DLog(message: AnyObject = "",file: String = __FILE__, line: UInt = __LINE__ , function: String = __FUNCTION__)
+func DLog(message: AnyObject = "",file: String = #file, line: UInt = #line , function: String = #function)
 {
     /*  #if DEBUG : In comment then display log
     #if DEBUG : Not comment then stop log
@@ -568,7 +568,7 @@ func DLog(message: AnyObject = "",file: String = __FILE__, line: UInt = __LINE__
     // #endif
 }
 
-func Log(message: AnyObject = "",file: String = __FILE__, line: UInt = __LINE__ , function: String = __FUNCTION__)
+func Log(message: AnyObject = "",file: String = #file, line: UInt = #line , function: String = #function)
 {
     /*  #if DEBUG : In comment then display log
     #if DEBUG : Not comment then stop log
@@ -580,7 +580,7 @@ func Log(message: AnyObject = "",file: String = __FILE__, line: UInt = __LINE__ 
 
 func DAlert(title: String, message: String, action: String, sender: UIViewController)
 {
-    if sender.respondsToSelector("UIAlertController")
+    if sender.respondsToSelector(Selector("UIAlertController"))
     {
         let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.Alert)
         alert.addAction(UIAlertAction(title: action, style: UIAlertActionStyle.Default, handler:nil))

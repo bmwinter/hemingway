@@ -50,7 +50,7 @@ class SearchViewController: BaseViewController, UITableViewDelegate,UITableViewD
     {
         self.refreshControl = UIRefreshControl()
         self.refreshControl!.attributedTitle = NSAttributedString(string: "")//Updating
-        self.refreshControl!.addTarget(self, action: "refresh:", forControlEvents: UIControlEvents.ValueChanged)
+        self.refreshControl!.addTarget(self, action: #selector(SearchViewController.refresh(_:)), forControlEvents: UIControlEvents.ValueChanged)
         self.tableView.addSubview(self.refreshControl!)
     }
     
@@ -59,7 +59,7 @@ class SearchViewController: BaseViewController, UITableViewDelegate,UITableViewD
         feedcount = 0
         self.loadData()
         // Code to refresh table view
-        self.performSelector(Selector("endReferesh"), withObject: nil, afterDelay: 1.0)
+        self.performSelector(#selector(SearchViewController.endReferesh), withObject: nil, afterDelay: 1.0)
     }
     
     func endReferesh()
@@ -169,14 +169,14 @@ class SearchViewController: BaseViewController, UITableViewDelegate,UITableViewD
                             if let errorData = responseDic?["detail"]
                             {
                                 
-                                if let errorMessage = errorData as? String
+                                if errorData is String
                                 {
                                     //self.displayCommonAlert(errorMessage)
                                     
                                 }
-                                else if let errorMessage = errorData as? NSArray
+                                else if errorData is NSArray
                                 {
-                                    if let errorMessageStr = errorMessage[0] as? String
+                                    if errorData[0] is String
                                     {
                                         //self.displayCommonAlert(errorMessageStr)
                                     }
@@ -227,11 +227,13 @@ class SearchViewController: BaseViewController, UITableViewDelegate,UITableViewD
     {
         let newData : NSMutableArray = []
         
-        for (var cnt = 0 ; cnt < inputArray.count; cnt++ )
+        //for (cnt,inputDict) in inputArray.enumerate()
+        for inputDict in inputArray
+        //for (var cnt = 0 ; cnt < inputArray.count; cnt++ )
         {
-            if let inputDict = inputArray[cnt] as? NSDictionary
-            {
-                let outPutDict :NSMutableDictionary = NSMutableDictionary(dictionary: inputDict)
+            //if let inputDict = inputArray[cnt] as? NSDictionary
+            //{
+                let outPutDict :NSMutableDictionary = NSMutableDictionary(dictionary: inputDict as! [NSObject : AnyObject])
                 
                 if let _ = inputDict["venue_id"] as? String
                 {
@@ -254,7 +256,7 @@ class SearchViewController: BaseViewController, UITableViewDelegate,UITableViewD
                 
                 outPutDict.setValue("", forKey: "subtitle")
                 newData.addObject(outPutDict)
-            }
+            //}
         }
         return newData
     }
@@ -431,10 +433,11 @@ class SearchViewController: BaseViewController, UITableViewDelegate,UITableViewD
             print("search text %@ ",searchBar.text! as NSString)
             is_searching = false
             searchingArray.removeAllObjects()
-            let temp = self.searchBarObj.text
+            //let temp = self.searchBarObj.text
             self.loadSearchData()
             
             return;
+            /*
             print(self.usersArray)
             
             var tempArray : NSMutableArray = []
@@ -446,6 +449,7 @@ class SearchViewController: BaseViewController, UITableViewDelegate,UITableViewD
             print("seaarching array \(self.searchingArray)")
             
             tableView.reloadData()
+             */
         }
     }
 }

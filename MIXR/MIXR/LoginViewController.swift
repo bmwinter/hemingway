@@ -13,7 +13,7 @@ import SwiftyJSON
 import Foundation
 import MobileCoreServices
 
-var isTesting : Int = 1
+var isTesting : Int = 2
 /*
 b@me.com/test
 */

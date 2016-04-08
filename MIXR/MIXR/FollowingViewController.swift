@@ -51,7 +51,7 @@ class FollowingViewController: BaseViewController, UITableViewDelegate,UITableVi
     func pullToReferesh()
     {
         self.refreshControl.attributedTitle = NSAttributedString(string: "")//Updating
-        self.refreshControl.addTarget(self, action: "refresh:", forControlEvents: UIControlEvents.ValueChanged)
+        self.refreshControl.addTarget(self, action: #selector(FollowingViewController.refresh(_:)), forControlEvents: UIControlEvents.ValueChanged)
         self.tableView.addSubview(self.refreshControl)
     }
     
@@ -59,7 +59,7 @@ class FollowingViewController: BaseViewController, UITableViewDelegate,UITableVi
     {
         self.loadData()
         // Code to refresh table view
-        self.performSelector(Selector("endReferesh"), withObject: nil, afterDelay: 1.0)
+        self.performSelector(#selector(FollowingViewController.endReferesh), withObject: nil, afterDelay: 1.0)
     }
     
     func endReferesh()
@@ -193,7 +193,7 @@ class FollowingViewController: BaseViewController, UITableViewDelegate,UITableVi
     {
         let newData : NSMutableArray = []
         
-        for (var cnt = 0 ; cnt < inputArray.count; cnt++ )
+        for cnt in 0  ..< inputArray.count
         {
             if let inputDict = inputArray[cnt] as? NSDictionary
             {
@@ -201,6 +201,7 @@ class FollowingViewController: BaseViewController, UITableViewDelegate,UITableVi
                 
                 if let venue_idStr = inputDict["venue_id"] as? String
                 {
+                    print("venue_idStr = %@",venue_idStr)
                     outPutDict.setValue("\(inputDict["name"] as! String)", forKey: "title")
                     outPutDict.setValue("", forKey: "profile_picture")
                     outPutDict.setValue("", forKey: "subtitle")
@@ -224,7 +225,6 @@ class FollowingViewController: BaseViewController, UITableViewDelegate,UITableVi
         }
         return newData
     }
-    
     
     func reloadTable()
     {
