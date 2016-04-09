@@ -1779,10 +1779,10 @@
             </objects>
             <point key="canvasLocation" x="2583" y="-603"/>
         </scene>
-        <!--View Controller-->
+        <!--Edit Profile Pic View Controller-->
         <scene sceneID="zek-PR-cbu">
             <objects>
-                <viewController useStoryboardIdentifierAsRestorationIdentifier="YES" id="05F-ro-4Zz" sceneMemberID="viewController">
+                <viewController useStoryboardIdentifierAsRestorationIdentifier="YES" id="05F-ro-4Zz" customClass="EditProfilePicViewController" customModule="MIXR" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Ice-zW-1LI"/>
                         <viewControllerLayoutGuide type="bottom" id="kxp-eI-Jhu"/>
@@ -2087,15 +2087,15 @@
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="kxp-eI-Jhu" firstAttribute="top" secondItem="z6y-3z-zI1" secondAttribute="bottom" id="27r-Po-MhU"/>
+                            <constraint firstItem="kxp-eI-Jhu" firstAttribute="top" secondItem="z6y-3z-zI1" secondAttribute="bottom" id="0Gj-oP-rCp"/>
+                            <constraint firstItem="kxp-eI-Jhu" firstAttribute="top" secondItem="CC6-bj-Ged" secondAttribute="bottom" id="3TM-Fq-ihG"/>
                             <constraint firstItem="A2k-VJ-asg" firstAttribute="leading" secondItem="up3-s1-o1K" secondAttribute="leading" id="5BF-uK-whD"/>
                             <constraint firstItem="z6y-3z-zI1" firstAttribute="top" secondItem="A2k-VJ-asg" secondAttribute="bottom" constant="2" id="C3b-NU-mu4"/>
                             <constraint firstAttribute="trailing" secondItem="z6y-3z-zI1" secondAttribute="trailing" id="MSd-aH-DxT"/>
                             <constraint firstItem="CC6-bj-Ged" firstAttribute="top" secondItem="A2k-VJ-asg" secondAttribute="bottom" id="Uss-KS-IQt"/>
-                            <constraint firstItem="kxp-eI-Jhu" firstAttribute="top" secondItem="CC6-bj-Ged" secondAttribute="bottom" id="alw-Uk-7wx"/>
                             <constraint firstItem="z6y-3z-zI1" firstAttribute="leading" secondItem="up3-s1-o1K" secondAttribute="leading" id="b4c-g3-m93"/>
+                            <constraint firstItem="kxp-eI-Jhu" firstAttribute="top" secondItem="z6y-3z-zI1" secondAttribute="bottom" id="bXJ-ZR-awc"/>
                             <constraint firstAttribute="trailing" secondItem="CC6-bj-Ged" secondAttribute="trailing" id="d5O-R8-d8L"/>
-                            <constraint firstItem="kxp-eI-Jhu" firstAttribute="top" secondItem="z6y-3z-zI1" secondAttribute="bottom" id="egG-0g-GWX"/>
                             <constraint firstAttribute="trailing" secondItem="A2k-VJ-asg" secondAttribute="trailing" id="fIY-el-OYz"/>
                             <constraint firstItem="A2k-VJ-asg" firstAttribute="top" secondItem="up3-s1-o1K" secondAttribute="top" id="jyX-eH-lS1"/>
                             <constraint firstItem="CC6-bj-Ged" firstAttribute="leading" secondItem="up3-s1-o1K" secondAttribute="leading" id="l5E-MZ-ctE"/>
@@ -4075,6 +4075,6 @@
         <image name="venu_tab.png" width="25" height="25"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="XyO-qq-pzR"/>
+        <segue reference="ddW-Rk-pP3"/>
     </inferredMetricsTieBreakers>
 </document>

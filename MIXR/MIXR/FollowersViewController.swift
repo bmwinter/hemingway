@@ -143,7 +143,9 @@ class FollowersViewController: BaseViewController, UITableViewDelegate,UITableVi
                                 if val[0].isEqualToString("13")
                                 {
                                     //print("Equals")
-                                    self.displayCommonAlert(responseDic?["detail"]?[0] as! String)
+                                    //self.displayCommonAlert(responseDic?["detail"]?[0] as! String)
+                                    self.displayCommonAlert((responseDic?["detail"] as? NSArray)?[0] as! String)
+
                                     self.reloadTable()
                                     
                                     return
