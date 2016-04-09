@@ -68,12 +68,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MIXR/FollowersViewController.swift"
-            timestampString = "481141001.084841"
+            timestampString = "481868937.598689"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "235"
-            endingLineNumber = "235"
-            landmarkName = "tableView(_:cellForRowAtIndexPath:)"
+            startingLineNumber = "237"
+            endingLineNumber = "237"
+            landmarkName = "numberOfSectionsInTableView(_:)"
             landmarkType = "5">
             <Locations>
                <Location
@@ -116,13 +116,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MIXR/FollowingViewController.swift"
-            timestampString = "481141050.006112"
+            timestampString = "481868937.598689"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "234"
-            endingLineNumber = "234"
-            landmarkName = "tableView(_:cellForRowAtIndexPath:)"
-            landmarkType = "5">
+            startingLineNumber = "235"
+            endingLineNumber = "235"
+            landmarkName = "FollowingViewController"
+            landmarkType = "3">
             <Locations>
                <Location
                   shouldBeEnabled = "Yes"
@@ -164,12 +164,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MIXR/FollowingViewController.swift"
-            timestampString = "481141051.342063"
+            timestampString = "481868937.598689"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "231"
-            endingLineNumber = "231"
-            landmarkName = "tableView(_:cellForRowAtIndexPath:)"
+            startingLineNumber = "232"
+            endingLineNumber = "232"
+            landmarkName = "reloadTable()"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -260,11 +260,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MIXR/ChangePassword.swift"
-            timestampString = "481354402.949107"
+            timestampString = "481868937.598689"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "147"
-            endingLineNumber = "147"
+            startingLineNumber = "148"
+            endingLineNumber = "148"
             landmarkName = "changePasswordAPICall()"
             landmarkType = "5">
          </BreakpointContent>

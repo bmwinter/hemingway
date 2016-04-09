@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15A282b" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="49e-Tb-3d3">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="49e-Tb-3d3">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -1779,10 +1779,10 @@
             </objects>
             <point key="canvasLocation" x="2583" y="-603"/>
         </scene>
-        <!--View Controller-->
+        <!--Edit Profile Pic View Controller-->
         <scene sceneID="zek-PR-cbu">
             <objects>
-                <viewController useStoryboardIdentifierAsRestorationIdentifier="YES" id="05F-ro-4Zz" sceneMemberID="viewController">
+                <viewController useStoryboardIdentifierAsRestorationIdentifier="YES" id="05F-ro-4Zz" customClass="EditProfilePicViewController" customModule="MIXR" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Ice-zW-1LI"/>
                         <viewControllerLayoutGuide type="bottom" id="kxp-eI-Jhu"/>
@@ -1997,7 +1997,7 @@
                                         <rect key="frame" x="0.0" y="410" width="414" height="259"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xP4-lL-7xM">
-                                                <rect key="frame" x="97" y="141" width="221" height="41"/>
+                                                <rect key="frame" x="97" y="81" width="221" height="41"/>
                                                 <color key="backgroundColor" red="0.4941176471" green="0.63921568630000003" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="221" id="AeH-Sn-8Jq"/>
@@ -2016,7 +2016,7 @@
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <constraints>
                                             <constraint firstItem="xP4-lL-7xM" firstAttribute="centerX" secondItem="yQ6-m1-Mag" secondAttribute="centerX" id="5Tg-60-2lu"/>
-                                            <constraint firstAttribute="bottom" secondItem="xP4-lL-7xM" secondAttribute="bottom" constant="77" id="bdt-Dy-HHV"/>
+                                            <constraint firstAttribute="bottom" secondItem="xP4-lL-7xM" secondAttribute="bottom" constant="137" id="bdt-Dy-HHV"/>
                                         </constraints>
                                     </view>
                                 </subviews>
@@ -2087,15 +2087,15 @@
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="kxp-eI-Jhu" firstAttribute="top" secondItem="z6y-3z-zI1" secondAttribute="bottom" id="27r-Po-MhU"/>
+                            <constraint firstItem="kxp-eI-Jhu" firstAttribute="top" secondItem="z6y-3z-zI1" secondAttribute="bottom" id="0Gj-oP-rCp"/>
+                            <constraint firstItem="kxp-eI-Jhu" firstAttribute="top" secondItem="CC6-bj-Ged" secondAttribute="bottom" id="3TM-Fq-ihG"/>
                             <constraint firstItem="A2k-VJ-asg" firstAttribute="leading" secondItem="up3-s1-o1K" secondAttribute="leading" id="5BF-uK-whD"/>
                             <constraint firstItem="z6y-3z-zI1" firstAttribute="top" secondItem="A2k-VJ-asg" secondAttribute="bottom" constant="2" id="C3b-NU-mu4"/>
                             <constraint firstAttribute="trailing" secondItem="z6y-3z-zI1" secondAttribute="trailing" id="MSd-aH-DxT"/>
                             <constraint firstItem="CC6-bj-Ged" firstAttribute="top" secondItem="A2k-VJ-asg" secondAttribute="bottom" id="Uss-KS-IQt"/>
-                            <constraint firstItem="kxp-eI-Jhu" firstAttribute="top" secondItem="CC6-bj-Ged" secondAttribute="bottom" id="alw-Uk-7wx"/>
                             <constraint firstItem="z6y-3z-zI1" firstAttribute="leading" secondItem="up3-s1-o1K" secondAttribute="leading" id="b4c-g3-m93"/>
+                            <constraint firstItem="kxp-eI-Jhu" firstAttribute="top" secondItem="z6y-3z-zI1" secondAttribute="bottom" id="bXJ-ZR-awc"/>
                             <constraint firstAttribute="trailing" secondItem="CC6-bj-Ged" secondAttribute="trailing" id="d5O-R8-d8L"/>
-                            <constraint firstItem="kxp-eI-Jhu" firstAttribute="top" secondItem="z6y-3z-zI1" secondAttribute="bottom" id="egG-0g-GWX"/>
                             <constraint firstAttribute="trailing" secondItem="A2k-VJ-asg" secondAttribute="trailing" id="fIY-el-OYz"/>
                             <constraint firstItem="A2k-VJ-asg" firstAttribute="top" secondItem="up3-s1-o1K" secondAttribute="top" id="jyX-eH-lS1"/>
                             <constraint firstItem="CC6-bj-Ged" firstAttribute="leading" secondItem="up3-s1-o1K" secondAttribute="leading" id="l5E-MZ-ctE"/>
@@ -2115,7 +2115,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gbS-q9-peV" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3298" y="27"/>
+            <point key="canvasLocation" x="554" y="1307"/>
         </scene>
         <!--Profile Table View Controller-->
         <scene sceneID="nCd-oV-s02">
@@ -2134,7 +2134,7 @@
                                 </imageView>
                                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="he2-se-qou" customClass="BorderedButton" customModule="MIXR" customModuleProvider="target">
                                     <rect key="frame" x="119" y="65" width="191" height="35"/>
-                                    <state key="normal" title="Follow">
+                                    <state key="normal" title="Edit Profile">
                                         <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                     </state>
                                     <connections>
@@ -2143,7 +2143,7 @@
                                 </button>
                                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yR6-HX-6YO" customClass="BorderedButton" customModule="MIXR" customModuleProvider="target">
                                     <rect key="frame" x="119" y="24" width="191" height="35"/>
-                                    <state key="normal" title="Ernest Hemingway">
+                                    <state key="normal">
                                         <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                     </state>
                                     <connections>
@@ -2856,7 +2856,7 @@
                                             <rect key="frame" x="110" y="57" width="296" height="40"/>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                             <fontDescription key="fontDescription" name="ForgottenFuturistRg-Regular" family="Forgotten Futurist" pointSize="18"/>
-                                            <state key="normal" title="100 Likes">
+                                            <state key="normal">
                                                 <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                             </state>
                                             <connections>
@@ -2870,7 +2870,7 @@
                                                 <constraint firstAttribute="height" constant="40" id="z2m-h9-wsq"/>
                                             </constraints>
                                             <fontDescription key="fontDescription" name="ForgottenFuturistRg-Bold" family="Forgotten Futurist" pointSize="18"/>
-                                            <state key="normal" title="Venue Name">
+                                            <state key="normal">
                                                 <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                             </state>
                                             <connections>
@@ -2897,14 +2897,14 @@
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fGR-6U-6EC" userLabel="Address_TimeView">
                                     <rect key="frame" x="0.0" y="107" width="414" height="100"/>
                                     <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="10:00 AM - 2:00 AM" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4uL-pY-IOw" customClass="Borderedlabel" customModule="MIXR" customModuleProvider="target">
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4uL-pY-IOw" customClass="Borderedlabel" customModule="MIXR" customModuleProvider="target">
                                             <rect key="frame" x="10" y="0.0" width="394" height="50"/>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="749" text="300 Main St Manayunk PA, 18901" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5vw-G1-nwl" customClass="Borderedlabel" customModule="MIXR" customModuleProvider="target">
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="749" text="" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5vw-G1-nwl" customClass="Borderedlabel" customModule="MIXR" customModuleProvider="target">
                                             <rect key="frame" x="10" y="48" width="394" height="50"/>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -4076,6 +4076,6 @@
         <image name="venu_tab.png" width="25" height="25"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="XyO-qq-pzR"/>
+        <segue reference="ddW-Rk-pP3"/>
     </inferredMetricsTieBreakers>
 </document>

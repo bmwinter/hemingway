@@ -137,7 +137,8 @@ class RecoverPassword: UITableViewController {
                     if response.response?.statusCode == 400{
                         print("The Response Error is:   \(response.response?.statusCode)")
                         if let errorData = responseDic?["detail"] {
-                            let errorMessage = errorData[0] as! String
+                            //let errorMessage = errorData[0] as! String
+                            let errorMessage = (errorData as? NSArray)?[0] as! String
                             self.displayCommonAlert(errorMessage)
                             return;
                         }

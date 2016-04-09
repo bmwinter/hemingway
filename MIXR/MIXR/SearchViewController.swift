@@ -176,7 +176,7 @@ class SearchViewController: BaseViewController, UITableViewDelegate,UITableViewD
                                 }
                                 else if errorData is NSArray
                                 {
-                                    if errorData[0] is String
+                                    if (errorData as? NSArray)?[0] is String
                                     {
                                         //self.displayCommonAlert(errorMessageStr)
                                     }

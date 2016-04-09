@@ -155,6 +155,7 @@
 		5C6DF59D1C3000AE00F2910B /* Specials.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C6DF59C1C3000AE00F2910B /* Specials.swift */; };
 		5C6E2C4A1BC90B940036259A /* DatePickerDialog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C6E2C491BC90B940036259A /* DatePickerDialog.swift */; };
 		5C6F92061BC6C9680037373B /* SignUpTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C6F92051BC6C9680037373B /* SignUpTableViewController.swift */; };
+		5C77E1411CB8C12C006B4AFD /* EditProfilePicViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C77E13F1CB8C0F8006B4AFD /* EditProfilePicViewController.swift */; };
 		5C92A1441BC5785A00EB6B9E /* User.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5C92A1431BC5785A00EB6B9E /* User.storyboard */; };
 		5C92A1461BC57AD500EB6B9E /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C92A1451BC57AD500EB6B9E /* LoginViewController.swift */; };
 		5CF4687E1C0E8ABD007F87AA /* PromotionDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CF4687C1C0E8ABD007F87AA /* PromotionDetail.swift */; };
@@ -342,6 +343,7 @@
 		5C6DF59C1C3000AE00F2910B /* Specials.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Specials.swift; sourceTree = "<group>"; };
 		5C6E2C491BC90B940036259A /* DatePickerDialog.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DatePickerDialog.swift; sourceTree = "<group>"; };
 		5C6F92051BC6C9680037373B /* SignUpTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpTableViewController.swift; sourceTree = "<group>"; };
+		5C77E13F1CB8C0F8006B4AFD /* EditProfilePicViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditProfilePicViewController.swift; sourceTree = "<group>"; };
 		5C92A1431BC5785A00EB6B9E /* User.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = User.storyboard; sourceTree = "<group>"; };
 		5C92A1451BC57AD500EB6B9E /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		5CF4687C1C0E8ABD007F87AA /* PromotionDetail.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PromotionDetail.swift; sourceTree = "<group>"; };
@@ -767,6 +769,7 @@
 				806122491BBF2F1400EFF35E /* FeedPageViewController.swift */,
 				5C92A1451BC57AD500EB6B9E /* LoginViewController.swift */,
 				5C6F92051BC6C9680037373B /* SignUpTableViewController.swift */,
+				5C77E13F1CB8C0F8006B4AFD /* EditProfilePicViewController.swift */,
 				5C17F0051BCC097600E027E0 /* ProfileTableViewController.swift */,
 				5C2A9E931BD2063E008669AB /* RecentPhotoVidoeController.swift */,
 				5C27231C1BD899D7007227AA /* VenueProfileTableViewController.swift */,
@@ -1147,6 +1150,7 @@
 				5CF468811C0E8B0C007F87AA /* NotificationCell.swift in Sources */,
 				A3274FFF1CA38DFB00E7E048 /* VenueAnnotation.swift in Sources */,
 				156BCCAA1C05E6BF00AB88A6 /* UserFeedCell.swift in Sources */,
+				5C77E1411CB8C12C006B4AFD /* EditProfilePicViewController.swift in Sources */,
 				15149F9E1C7D8D1400274778 /* NotificationPromotionCell.swift in Sources */,
 				5C520FD31C54FA9600299990 /* ALImageModel.swift in Sources */,
 				5C1F05D71C256B4B0036830D /* SegmentControl.swift in Sources */,

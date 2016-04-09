@@ -224,7 +224,8 @@ class PostViewController: BaseViewController {
                                 if val[0].isEqualToString("13")
                                 {
                                     //print("Equals")
-                                    self.displayCommonAlert(responseDic?["detail"]?[0] as! String)
+                                    //self.displayCommonAlert(responseDic?["detail"]?[0] as! String)
+                                    self.displayCommonAlert((responseDic?["detail"] as? NSArray)?[0] as! String)
                                     //self.loadData()
                                     
                                     return

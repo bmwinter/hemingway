@@ -192,7 +192,7 @@ class NewsFeedTableViewController:UITableViewController,PlayerDelegate {
                         if let val = responseDic?["code"] {
                             if val[0].isEqualToString("13") {
                                 //                                print("Equals")
-                                self.displayCommonAlert(responseDic?["detail"]?[0] as! String)
+                                self.displayCommonAlert((responseDic?["detail"] as? NSArray)?[0] as! String)
                                 return
                             }
                             // now val is not nil and the Optional has been unwrapped, so use it
