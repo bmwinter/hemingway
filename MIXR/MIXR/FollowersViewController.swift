@@ -59,7 +59,7 @@ class FollowersViewController: BaseViewController, UITableViewDelegate,UITableVi
     {
         self.loadData()
         // Code to refresh table view
-        self.performSelector(Selector("endReferesh"), withObject: nil, afterDelay: 1.0)
+        self.performSelector(#selector(FollowersViewController.endReferesh), withObject: nil, afterDelay: 1.0)
     }
     
     func endReferesh()
@@ -193,7 +193,7 @@ class FollowersViewController: BaseViewController, UITableViewDelegate,UITableVi
     {
         let newData : NSMutableArray = []
         
-        for (var cnt = 0 ; cnt < inputArray.count; cnt++ )
+        for cnt in 0  ..< inputArray.count
         {
             if let inputDict = inputArray[cnt] as? NSDictionary
             {

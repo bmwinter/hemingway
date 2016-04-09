@@ -12,7 +12,8 @@ import SwiftyJSON
 import Alamofire
 import AlamofireImage
 
-class VenueProfileTableViewController: UITableViewController,UIGestureRecognizerDelegate {
+class VenueProfileTableViewController: UITableViewController,UIGestureRecognizerDelegate
+{
     var venueFeedArray:NSMutableArray = []
     var feedsArray : Array<JSON> = []
     var venueSpecialArray : NSArray = []
@@ -22,8 +23,11 @@ class VenueProfileTableViewController: UITableViewController,UIGestureRecognizer
     var moviePlayer:MPMoviePlayerController!
     var vwVideoPreview:UIView = UIView()
     var vwCenterVideoPreview:UIView = UIView()
-    @IBOutlet weak var movieViewController : MPMoviePlayerViewController?
+    
+     var followIndex = 0
+    @IBOutlet weak var btnFollowing: UIButton!
 
+    @IBOutlet weak var movieViewController : MPMoviePlayerViewController?
     @IBOutlet weak var venuePicture: UIImageView!
     @IBOutlet weak var noofFillsImage: UIImageView!
     @IBOutlet weak var btnLike: UIButton!
@@ -53,7 +57,7 @@ class VenueProfileTableViewController: UITableViewController,UIGestureRecognizer
         self.tableView.backgroundView = UIImageView(image: UIImage(named: "BG"))
         // Do any additional setup after loading the view, typically from a nib.
         //self.pullToReferesh()
-        self.btnVenueName.titleLabel?.font = UIFont(name: "ForgottenFuturistRg-Bold", size: 24)
+        self.btnFollowing.titleLabel?.font = UIFont(name: "ForgottenFuturistRg-Bold", size: 24)
         
     }
     
@@ -114,7 +118,7 @@ class VenueProfileTableViewController: UITableViewController,UIGestureRecognizer
         {
             if let venueName = self.venueDict["name"]! as? String
             {
-                self.btnVenueName.setTitle(venueName, forState: UIControlState.Normal)
+                self.btnFollowing.setTitle(venueName, forState: UIControlState.Normal)
             }
             
             if let operating_hours = self.venueDict["operating_hours"]! as? String
@@ -663,6 +667,8 @@ class VenueProfileTableViewController: UITableViewController,UIGestureRecognizer
         
         self.venueDict = NSDictionary()
         self.loadVenueData()
+        
+        getFollowStatus()
     }
     
     func loadVenueData()
@@ -1274,4 +1280,280 @@ class VenueProfileTableViewController: UITableViewController,UIGestureRecognizer
         movieViewController?.moviePlayer.fullscreen = true
         movieViewController?.moviePlayer.controlStyle = .Embedded
     }
+    
+    //  MARK:- Follow Functionality -
+    @IBAction func btnFollowing(sender: AnyObject)
+    {
+        let btn : UIButton = (sender as? UIButton)!
+        if(!btn.selected)
+        {
+            self.btnFollowing.backgroundColor = UIColor(red: 96/255,green: 134/255.0,blue: 72/255,alpha: 1.0)
+            self.setFollowBtnPost()
+            
+        }
+        else
+        {
+            self.btnFollowing.backgroundColor = UIColor(red: 194/255,green: 194/255.0,blue: 194/255,alpha: 1.0)
+        }
+        btn.selected = !btn.selected
+        
+    }
+
+    func setFollowBtnPost()
+    {
+        let appDelegate=AppDelegate() //You create a new instance,not get the exist one
+        appDelegate.startAnimation((self.navigationController?.view)!)
+        
+        var tokenString = "token "
+        if let appToken =  NSUserDefaults.standardUserDefaults().objectForKey("LoginToken") as? String
+        {
+            tokenString +=  appToken
+            
+            let URL =  globalConstants.kAPIURL + globalConstants.kFollowRequestForVenueAPIEndPoint
+            
+            
+            let headers = [
+                "Authorization": tokenString,
+                ]
+            
+            let parameters = [
+                "follower_venue_id": self.venuId//.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet()),
+            ]
+            Alamofire.request(.POST, URL , parameters: parameters, encoding: .JSON, headers : headers)
+                .responseString { response in
+                    
+                    print("response \(response)")
+                    appDelegate.stopAnimation()
+                    guard let value = response.result.value else
+                    {
+                        print("Error: did not receive data")
+                        //self.loadData()
+                        
+                        return
+                    }
+                    
+                    guard response.result.error == nil else
+                    {
+                        print("error calling POST on Login")
+                        print(response.result.error)
+                        //self.loadData()
+                        
+                        return
+                    }
+                    
+                    
+                    let post = JSON(value)
+                    if let string = post.rawString()
+                    {
+                        if (response.response?.statusCode == 400 || response.response?.statusCode == 401)
+                        {
+                            let responseDic:[String:AnyObject]? = self.convertStringToDictionary(string)
+                            print("The Response Error is:   \(response.response?.statusCode)")
+                            
+                            if let val = responseDic?["code"]
+                            {
+                                if val[0].isEqualToString("13")
+                                {
+                                    //print("Equals")
+                                    self.displayCommonAlert(responseDic?["detail"]?[0] as! String)
+                                    //self.loadData()
+                                    
+                                    return
+                                }
+                                // now val is not nil and the Optional has been unwrapped, so use it
+                            }
+                            
+                            if let errorData = responseDic?["detail"]
+                            {
+                                
+                                if let errorMessage = errorData as? String
+                                {
+                                    self.displayCommonAlert(errorMessage)
+                                    
+                                }
+                                else if let errorMessage = errorData as? NSArray
+                                {
+                                    if let errorMessageStr = errorMessage[0] as? String
+                                    {
+                                        self.displayCommonAlert(errorMessageStr)
+                                    }
+                                }
+                                self.loadData()
+                                return;
+                            }
+                        }
+                        else if (response.response?.statusCode == 200 || response.response?.statusCode == 201)
+                        {
+                            let responseDic:[String:AnyObject]? = self.convertStringToDictionary(string)
+                            print("The  responseDic is:   \(responseDic)")
+                            print("The  follow_status is:   \(responseDic!["follow_status"])")
+                            self.followIndex = (responseDic!["follow_status"]?.integerValue)!
+                            
+                            print("The  self.followIndex is:   \(self.followIndex)")
+                            
+                            /*
+                             "user_id": 1,
+                             "name": "Brendan Winter",
+                             "image_url": "https://s3-us-west-2.amazonaws.com/mixrprofile/2016_03_04_03_58_1.jpg"
+                             */
+                            
+                        }
+                        else
+                        {
+                            
+                        }
+                        
+                        self.setupFollowBtnState()
+                    }
+            }
+        }
+    }
+    
+    func getFollowStatus()
+    {
+        let appDelegate=AppDelegate() //You create a new instance,not get the exist one
+        appDelegate.startAnimation((self.navigationController?.view)!)
+        
+        var tokenString = "token "
+        if let appToken =  NSUserDefaults.standardUserDefaults().objectForKey("LoginToken") as? String
+        {
+            tokenString +=  appToken
+            
+            let URL =  globalConstants.kAPIURL + globalConstants.kFollowStatusForVenueAPIEndPoint
+            
+            let headers = [
+                "Authorization": tokenString,
+                ]
+            
+            let parameters = [
+                "venue_id": self.venuId//.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet()),
+            ]
+            
+            Alamofire.request(.POST, URL , parameters: parameters, encoding: .JSON, headers : headers)
+                .responseString { response in
+                    
+                    print("response \(response)")
+                    appDelegate.stopAnimation()
+                    guard let value = response.result.value else
+                    {
+                        print("Error: did not receive data")
+                        //self.loadData()
+                        
+                        return
+                    }
+                    
+                    guard response.result.error == nil else
+                    {
+                        print("error calling POST on Login")
+                        print(response.result.error)
+                        //self.loadData()
+                        
+                        return
+                    }
+                    
+                    
+                    let post = JSON(value)
+                    if let string = post.rawString()
+                    {
+                        if (response.response?.statusCode == 400 || response.response?.statusCode == 401)
+                        {
+                            let responseDic:[String:AnyObject]? = self.convertStringToDictionary(string)
+                            print("The Response Error is:   \(response.response?.statusCode)")
+                            
+                            if let val = responseDic?["code"]
+                            {
+                                if val[0].isEqualToString("13")
+                                {
+                                    //print("Equals")
+                                    self.displayCommonAlert(responseDic?["detail"]?[0] as! String)
+                                    //self.loadData()
+                                    
+                                    return
+                                }
+                                // now val is not nil and the Optional has been unwrapped, so use it
+                            }
+                            
+                            if let errorData = responseDic?["detail"]
+                            {
+                                
+                                if let errorMessage = errorData as? String
+                                {
+                                    self.displayCommonAlert(errorMessage)
+                                    
+                                }
+                                else if let errorMessage = errorData as? NSArray
+                                {
+                                    if let errorMessageStr = errorMessage[0] as? String
+                                    {
+                                        self.displayCommonAlert(errorMessageStr)
+                                    }
+                                }
+                                self.loadData()
+                                return;
+                            }
+                        }
+                        else if (response.response?.statusCode == 200 || response.response?.statusCode == 201)
+                        {
+                            let responseDic:[String:AnyObject]? = self.convertStringToDictionary(string)
+                            print("The  responseDic is:   \(responseDic)")
+                            print("The  follow_status is:   \(responseDic!["follow_status"])")
+                            self.followIndex = (responseDic!["follow_status"]?.integerValue)!
+                            
+                            print("The  self.followIndex is:   \(self.followIndex)")
+                            
+                            /*
+                             "user_id": 1,
+                             "name": "Brendan Winter",
+                             "image_url": "https://s3-us-west-2.amazonaws.com/mixrprofile/2016_03_04_03_58_1.jpg"
+                             */
+                            
+                        }
+                        else
+                        {
+                            
+                        }
+                        
+                        self.setupFollowBtnState()
+                    }
+            }
+        }
+    }
+    
+    func setupFollowBtnState()
+    {
+        self.btnFollowing.selected = false
+        
+        if (self.followIndex == 0)
+        {
+            //You are NOT following this user
+            self.btnFollowing.selected = false
+        }
+        else if (self.followIndex == 1)
+        {
+            self.btnFollowing.selected = false
+        }
+        else if (self.followIndex == 2)
+        {
+            // User has denied your request
+            self.btnFollowing.selected = false
+        }
+        else if (self.followIndex == 3)
+        {
+            //You are following this user
+            self.btnFollowing.selected = true
+        }
+        
+        if (self.btnFollowing.selected)
+        {
+            self.btnFollowing.enabled = false
+            self.btnFollowing.backgroundColor = UIColor(red: 96/255,green: 134/255.0,blue: 72/255,alpha: 1.0)
+            
+        }
+        else
+        {
+            self.btnFollowing.enabled = true
+            self.btnFollowing.backgroundColor = UIColor(red: 194/255,green: 194/255.0,blue: 194/255,alpha: 1.0)
+        }
+    }
+
 }
