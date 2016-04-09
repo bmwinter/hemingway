@@ -182,8 +182,8 @@ internal class ALConfirmViewController: UIViewController, UIScrollViewDelegate {
     }
     
     private func buttonActions() {
-        confirmButton.addTarget(self, action: "confirmPhoto", forControlEvents: UIControlEvents.TouchUpInside)
-        cancelButton.addTarget(self, action: "cancel", forControlEvents: UIControlEvents.TouchUpInside)
+        confirmButton.addTarget(self, action: #selector(ALConfirmViewController.confirmPhoto), forControlEvents: UIControlEvents.TouchUpInside)
+        cancelButton.addTarget(self, action: #selector(ALConfirmViewController.cancel), forControlEvents: UIControlEvents.TouchUpInside)
     }
     
     internal func cancel() {

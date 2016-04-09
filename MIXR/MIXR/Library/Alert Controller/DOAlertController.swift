@@ -257,9 +257,9 @@ class DOAlertController : UIViewController, UITextFieldDelegate, UIViewControlle
         self.modalPresentationStyle = UIModalPresentationStyle.Custom
         
         // NotificationCenter
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "handleAlertActionEnabledDidChangeNotification:", name: DOAlertActionEnabledDidChangeNotification, object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "handleKeyboardWillShowNotification:", name: UIKeyboardWillShowNotification, object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "handleKeyboardWillHideNotification:", name: UIKeyboardWillHideNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(DOAlertController.handleAlertActionEnabledDidChangeNotification(_:)), name: DOAlertActionEnabledDidChangeNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(DOAlertController.handleKeyboardWillShowNotification(_:)), name: UIKeyboardWillShowNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(DOAlertController.handleKeyboardWillHideNotification(_:)), name: UIKeyboardWillHideNotification, object: nil)
         
         // Delegate
         self.transitioningDelegate = self
@@ -425,7 +425,7 @@ class DOAlertController : UIViewController, UITextFieldDelegate, UIViewControlle
         super.viewDidAppear(animated)
         
         if (!isAlert() && cancelButtonTag != 0) {
-            let tapGesture = UITapGestureRecognizer(target: self, action: "handleContainerViewTapGesture:")
+            let tapGesture = UITapGestureRecognizer(target: self, action: #selector(DOAlertController.handleContainerViewTapGesture(_:)))
             containerView.addGestureRecognizer(tapGesture)
         }
     }
@@ -492,7 +492,7 @@ class DOAlertController : UIViewController, UITextFieldDelegate, UIViewControlle
             var textFieldContainerHeight: CGFloat = 0.0
             
             // TextFields
-            for (i, obj) in (textFields!).enumerate() {
+            for (_, obj) in (textFields!).enumerate() {
                 let textField = obj as! UITextField
                 textField.frame = CGRectMake(0.0, textFieldContainerHeight, innerContentWidth, textField.frame.height)
                 textFieldContainerHeight += textField.frame.height + 0.5
@@ -705,7 +705,7 @@ class DOAlertController : UIViewController, UITextFieldDelegate, UIViewControlle
         button.setTitle(action.title, forState: .Normal)
         button.enabled = action.enabled
         button.layer.cornerRadius = buttonCornerRadius
-        button.addTarget(self, action: Selector("buttonTapped:"), forControlEvents: .TouchUpInside)
+        button.addTarget(self, action: #selector(DOAlertController.buttonTapped(_:)), forControlEvents: .TouchUpInside)
         button.tag = buttons.count + 1
         buttons.append(button)
         buttonContainer.addSubview(button)

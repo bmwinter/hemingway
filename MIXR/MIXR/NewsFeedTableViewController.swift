@@ -7,14 +7,13 @@
 //
 
 import UIKit
-import SwiftyJSON
-import Alamofire
 import Haneke
-import AlamofireImage
 import MediaPlayer
 import Player
 import AssetsLibrary
-
+import SwiftyJSON
+import Alamofire
+import AlamofireImage
 
 let isLocalData = false
 //let videoUrl = NSURL(string: "https://v.cdn.vine.co/r/videos/AA3C120C521177175800441692160_38f2cbd1ffb.1.5.13763579289575020226.mp4")!
@@ -62,7 +61,7 @@ class NewsFeedTableViewController:UITableViewController,PlayerDelegate {
         self.player.fillMode = AVLayerVideoGravityResizeAspect
 
         
-        let tapGestureRecognizer: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "handleTapGestureRecognizer:")
+        let tapGestureRecognizer: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(NewsFeedTableViewController.handleTapGestureRecognizer(_:)))
         tapGestureRecognizer.numberOfTapsRequired = 1
         self.player.view.addGestureRecognizer(tapGestureRecognizer)
 
@@ -72,7 +71,7 @@ class NewsFeedTableViewController:UITableViewController,PlayerDelegate {
     {
         self.refreshControl = UIRefreshControl()
         self.refreshControl!.attributedTitle = NSAttributedString(string: "")//Updating
-        self.refreshControl!.addTarget(self, action: "refresh:", forControlEvents: UIControlEvents.ValueChanged)
+        self.refreshControl!.addTarget(self, action: #selector(NewsFeedTableViewController.refresh(_:)), forControlEvents: UIControlEvents.ValueChanged)
         self.tableView.addSubview(self.refreshControl!)
     }
     
@@ -81,7 +80,7 @@ class NewsFeedTableViewController:UITableViewController,PlayerDelegate {
         feedcount = 0
         self.loadData()
         // Code to refresh table view
-        self.performSelector(Selector("endReferesh"), withObject: nil, afterDelay: 1.0)
+        self.performSelector(#selector(NewsFeedTableViewController.endReferesh), withObject: nil, afterDelay: 1.0)
     }
     
     func endReferesh()
@@ -201,7 +200,8 @@ class NewsFeedTableViewController:UITableViewController,PlayerDelegate {
                         
                         if let errorData = responseDic?["detail"] {
                             
-                            let errorMessage = errorData[0] as! String
+                            let errorMessage = errorData.objectAtIndex(0) as! String
+                            //let errorMessage = errorData[0] as! String
                             self.displayCommonAlert(errorMessage)
                             return;
                         }
@@ -339,13 +339,13 @@ class NewsFeedTableViewController:UITableViewController,PlayerDelegate {
                 let URL = NSURL(string: imageNameStr)!
                 if feedsArray[indexPath.row]["media"] as? String == "video"{
                     
-//                    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) {
-//                        let data = NSData(contentsOfURL: URL) //make sure your image in this url does exist, otherwise unwrap in a if let check
-//                        dispatch_async(dispatch_get_main_queue(), {
-//                            cell.venuImageView.image = UIImage(data: data!)
-//                        });
-//                    }
-
+                    //                    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) {
+                    //                        let data = NSData(contentsOfURL: URL) //make sure your image in this url does exist, otherwise unwrap in a if let check
+                    //                        dispatch_async(dispatch_get_main_queue(), {
+                    //                            cell.venuImageView.image = UIImage(data: data!)
+                    //                        });
+                    //                    }
+                    
                     
                     ALAssetsLibrary().assetForURL(URL, resultBlock: { (asset) -> Void in
                         if let ast = asset {
@@ -353,11 +353,17 @@ class NewsFeedTableViewController:UITableViewController,PlayerDelegate {
                         }
                         }, failureBlock: { (error) -> Void in
                             print("Video Error \(indexPath.row)")
-                        })
+                    })
                     cell.venuImageView.image = UIImage(named:"ALPlaceholder")
-                }else{
+                }
+                else
+                {
                     Request.addAcceptableImageContentTypes(["binary/octet-stream"])
-                    cell.venuImageView.af_setImageWithURL(URL, placeholderImage: UIImage(named: "ALPlaceholder"), filter: nil, imageTransition: .None, completion: { (response) -> Void in
+                    let filter = AspectScaledToFillSizeWithRoundedCornersFilter(
+                        size: cell.venuImageView.frame.size,
+                        radius: 0.0
+                    )
+                    cell.venuImageView.af_setImageWithURL(URL, placeholderImage: UIImage(named: "ALPlaceholder"), filter: filter, imageTransition: .None, completion: { (response) -> Void in
                         print("image: \(cell.venuImageView.image)")
                         print(response.result.value) //# UIImage
                         print(response.result.error) //# NSError
@@ -504,7 +510,7 @@ class NewsFeedTableViewController:UITableViewController,PlayerDelegate {
             /* Listen for the notification that the movie player sends us
             whenever it finishes playing */
             NSNotificationCenter.defaultCenter().addObserver(self,
-                selector: "videoHasFinishedPlaying:",
+                selector: #selector(NewsFeedTableViewController.videoHasFinishedPlaying(_:)),
                 name: MPMoviePlayerPlaybackDidFinishNotification,
                 object: nil)
             

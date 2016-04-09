@@ -184,7 +184,7 @@ class VenueSelection : UIViewController,UIGestureRecognizerDelegate {
             /* Listen for the notification that the movie player sends us
             whenever it finishes playing */
             NSNotificationCenter.defaultCenter().addObserver(self,
-                selector: "videoHasFinishedPlaying:",
+                selector: #selector(VenueSelection.videoHasFinishedPlaying(_:)),
                 name: MPMoviePlayerPlaybackDidFinishNotification,
                 object: nil)
             
@@ -244,7 +244,7 @@ class VenueSelection : UIViewController,UIGestureRecognizerDelegate {
     }
     
     func addtapGesture(){
-        let tap = UITapGestureRecognizer(target: self, action: Selector("handleTapEvent:"))
+        let tap = UITapGestureRecognizer(target: self, action: #selector(VenueSelection.handleTapEvent(_:)))
         // we use our delegate
         tap.delegate = self
         // allow for user interaction

@@ -39,14 +39,14 @@ class NotificationViewController: BaseViewController,UITableViewDelegate,UITable
     {
         self.refreshControl = UIRefreshControl()
         self.refreshControl!.attributedTitle = NSAttributedString(string: "")
-        self.refreshControl!.addTarget(self, action: "refresh:", forControlEvents: UIControlEvents.ValueChanged)
+        self.refreshControl!.addTarget(self, action: #selector(NotificationViewController.refresh(_:)), forControlEvents: UIControlEvents.ValueChanged)
         self.tblViewNotification.addSubview(self.refreshControl!)
     }
     
     func refresh(sender:AnyObject)
     {
         // Code to refresh table view
-        self.performSelector(Selector("endReferesh"), withObject: nil, afterDelay: 1.0)
+        self.performSelector(#selector(NotificationViewController.endReferesh), withObject: nil, afterDelay: 1.0)
     }
     
     func endReferesh()
@@ -210,7 +210,7 @@ class NotificationViewController: BaseViewController,UITableViewDelegate,UITable
     {
         let newData : NSMutableArray = []
         
-        for (var cnt = 0 ; cnt < inputArray.count; cnt++ )
+        for cnt in 0  ..< inputArray.count
         {
             if let inputDict = inputArray[cnt] as? NSDictionary
             {

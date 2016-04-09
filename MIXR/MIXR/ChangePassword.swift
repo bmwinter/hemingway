@@ -144,7 +144,7 @@ class ChangePassword: UITableViewController {
                         }
                     }
                     
-                    if let tokenData = responseDic?["confirmation"] {
+                    if (responseDic?["confirmation"]) != nil {
                         self.navigationController?.popToRootViewControllerAnimated(true)
                     }
                 }

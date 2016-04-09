@@ -9,6 +9,7 @@
 import UIKit
 import SwiftyJSON
 import Alamofire
+import AlamofireImage
 
 class FollowersViewController: BaseViewController, UITableViewDelegate,UITableViewDataSource {
     
@@ -39,6 +40,7 @@ class FollowersViewController: BaseViewController, UITableViewDelegate,UITableVi
         
         // Do any additional setup after loading the view.
         self.pullToReferesh()
+        self.dismissKeyboard()
     }
     
     override func viewWillAppear(animated: Bool)
@@ -49,7 +51,7 @@ class FollowersViewController: BaseViewController, UITableViewDelegate,UITableVi
     func pullToReferesh()
     {
         self.refreshControl.attributedTitle = NSAttributedString(string: "")//Updating
-        self.refreshControl.addTarget(self, action: "refresh:", forControlEvents: UIControlEvents.ValueChanged)
+        self.refreshControl.addTarget(self, action: #selector(FollowersViewController.refresh(_:)), forControlEvents: UIControlEvents.ValueChanged)
         self.tableView.addSubview(self.refreshControl)
     }
     
@@ -259,7 +261,11 @@ class FollowersViewController: BaseViewController, UITableViewDelegate,UITableVi
                 let URL = NSURL(string: imageNameStr)!
                 //let URL = NSURL(string: "https://avatars1.githubusercontent.com/u/1846768?v=3&s=460")!
                 
-                cell.imagePerson.af_setImageWithURL(URL, placeholderImage: UIImage(named: "ALPlaceholder"), filter: nil, imageTransition: .None, completion: { (response) -> Void in
+                let filter = AspectScaledToFillSizeWithRoundedCornersFilter(
+                    size: cell.imagePerson.frame.size,
+                    radius: 0.0
+                )
+                cell.imagePerson.af_setImageWithURL(URL, placeholderImage: UIImage(named: "ALPlaceholder"), filter: filter, imageTransition: .None, completion: { (response) -> Void in
                     print("image: \(cell.imagePerson.image)")
                     print(response.result.value) //# UIImage
                     print(response.result.error) //# NSError

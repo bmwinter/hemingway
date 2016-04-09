@@ -81,7 +81,7 @@ class MapViewController: BaseViewController, MGLMapViewDelegate {
         button.backgroundColor = UIColor.whiteColor()
         button.setTitle("View", forState: UIControlState.Normal)
         button.titleLabel?.textColor = UIColor.redColor()
-        button.targetForAction("buttonAction", withSender:self )
+        button.targetForAction(Selector("buttonAction"), withSender:self )
         
         return button
  

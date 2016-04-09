@@ -114,7 +114,7 @@ class DatePickerDialog: UIView {
 
         
 
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "deviceOrientationDidChange:", name: UIDeviceOrientationDidChangeNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(DatePickerDialog.deviceOrientationDidChange(_:)), name: UIDeviceOrientationDidChangeNotification, object: nil)
 
         
 
@@ -350,7 +350,7 @@ class DatePickerDialog: UIView {
 
         self.cancelButton.layer.cornerRadius = kDatePickerDialogCornerRadius
 
-        self.cancelButton.addTarget(self, action: "buttonTapped:", forControlEvents: UIControlEvents.TouchUpInside)
+        self.cancelButton.addTarget(self, action: #selector(DatePickerDialog.buttonTapped(_:)), forControlEvents: UIControlEvents.TouchUpInside)
 
         container.addSubview(self.cancelButton)
 
@@ -368,7 +368,7 @@ class DatePickerDialog: UIView {
         self.doneButton.setTitleColor(UIColor(red: 0.2, green: 0.2, blue: 0.2, alpha: 0.5), forState: UIControlState.Highlighted)
         self.doneButton.titleLabel!.font = UIFont.boldSystemFontOfSize(14)
         self.doneButton.layer.cornerRadius = kDatePickerDialogCornerRadius
-        self.doneButton.addTarget(self, action: "buttonTapped:", forControlEvents: UIControlEvents.TouchUpInside)
+        self.doneButton.addTarget(self, action: #selector(DatePickerDialog.buttonTapped(_:)), forControlEvents: UIControlEvents.TouchUpInside)
         container.addSubview(self.doneButton)
     }
     
