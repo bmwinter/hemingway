@@ -117,6 +117,7 @@
 		15E6AB961C9AC5EF00BEC1ED /* FollowersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15E6AB951C9AC5EF00BEC1ED /* FollowersViewController.swift */; };
 		15F0E4B41C52559D00F6D1B3 /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15F0E4B31C52559D00F6D1B3 /* SettingViewController.swift */; };
 		15F0E4BA1C52598D00F6D1B3 /* ChangePasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15F0E4B91C52598D00F6D1B3 /* ChangePasswordViewController.swift */; };
+		5C0FC8E51CBA197400EAA62C /* SplashScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C0FC8E41CBA197400EAA62C /* SplashScreenViewController.swift */; };
 		5C17F0061BCC097600E027E0 /* ProfileTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C17F0051BCC097600E027E0 /* ProfileTableViewController.swift */; };
 		5C1CF1701BDBB45700B863F6 /* BorderedTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C1CF16F1BDBB45700B863F6 /* BorderedTextField.swift */; };
 		5C1CF1731BDBC5CC00B863F6 /* BorderedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C1CF1721BDBC5CC00B863F6 /* BorderedButton.swift */; };
@@ -124,6 +125,7 @@
 		5C1F05D71C256B4B0036830D /* SegmentControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C1F05D61C256B4B0036830D /* SegmentControl.swift */; };
 		5C218AC21BEA769800F7DA82 /* ChangePassword.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C218AC11BEA769800F7DA82 /* ChangePassword.swift */; };
 		5C218AC41BEA7EA900F7DA82 /* SMSVerification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C218AC31BEA7EA900F7DA82 /* SMSVerification.swift */; };
+		5C21AE701CBA31A100427D0D /* FullScreenImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C21AE6F1CBA31A100427D0D /* FullScreenImageViewController.swift */; };
 		5C22FB611BD1314000FF9C98 /* CollectionViewWaterfallLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C22FB601BD1314000FF9C98 /* CollectionViewWaterfallLayout.swift */; };
 		5C232CF31C2BA134008D52A1 /* BorderedImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C232CF21C2BA134008D52A1 /* BorderedImageView.swift */; };
 		5C232CF71C2BA264008D52A1 /* Borderedlabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C232CF61C2BA264008D52A1 /* Borderedlabel.swift */; };
@@ -305,6 +307,7 @@
 		15E6AB951C9AC5EF00BEC1ED /* FollowersViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FollowersViewController.swift; sourceTree = "<group>"; };
 		15F0E4B31C52559D00F6D1B3 /* SettingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
 		15F0E4B91C52598D00F6D1B3 /* ChangePasswordViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChangePasswordViewController.swift; sourceTree = "<group>"; };
+		5C0FC8E41CBA197400EAA62C /* SplashScreenViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SplashScreenViewController.swift; sourceTree = "<group>"; };
 		5C17F0051BCC097600E027E0 /* ProfileTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ProfileTableViewController.swift; path = MIXR/ProfileTableViewController.swift; sourceTree = SOURCE_ROOT; };
 		5C1CF16F1BDBB45700B863F6 /* BorderedTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BorderedTextField.swift; sourceTree = "<group>"; };
 		5C1CF1721BDBC5CC00B863F6 /* BorderedButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BorderedButton.swift; sourceTree = "<group>"; };
@@ -312,6 +315,7 @@
 		5C1F05D61C256B4B0036830D /* SegmentControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SegmentControl.swift; sourceTree = "<group>"; };
 		5C218AC11BEA769800F7DA82 /* ChangePassword.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChangePassword.swift; sourceTree = "<group>"; };
 		5C218AC31BEA7EA900F7DA82 /* SMSVerification.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SMSVerification.swift; path = MIXR/SMSVerification.swift; sourceTree = SOURCE_ROOT; };
+		5C21AE6F1CBA31A100427D0D /* FullScreenImageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FullScreenImageViewController.swift; sourceTree = "<group>"; };
 		5C22FB601BD1314000FF9C98 /* CollectionViewWaterfallLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionViewWaterfallLayout.swift; sourceTree = "<group>"; };
 		5C232CF21C2BA134008D52A1 /* BorderedImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BorderedImageView.swift; sourceTree = "<group>"; };
 		5C232CF61C2BA264008D52A1 /* Borderedlabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Borderedlabel.swift; sourceTree = "<group>"; };
@@ -782,6 +786,8 @@
 				5CF4687D1C0E8ABD007F87AA /* Notifications.swift */,
 				5C4BAE841C674FB7009A6BDC /* RecoverPassword.swift */,
 				5C586DF01C6EE77900169A7E /* VenueSelection.swift */,
+				5C0FC8E41CBA197400EAA62C /* SplashScreenViewController.swift */,
+				5C21AE6F1CBA31A100427D0D /* FullScreenImageViewController.swift */,
 			);
 			path = MIXR;
 			sourceTree = "<group>";
@@ -1113,6 +1119,7 @@
 				5CF468831C0E8B3B007F87AA /* PromotionsCell.swift in Sources */,
 				806122441BBF2ECF00EFF35E /* VenueProfileViewController.swift in Sources */,
 				5C6E2C4A1BC90B940036259A /* DatePickerDialog.swift in Sources */,
+				5C0FC8E51CBA197400EAA62C /* SplashScreenViewController.swift in Sources */,
 				5C586DF11C6EE77900169A7E /* VenueSelection.swift in Sources */,
 				5C17F0061BCC097600E027E0 /* ProfileTableViewController.swift in Sources */,
 				5C520FD71C54FA9600299990 /* ALUtilities.swift in Sources */,
@@ -1153,6 +1160,7 @@
 				5C77E1411CB8C12C006B4AFD /* EditProfilePicViewController.swift in Sources */,
 				15149F9E1C7D8D1400274778 /* NotificationPromotionCell.swift in Sources */,
 				5C520FD31C54FA9600299990 /* ALImageModel.swift in Sources */,
+				5C21AE701CBA31A100427D0D /* FullScreenImageViewController.swift in Sources */,
 				5C1F05D71C256B4B0036830D /* SegmentControl.swift in Sources */,
 				5C520FD41C54FA9600299990 /* ALCameraShot.swift in Sources */,
 			);

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15A282b" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="Q1N-HV-Btx">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="Q1N-HV-Btx">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -26,12 +26,45 @@
                         <color key="barTintColor" red="0.90588235294117647" green="0.90588235294117647" blue="0.90588235294117647" alpha="1" colorSpace="calibratedRGB"/>
                     </navigationBar>
                     <connections>
-                        <segue destination="ObV-wh-fIs" kind="relationship" relationship="rootViewController" id="DgR-ek-fOT"/>
+                        <segue destination="JuW-dz-oL8" kind="relationship" relationship="rootViewController" id="Kto-LO-VVf"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0dr-ub-pGY" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-286" y="398"/>
+            <point key="canvasLocation" x="-1150" y="398"/>
+        </scene>
+        <!--Splash Screen View Controller-->
+        <scene sceneID="ZUD-ui-YnI">
+            <objects>
+                <viewController id="JuW-dz-oL8" customClass="SplashScreenViewController" customModule="MIXR" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Mdz-aU-0IR"/>
+                        <viewControllerLayoutGuide type="bottom" id="0H6-rX-enl"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="2d0-gU-vXd">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="BG" translatesAutoresizingMaskIntoConstraints="NO" id="u9T-Un-1Nh">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="bottom" secondItem="u9T-Un-1Nh" secondAttribute="bottom" id="2YT-07-IxO"/>
+                            <constraint firstAttribute="trailing" secondItem="u9T-Un-1Nh" secondAttribute="trailing" id="9Nm-QW-Q9w"/>
+                            <constraint firstItem="u9T-Un-1Nh" firstAttribute="top" secondItem="2d0-gU-vXd" secondAttribute="top" id="Py1-CZ-aNl"/>
+                            <constraint firstItem="u9T-Un-1Nh" firstAttribute="leading" secondItem="2d0-gU-vXd" secondAttribute="leading" id="WTA-cT-33m"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="eXY-0E-zuG"/>
+                    <connections>
+                        <segue destination="ObV-wh-fIs" kind="push" identifier="LoginSegue" id="JJE-it-MNh"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="uDj-E8-eox" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-773" y="398"/>
         </scene>
         <!--Login View Controller-->
         <scene sceneID="qHc-PH-uVY">

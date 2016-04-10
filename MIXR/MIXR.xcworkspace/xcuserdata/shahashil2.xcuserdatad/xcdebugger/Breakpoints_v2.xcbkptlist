@@ -36,12 +36,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MIXR/PostViewController.swift"
-            timestampString = "481885740.136389"
+            timestampString = "481958866.372927"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "359"
-            endingLineNumber = "359"
-            landmarkName = "initUI()"
+            startingLineNumber = "360"
+            endingLineNumber = "360"
+            landmarkName = "getFollowStatus()"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -58,6 +58,38 @@
             startingLineNumber = "155"
             endingLineNumber = "155"
             landmarkName = "getAllNewsFeed()"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "MIXR/PostViewController.swift"
+            timestampString = "481961056.404759"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "514"
+            endingLineNumber = "514"
+            landmarkName = "btnFollowing(_:)"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "MIXR/NewsFeedTableViewController.swift"
+            timestampString = "481965460.785246"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "278"
+            endingLineNumber = "278"
+            landmarkName = "onFeedClicked(_:)"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

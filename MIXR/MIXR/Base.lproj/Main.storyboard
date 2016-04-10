@@ -1100,7 +1100,7 @@
                     </connections>
                 </searchDisplayController>
             </objects>
-            <point key="canvasLocation" x="-127" y="338"/>
+            <point key="canvasLocation" x="-79" y="1250"/>
         </scene>
         <!--Notification View Controller-->
         <scene sceneID="Z3l-1X-o9M">
@@ -1435,7 +1435,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8lo-Ls-N1u" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="322" y="338"/>
+            <point key="canvasLocation" x="458" y="1250"/>
         </scene>
         <!--News Feed Table View Controller-->
         <scene sceneID="ODj-hj-kRz">
@@ -1599,6 +1599,53 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xGB-qc-txc" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-34" y="-567"/>
+        </scene>
+        <!--Full Screen Image View Controller-->
+        <scene sceneID="Ghm-Uk-K5c">
+            <objects>
+                <viewController storyboardIdentifier="FullScreenImageViewController" id="xYy-uJ-m3l" customClass="FullScreenImageViewController" customModule="MIXR" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="3a6-ib-sUM"/>
+                        <viewControllerLayoutGuide type="bottom" id="a6j-3y-gET"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Rwi-If-m8L">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="S3I-sC-6D1">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="904"/>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5pH-oD-vYj">
+                                <rect key="frame" x="336" y="16" width="62" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="1GY-tc-iPq"/>
+                                    <constraint firstAttribute="width" constant="62" id="3Fs-23-3xi"/>
+                                </constraints>
+                                <state key="normal" title="Cancel"/>
+                                <connections>
+                                    <action selector="cancelButtonClicked" destination="xYy-uJ-m3l" eventType="touchUpInside" id="LQD-ns-60Q"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="5pH-oD-vYj" firstAttribute="top" secondItem="Rwi-If-m8L" secondAttribute="top" constant="16" id="LNb-kn-bVQ"/>
+                            <constraint firstAttribute="trailing" secondItem="S3I-sC-6D1" secondAttribute="trailing" id="VLC-8L-Aoi"/>
+                            <constraint firstItem="a6j-3y-gET" firstAttribute="top" secondItem="S3I-sC-6D1" secondAttribute="bottom" constant="-168" id="cGz-Yi-abP"/>
+                            <constraint firstItem="5pH-oD-vYj" firstAttribute="trailing" secondItem="Rwi-If-m8L" secondAttribute="trailingMargin" constant="4" id="dXb-7p-bQi"/>
+                            <constraint firstItem="S3I-sC-6D1" firstAttribute="top" secondItem="3a6-ib-sUM" secondAttribute="bottom" constant="-20" id="lC1-Iz-i8x"/>
+                            <constraint firstItem="S3I-sC-6D1" firstAttribute="leading" secondItem="Rwi-If-m8L" secondAttribute="leading" id="rwV-Gm-XcG"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="acM-7M-eHj"/>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina55"/>
+                    <connections>
+                        <outlet property="imageView" destination="S3I-sC-6D1" id="akE-O3-RDB"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="1tG-u3-vYM" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-34" y="273"/>
         </scene>
         <!--User Profile View Controller-->
         <scene sceneID="dJa-Xu-dp6">

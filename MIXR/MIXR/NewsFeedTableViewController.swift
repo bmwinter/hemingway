@@ -267,17 +267,20 @@ class NewsFeedTableViewController:UITableViewController,PlayerDelegate {
 //        return;
         
         let feedBtn : UIButton = sender as! UIButton
-        var feedTag = feedBtn.superview!.tag
-        feedTag = 5
+        let feedTag = feedBtn.superview!.tag
+        //feedTag = 5
         NSLog("feedTag = \(feedTag)")
         
         let dicPost : NSDictionary = self.feedsArray[feedTag] as! NSDictionary
         if dicPost["media"] as! String == "video"{
             self.startPlayingVideo(dicPost["image_url"] as! String)
         }else{
-            let postViewController : PostViewController = self.storyboard!.instantiateViewControllerWithIdentifier("PostViewController") as! PostViewController
-            postViewController.isUserProfile = false
-            self.navigationController!.pushViewController(postViewController, animated: true)
+            let fullScreenPicVC : FullScreenImageViewController = self.storyboard!.instantiateViewControllerWithIdentifier("FullScreenImageViewController") as! FullScreenImageViewController
+            fullScreenPicVC.dicData = dicPost.mutableCopy() as! NSMutableDictionary
+//            self.navigationController!.pushViewController(fullScreenPicVC, animated: false)
+            self.presentViewController(fullScreenPicVC, animated: false, completion: {
+                
+            })
         }
         
     }

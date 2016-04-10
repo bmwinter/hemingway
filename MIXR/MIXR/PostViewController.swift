@@ -335,7 +335,8 @@ class PostViewController: BaseViewController {
                                 if val[0].isEqualToString("13")
                                 {
                                     //print("Equals")
-                                    self.displayCommonAlert(responseDic?["detail"]?[0] as! String)
+                                    //self.displayCommonAlert(responseDic?["detail"]?[0] as! String)
+                                    self.displayCommonAlert((responseDic?["detail"] as? NSArray)?[0] as! String)
                                     //self.loadData()
                                     
                                     return
@@ -412,17 +413,21 @@ class PostViewController: BaseViewController {
             //You are following this user
              self.btnFollowing.selected = true
         }
-        
-        if (self.btnFollowing.selected)
-        {
-            self.btnFollowing.enabled = false
-            self.btnFollowing.backgroundColor = UIColor(red: 96/255,green: 134/255.0,blue: 72/255,alpha: 1.0)
-
-        }
-        else
-        {
+        if(self.isUserProfile){
             self.btnFollowing.enabled = true
             self.btnFollowing.backgroundColor = UIColor(red: 194/255,green: 194/255.0,blue: 194/255,alpha: 1.0)
+        }else{
+            if (self.btnFollowing.selected)
+            {
+                self.btnFollowing.enabled = false
+                self.btnFollowing.backgroundColor = UIColor(red: 96/255,green: 134/255.0,blue: 72/255,alpha: 1.0)
+                
+            }
+            else
+            {
+                self.btnFollowing.enabled = true
+                self.btnFollowing.backgroundColor = UIColor(red: 194/255,green: 194/255.0,blue: 194/255,alpha: 1.0)
+            }
         }
     }
     
@@ -510,8 +515,7 @@ class PostViewController: BaseViewController {
             self.performSegueWithIdentifier("EditProfileInfo", sender: nil)
         }else{
             let btn : UIButton = (sender as? UIButton)!
-            btn.selected = !btn.selected
-            if(btn.selected)
+            if(!btn.selected)
             {
                 self.btnFollowing.backgroundColor = UIColor(red: 96/255,green: 134/255.0,blue: 72/255,alpha: 1.0)
                 self.setFollowBtnPost()
@@ -521,8 +525,8 @@ class PostViewController: BaseViewController {
             {
                 self.btnFollowing.backgroundColor = UIColor(red: 194/255,green: 194/255.0,blue: 194/255,alpha: 1.0)
             }
+            btn.selected = !btn.selected
         }
-        btn.selected = !btn.selected
 
     }
     
