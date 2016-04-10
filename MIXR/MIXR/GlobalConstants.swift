@@ -54,8 +54,11 @@ struct globalConstants {
     static let kFollowingAPIEndPoint = "following"
     static let kFollowersAPIEndPoint = "followers"
     
+    static let kFollowRequestForVenueAPIEndPoint = "follow/request/venue"
     static let kFollowRequestAPIEndPoint = "follow/request"
     static let kFollowRequestUpdateAPIEndPoint = "follow/request/update"
+    static let kFollowStatusForUserAPIEndPoint = "follow/status/user"
+    static let kFollowStatusForVenueAPIEndPoint = "follow/status/venue"
     
     static let kNewsfeedAPIEndPoint = "newsfeed"
     static let kNewsfeedUserAPIEndPoint = "newsfeed/user"
