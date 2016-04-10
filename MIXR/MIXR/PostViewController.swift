@@ -356,6 +356,12 @@ class PostViewController: BaseViewController {
             self.cameraBtn.hidden = false
         }
         
+        if(self.isUserProfile){
+            self.btnFollowing.setTitle("Edit Profile", forState: .Normal)
+        }else{
+            self.btnFollowing.setTitle("Follow", forState: .Normal)
+        }
+        
         for subview in feedView.subviews
         {
             if (subview.tag == 26)
@@ -366,7 +372,6 @@ class PostViewController: BaseViewController {
         self.btnFeedName.titleLabel?.font = UIFont(name: "ForgottenFuturistRg-Bold", size: 24)
         
     }
-    
     override func didReceiveMemoryWarning()
     {
         super.didReceiveMemoryWarning()
@@ -375,17 +380,21 @@ class PostViewController: BaseViewController {
     
     @IBAction func btnFollowing(sender: AnyObject)
     {
-        let btn : UIButton = (sender as? UIButton)!
-        btn.selected = !btn.selected
-        if(btn.selected)
-        {
-            self.btnFollowing.backgroundColor = UIColor(red: 96/255,green: 134/255.0,blue: 72/255,alpha: 1.0)
-            self.setFollowBtnPost()
-
-        }
-        else
-        {
-            self.btnFollowing.backgroundColor = UIColor(red: 194/255,green: 194/255.0,blue: 194/255,alpha: 1.0)
+        if(self.isUserProfile){
+            self.performSegueWithIdentifier("EditProfileInfo", sender: nil)
+        }else{
+            let btn : UIButton = (sender as? UIButton)!
+            btn.selected = !btn.selected
+            if(btn.selected)
+            {
+                self.btnFollowing.backgroundColor = UIColor(red: 96/255,green: 134/255.0,blue: 72/255,alpha: 1.0)
+                self.setFollowBtnPost()
+                
+            }
+            else
+            {
+                self.btnFollowing.backgroundColor = UIColor(red: 194/255,green: 194/255.0,blue: 194/255,alpha: 1.0)
+            }
         }
     }
     

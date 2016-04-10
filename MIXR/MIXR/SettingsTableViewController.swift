@@ -196,9 +196,10 @@ class SettingsTableViewController: UITableViewController,UIGestureRecognizerDele
         {
             
         case settingsTag.editProfile.rawValue? :
-            let postViewController : PostViewController = self.storyboard!.instantiateViewControllerWithIdentifier("PostViewController") as! PostViewController
-            postViewController.isUserProfile = true
-            self.navigationController!.pushViewController(postViewController, animated: true)
+            self.performSegueWithIdentifier("EditProfileInfo", sender: nil)
+//            let postViewController : PostViewController = self.storyboard!.instantiateViewControllerWithIdentifier("PostViewController") as! PostViewController
+//            postViewController.isUserProfile = true
+//            self.navigationController!.pushViewController(postViewController, animated: true)
             print("Edit Profile")
             
         case settingsTag.changePassword.rawValue? :

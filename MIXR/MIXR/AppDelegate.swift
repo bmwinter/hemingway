@@ -14,9 +14,9 @@ import SpringIndicator
 
 class AppDelegate: UIResponder, UIApplicationDelegate {
     
-    let forgottenFuturistRegular = UIFont.init(name: "ForgottenFuturistRg-Regular", size: 24)
-    let forgottenFuturistBold = UIFont.init(name: "ForgottenFuturistRg-Bold", size: 24)
-    let forgottenFuturistBoldItalic = UIFont.init(name: "ForgottenFuturistRg-BoldItalic", size: 24)
+//    let forgottenFuturistRegular = UIFont.init(name: "ForgottenFuturistRg-Regular", size: 24)
+//    let forgottenFuturistBold = UIFont.init(name: "ForgottenFuturistRg-Bold", size: 24)
+//    let forgottenFuturistBoldItalic = UIFont.init(name: "ForgottenFuturistRg-BoldItalic", size: 24)
     
     var window: UIWindow?
     var navigationController : UINavigationController?
@@ -26,6 +26,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
+//        self.window = UIWindow(frame: UIScreen.mainScreen().bounds)
+
         IQKeyboardManager.sharedManager().enable = true
         IQKeyboardManager.sharedManager().shouldToolbarUsesTextFieldTintColor = true
         

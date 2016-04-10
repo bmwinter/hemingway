@@ -26,25 +26,27 @@ class LoginViewController: BaseViewController {
     
     @IBOutlet weak var userEmailTextField: UITextField!
     @IBOutlet weak var userPasswordTextField: UITextField!
-    
+        
     override func viewDidLoad() {
         self.title = "Login"
         self.navigationItem.backBarButtonItem = UIBarButtonItem(title:"", style:.Plain, target:nil, action:nil)
         
+        
+        if let loginToken = NSUserDefaults.standardUserDefaults().objectForKey("LoginToken") as? String
+        {
+            print(loginToken)
+
+            if loginToken.count > 0{
+                self.loadTabar()
+            }
+        }
+
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
     }
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(true)
-        if let loginToken = NSUserDefaults.standardUserDefaults().objectForKey("LoginToken") as? String
-        {
-            print(loginToken)
-            if loginToken.count > 0{
-                self.loadTabar()
-            }
-            
-        }
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -72,6 +74,10 @@ class LoginViewController: BaseViewController {
             self.userPasswordTextField.text = ""
         }
         
+    }
+    
+    override func viewWillDisappear(animated: Bool) {
+        super.viewWillDisappear(true)
     }
     
     /*

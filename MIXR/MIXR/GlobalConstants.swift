@@ -89,6 +89,7 @@ struct globalConstants {
     
     static let kTempVideoFileName = "video.mp4"
     static let kTempImageFileNmae = "image.png"
+    static let kProfilePicName = "profilepic.png"
     
     /*
     // Method to check wether email is valid or not.

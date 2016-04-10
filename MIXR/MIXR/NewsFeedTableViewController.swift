@@ -151,7 +151,12 @@ class NewsFeedTableViewController:UITableViewController,PlayerDelegate {
         if self.parentViewController!.isKindOfClass(VenueFeedViewController){
             urlString = globalConstants.kAPIURL + globalConstants.kAllNewsFeed
         }else if self.parentViewController!.isKindOfClass(PostViewController){
-            urlString = globalConstants.kAPIURL + globalConstants.kNewsfeedMyAPIEndPoint
+            let controller = self.parentViewController as! PostViewController
+            if(controller.isUserProfile){
+                urlString = globalConstants.kAPIURL + globalConstants.kNewsfeedMyAPIEndPoint
+            }else{
+                urlString = globalConstants.kAPIURL + globalConstants.kNewsfeedUserAPIEndPoint
+            }
         }
         else{
             urlString = globalConstants.kAPIURL + globalConstants.kAllNewsFeed
