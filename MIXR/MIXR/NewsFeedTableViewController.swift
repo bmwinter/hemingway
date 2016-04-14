@@ -163,7 +163,6 @@ class NewsFeedTableViewController:UITableViewController,PlayerDelegate {
         }
         
         
-        
         let URL =  urlString
         
         

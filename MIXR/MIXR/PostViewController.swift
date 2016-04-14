@@ -392,42 +392,66 @@ class PostViewController: BaseViewController {
     
     func setupFollowBtnState()
     {
-        self.btnFollowing.selected = false
-        
-        if (self.followIndex == 0)
+        if(self.isUserProfile)
         {
-            //You are NOT following this user
+            self.btnFollowing.setTitle("Edit Profile", forState: .Normal)
+        }
+        else
+        {
+            self.btnFollowing.setTitle("Follow", forState: .Normal)
+            
+            
             self.btnFollowing.selected = false
-        }
-        else if (self.followIndex == 1)
-        {
-            self.btnFollowing.selected = false
-        }
-        else if (self.followIndex == 2)
-        {
-            // User has denied your request
-            self.btnFollowing.selected = false
-        }
-        else if (self.followIndex == 3)
-        {
-            //You are following this user
-             self.btnFollowing.selected = true
-        }
-        if(self.isUserProfile){
-            self.btnFollowing.enabled = true
-            self.btnFollowing.backgroundColor = UIColor(red: 194/255,green: 194/255.0,blue: 194/255,alpha: 1.0)
-        }else{
-            if (self.btnFollowing.selected)
+            
+            if (self.followIndex == 0)
             {
-                self.btnFollowing.enabled = false
-                self.btnFollowing.backgroundColor = UIColor(red: 96/255,green: 134/255.0,blue: 72/255,alpha: 1.0)
-                
+                //You are NOT following this user
+                self.btnFollowing.selected = false
             }
-            else
+            else if (self.followIndex == 1)
+            {
+                self.btnFollowing.selected = false
+            }
+            else if (self.followIndex == 2)
+            {
+                self.btnFollowing.setTitle("Panding", forState: .Normal)
+                // User has denied your request
+                self.btnFollowing.selected = false
+            }
+            else if (self.followIndex == 3)
+            {
+                //You are following this user
+                self.btnFollowing.selected = true
+            }
+            
+            if(self.isUserProfile)
             {
                 self.btnFollowing.enabled = true
                 self.btnFollowing.backgroundColor = UIColor(red: 194/255,green: 194/255.0,blue: 194/255,alpha: 1.0)
             }
+            else
+            {
+                if (self.btnFollowing.selected)
+                {
+                    self.btnFollowing.enabled = false
+                    self.btnFollowing.backgroundColor = UIColor(red: 96/255,green: 134/255.0,blue: 72/255,alpha: 1.0)
+                    
+                }
+                else
+                {
+                    if (self.btnFollowing.titleLabel?.text == "Panding")
+                    {
+                        self.btnFollowing.enabled = false
+                        self.btnFollowing.backgroundColor = UIColor(red: 96/255,green: 134/255.0,blue: 72/255,alpha: 1.0)
+                    }
+                    else
+                    {
+                        self.btnFollowing.enabled = true
+                        self.btnFollowing.backgroundColor = UIColor(red: 194/255,green: 194/255.0,blue: 194/255,alpha: 1.0)
+                    }
+                }
+            }
+            
         }
     }
     
@@ -487,9 +511,12 @@ class PostViewController: BaseViewController {
             self.cameraBtn.hidden = false
         }
         
-        if(self.isUserProfile){
+        if(self.isUserProfile)
+        {
             self.btnFollowing.setTitle("Edit Profile", forState: .Normal)
-        }else{
+        }
+        else
+        {
             self.btnFollowing.setTitle("Follow", forState: .Normal)
         }
         
