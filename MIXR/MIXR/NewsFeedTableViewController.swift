@@ -323,13 +323,14 @@ class NewsFeedTableViewController:UITableViewController,PlayerDelegate,UIGesture
 //
 //        }
 
-        if let imageNameStr = feedsArray[indexPath.row]["image_url"] as? String
+        if let imageNameStr = feedsArray[indexPath.row]["media_url"] as? String
         {
             if (imageNameStr.characters.count > 0)
             {
-                let URL = NSURL(string: imageNameStr)!
+                var URL = NSURL(string: imageNameStr)!
                 if feedsArray[indexPath.row]["media"] as? String == "video"{
                     
+                    URL = NSURL(string: (feedsArray[indexPath.row]["video_thumnail"] as? String)!)!
                     //                    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) {
                     //                        let data = NSData(contentsOfURL: URL) //make sure your image in this url does exist, otherwise unwrap in a if let check
                     //                        dispatch_async(dispatch_get_main_queue(), {
@@ -338,14 +339,16 @@ class NewsFeedTableViewController:UITableViewController,PlayerDelegate,UIGesture
                     //                    }
                     
                     
-                    ALAssetsLibrary().assetForURL(URL, resultBlock: { (asset) -> Void in
-                        if let ast = asset {
-                            cell.venuImageView.image = UIImage(CGImage: ast.defaultRepresentation().fullResolutionImage().takeUnretainedValue())
-                        }
-                        }, failureBlock: { (error) -> Void in
-                            print("Video Error \(indexPath.row)")
+                    Request.addAcceptableImageContentTypes(["binary/octet-stream"])
+                    let filter = AspectScaledToFillSizeWithRoundedCornersFilter(
+                        size: cell.venuImageView.frame.size,
+                        radius: 0.0
+                    )
+                    cell.venuImageView.af_setImageWithURL(URL, placeholderImage: UIImage(named: "ALPlaceholder"), filter: filter, imageTransition: .None, completion: { (response) -> Void in
+                        print("image: \(cell.venuImageView.image)")
+                        print(response.result.value) //# UIImage
+                        print(response.result.error) //# NSError
                     })
-                    cell.venuImageView.image = UIImage(named:"ALPlaceholder")
                 }
                 else
                 {
@@ -441,7 +444,7 @@ class NewsFeedTableViewController:UITableViewController,PlayerDelegate,UIGesture
         let feedTag = feedBtn.superview!.tag
         let dicPost : NSDictionary = self.feedsArray[feedTag] as! NSDictionary
         if dicPost["media"] as! String == "video"{
-            self.startPlayingVideo(dicPost["image_url"] as! String)
+            self.startPlayingVideo(dicPost["media_url"] as! String)
         }else{
             let fullScreenPicVC : FullScreenImageViewController = self.storyboard!.instantiateViewControllerWithIdentifier("FullScreenImageViewController") as! FullScreenImageViewController
             fullScreenPicVC.dicData = dicPost.mutableCopy() as! NSMutableDictionary
@@ -463,13 +466,13 @@ class NewsFeedTableViewController:UITableViewController,PlayerDelegate,UIGesture
         
         let postID = dicFeed["post_id"]
         
-//        let parameters = [
-//            "post_id": String(postID),
-//            "like": "true"]
-        
         let parameters = [
-            "post_id": String(1),
+            "post_id": String(postID),
             "like": "true"]
+        
+//        let parameters = [
+//            "post_id": String(1),
+//            "like": "true"]
 
         
         let URL =  globalConstants.kAPIURL + globalConstants.kLikePost
