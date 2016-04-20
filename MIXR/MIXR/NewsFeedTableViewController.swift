@@ -20,7 +20,7 @@ let isLocalData = false
 
 let videoUrl = NSURL(string: "https://s3-us-west-2.amazonaws.com/mixruploads/2016_03_27_04_57_66.mp4")!
 
-class NewsFeedTableViewController:UITableViewController,PlayerDelegate {
+class NewsFeedTableViewController:UITableViewController,PlayerDelegate,UIGestureRecognizerDelegate {
     
     var feedcount : Int = 0
 //    var feedsArray : Array<JSON> = []
@@ -214,7 +214,7 @@ class NewsFeedTableViewController:UITableViewController,PlayerDelegate {
                         let responseArray:NSArray? = globalConstants.convertStringToArray(string)
                         if let searchArray = responseArray as? NSMutableArray
                         {
-                            self.feedsArray = searchArray
+                            self.feedsArray = searchArray.mutableCopy() as! NSMutableArray
                             self.reloadTable()
                         }
                     }
@@ -265,23 +265,6 @@ class NewsFeedTableViewController:UITableViewController,PlayerDelegate {
 //        let followingViewController : FollowingViewController = self.storyboard!.instantiateViewControllerWithIdentifier("FollowingViewController") as! FollowingViewController
 //        self.navigationController!.pushViewController(followingViewController, animated: true)
 //        return;
-        
-        let feedBtn : UIButton = sender as! UIButton
-        let feedTag = feedBtn.superview!.tag
-        //feedTag = 5
-        NSLog("feedTag = \(feedTag)")
-        
-        let dicPost : NSDictionary = self.feedsArray[feedTag] as! NSDictionary
-        if dicPost["media"] as! String == "video"{
-            self.startPlayingVideo(dicPost["image_url"] as! String)
-        }else{
-            let fullScreenPicVC : FullScreenImageViewController = self.storyboard!.instantiateViewControllerWithIdentifier("FullScreenImageViewController") as! FullScreenImageViewController
-            fullScreenPicVC.dicData = dicPost.mutableCopy() as! NSMutableDictionary
-//            self.navigationController!.pushViewController(fullScreenPicVC, animated: false)
-            self.presentViewController(fullScreenPicVC, animated: false, completion: {
-                
-            })
-        }
         
     }
     
@@ -400,6 +383,22 @@ class NewsFeedTableViewController:UITableViewController,PlayerDelegate {
         myString.appendAttributedString(NSMutableAttributedString(string: String(feedsArray[indexPath.row]["likes"] as! NSInteger)))
         cell.lblLike.attributedText = myString
         
+        
+        cell.venuImageView?.userInteractionEnabled = true
+        cell.venuImageView?.tag = indexPath.row
+        
+        let doubleTapGestureRecognizer = UITapGestureRecognizer(target:self, action:#selector(NewsFeedTableViewController.doubleImageTapped(_:)))
+        doubleTapGestureRecognizer.numberOfTouchesRequired = 1
+        doubleTapGestureRecognizer.numberOfTapsRequired = 2
+        cell.feedBtn?.addGestureRecognizer(doubleTapGestureRecognizer)
+
+        let singleTapGestureRecognizer = UITapGestureRecognizer(target:self, action:#selector(NewsFeedTableViewController.singleImageTapped(_:)))
+        singleTapGestureRecognizer.numberOfTouchesRequired = 1
+        singleTapGestureRecognizer.numberOfTapsRequired = 1
+        cell.feedBtn?.addGestureRecognizer(singleTapGestureRecognizer)
+        
+        singleTapGestureRecognizer.requireGestureRecognizerToFail(doubleTapGestureRecognizer)
+
         /*
         cell.venuImageView.image = UIImage(named: feedDict["venueImage"] as! String)
         cell.FeedName.text = feedDict["venueName"] as? String
@@ -415,6 +414,124 @@ class NewsFeedTableViewController:UITableViewController,PlayerDelegate {
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath)
     {
         print("indexpath.row = \(indexPath.row)")
+    }
+    
+
+    func gestureRecognizerShouldBegin(gestureRecognizer: UIGestureRecognizer) -> Bool {
+        return true
+    }
+    
+    // MARK : UIImageView Double Tap Event.
+    
+    func doubleImageTapped(sender: UITapGestureRecognizer) {
+        
+        print("Double Tapped")
+        
+        let feedBtn : UIButton = sender.view as! UIButton
+        let feedTag = feedBtn.superview!.tag
+        self.likePost(feedTag)
+//        self.performSegueWithIdentifier("MuestraImagen", sender: self)
+    }
+
+    func singleImageTapped(sender: UITapGestureRecognizer) {
+        
+        print("Single Tapped")
+
+        let feedBtn : UIButton = sender.view as! UIButton
+        let feedTag = feedBtn.superview!.tag
+        let dicPost : NSDictionary = self.feedsArray[feedTag] as! NSDictionary
+        if dicPost["media"] as! String == "video"{
+            self.startPlayingVideo(dicPost["image_url"] as! String)
+        }else{
+            let fullScreenPicVC : FullScreenImageViewController = self.storyboard!.instantiateViewControllerWithIdentifier("FullScreenImageViewController") as! FullScreenImageViewController
+            fullScreenPicVC.dicData = dicPost.mutableCopy() as! NSMutableDictionary
+            //            self.navigationController!.pushViewController(fullScreenPicVC, animated: false)
+            self.presentViewController(fullScreenPicVC, animated: false, completion: {
+                
+            })
+        }
+    }
+
+    // MARK : Like POST API call
+    
+    func likePost(tag:Int){
+        
+        let dicFeed = self.feedsArray.objectAtIndex(tag)
+        
+        let appDelegate=AppDelegate() //You create a new instance,not get the exist one
+        appDelegate.startAnimation((self.navigationController?.view)!)
+        
+        let postID = dicFeed["post_id"]
+        
+//        let parameters = [
+//            "post_id": String(postID),
+//            "like": "true"]
+        
+        let parameters = [
+            "post_id": String(1),
+            "like": "true"]
+
+        
+        let URL =  globalConstants.kAPIURL + globalConstants.kLikePost
+        
+        //        Alamofire.Manager.sharedInstance.session.configuration.HTTPAdditionalHeaders?.updateValue("application/json", forKey: "Accept")
+        
+        
+        Alamofire.request(.POST, URL , parameters: parameters, encoding: .JSON)
+            .responseString { response in
+                
+                appDelegate.stopAnimation()
+                guard let value = response.result.value else {
+                    print("Error: did not receive data")
+                    return
+                }
+                
+                guard response.result.error == nil else {
+                    print("error calling POST on Login")
+                    print(response.result.error)
+                    return
+                }
+                
+                
+                let post = JSON(value)
+                if let string = post.rawString() {
+                    let responseDic:[String:AnyObject]? = globalConstants.convertStringToDictionary(string)
+                    
+                    if response.response?.statusCode == 400{
+                        print("The Response Error is:   \(response.response?.statusCode)")
+                        
+                        if let val = responseDic?["code"] {
+                            if val[0].isEqualToString("13") {
+                                //                                print("Equals")
+                                //self.displayCommonAlert(responseDic?["detail"]?[0] as! String)
+                                self.displayCommonAlert((responseDic?["detail"] as? NSArray)?[0] as! String)
+                                
+                                return
+                            }
+                            // now val is not nil and the Optional has been unwrapped, so use it
+                        }
+                        
+                        if let errorData = responseDic?["detail"] {
+                            
+                            let errorMessage = (errorData as? NSArray)?[0] as! String
+                            self.displayCommonAlert(errorMessage)
+                            return;
+                        }
+                    }
+                    
+                    if (responseDic?["post_id"]) != nil {
+                        let dicFeed = self.feedsArray.objectAtIndex(tag).mutableCopy()
+                        var likeCount = dicFeed["likes"] as! Int
+                        likeCount = likeCount + 1;
+                        
+                        dicFeed.setValue(likeCount, forKey: "likes")
+                        
+                        self.feedsArray.replaceObjectAtIndex(tag, withObject: dicFeed.mutableCopy())
+                        
+                        self.reloadTable()
+                    }
+                }
+        }
     }
     
     
