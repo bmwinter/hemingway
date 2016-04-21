@@ -421,6 +421,7 @@ class PostViewController: BaseViewController {
             else if (self.followIndex == 3)
             {
                 //You are following this user
+                self.btnFollowing.setTitle("Following", forState: .Normal)
                 self.btnFollowing.selected = true
             }
             

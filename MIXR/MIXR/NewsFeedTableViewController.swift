@@ -162,7 +162,6 @@ class NewsFeedTableViewController:UITableViewController,PlayerDelegate {
             urlString = globalConstants.kAPIURL + globalConstants.kAllNewsFeed
         }
         
-        
         let URL =  urlString
         
         

@@ -394,7 +394,7 @@ class SearchViewController: BaseViewController, UITableViewDelegate,UITableViewD
                 {
                     NSLog("user_idStr = \(user_idStr)")
                     let postViewController : PostViewController = self.storyboard!.instantiateViewControllerWithIdentifier("PostViewController") as! PostViewController
-                    postViewController.isUserProfile = true
+                    postViewController.isUserProfile = false
                     postViewController.userId = user_idStr
                     self.navigationController!.pushViewController(postViewController, animated: true)
                 }
