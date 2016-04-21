@@ -14,6 +14,7 @@ import AlamofireImage
 class PostViewController: BaseViewController {
     
     var userDict : NSDictionary = NSDictionary()
+    @IBOutlet weak var screenTitle: UILabel!
     @IBOutlet weak var FeedName: UILabel!
     @IBOutlet weak var lblUserName: UILabel!
     @IBOutlet weak var venuImageView: UIImageView!
@@ -514,10 +515,12 @@ class PostViewController: BaseViewController {
         
         if(self.isUserProfile)
         {
+            self.screenTitle?.text = "My Profile"
             self.btnFollowing.setTitle("Edit Profile", forState: .Normal)
         }
         else
         {
+            self.screenTitle?.text = "User Profile"
             self.btnFollowing.setTitle("Follow", forState: .Normal)
         }
         

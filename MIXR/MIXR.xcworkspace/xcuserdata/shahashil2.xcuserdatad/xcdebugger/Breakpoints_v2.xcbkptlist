@@ -36,11 +36,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MIXR/PostViewController.swift"
-            timestampString = "481958866.372927"
+            timestampString = "482954488.619373"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "360"
-            endingLineNumber = "360"
+            startingLineNumber = "361"
+            endingLineNumber = "361"
             landmarkName = "getFollowStatus()"
             landmarkType = "5">
          </BreakpointContent>
@@ -68,12 +68,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MIXR/PostViewController.swift"
-            timestampString = "481961056.404759"
+            timestampString = "482954488.619373"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "514"
-            endingLineNumber = "514"
-            landmarkName = "btnFollowing(_:)"
+            startingLineNumber = "516"
+            endingLineNumber = "516"
+            landmarkName = "initUI()"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -89,8 +89,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "419"
             endingLineNumber = "419"
-            landmarkName = "tableView(_:didSelectRowAtIndexPath:)"
-            landmarkType = "5">
+            landmarkName = "NewsFeedTableViewController"
+            landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -186,6 +186,22 @@
             startingLineNumber = "465"
             endingLineNumber = "465"
             landmarkName = "likePost(_:)"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "MIXR/VenueFeedViewController.swift"
+            timestampString = "482953917.767184"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "33"
+            endingLineNumber = "33"
+            landmarkName = "onUserProfileClicked(_:)"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
