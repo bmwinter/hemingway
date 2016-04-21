@@ -1490,7 +1490,7 @@ class VenueProfileTableViewController: UITableViewController,UIGestureRecognizer
                                         self.displayCommonAlert(errorMessageStr)
                                     }
                                 }
-                                self.loadData()
+                                //self.loadData()
                                 return;
                             }
                         }
