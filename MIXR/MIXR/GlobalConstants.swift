@@ -70,6 +70,8 @@ struct globalConstants {
     static let kPostVenuePhotoVideo = "post"
     static let kAllNewsFeed = "newsfeed"
     static let kMakeProfilePublicPrivate = "profile/public"
+    static let kLikePost = "post/like"
+    
 
     static let kAppName = "MIXR"
     
