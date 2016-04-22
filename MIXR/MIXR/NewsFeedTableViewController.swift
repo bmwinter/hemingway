@@ -431,6 +431,7 @@ class NewsFeedTableViewController:UITableViewController,PlayerDelegate,UIGesture
         let feedBtn : UIButton = sender.view as! UIButton
         let feedTag = feedBtn.superview!.tag
         self.likePost(feedTag)
+        
 //        self.performSegueWithIdentifier("MuestraImagen", sender: self)
     }
 
@@ -462,11 +463,21 @@ class NewsFeedTableViewController:UITableViewController,PlayerDelegate,UIGesture
         let appDelegate=AppDelegate() //You create a new instance,not get the exist one
         appDelegate.startAnimation((self.navigationController?.view)!)
         
-        let postID = dicFeed["post_id"]
+        let postID = dicFeed["post_id"] as! Int
+        let value = String(postID)
+        var likeValue = "true"
+
+        let userlike = dicFeed["user_likes"] as! Int
+        if userlike == 0 {
+            likeValue = "true"
+        }else{
+            likeValue = "false"
+        }
         
         let parameters = [
-            "post_id": String(postID),
-            "like": "true"]
+            "post_id": value,
+            "like": likeValue]
+        
         
 //        let parameters = [
 //            "post_id": String(1),
@@ -523,8 +534,16 @@ class NewsFeedTableViewController:UITableViewController,PlayerDelegate,UIGesture
                     if (responseDic?["post_id"]) != nil {
                         let dicFeed = self.feedsArray.objectAtIndex(tag).mutableCopy()
                         var likeCount = dicFeed["likes"] as! Int
-                        likeCount = likeCount + 1;
                         
+                        let userlike = dicFeed["user_likes"] as! Int
+                        if userlike == 0 {
+                            likeCount = likeCount + 1;
+                            dicFeed.setValue(1, forKey: "user_likes")
+                        }else{
+                            likeCount = likeCount - 1;
+                            dicFeed.setValue(0, forKey: "user_likes")
+                        }
+
                         dicFeed.setValue(likeCount, forKey: "likes")
                         
                         self.feedsArray.replaceObjectAtIndex(tag, withObject: dicFeed.mutableCopy())
