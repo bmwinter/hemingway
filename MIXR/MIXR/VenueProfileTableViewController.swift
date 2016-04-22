@@ -43,6 +43,8 @@ class VenueProfileTableViewController: UITableViewController,UIGestureRecognizer
     @IBOutlet weak var showLatestVideos: UIBarButtonItem!
     @IBOutlet weak var bottomView: UIView!
     
+    @IBOutlet weak var venueNameBtn: BorderedButton!
+    
     var venuId: String! = ""
 
     override func viewDidLoad()
@@ -58,7 +60,7 @@ class VenueProfileTableViewController: UITableViewController,UIGestureRecognizer
         // Do any additional setup after loading the view, typically from a nib.
         //self.pullToReferesh()
         self.btnFollowing.titleLabel?.font = UIFont(name: "ForgottenFuturistRg-Bold", size: 24)
-        
+        self.venueNameBtn.titleLabel?.font = UIFont(name: "ForgottenFuturistRg-Bold", size: 24)
     }
     
     override func viewWillAppear(animated: Bool)
@@ -118,7 +120,7 @@ class VenueProfileTableViewController: UITableViewController,UIGestureRecognizer
         {
             if let venueName = self.venueDict["name"]! as? String
             {
-                self.btnFollowing.setTitle(venueName, forState: UIControlState.Normal)
+                self.venueNameBtn.setTitle(venueName, forState: UIControlState.Normal)
             }
             
             if let operating_hours = self.venueDict["operating_hours"]! as? String
@@ -1523,11 +1525,15 @@ class VenueProfileTableViewController: UITableViewController,UIGestureRecognizer
     
     func setupFollowBtnState()
     {
+        NSLog("followIndex =\(self.followIndex)")
+        self.btnFollowing.setTitle("Follow", forState: .Normal)
+        
+        
         self.btnFollowing.selected = false
         
         if (self.followIndex == 0)
         {
-            //You are NOT following this user
+            //You are NOT following this Venue
             self.btnFollowing.selected = false
         }
         else if (self.followIndex == 1)
@@ -1536,20 +1542,27 @@ class VenueProfileTableViewController: UITableViewController,UIGestureRecognizer
         }
         else if (self.followIndex == 2)
         {
+            self.btnFollowing.setTitle("Panding", forState: .Normal)
             // User has denied your request
             self.btnFollowing.selected = false
         }
         else if (self.followIndex == 3)
         {
             //You are following this user
+            self.btnFollowing.setTitle("Following", forState: .Normal)
             self.btnFollowing.selected = true
         }
         
-        if (self.btnFollowing.selected)
+        
+        if (self.btnFollowing.titleLabel?.text == "Panding")
         {
             self.btnFollowing.enabled = false
             self.btnFollowing.backgroundColor = UIColor(red: 96/255,green: 134/255.0,blue: 72/255,alpha: 1.0)
-            
+        }
+        else if (self.btnFollowing.titleLabel?.text == "Following")
+        {
+            self.btnFollowing.enabled = false
+            self.btnFollowing.backgroundColor = UIColor(red: 96/255,green: 134/255.0,blue: 72/255,alpha: 1.0)
         }
         else
         {
@@ -1557,5 +1570,4 @@ class VenueProfileTableViewController: UITableViewController,UIGestureRecognizer
             self.btnFollowing.backgroundColor = UIColor(red: 194/255,green: 194/255.0,blue: 194/255,alpha: 1.0)
         }
     }
-
 }

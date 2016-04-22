@@ -2889,7 +2889,7 @@
                                                 <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                             </state>
                                             <connections>
-                                                <action selector="likeBtnClicked:" destination="Lbu-Lm-jdX" eventType="touchUpInside" id="9va-8H-ckG"/>
+                                                <action selector="btnFollowing:" destination="Lbu-Lm-jdX" eventType="touchUpInside" id="Sff-P5-lbD"/>
                                             </connections>
                                         </button>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nof-tm-ugn" customClass="BorderedButton" customModule="MIXR" customModuleProvider="target">
@@ -2902,9 +2902,6 @@
                                             <state key="normal">
                                                 <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                             </state>
-                                            <connections>
-                                                <action selector="btnFollowing:" destination="Lbu-Lm-jdX" eventType="touchUpInside" id="2xc-9o-oHk"/>
-                                            </connections>
                                         </button>
                                     </subviews>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -3204,13 +3201,13 @@
                     <connections>
                         <outlet property="barTiming" destination="4uL-pY-IOw" id="kCM-lY-gZE"/>
                         <outlet property="bottomView" destination="k5s-71-7qf" id="cJl-Ah-Vfe"/>
-                        <outlet property="btnFollowing" destination="nof-tm-ugn" id="NrN-4A-ldf"/>
-                        <outlet property="btnLike" destination="fgo-aO-ANZ" id="v1z-GZ-DiS"/>
+                        <outlet property="btnFollowing" destination="fgo-aO-ANZ" id="nh2-Yn-Svr"/>
                         <outlet property="eventsAtVenue" destination="XrR-za-tn9" id="NrU-9t-ihZ"/>
                         <outlet property="eventsScrollView" destination="8YX-Gz-Fpf" id="rxm-mE-Bx4"/>
                         <outlet property="noofFillsImage" destination="5qZ-kB-Vwl" id="Kwv-H4-AJu"/>
                         <outlet property="outerView" destination="K9f-jv-Qbq" id="lWN-yz-KAP"/>
                         <outlet property="venueAddress" destination="5vw-G1-nwl" id="M0n-B2-Oj6"/>
+                        <outlet property="venueNameBtn" destination="nof-tm-ugn" id="Hww-os-SSA"/>
                         <outlet property="venueSpecialScrollView" destination="RmN-uX-hFJ" id="VcD-NE-Bhv"/>
                     </connections>
                 </tableViewController>
