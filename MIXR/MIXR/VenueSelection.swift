@@ -12,6 +12,7 @@ import BTNavigationDropdownMenu
 import AVFoundation
 import MediaPlayer
 import Alamofire
+import SwiftyJSON
 
 extension UIImage {
     var fixedOrientation: UIImage {
@@ -114,7 +115,8 @@ class VenueSelection : UIViewController,UIGestureRecognizerDelegate {
     var isVideo: Bool!
     var capturedImageFile: UIImage!
     var moviePlayer : MPMoviePlayerController?
-
+    var venuesArray : NSMutableArray = NSMutableArray()
+    var selectedVenueInfo : NSMutableDictionary = NSMutableDictionary()
     
     var menuView: BTNavigationDropdownMenu!
     
@@ -213,13 +215,29 @@ class VenueSelection : UIViewController,UIGestureRecognizerDelegate {
 
         self.navigationItem.backBarButtonItem = UIBarButtonItem(title:"", style:.Plain, target:nil, action:nil)
 
-        let items = ["Most Popular", "Latest", "Trending", "Nearest", "Top Picks"]
-//        self.selectedCellLabel.text = items.first
-//        self.navigationController?.navigationBar.translucent = false
-//        self.navigationController?.navigationBar.barTintColor = UIColor(red: 0.0/255.0, green:180/255.0, blue:220/255.0, alpha: 1.0)
-//        self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.whiteColor()]
         
-        menuView = BTNavigationDropdownMenu(navigationController: self.navigationController, title: items.first!, items: items)
+        self.addtapGesture()
+
+        // Do any additional setup after loading the view, typically from a nib.
+    }
+    
+    // MARK : Load the Venue data from top navigation bar
+    
+    func displayVenuesData(){
+        
+        
+        
+        let items = NSMutableArray()
+        
+        for value in self.venuesArray {
+            print(value)
+            items.addObject((value["name"] as? String)!)
+            self.selectedVenueInfo = self.venuesArray[0] as! NSMutableDictionary
+        }
+        
+        
+        
+        menuView = BTNavigationDropdownMenu(navigationController: self.navigationController, title: (items[0] as? String)!, items: items as [AnyObject])
         menuView.arrowImage = UIImage(named: "ArrowDown")
         menuView.checkMarkImage = UIImage(named: "checkMark")
         menuView.cellHeight = 50
@@ -234,15 +252,13 @@ class VenueSelection : UIViewController,UIGestureRecognizerDelegate {
         menuView.maskBackgroundOpacity = 0.3
         menuView.didSelectItemAtIndexHandler = {(indexPath: Int) -> () in
             print("Did select item at index: \(indexPath)")
-            self.title = items[indexPath]
+            self.title = items[indexPath] as? String
+            self.selectedVenueInfo = self.venuesArray[indexPath] as! NSMutableDictionary
         }
         self.navigationItem.titleView = menuView
-        
-        self.addtapGesture()
-
-        // Do any additional setup after loading the view, typically from a nib.
     }
     
+    // MARK : Add Tap Gesture to ImageView
     func addtapGesture(){
         let tap = UITapGestureRecognizer(target: self, action: #selector(VenueSelection.handleTapEvent(_:)))
         // we use our delegate
@@ -268,18 +284,6 @@ class VenueSelection : UIViewController,UIGestureRecognizerDelegate {
 
             let dataPath = globalConstants.getStoreImageVideoPath(globalConstants.kTempVideoFileName)
             do {
-//                let asset = AVURLAsset(URL: NSURL(fileURLWithPath: dataPath as String), options: nil)
-//                let imgGenerator = AVAssetImageGenerator(asset: asset)
-//                let cgImage = try imgGenerator.copyCGImageAtTime(CMTimeMake(0, 1), actualTime: nil)
-//                let uiImage = UIImage(CGImage: cgImage, scale: 1.0, orientation: .Up)//UIImage(CGImage: cgImage)
-//                
-//                let finalImage = UIImage(CGImage: uiImage.CGImage!, scale: 1.0, orientation: .Up)
-//
-//                print(finalImage.description)
-////                capturedImage.transform = CGAffineTransformMakeRotation(CGFloat(M_PI_2));
-//                capturedImage.image = finalImage
-//                print(capturedImage.description)
-            
                 capturedImage.contentMode = .ScaleToFill
                 capturedImage.image = self.videoSnapshot(dataPath)
             } catch let error as NSError {
@@ -290,6 +294,7 @@ class VenueSelection : UIViewController,UIGestureRecognizerDelegate {
             capturedImage.contentMode = .ScaleToFill
             capturedImage.image = self.capturedImageFile
         }
+        self.retrieveListOfVenues()
     }
     
     //MARK: - Get Image From Video URL
@@ -312,6 +317,114 @@ class VenueSelection : UIViewController,UIGestureRecognizerDelegate {
             return nil
         }
     }
+    
+    //MARK : Retrive list of venues.. 
+    
+    func retrieveListOfVenues(){
+        self.venuesArray.removeAllObjects()
+        
+        let appDelegate=AppDelegate() //You create a new instance,not get the exist one
+        appDelegate.startAnimation((self.navigationController?.view)!)
+        
+        var tokenString = "token "
+        if let appToken =  NSUserDefaults.standardUserDefaults().objectForKey("LoginToken") as? String
+        {
+            tokenString +=  appToken
+            
+            let URL =  globalConstants.kAPIURL + globalConstants.kGetVenuesList
+            
+            let headers = [
+                "Authorization": tokenString,
+                ]
+            
+            Alamofire.request(.GET, URL , parameters: nil, encoding: .JSON, headers : headers)
+                .responseString { response in
+                    
+                    print("response \(response)")
+                    appDelegate.stopAnimation()
+                    guard let value = response.result.value else
+                    {
+                        print("Error: did not receive data")
+                        return
+                    }
+                    
+                    guard response.result.error == nil else
+                    {
+                        print("error calling POST on Login")
+                        print(response.result.error)
+                        return
+                    }
+                    
+                    
+                    let post = JSON(value)
+                    if let string = post.rawString()
+                    {
+                        if (response.response?.statusCode == 400 || response.response?.statusCode == 401)
+                        {
+                            let responseDic:[String:AnyObject]? = globalConstants.convertStringToDictionary(string)
+                            print("The Response Error is:   \(response.response?.statusCode)")
+                            
+                            if let val = responseDic?["code"]
+                            {
+                                if val[0].isEqualToString("13")
+                                {
+                                    //print("Equals")
+                                    //self.displayCommonAlert(responseDic?["detail"]?[0] as! String)
+                                    self.displayCommonAlert((responseDic?["detail"] as? NSArray)?[0] as! String)
+                                    return
+                                }
+                                // now val is not nil and the Optional has been unwrapped, so use it
+                            }
+                            
+                            if let errorData = responseDic?["detail"]
+                            {
+                                
+                                if let errorMessage = errorData as? String
+                                {
+                                    self.displayCommonAlert(errorMessage)
+                                    
+                                }
+                                else if let errorMessage = errorData as? NSArray
+                                {
+                                    if let errorMessageStr = errorMessage[0] as? String
+                                    {
+                                        self.displayCommonAlert(errorMessageStr)
+                                    }
+                                }
+                                return;
+                            }
+                        }
+                        else if (response.response?.statusCode == 200 || response.response?.statusCode == 201)
+                        {
+                            let responseArray:NSArray? = globalConstants.convertStringToArray(string)
+                            if let searchArray = responseArray as? NSMutableArray
+                            {
+                                self.venuesArray = searchArray
+                                self.displayVenuesData()
+                            }
+                        }
+                        else
+                        {
+                        }
+                    }
+            }
+        }
+    }
+    
+    /*
+     // Common alert method need to be used to display alert, by passing alert string as parameter to it.
+     */
+    
+    func displayCommonAlert(alertMesage : NSString){
+        
+        let alertController = UIAlertController (title: globalConstants.kAppName, message: alertMesage as String?, preferredStyle:.Alert)
+        let okayAction: UIAlertAction = UIAlertAction(title: "Ok", style: .Cancel) { action -> Void in
+            //Just dismiss the action sheet
+        }
+        alertController.addAction(okayAction)
+        self.presentViewController(alertController, animated: true, completion: nil)
+    }
+
 
     //MARK: Temp function to check upload file on server.
     
@@ -320,15 +433,22 @@ class VenueSelection : UIViewController,UIGestureRecognizerDelegate {
         let appDelegate=AppDelegate() //You create a new instance,not get the exist one
         appDelegate.startAnimation((self.navigationController?.view)!)
 
+        let ID = self.selectedVenueInfo["venue_id"] as! Int
+        let VenueID = String(ID)
+        
         let parameters = [
-            "venue_id": "1"]
+            "venue_id":VenueID]
         
         let URL = globalConstants.kAPIURL + globalConstants.kPostVenuePhotoVideo
         
         var tokenString = "token "
-        tokenString +=  NSUserDefaults.standardUserDefaults().objectForKey("LoginToken") as! String
+        if let appToken =  NSUserDefaults.standardUserDefaults().objectForKey("LoginToken") as? String
+        {
+            tokenString +=  appToken
+        }
         
         Alamofire.Manager.sharedInstance.session.configuration.HTTPAdditionalHeaders?.updateValue(tokenString, forKey: "Authorization")
+        
 //        Alamofire.Manager.sharedInstance.session.configuration
 //            .HTTPAdditionalHeaders?.updateValue("multipart/form-data",
 //                forKey: "Content-Type")
@@ -337,7 +457,7 @@ class VenueSelection : UIViewController,UIGestureRecognizerDelegate {
 
         var dataPath:NSString
         
-        if (self.isVideo != nil){
+        if (self.isVideo == true){
             dataPath = globalConstants.getStoreImageVideoPath(globalConstants.kTempVideoFileName)
         }else{
             dataPath = globalConstants.getStoreImageVideoPath(globalConstants.kTempImageFileNmae)
@@ -354,9 +474,11 @@ class VenueSelection : UIViewController,UIGestureRecognizerDelegate {
 //            }
             
             if (self.isVideo == true){
-                multipartFormData.appendBodyPart(fileURL: NSURL(fileURLWithPath: dataPath as String), name: "file",fileName: globalConstants.kTempVideoFileName, mimeType: "video/mp4")
+                multipartFormData.appendBodyPart(fileURL: NSURL(fileURLWithPath: dataPath as String), name: "file.mp4",fileName: globalConstants.kTempVideoFileName, mimeType: "video/mp4")
             }else{
-                multipartFormData.appendBodyPart(fileURL: NSURL(fileURLWithPath: dataPath as String), name: "file",fileName: globalConstants.kTempImageFileNmae, mimeType:"binary/octet-stream")//"image/png"
+                multipartFormData.appendBodyPart(fileURL: NSURL(fileURLWithPath: dataPath as String), name: "file.png",fileName: globalConstants.kTempImageFileNmae, mimeType: "image/png")
+
+//                multipartFormData.appendBodyPart(fileURL: NSURL(fileURLWithPath: dataPath as String), name: "file",fileName: globalConstants.kTempImageFileNmae, mimeType:"binary/octet-stream")//"image/png"
             }
 //            multipartFormData.appendBodyPart(fileURL: NSURL(fileURLWithPath: dataPath), name: "video")
             

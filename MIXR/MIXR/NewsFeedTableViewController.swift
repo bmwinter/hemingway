@@ -464,6 +464,7 @@ class NewsFeedTableViewController:UITableViewController,PlayerDelegate,UIGesture
         appDelegate.startAnimation((self.navigationController?.view)!)
         
         let postID = dicFeed["post_id"] as! Int
+        
         let value = String(postID)
         var likeValue = "true"
 
