@@ -138,13 +138,8 @@ class NewsFeedTableViewController:UITableViewController,PlayerDelegate,UIGesture
         let appDelegate=AppDelegate() //You create a new instance,not get the exist one
         appDelegate.startAnimation((self.navigationController?.view)!)
 
-        var tokenString = "token "
-        if let appToken =  NSUserDefaults.standardUserDefaults().objectForKey("LoginToken") as? String
-        {
-            tokenString +=  appToken
-        }
         
-        Alamofire.Manager.sharedInstance.session.configuration.HTTPAdditionalHeaders?.updateValue(tokenString, forKey: "Authorization")
+    
         
         var urlString = ""
         
@@ -164,12 +159,20 @@ class NewsFeedTableViewController:UITableViewController,PlayerDelegate,UIGesture
         
         let URL =  urlString
         
+                    
+        var tokenString = "token "
+        if let appToken =  NSUserDefaults.standardUserDefaults().objectForKey("LoginToken") as? String
+        {
+            tokenString +=  appToken
+            
+            
+            let headers = [
+                "Authorization": tokenString,
+                ]
+            
         
-//        self.parentViewController?.description
-        //        Alamofire.Manager.sharedInstance.session.configuration.HTTPAdditionalHeaders?.updateValue("application/json", forKey: "Accept")
         
-        
-        Alamofire.request(.GET, URL , parameters: nil, encoding: .JSON)
+        Alamofire.request(.GET, URL , parameters: nil, encoding: .JSON, headers: headers)
             .responseString { response in
                 
                 appDelegate.stopAnimation()
@@ -217,6 +220,7 @@ class NewsFeedTableViewController:UITableViewController,PlayerDelegate,UIGesture
                         }
                     }
                 }
+            }
         }
     }
     
