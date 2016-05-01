@@ -29,7 +29,7 @@ class FullScreenImageViewController: UIViewController {
         
     }
     func displayPic(){
-        if let imageNameStr = dicData["image_url"] as? String
+        if let imageNameStr = dicData["media_url"] as? String
         {
             if (imageNameStr.characters.count > 0)
             {

@@ -191,6 +191,120 @@ class EditProfilePicViewController: UIViewController,UIGestureRecognizerDelegate
         }
     }
     
+    
+    func updateProfilePic(){
+        
+        let appDelegate=AppDelegate() //You create a new instance,not get the exist one
+        appDelegate.startAnimation((self.navigationController?.view)!)
+        
+        
+        let URL = globalConstants.kAPIURL + globalConstants.kProfileUpdate
+        
+        var tokenString = "token "
+        if let appToken =  NSUserDefaults.standardUserDefaults().objectForKey("LoginToken") as? String
+        {
+            tokenString +=  appToken
+        }
+        
+        Alamofire.Manager.sharedInstance.session.configuration.HTTPAdditionalHeaders?.updateValue(tokenString, forKey: "Authorization")
+//        Alamofire.Manager.sharedInstance.session.configuration.HTTPAdditionalHeaders?.updateValue("attachment; filename=profilepic.png;", forKey: "Content-Disposition")
+
+        var dataPath:NSString
+        
+        dataPath = globalConstants.getStoreImageVideoPath(globalConstants.kProfilePicName)
+        
+        Alamofire.upload(.POST, URL, multipartFormData: {
+            multipartFormData in
+            
+            multipartFormData.appendBodyPart(fileURL: NSURL(fileURLWithPath: dataPath as String), name: "file",fileName: globalConstants.kTempImageFileNmae, mimeType: "image/png")
+
+//            for (key, value) in parameters {
+//                multipartFormData.appendBodyPart(data: value.dataUsingEncoding(NSUTF8StringEncoding)!, name: key)
+//            }
+            
+            }, encodingCompletion: {
+                encodingResult in
+                
+                switch encodingResult {
+                case .Success(let upload, _, _):
+                    upload.responseJSON { response in
+                        appDelegate.stopAnimation()
+                        debugPrint(response)
+
+                        guard let value = response.result.value else
+                        {
+                            print("Error: did not receive data")
+                            return
+                        }
+                        
+                        guard response.result.error == nil else
+                        {
+                            print("error calling POST on Login")
+                            print(response.result.error)
+                            return
+                        }
+                        
+                        let post = JSON(value)
+                        if let string = post.rawString()
+                        {
+                            if (response.response?.statusCode == 400 || response.response?.statusCode == 401)
+                            {
+                                let responseDic:[String:AnyObject]? = globalConstants.convertStringToDictionary(string)
+                                print("The Response Error is:   \(response.response?.statusCode)")
+                                
+                                if let val = responseDic?["code"]
+                                {
+                                    if val[0].isEqualToString("13")
+                                    {
+                                        //print("Equals")
+                                        //self.displayCommonAlert(responseDic?["detail"]?[0] as! String)
+                                        self.displayCommonAlert((responseDic?["detail"] as? NSArray)?[0] as! String)
+                                        return
+                                    }
+                                    // now val is not nil and the Optional has been unwrapped, so use it
+                                }
+                                
+                                if let errorData = responseDic?["detail"]
+                                {
+                                    
+                                    if let errorMessage = errorData as? String
+                                    {
+                                        self.displayCommonAlert(errorMessage)
+                                        
+                                    }
+                                    else if let errorMessage = errorData as? NSArray
+                                    {
+                                        if let errorMessageStr = errorMessage[0] as? String
+                                        {
+                                            self.displayCommonAlert(errorMessageStr)
+                                        }
+                                    }
+                                    return;
+                                }
+                            }
+                            else if (response.response?.statusCode == 200 || response.response?.statusCode == 201)
+                            {
+                                self.navigationController?.popViewControllerAnimated(true)
+                            }
+                            else
+                            {
+                                
+                            }
+                        }
+
+//                        if (response.response?.statusCode == 200 || response.response?.statusCode == 201){
+//                            self.navigationController?.popViewControllerAnimated(true)
+//                        }else{
+//                            
+//                        }
+                    }
+                case .Failure(let encodingError):
+                    appDelegate.stopAnimation()
+                    print(encodingError)
+                }
+        })
+    }
+    
     //MARK: Temp function to check upload file on server.
     
     func uploadFileOnServer(){
@@ -284,7 +398,8 @@ class EditProfilePicViewController: UIViewController,UIGestureRecognizerDelegate
     }
 
     @IBAction func btnUpdateClicked(sender : AnyObject){
-        self.uploadFileOnServer()
+        self.updateProfilePic()
+        //self.uploadFileOnServer()
     }
 
 }

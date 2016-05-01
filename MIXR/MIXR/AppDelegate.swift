@@ -57,6 +57,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func startAnimation(currentView:UIView){
+        
         self.indicator = SpringIndicator(frame: CGRect(x: (((currentView.frame.size.width)/2)-(40/2)), y: (currentView.frame.size.height)/2, width: 40, height: 40))
         self.indicator.lineColor = UIColor(red: (126.0/255.0), green: (163.0/255.0), blue: (102.0/255.0), alpha: 1)
         currentView.addSubview(self.indicator)
@@ -64,6 +65,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func stopAnimation(){
+        
         self.indicator.stopAnimation(false)
     }
     

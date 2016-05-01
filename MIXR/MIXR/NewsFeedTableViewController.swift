@@ -93,6 +93,7 @@ class NewsFeedTableViewController:UITableViewController,PlayerDelegate,UIGesture
     
     override func viewWillAppear(animated: Bool)
     {
+
         super.viewWillAppear(true)
         self.navigationController?.navigationBarHidden = true
         print(self.parentViewController?.description)
@@ -100,7 +101,9 @@ class NewsFeedTableViewController:UITableViewController,PlayerDelegate,UIGesture
     }
 
     override func viewDidAppear(animated: Bool) {
-        self.loadData()
+        
+        NSTimer.scheduledTimerWithTimeInterval(1.0, target: self, selector: #selector(NewsFeedTableViewController.loadData), userInfo: nil, repeats: false)
+        
         super.viewDidAppear(true)
     }
 
@@ -135,9 +138,6 @@ class NewsFeedTableViewController:UITableViewController,PlayerDelegate,UIGesture
     // MARK: Retrieve All News Feed data.
     func getAllNewsFeed(){
         
-        let appDelegate=AppDelegate() //You create a new instance,not get the exist one
-        appDelegate.startAnimation((self.navigationController?.view)!)
-
         
     
         
@@ -157,6 +157,11 @@ class NewsFeedTableViewController:UITableViewController,PlayerDelegate,UIGesture
             urlString = globalConstants.kAPIURL + globalConstants.kAllNewsFeed
         }
         
+        
+        let appDelegate=AppDelegate() //You create a new instance,not get the exist one
+        appDelegate.startAnimation((self.parentViewController!.view))
+        
+
         let URL =  urlString
         
                     
@@ -375,6 +380,8 @@ class NewsFeedTableViewController:UITableViewController,PlayerDelegate,UIGesture
         {
             cell.venuImageView.image = UIImage(named:"ALPlaceholder")
         }
+        
+        cell.FeedName.tag = indexPath.row;
 
         cell.FeedName.text = feedsArray[indexPath.row]["venue_name"] as? String
         cell.lblUserName.text = feedsArray[indexPath.row]["full_name"] as? String
@@ -392,6 +399,9 @@ class NewsFeedTableViewController:UITableViewController,PlayerDelegate,UIGesture
         cell.venuImageView?.userInteractionEnabled = true
         cell.venuImageView?.tag = indexPath.row
         
+        cell.venueButton.tag = indexPath.row
+        cell.venueButton.addTarget(self, action: #selector(NewsFeedTableViewController.venueNameButtonTapped(_:)), forControlEvents: .TouchUpInside)
+        
         let doubleTapGestureRecognizer = UITapGestureRecognizer(target:self, action:#selector(NewsFeedTableViewController.doubleImageTapped(_:)))
         doubleTapGestureRecognizer.numberOfTouchesRequired = 1
         doubleTapGestureRecognizer.numberOfTapsRequired = 2
@@ -404,6 +414,7 @@ class NewsFeedTableViewController:UITableViewController,PlayerDelegate,UIGesture
         
         singleTapGestureRecognizer.requireGestureRecognizerToFail(doubleTapGestureRecognizer)
 
+        
         /*
         cell.venuImageView.image = UIImage(named: feedDict["venueImage"] as! String)
         cell.FeedName.text = feedDict["venueName"] as? String
@@ -457,6 +468,28 @@ class NewsFeedTableViewController:UITableViewController,PlayerDelegate,UIGesture
             })
         }
     }
+    
+    func venueNameButtonTapped(sender : UIButton){
+        let feedBtn : UIButton = sender 
+        let feedTag = feedBtn.superview!.tag
+        let dicPost : NSDictionary = self.feedsArray[feedTag] as! NSDictionary
+
+        let aVenueProfileViewController : VenueProfileViewController = self.storyboard!.instantiateViewControllerWithIdentifier("VenueProfileViewController") as! VenueProfileViewController
+        appDelegate.selectedVenueId = String(dicPost["venue_id"]) 
+        
+        self.navigationController!.pushViewController(aVenueProfileViewController, animated: true)
+        return
+
+    }
+    
+    func gestureRecognizer(gestureRecognizer: UIGestureRecognizer, shouldBeRequiredToFailByGestureRecognizer otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+        return gestureRecognizer.isKindOfClass(UIScreenEdgePanGestureRecognizer)
+    }
+    
+    func gestureRecognizer(_: UIGestureRecognizer,shouldRecognizeSimultaneouslyWithGestureRecognizer:UIGestureRecognizer) -> Bool {
+        return true
+    }
+
 
     // MARK : Like POST API call
     
@@ -491,6 +524,19 @@ class NewsFeedTableViewController:UITableViewController,PlayerDelegate,UIGesture
         
         let URL =  globalConstants.kAPIURL + globalConstants.kLikePost
         
+        var tokenString = "token "
+        if let appToken =  NSUserDefaults.standardUserDefaults().objectForKey("LoginToken") as? String
+        {
+            tokenString +=  appToken
+        }
+        
+        let headers = [
+            "Authorization": tokenString,
+            ]
+
+        let manager = Manager.sharedInstance
+        manager.session.configuration.HTTPAdditionalHeaders = headers
+
         //        Alamofire.Manager.sharedInstance.session.configuration.HTTPAdditionalHeaders?.updateValue("application/json", forKey: "Accept")
         
         

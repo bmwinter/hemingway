@@ -321,6 +321,7 @@ class VenueSelection : UIViewController,UIGestureRecognizerDelegate {
     //MARK : Retrive list of venues.. 
     
     func retrieveListOfVenues(){
+        
         self.venuesArray.removeAllObjects()
         
         let appDelegate=AppDelegate() //You create a new instance,not get the exist one
@@ -399,7 +400,7 @@ class VenueSelection : UIViewController,UIGestureRecognizerDelegate {
                             let responseArray:NSArray? = globalConstants.convertStringToArray(string)
                             if let searchArray = responseArray as? NSMutableArray
                             {
-                                self.venuesArray = searchArray
+                                self.venuesArray = searchArray.mutableCopy() as! NSMutableArray
                                 self.displayVenuesData()
                             }
                         }
@@ -447,7 +448,14 @@ class VenueSelection : UIViewController,UIGestureRecognizerDelegate {
             tokenString +=  appToken
         }
         
-        Alamofire.Manager.sharedInstance.session.configuration.HTTPAdditionalHeaders?.updateValue(tokenString, forKey: "Authorization")
+        let headers = [
+            "Authorization": tokenString,
+            ]
+        
+        let manager = Manager.sharedInstance
+        manager.session.configuration.HTTPAdditionalHeaders = headers
+
+//        Alamofire.Manager.sharedInstance.session.configuration.HTTPAdditionalHeaders?.updateValue(tokenString, forKey: "Authorization")
         
 //        Alamofire.Manager.sharedInstance.session.configuration
 //            .HTTPAdditionalHeaders?.updateValue("multipart/form-data",
@@ -474,9 +482,9 @@ class VenueSelection : UIViewController,UIGestureRecognizerDelegate {
 //            }
             
             if (self.isVideo == true){
-                multipartFormData.appendBodyPart(fileURL: NSURL(fileURLWithPath: dataPath as String), name: "file.mp4",fileName: globalConstants.kTempVideoFileName, mimeType: "video/mp4")
+                multipartFormData.appendBodyPart(fileURL: NSURL(fileURLWithPath: dataPath as String), name: "file",fileName: globalConstants.kTempVideoFileName, mimeType: "video/mp4")
             }else{
-                multipartFormData.appendBodyPart(fileURL: NSURL(fileURLWithPath: dataPath as String), name: "file.png",fileName: globalConstants.kTempImageFileNmae, mimeType: "image/png")
+                multipartFormData.appendBodyPart(fileURL: NSURL(fileURLWithPath: dataPath as String), name: "file",fileName: globalConstants.kTempImageFileNmae, mimeType: "image/png")
 
 //                multipartFormData.appendBodyPart(fileURL: NSURL(fileURLWithPath: dataPath as String), name: "file",fileName: globalConstants.kTempImageFileNmae, mimeType:"binary/octet-stream")//"image/png"
             }
@@ -493,8 +501,69 @@ class VenueSelection : UIViewController,UIGestureRecognizerDelegate {
                 case .Success(let upload, _, _):
                     upload.responseJSON { response in
                         appDelegate.stopAnimation()
-                        self.navigationController?.popViewControllerAnimated(true)
                         debugPrint(response)
+
+                        guard let value = response.result.value else
+                        {
+                            print("Error: did not receive data")
+                            return
+                        }
+                        
+                        guard response.result.error == nil else
+                        {
+                            print("error calling POST on Login")
+                            print(response.result.error)
+                            return
+                        }
+                        
+                        let post = JSON(value)
+                        if let string = post.rawString()
+                        {
+                            if (response.response?.statusCode == 400 || response.response?.statusCode == 401)
+                            {
+                                let responseDic:[String:AnyObject]? = globalConstants.convertStringToDictionary(string)
+                                print("The Response Error is:   \(response.response?.statusCode)")
+                                
+                                if let val = responseDic?["code"]
+                                {
+                                    if val[0].isEqualToString("13")
+                                    {
+                                        //print("Equals")
+                                        //self.displayCommonAlert(responseDic?["detail"]?[0] as! String)
+                                        self.displayCommonAlert((responseDic?["detail"] as? NSArray)?[0] as! String)
+                                        return
+                                    }
+                                    // now val is not nil and the Optional has been unwrapped, so use it
+                                }
+                                
+                                if let errorData = responseDic?["detail"]
+                                {
+                                    
+                                    if let errorMessage = errorData as? String
+                                    {
+                                        self.displayCommonAlert(errorMessage)
+                                        
+                                    }
+                                    else if let errorMessage = errorData as? NSArray
+                                    {
+                                        if let errorMessageStr = errorMessage[0] as? String
+                                        {
+                                            self.displayCommonAlert(errorMessageStr)
+                                        }
+                                    }
+                                    return;
+                                }
+                            }
+                            else if (response.response?.statusCode == 200 || response.response?.statusCode == 201)
+                            {
+                                let responseDic:[String:AnyObject]? = globalConstants.convertStringToDictionary(string)
+                                self.navigationController?.popViewControllerAnimated(true)
+                            }
+                            else
+                            {
+                                
+                            }
+                        }
                     }
                 case .Failure(let encodingError):
                     appDelegate.stopAnimation()

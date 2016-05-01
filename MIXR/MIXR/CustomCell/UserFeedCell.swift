@@ -19,6 +19,7 @@ class UserFeedCell: UITableViewCell {
     
     @IBOutlet weak var userBtn: UIButton!
     @IBOutlet weak var feedBtn: UIButton!
+    @IBOutlet weak var venueButton: UIButton!
     
     override func awakeFromNib()
     {
