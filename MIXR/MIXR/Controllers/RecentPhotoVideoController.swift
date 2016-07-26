@@ -1,5 +1,5 @@
 //
-//  RecentPhotoVidoeController.swift
+//  RecentPhotoVideoController.swift
 //  MIXR
 //
 //  Created by Nilesh Patel on 17/10/15.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class RecentPhotoVidoeController: BaseViewController, UICollectionViewDataSource, CollectionViewWaterfallLayoutDelegate {
+class RecentPhotoVideoController: BaseViewController, UICollectionViewDataSource, CollectionViewWaterfallLayoutDelegate {
     @IBOutlet var collectionView: UICollectionView!
     
     lazy var cellSizes: [CGSize] = {

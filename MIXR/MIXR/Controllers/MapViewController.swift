@@ -22,8 +22,7 @@ class MapViewController: BaseViewController, MGLMapViewDelegate {
         loadMapData()
     }
     
-    override func viewWillAppear(animated: Bool)
-    {
+    override func viewWillAppear(animated: Bool) {
         self.navigationController?.navigationBarHidden = true
     }
     
@@ -86,6 +85,7 @@ class MapViewController: BaseViewController, MGLMapViewDelegate {
         return button
  
     }
+  
     func mapView(mapView: MGLMapView, annotation: MGLAnnotation, calloutAccessoryControlTapped control: UIControl) {
         // hide the callout view
         mapView.deselectAnnotation(annotation, animated: false)

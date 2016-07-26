@@ -163,6 +163,27 @@ public class Player: UIViewController {
             }
         }
     }
+    
+    public var currentTime: NSTimeInterval! {
+        get {
+            if let playerItem = self.playerItem {
+                return CMTimeGetSeconds(playerItem.currentTime())
+            } else {
+                return CMTimeGetSeconds(kCMTimeIndefinite)
+            }
+        }
+    }
+
+    public var naturalSize: CGSize! {
+        get {
+            if let playerItem = self.playerItem {
+                let track = playerItem.asset.tracksWithMediaType(AVMediaTypeVideo)[0]
+                return track.naturalSize
+            } else {
+                return CGSizeZero
+            }
+        }
+    }
 
     private var asset: AVAsset!
     private var playerItem: AVPlayerItem?
@@ -174,6 +195,19 @@ public class Player: UIViewController {
 
     public convenience init() {
         self.init(nibName: nil, bundle: nil)
+    }
+
+    public required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        self.commonInit()
+    }
+
+    public override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
+        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
+        self.commonInit()
+    }
+
+    private func commonInit() {
         self.player = AVPlayer()
         self.player.actionAtItemEnd = .Pause
         self.player.addObserver(self, forKeyPath: PlayerRateKey, options: ([NSKeyValueObservingOptions.New, NSKeyValueObservingOptions.Old]) , context: &PlayerObserverContext)
@@ -208,8 +242,9 @@ public class Player: UIViewController {
         self.view = self.playerView
         self.playerView.layer.addObserver(self, forKeyPath: PlayerReadyForDisplay, options: ([NSKeyValueObservingOptions.New, NSKeyValueObservingOptions.Old]), context: &PlayerLayerObserverContext)
 
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "applicationWillResignActive:", name: UIApplicationWillResignActiveNotification, object: UIApplication.sharedApplication())
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "applicationDidEnterBackground:", name: UIApplicationDidEnterBackgroundNotification, object: UIApplication.sharedApplication())
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(applicationWillResignActive(_:)), name: UIApplicationWillResignActiveNotification, object: UIApplication.sharedApplication())
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(applicationDidEnterBackground(_:)), name: UIApplicationDidEnterBackgroundNotification, object: UIApplication.sharedApplication())
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(applicationWillEnterForeground(_:)), name: UIApplicationWillEnterForegroundNotification, object: UIApplication.sharedApplication())
     }
 
     public override func viewDidDisappear(animated: Bool) {
@@ -253,6 +288,12 @@ public class Player: UIViewController {
         self.playbackState = .Stopped
         self.delegate?.playerPlaybackStateDidChange(self)
         self.delegate?.playerPlaybackDidEnd(self)
+    }
+    
+    public func seekToTime(time: CMTime) {
+        if let playerItem = self.playerItem {
+            return playerItem.seekToTime(time)
+        }
     }
 
     // MARK: private setup
@@ -315,8 +356,8 @@ public class Player: UIViewController {
             self.playerItem?.addObserver(self, forKeyPath: PlayerKeepUp, options: ([NSKeyValueObservingOptions.New, NSKeyValueObservingOptions.Old]), context: &PlayerItemObserverContext)
             self.playerItem?.addObserver(self, forKeyPath: PlayerStatusKey, options: ([NSKeyValueObservingOptions.New, NSKeyValueObservingOptions.Old]), context: &PlayerItemObserverContext)
 
-            NSNotificationCenter.defaultCenter().addObserver(self, selector: "playerItemDidPlayToEndTime:", name: AVPlayerItemDidPlayToEndTimeNotification, object: self.playerItem)
-            NSNotificationCenter.defaultCenter().addObserver(self, selector: "playerItemFailedToPlayToEndTime:", name: AVPlayerItemFailedToPlayToEndTimeNotification, object: self.playerItem)
+          NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(playerItemDidPlayToEndTime(_:)), name: AVPlayerItemDidPlayToEndTimeNotification, object: self.playerItem)
+          NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(playerItemFailedToPlayToEndTime(_:)), name: AVPlayerItemFailedToPlayToEndTimeNotification, object: self.playerItem)
         }
 
         self.player.replaceCurrentItemWithPlayerItem(self.playerItem)
@@ -354,6 +395,12 @@ public class Player: UIViewController {
     public func applicationDidEnterBackground(aNotification: NSNotification) {
         if self.playbackState == .Playing {
             self.pause()
+        }
+    }
+  
+    public func applicationWillEnterForeground(aNoticiation: NSNotification) {
+        if self.playbackState == .Stopped || self.playbackState == .Paused {
+            self.player.play()
         }
     }
 

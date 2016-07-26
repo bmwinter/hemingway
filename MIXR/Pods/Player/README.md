@@ -13,7 +13,7 @@
 
 If you're looking for a video player library written in Objective-C, checkout [PBJVideoPlayer](https://github.com/piemonte/PBJVideoPlayer). For video recording, checkout [PBJVision](https://github.com/piemonte/PBJVision).
 
-[![Pod Version](https://img.shields.io/cocoapods/v/Player.svg?style=flat)](http://cocoadocs.org/docsets/Player/)
+[![Build Status](https://travis-ci.org/piemonte/Player.svg?branch=master)](https://travis-ci.org/piemonte/Player) [![Pod Version](https://img.shields.io/cocoapods/v/Player.svg?style=flat)](http://cocoadocs.org/docsets/Player/)
 
 ## Installation
 
@@ -38,7 +38,7 @@ Installation is also available using the dependency manager [Carthage](https://g
 To integrate, add the following line to your `Cartfile`:
 
 ```ogdl
-github "piemonte/Player" >= 0.0.5
+github "piemonte/Player" >= 0.1.0
 ```
 
 ### Swift Package Manager
@@ -49,9 +49,9 @@ Installation can be done with the [Swift Package Manager](https://swift.org/pack
 import PackageDescription
 
 let package = Package(
-    name: "HellowWorld",
+    name: "HelloWorld",
     dependencies: [
-        .Package(url: "https://github.com/piemonte/Player.git", majorVersion: 0)]),
+        .Package(url: "https://github.com/piemonte/Player.git", majorVersion: 0),
     ]
 )
 ```
