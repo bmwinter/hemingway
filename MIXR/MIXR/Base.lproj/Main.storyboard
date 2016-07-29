@@ -133,8 +133,8 @@
                                         <fontDescription key="fontDescription" name="RobotoCondensed-Bold" family="Roboto Condensed" pointSize="11"/>
                                         <state key="normal" title="0"/>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gmj-g1-jYT" userLabel="cameraBtn">
-                                        <rect key="frame" x="372" y="29" width="32" height="25"/>
+                                    <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gmj-g1-jYT" userLabel="cameraBtn">
+                                        <rect key="frame" x="374" y="29" width="32" height="25"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="32" id="bJK-tY-y5B"/>
@@ -258,7 +258,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="W5J-7L-Pyd" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="195" y="-1542"/>
+            <point key="canvasLocation" x="-197" y="-1542"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="DmL-9H-vWR">
@@ -469,8 +469,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="WfW-4M-Pmh" userLabel="Map View" customClass="MGLMapView">
-                                <rect key="frame" x="0.0" y="128" width="414" height="559"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WfW-4M-Pmh" userLabel="Map View" customClass="MGLMapView">
+                                <rect key="frame" x="0.0" y="64" width="414" height="623"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="latitude">
@@ -510,6 +510,7 @@
                                         </state>
                                         <connections>
                                             <action selector="NotificatiDeatil:" destination="hys-vH-0Km" eventType="touchUpInside" id="CTh-Pu-t1p"/>
+                                            <action selector="NotificatiDeatil:" destination="8rJ-Kc-sve" eventType="touchUpInside" id="uhm-VR-t6U"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7vp-Bz-iwf" userLabel="notificationNumber">
@@ -533,7 +534,7 @@
                                             <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
-                                            <action selector="onCameraClicked:" destination="hys-vH-0Km" eventType="touchUpInside" id="mil-hk-Z0d"/>
+                                            <action selector="onCameraClicked:" destination="8rJ-Kc-sve" eventType="touchUpInside" id="cf2-Dz-zdy"/>
                                         </connections>
                                     </button>
                                 </subviews>

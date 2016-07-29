@@ -36,6 +36,8 @@
 		0C64EDEA1D47F7D800DAE12D /* VenueFeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C64EDCD1D47F7D800DAE12D /* VenueFeedViewController.swift */; };
 		0C64EDEB1D47F7D800DAE12D /* VenueProfileTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C64EDCE1D47F7D800DAE12D /* VenueProfileTableViewController.swift */; };
 		0C64EDEC1D47F7D800DAE12D /* VenueProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C64EDCF1D47F7D800DAE12D /* VenueProfileViewController.swift */; };
+		0C64EDEE1D48037100DAE12D /* Venue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C64EDED1D48037100DAE12D /* Venue.swift */; };
+		0C64EDF01D48082300DAE12D /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C64EDEF1D48082300DAE12D /* Location.swift */; };
 		1502B80D1C16B973003BA39F /* SearchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1502B80C1C16B973003BA39F /* SearchTableViewCell.swift */; };
 		151212F01C53C551001D6C50 /* locationtab.png in Resources */ = {isa = PBXBuildFile; fileRef = 151212E71C53C551001D6C50 /* locationtab.png */; };
 		151212F11C53C551001D6C50 /* locationtab@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 151212E81C53C551001D6C50 /* locationtab@2x.png */; };
@@ -228,6 +230,8 @@
 		0C64EDCD1D47F7D800DAE12D /* VenueFeedViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VenueFeedViewController.swift; sourceTree = "<group>"; };
 		0C64EDCE1D47F7D800DAE12D /* VenueProfileTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VenueProfileTableViewController.swift; sourceTree = "<group>"; };
 		0C64EDCF1D47F7D800DAE12D /* VenueProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VenueProfileViewController.swift; sourceTree = "<group>"; };
+		0C64EDED1D48037100DAE12D /* Venue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Venue.swift; sourceTree = "<group>"; };
+		0C64EDEF1D48082300DAE12D /* Location.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
 		119CC446741BEC8341A20555 /* Pods_MIXRTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MIXRTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		1502B80C1C16B973003BA39F /* SearchTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchTableViewCell.swift; sourceTree = "<group>"; };
 		151212E71C53C551001D6C50 /* locationtab.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = locationtab.png; sourceTree = "<group>"; };
@@ -742,6 +746,8 @@
 			children = (
 				5C6DF59A1C2FFFEC00F2910B /* Events.swift */,
 				5C6DF59C1C3000AE00F2910B /* Specials.swift */,
+				0C64EDED1D48037100DAE12D /* Venue.swift */,
+				0C64EDEF1D48082300DAE12D /* Location.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -1172,6 +1178,7 @@
 				5C1F05D41C2561840036830D /* ForgotPassword.swift in Sources */,
 				0C64EDE11D47F7D800DAE12D /* PromotionDetailViewController.swift in Sources */,
 				0C64EDD01D47F7D800DAE12D /* BaseViewController.swift in Sources */,
+				0C64EDEE1D48037100DAE12D /* Venue.swift in Sources */,
 				5C520FD61C54FA9600299990 /* ALImageFetchingInteractor.swift in Sources */,
 				5C520FDB1C54FA9600299990 /* ALImagePickerViewController.swift in Sources */,
 				5CF4687F1C0E8ABD007F87AA /* Notifications.swift in Sources */,
@@ -1215,6 +1222,7 @@
 				0C64EDE41D47F7D800DAE12D /* SettingsTableViewController.swift in Sources */,
 				5C1CF1731BDBC5CC00B863F6 /* BorderedButton.swift in Sources */,
 				0C64EDE91D47F7D800DAE12D /* UserProfileViewController.swift in Sources */,
+				0C64EDF01D48082300DAE12D /* Location.swift in Sources */,
 				158F43501C467A9500A2356C /* FollowingCell.swift in Sources */,
 				5CF468811C0E8B0C007F87AA /* NotificationCell.swift in Sources */,
 				0C64EDDD1D47F7D800DAE12D /* NotificationViewController.swift in Sources */,

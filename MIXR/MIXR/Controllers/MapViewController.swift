@@ -50,23 +50,25 @@ class MapViewController: BaseViewController, MGLMapViewDelegate {
                 
                 
                 let json = JSON(response.result.value!)
+              
+                for (_, subJson): (String, JSON) in json {
+                  let venue = Venue(venue: subJson.dictionaryObject!)
                 
-                for (index,subJson):(String, JSON) in json {
-                    print(index)
-                    print(subJson)
-                    
-                    let name = subJson["name"].stringValue
-                    let address = subJson["location"]["address"].stringValue
-                    let longitude = subJson["location"]["longitude"].stringValue
-                    let latitude = subJson["location"]["latitude"].stringValue
-                    let coordinate = CLLocationCoordinate2D(latitude: (latitude as NSString).doubleValue, longitude: (longitude as NSString).doubleValue)
-                    
+                  let name = venue.name
+                  let address = venue.location?.address
+                  let longitude = venue.location?.longitude
+                  let latitude = venue.location?.latitude
+                
+                  if let long = longitude, let lat = latitude {
+                    let coordinate = CLLocationCoordinate2D(latitude: lat, longitude: long)
                     let point = MGLPointAnnotation()
                     point.coordinate = coordinate
                     point.title = name
                     point.subtitle = address
                     
                     self.mapView.addAnnotation(point)
+                  }
+                  
                 }
                 
                 print("Response String:")
