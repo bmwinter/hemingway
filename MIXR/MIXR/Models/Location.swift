@@ -10,7 +10,7 @@ import Foundation
 
 struct Location {
   
-  private static let kLocationAddressKey = "location"
+  private static let kLocationAddressKey = "address"
   private static let kLocationStateKey = "state"
   private static let kLocationZipKey = "zipcode"
   private static let kLocationCityKey = "city"
