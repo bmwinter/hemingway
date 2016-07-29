@@ -14,7 +14,7 @@ target 'MIXR' do
     pod 'BTNavigationDropdownMenu'
     pod 'SpringIndicator'
     pod 'AlamofireImage'
-    pod 'Mapbox-iOS-SDK'
+    pod 'Mapbox-iOS-SDK', '~> 3.3.3'
     pod 'HanekeSwift'
     pod 'Player'
 
