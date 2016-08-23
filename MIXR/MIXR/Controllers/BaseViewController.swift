@@ -270,9 +270,9 @@ class BaseViewController: UIViewController  ,UIImagePickerControllerDelegate, UI
     }
     
     @IBAction func NotificatiDeatil(sender: AnyObject) {
-        
-        let NotificationView : NotificationViewController = self.storyboard!.instantiateViewControllerWithIdentifier("NotificationViewController") as! NotificationViewController
-        self.navigationController!.pushViewController(NotificationView, animated: true)
+        if let promotionVC = self.storyboard?.instantiateViewControllerWithIdentifier("PromotionsViewController") as? PromotionsViewController {
+            self.navigationController?.pushViewController(promotionVC, animated: true)
+        }
     }
     
     
