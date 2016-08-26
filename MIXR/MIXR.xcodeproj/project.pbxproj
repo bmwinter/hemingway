@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0C5AC26F1D6BEE9300F19672 /* PromotionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C5AC26E1D6BEE9300F19672 /* PromotionsViewController.swift */; };
+		0C5AC2721D6BF0B200F19672 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C5AC2711D6BF0B200F19672 /* Colors.swift */; };
+		0C5AC2741D6BF0BC00F19672 /* Fonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C5AC2731D6BF0BC00F19672 /* Fonts.swift */; };
+		0C5AC2761D6BFE4400F19672 /* PromotionsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C5AC2751D6BFE4400F19672 /* PromotionsTableViewCell.swift */; };
 		0C64EDD01D47F7D800DAE12D /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C64EDB21D47F7D800DAE12D /* BaseViewController.swift */; };
 		0C64EDD11D47F7D800DAE12D /* ChangePasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C64EDB31D47F7D800DAE12D /* ChangePasswordViewController.swift */; };
 		0C64EDD21D47F7D800DAE12D /* EditProfilePicViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C64EDB41D47F7D800DAE12D /* EditProfilePicViewController.swift */; };
@@ -201,6 +205,11 @@
 
 /* Begin PBXFileReference section */
 		051D90BDBA721D3432D3C2E3 /* Pods_MIXR.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MIXR.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		0C5AC26E1D6BEE9300F19672 /* PromotionsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PromotionsViewController.swift; sourceTree = "<group>"; };
+		0C5AC2711D6BF0B200F19672 /* Colors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Colors.swift; path = "MIXR Styles/Colors.swift"; sourceTree = "<group>"; };
+		0C5AC2731D6BF0BC00F19672 /* Fonts.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Fonts.swift; path = "MIXR Styles/Fonts.swift"; sourceTree = "<group>"; };
+		0C5AC2751D6BFE4400F19672 /* PromotionsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PromotionsTableViewCell.swift; path = Views/PromotionsTableViewCell.swift; sourceTree = "<group>"; };
+		0C5AC2781D6FEC2600F19672 /* MIXR-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MIXR-Bridging-Header.h"; sourceTree = "<group>"; };
 		0C64EDB21D47F7D800DAE12D /* BaseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		0C64EDB31D47F7D800DAE12D /* ChangePasswordViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChangePasswordViewController.swift; sourceTree = "<group>"; };
 		0C64EDB41D47F7D800DAE12D /* EditProfilePicViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditProfilePicViewController.swift; sourceTree = "<group>"; };
@@ -412,6 +421,23 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0C5AC2701D6BF08900F19672 /* MIXR Styles */ = {
+			isa = PBXGroup;
+			children = (
+				0C5AC2711D6BF0B200F19672 /* Colors.swift */,
+				0C5AC2731D6BF0BC00F19672 /* Fonts.swift */,
+			);
+			name = "MIXR Styles";
+			sourceTree = "<group>";
+		};
+		0C5AC2771D6BFE4B00F19672 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				0C5AC2751D6BFE4400F19672 /* PromotionsTableViewCell.swift */,
+			);
+			name = Views;
+			sourceTree = "<group>";
+		};
 		0C64EDB11D47F7D800DAE12D /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
@@ -428,6 +454,7 @@
 				0C64EDBF1D47F7D800DAE12D /* NewsFeedTableViewController.swift */,
 				0C64EDC01D47F7D800DAE12D /* NotificationViewController.swift */,
 				0C64EDC11D47F7D800DAE12D /* PersonalProfileViewController.swift */,
+				0C5AC26E1D6BEE9300F19672 /* PromotionsViewController.swift */,
 				0C64EDC21D47F7D800DAE12D /* PostViewController.swift */,
 				0C64EDC31D47F7D800DAE12D /* ProfileTableViewController.swift */,
 				0C64EDC41D47F7D800DAE12D /* PromotionDetailViewController.swift */,
@@ -766,6 +793,7 @@
 				5C1CF16E1BDBB44700B863F6 /* BorderedTextField */,
 				5C22FB5F1BD1314000FF9C98 /* CollectionView */,
 				5C6E2C481BC90B940036259A /* DatePicker */,
+				0C5AC2701D6BF08900F19672 /* MIXR Styles */,
 				5C26612E1BD0B4E100413257 /* GlobalConstants.swift */,
 			);
 			path = Library;
@@ -787,6 +815,7 @@
 				8061221B1BBF2D7400EFF35E /* Products */,
 				14B036E93F4C01FE0876251F /* Frameworks */,
 				1647D156FA35928426E6CB7B /* Pods */,
+				0C5AC2781D6FEC2600F19672 /* MIXR-Bridging-Header.h */,
 			);
 			sourceTree = "<group>";
 		};
@@ -802,6 +831,7 @@
 		8061221C1BBF2D7400EFF35E /* MIXR */ = {
 			isa = PBXGroup;
 			children = (
+				0C5AC2771D6BFE4B00F19672 /* Views */,
 				5C6DF5991C2FFF6300F2910B /* Models */,
 				156BCCA81C05E68100AB88A6 /* CustomCell */,
 				5C6E2C471BC90B940036259A /* Library */,
@@ -913,7 +943,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftMigration = 0700;
-				LastSwiftUpdateCheck = 0700;
+				LastSwiftUpdateCheck = 0730;
 				LastUpgradeCheck = 0700;
 				ORGANIZATIONNAME = "MIXR LLC";
 				TargetAttributes = {
@@ -1191,9 +1221,11 @@
 				5C520FE71C54FE4D00299990 /* DOAlertController.swift in Sources */,
 				0C64EDE01D47F7D800DAE12D /* ProfileTableViewController.swift in Sources */,
 				5CF468831C0E8B3B007F87AA /* PromotionsCell.swift in Sources */,
+				0C5AC2721D6BF0B200F19672 /* Colors.swift in Sources */,
 				0C64EDEC1D47F7D800DAE12D /* VenueProfileViewController.swift in Sources */,
 				5C6E2C4A1BC90B940036259A /* DatePickerDialog.swift in Sources */,
 				0C64EDD41D47F7D800DAE12D /* FollowersViewController.swift in Sources */,
+				0C5AC2741D6BF0BC00F19672 /* Fonts.swift in Sources */,
 				5C586DF11C6EE77900169A7E /* VenueSelection.swift in Sources */,
 				5C520FD71C54FA9600299990 /* ALUtilities.swift in Sources */,
 				1502B80D1C16B973003BA39F /* SearchTableViewCell.swift in Sources */,
@@ -1211,6 +1243,7 @@
 				5C520FD51C54FA9600299990 /* ALImageExtensions.swift in Sources */,
 				0C64EDDE1D47F7D800DAE12D /* PersonalProfileViewController.swift in Sources */,
 				0C64EDE21D47F7D800DAE12D /* RecentPhotoVideoController.swift in Sources */,
+				0C5AC2761D6BFE4400F19672 /* PromotionsTableViewCell.swift in Sources */,
 				5C4BAE851C674FB7009A6BDC /* RecoverPassword.swift in Sources */,
 				0C64EDD81D47F7D800DAE12D /* MapViewController.swift in Sources */,
 				5C26612F1BD0B4E100413257 /* GlobalConstants.swift in Sources */,
@@ -1221,6 +1254,7 @@
 				5C520FDF1C54FA9600299990 /* ALImageCell.swift in Sources */,
 				0C64EDE41D47F7D800DAE12D /* SettingsTableViewController.swift in Sources */,
 				5C1CF1731BDBC5CC00B863F6 /* BorderedButton.swift in Sources */,
+				0C5AC26F1D6BEE9300F19672 /* PromotionsViewController.swift in Sources */,
 				0C64EDE91D47F7D800DAE12D /* UserProfileViewController.swift in Sources */,
 				0C64EDF01D48082300DAE12D /* Location.swift in Sources */,
 				158F43501C467A9500A2356C /* FollowingCell.swift in Sources */,
@@ -1362,6 +1396,7 @@
 			baseConfigurationReference = 3E5B75D4C3D1B9ACB364F7E8 /* Pods-MIXR.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEFINES_MODULE = YES;
@@ -1376,6 +1411,8 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SWIFT_INCLUDE_PATHS = ../zlib;
+				SWIFT_OBJC_BRIDGING_HEADER = "MIXR-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
@@ -1384,6 +1421,7 @@
 			baseConfigurationReference = CD1A7753A335AAF1225AA013 /* Pods-MIXR.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEFINES_MODULE = YES;
@@ -1398,6 +1436,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SWIFT_INCLUDE_PATHS = ../zlib;
+				SWIFT_OBJC_BRIDGING_HEADER = "MIXR-Bridging-Header.h";
 			};
 			name = Release;
 		};
