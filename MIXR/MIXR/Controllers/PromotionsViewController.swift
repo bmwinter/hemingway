@@ -49,6 +49,8 @@ class PromotionsViewController: BaseViewController {
         
         refreshControl.addTarget(self, action: #selector(reloadData), forControlEvents: UIControlEvents.ValueChanged)
         tableView?.addSubview(refreshControl)
+        tableView?.estimatedRowHeight = PromotionTableViewCell.estimatedRowHeight
+        tableView?.rowHeight = UITableViewAutomaticDimension
         
         reloadData()
     }

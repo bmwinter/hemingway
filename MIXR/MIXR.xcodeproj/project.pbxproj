@@ -209,6 +209,7 @@
 		0C5AC2711D6BF0B200F19672 /* Colors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Colors.swift; path = "MIXR Styles/Colors.swift"; sourceTree = "<group>"; };
 		0C5AC2731D6BF0BC00F19672 /* Fonts.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Fonts.swift; path = "MIXR Styles/Fonts.swift"; sourceTree = "<group>"; };
 		0C5AC2751D6BFE4400F19672 /* PromotionsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PromotionsTableViewCell.swift; path = Views/PromotionsTableViewCell.swift; sourceTree = "<group>"; };
+		0C5AC2781D6FEC2600F19672 /* MIXR-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MIXR-Bridging-Header.h"; sourceTree = "<group>"; };
 		0C64EDB21D47F7D800DAE12D /* BaseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		0C64EDB31D47F7D800DAE12D /* ChangePasswordViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChangePasswordViewController.swift; sourceTree = "<group>"; };
 		0C64EDB41D47F7D800DAE12D /* EditProfilePicViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditProfilePicViewController.swift; sourceTree = "<group>"; };
@@ -814,6 +815,7 @@
 				8061221B1BBF2D7400EFF35E /* Products */,
 				14B036E93F4C01FE0876251F /* Frameworks */,
 				1647D156FA35928426E6CB7B /* Pods */,
+				0C5AC2781D6FEC2600F19672 /* MIXR-Bridging-Header.h */,
 			);
 			sourceTree = "<group>";
 		};
@@ -941,7 +943,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftMigration = 0700;
-				LastSwiftUpdateCheck = 0700;
+				LastSwiftUpdateCheck = 0730;
 				LastUpgradeCheck = 0700;
 				ORGANIZATIONNAME = "MIXR LLC";
 				TargetAttributes = {
@@ -1394,6 +1396,7 @@
 			baseConfigurationReference = 3E5B75D4C3D1B9ACB364F7E8 /* Pods-MIXR.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEFINES_MODULE = YES;
@@ -1408,6 +1411,8 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SWIFT_INCLUDE_PATHS = ../zlib;
+				SWIFT_OBJC_BRIDGING_HEADER = "MIXR-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
@@ -1416,6 +1421,7 @@
 			baseConfigurationReference = CD1A7753A335AAF1225AA013 /* Pods-MIXR.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEFINES_MODULE = YES;
@@ -1430,6 +1436,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SWIFT_INCLUDE_PATHS = ../zlib;
+				SWIFT_OBJC_BRIDGING_HEADER = "MIXR-Bridging-Header.h";
 			};
 			name = Release;
 		};

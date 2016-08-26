@@ -7,6 +7,7 @@ PODS:
   - HanekeSwift (0.10.1)
   - IQKeyboardManagerSwift (3.3.7)
   - Mapbox-iOS-SDK (3.3.3)
+  - NSDateMinimalTimeAgo (0.1.0)
   - Player (0.1.1)
   - SpringIndicator (1.2.1)
   - SwiftyJSON (2.3.2)
@@ -19,6 +20,7 @@ DEPENDENCIES:
   - HanekeSwift
   - IQKeyboardManagerSwift (~> 3.3)
   - Mapbox-iOS-SDK (~> 3.3.3)
+  - NSDateMinimalTimeAgo
   - Player
   - SpringIndicator
   - SwiftyJSON
@@ -31,10 +33,11 @@ SPEC CHECKSUMS:
   HanekeSwift: 08e47d3d0f2899ec58e5d257beba0de619aca9e8
   IQKeyboardManagerSwift: 7d06186460470f3f7e767630861a1303980ee5cf
   Mapbox-iOS-SDK: 13cd4d7e118acae2782a1bdc5947164d8f6d80fd
+  NSDateMinimalTimeAgo: 71102cc43bb1aa0b5692c953a1abb8c305691475
   Player: 575e1e8cde1e6b7cd62d6d6bc06e492d02e62b9e
   SpringIndicator: 2e66169e2595c00cc3ab34329d6bdbeab90680f0
   SwiftyJSON: 04ccea08915aa0109039157c7974cf0298da292a
 
-PODFILE CHECKSUM: 626eaec2cab54b6a8fd75498280a5eb4e9e79777
+PODFILE CHECKSUM: ccf1c017f1e4d5d9bb454d3280d49e3f17ee346c
 
 COCOAPODS: 1.0.1

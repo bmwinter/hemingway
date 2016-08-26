@@ -17,6 +17,7 @@ target 'MIXR' do
     pod 'Mapbox-iOS-SDK', '~> 3.3.3'
     pod 'HanekeSwift'
     pod 'Player'
+    pod 'NSDateMinimalTimeAgo'
 
 end
 

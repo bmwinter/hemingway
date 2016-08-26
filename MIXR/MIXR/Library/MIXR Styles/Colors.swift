@@ -19,8 +19,12 @@ extension UIColor {
 }
 
 extension UIColor {
-    class func mixrGrey() -> UIColor {
-        return UIColor(r: 214, g: 214, b: 214, a: 1.0)
+    class func mixrGray() -> UIColor {
+        return UIColor(r: 214, g: 214, b: 214)
+    }
+    
+    class func mixrLightGray() -> UIColor {
+        return UIColor(r: 120, g: 120, b: 120)
     }
     
     class func mixrGreen() -> UIColor {
