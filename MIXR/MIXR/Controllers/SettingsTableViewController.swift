@@ -9,16 +9,24 @@ import UIKit
 import Alamofire
 import SwiftyJSON
 
-enum settingsTag:Int {
-    case editProfile
-    case changePassword
-    case privateAccount
-    case privacyPolicy
-    case TermsCondition
-    case following
-    case follower
-    /*case termsAndCondition*/
-    case logout
+enum SettingsTag: Int {
+    case ChangePassword = 0
+    case PrivacyPolicy = 1
+    case Terms = 2
+    case Logout = 3
+    
+    var stringLabel: String {
+        switch self {
+        case .ChangePassword:
+            return "Change Password"
+        case .PrivacyPolicy:
+            return "Privacy Policy"
+        case .Terms:
+            return "Terms & Conditions"
+        case .Logout:
+            return "Log Out"
+        }
+    }
 }
 
 class SettingsTableViewController: UITableViewController,UIGestureRecognizerDelegate {
@@ -35,16 +43,15 @@ class SettingsTableViewController: UITableViewController,UIGestureRecognizerDele
         self.navigationItem.backBarButtonItem = UIBarButtonItem(title:"", style:.Plain, target:nil, action:nil)
         self.tableView.backgroundView = UIImageView(image: UIImage(named: "BG"))
         self.title = "Settings"
-        // Do any additional setup after loading the view, typically from a nib.
+        
+        self.tableView.dataSource = self
+        self.tableView.delegate = self
     }
     
     override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
         self.makeProfilePublicPrivate("GET")
         self.navigationController?.navigationBarHidden = true
-    }
-    
-    override func viewWillDisappear(animated: Bool) {
-        //self.navigationController?.navigationBarHidden = false
     }
     
     //MARK: PublicPrivate Switch Event
@@ -184,69 +191,6 @@ class SettingsTableViewController: UITableViewController,UIGestureRecognizerDele
         alertController.addAction(okayAction)
         self.presentViewController(alertController, animated: true, completion: nil)
     }
-
-    
-    @IBAction func settingsButtonTapped (sender:AnyObject)
-    {
-        let button = sender as? UIButton
-        NSLog("button tag = \(button?.tag)")
-        
-        
-        switch (button?.tag)
-        {
-            
-        case settingsTag.editProfile.rawValue? :
-            self.performSegueWithIdentifier("EditProfileInfo", sender: nil)
-//            let postViewController : PostViewController = self.storyboard!.instantiateViewControllerWithIdentifier("PostViewController") as! PostViewController
-//            postViewController.isUserProfile = true
-//            self.navigationController!.pushViewController(postViewController, animated: true)
-            print("Edit Profile")
-            
-        case settingsTag.changePassword.rawValue? :
-            //self.performSegueWithIdentifier("ChangePassword", sender: nil)
-            let aChangePassword : ChangePassword = self.storyboard!.instantiateViewControllerWithIdentifier("ChangePassword") as! ChangePassword
-            self.navigationController?.navigationBarHidden = false
-            self.navigationController!.pushViewController(aChangePassword, animated: true)
-            print("Change password")
-        case settingsTag.privateAccount.rawValue? :
-            
-            print("Private Account")
-        case settingsTag.privacyPolicy.rawValue? :
-            //            let aVenueProfileViewController : VenueProfileViewController = self.storyboard!.instantiateViewControllerWithIdentifier("VenueProfileViewController") as! VenueProfileViewController
-            //            self.navigationController!.pushViewController(aVenueProfileViewController, animated: true)
-            //            //self.performSegueWithIdentifier("VenueProfile", sender: nil)
-            print("Privary Policy")
-
-        case settingsTag.TermsCondition.rawValue? :
-            //            let aVenueProfileViewController : VenueProfileViewController = self.storyboard!.instantiateViewControllerWithIdentifier("VenueProfileViewController") as! VenueProfileViewController
-            //            self.navigationController!.pushViewController(aVenueProfileViewController, animated: true)
-            //            //self.performSegueWithIdentifier("VenueProfile", sender: nil)
-            print("Terms & Condition")
-            
-
-        case settingsTag.following.rawValue? :
-            let followingViewController : FollowingViewController = self.storyboard!.instantiateViewControllerWithIdentifier("FollowingViewController") as! FollowingViewController
-            //postViewController.feedDict = feedDict
-            self.navigationController!.pushViewController(followingViewController, animated: true)
-            print("Following")
-            
-        case settingsTag.follower.rawValue? :
-            let followersViewController : FollowersViewController = self.storyboard!.instantiateViewControllerWithIdentifier("FollowersViewController") as! FollowersViewController
-            //postViewController.feedDict = feedDict
-            self.navigationController!.pushViewController(followersViewController, animated: true)
-            print("Followers")
-            
-        case settingsTag.logout.rawValue? :
-            NSUserDefaults.standardUserDefaults().setObject("", forKey: "LoginToken")
-            self.dismissViewControllerAnimated(false, completion: { () -> Void in
-                
-            })
-
-            print("Logout")
-        default :
-            print("Test 1")
-        }
-    }
     
     /*
     // getSettingsData used to retrieve user settings data
@@ -275,14 +219,85 @@ class SettingsTableViewController: UITableViewController,UIGestureRecognizerDele
                 print("The post is: " + post.description)
         }
     }
+}
+
+// MARK: UITableViewDataSource Protocol
+extension SettingsTableViewController {
     
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return 1
+        return 2
     }
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 8
+        return 2
     }
     
+    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        if let cell = tableView.dequeueReusableCellWithIdentifier("settingsTableViewCell", forIndexPath: indexPath) as? SettingsTableViewCell{
+            let value = indexPath.section * 2 + indexPath.row
+            let setting = SettingsTag(rawValue: value)
+            cell.setting = setting?.stringLabel
+            return cell
+        }
+        /// shouldn't make it here
+        return UITableViewCell(style: .Default, reuseIdentifier: "nullCell")
+    }
+}
+
+// MARK: UITableViewDelegate Protocol
+extension SettingsTableViewController {
     
+    func textForSection(section: Int) -> String {
+        if section == 0 {
+            return "Me"
+        } else {
+            return "MIXR"
+        }
+    }
+    
+    override func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 40.0
+    }
+    
+    override func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let height = self.tableView(tableView, heightForHeaderInSection: section)
+        let frame = CGRect(x: 0, y: 0, width: tableView.frame.size.width, height: height)
+        let view = UIView(frame: frame)
+        
+        let label = UILabel()
+        label.font = UIFont.boldFontWithSize(20.0)
+        label.text = textForSection(section)
+        label.sizeToFit()
+        
+        label.frame = CGRect(x: 20, y: (height-label.frame.height)/2, width: label.frame.width, height: label.frame.height)
+        
+        let lineView = UIView(frame: CGRect(x: label.frame.maxX + 5, y: (height-1)/2, width: tableView.frame.width - label.frame.maxX - 20, height: 1))
+        lineView.backgroundColor = UIColor.mixrLightGray()
+        
+        view.addSubview(label)
+        view.addSubview(lineView)
+        
+        return view
+    }
+    
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        // super-hacky should refactor
+        let value = indexPath.section * 2 + indexPath.row
+        if let setting = SettingsTag(rawValue: value) {
+            switch setting {
+            case .ChangePassword:
+                let aChangePassword : ChangePassword = self.storyboard!.instantiateViewControllerWithIdentifier("ChangePassword") as! ChangePassword
+                self.navigationController?.navigationBarHidden = false
+                self.navigationController!.pushViewController(aChangePassword, animated: true)
+            case .PrivacyPolicy:
+                print("Terms & Condition")
+            case .Terms:
+                print("Terms & Condition")
+            case .Logout:
+                NSUserDefaults.standardUserDefaults().setObject("", forKey: "LoginToken")
+                NSUserDefaults.standardUserDefaults().synchronize()
+                self.dismissViewControllerAnimated(false, completion: nil)
+            }
+        }
+    }
 }

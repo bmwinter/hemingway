@@ -42,6 +42,7 @@
 		0C64EDEC1D47F7D800DAE12D /* VenueProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C64EDCF1D47F7D800DAE12D /* VenueProfileViewController.swift */; };
 		0C64EDEE1D48037100DAE12D /* Venue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C64EDED1D48037100DAE12D /* Venue.swift */; };
 		0C64EDF01D48082300DAE12D /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C64EDEF1D48082300DAE12D /* Location.swift */; };
+		0CFFAF091D7521A1004015DA /* SettingsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CFFAF081D7521A1004015DA /* SettingsTableViewCell.swift */; };
 		1502B80D1C16B973003BA39F /* SearchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1502B80C1C16B973003BA39F /* SearchTableViewCell.swift */; };
 		151212F01C53C551001D6C50 /* locationtab.png in Resources */ = {isa = PBXBuildFile; fileRef = 151212E71C53C551001D6C50 /* locationtab.png */; };
 		151212F11C53C551001D6C50 /* locationtab@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 151212E81C53C551001D6C50 /* locationtab@2x.png */; };
@@ -241,6 +242,7 @@
 		0C64EDCF1D47F7D800DAE12D /* VenueProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VenueProfileViewController.swift; sourceTree = "<group>"; };
 		0C64EDED1D48037100DAE12D /* Venue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Venue.swift; sourceTree = "<group>"; };
 		0C64EDEF1D48082300DAE12D /* Location.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
+		0CFFAF081D7521A1004015DA /* SettingsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SettingsTableViewCell.swift; path = Views/SettingsTableViewCell.swift; sourceTree = "<group>"; };
 		119CC446741BEC8341A20555 /* Pods_MIXRTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MIXRTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		1502B80C1C16B973003BA39F /* SearchTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchTableViewCell.swift; sourceTree = "<group>"; };
 		151212E71C53C551001D6C50 /* locationtab.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = locationtab.png; sourceTree = "<group>"; };
@@ -434,6 +436,7 @@
 			isa = PBXGroup;
 			children = (
 				0C5AC2751D6BFE4400F19672 /* PromotionsTableViewCell.swift */,
+				0CFFAF081D7521A1004015DA /* SettingsTableViewCell.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -1233,6 +1236,7 @@
 				0C64EDD31D47F7D800DAE12D /* FeedPageViewController.swift in Sources */,
 				0C64EDEB1D47F7D800DAE12D /* VenueProfileTableViewController.swift in Sources */,
 				5C6DF59D1C3000AE00F2910B /* Specials.swift in Sources */,
+				0CFFAF091D7521A1004015DA /* SettingsTableViewCell.swift in Sources */,
 				5C218AC21BEA769800F7DA82 /* ChangePassword.swift in Sources */,
 				5C22FB611BD1314000FF9C98 /* CollectionViewWaterfallLayout.swift in Sources */,
 				5C520FD91C54FA9600299990 /* ALConfirmViewController.swift in Sources */,
