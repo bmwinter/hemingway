@@ -113,5 +113,7 @@ extension PromotionsViewController: UITableViewDataSource {
 }
 
 extension PromotionsViewController: UITableViewDelegate {
-    
+//    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+//        return 40
+//    }
 }
