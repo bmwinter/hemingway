@@ -41,8 +41,8 @@ class BaseViewController: UIViewController  ,UIImagePickerControllerDelegate, UI
         else
         {
             Log("interactivePopGestureRecognizer false")
-            self.navigationController!.interactivePopGestureRecognizer!.delegate =  nil
-            self.navigationController!.interactivePopGestureRecognizer!.enabled = false
+            self.navigationController?.interactivePopGestureRecognizer?.delegate =  nil
+            self.navigationController?.interactivePopGestureRecognizer?.enabled = false
         }
         
         self.updateNotificationBadge()
