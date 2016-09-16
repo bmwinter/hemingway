@@ -727,7 +727,7 @@
                     <tabBarItem key="tabBarItem" title="Venue Feed" image="venu_tab.png" id="acW-dT-cKf"/>
                     <toolbarItems/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="mOs-Fh-xjp">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="mOs-Fh-xjp">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="tintColor" red="0.035294117649999998" green="0.035294117649999998" blue="0.035294117649999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -783,7 +783,7 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="oMK-uV-76d" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Map" image="locationtab.png" id="cPa-gy-q4n"/>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="r1n-BL-oMb">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="r1n-BL-oMb">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -3416,27 +3416,49 @@
                             <rect key="frame" x="0.0" y="0.0" width="375" height="415"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Congratulations!" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="clf-tM-zPC">
-                                    <fontDescription key="fontDescription" name="ForgottenFuturistRg-Regular" family="Forgotten Futurist" pointSize="23"/>
-                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                    <nil key="highlightedColor"/>
-                                </label>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="This offer is valid for" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Zz9-zS-N6A">
+                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="T77-Ti-VcM" userLabel="Congratulations View">
+                                    <subviews>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="WAz-y6-PEO">
+                                            <constraints>
+                                                <constraint firstAttribute="width" secondItem="WAz-y6-PEO" secondAttribute="height" multiplier="1:1" id="VND-HT-5Cp"/>
+                                            </constraints>
+                                        </imageView>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Congratulations!" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="clf-tM-zPC">
+                                            <fontDescription key="fontDescription" name="ForgottenFuturistRg-Regular" family="Forgotten Futurist" pointSize="23"/>
+                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="One $3.00 Margarita" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Yiq-Nj-tRH">
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="20" id="2k1-kl-fR9"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" name="ForgottenFuturistRg-Regular" family="Forgotten Futurist" pointSize="17"/>
+                                            <color key="textColor" red="0.42352941179999998" green="0.58431372550000005" blue="0.32549019610000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="This offer is valid for" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Zz9-zS-N6A">
+                                            <fontDescription key="fontDescription" name="ForgottenFuturistRg-Regular" family="Forgotten Futurist" pointSize="17"/>
+                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <constraints>
-                                        <constraint firstAttribute="width" constant="228" id="LcH-tq-43G"/>
+                                        <constraint firstItem="Yiq-Nj-tRH" firstAttribute="width" secondItem="Zz9-zS-N6A" secondAttribute="width" id="5Eu-Wt-zTw"/>
+                                        <constraint firstItem="clf-tM-zPC" firstAttribute="leading" secondItem="WAz-y6-PEO" secondAttribute="trailing" constant="10" id="BbJ-eH-o25"/>
+                                        <constraint firstAttribute="bottom" secondItem="WAz-y6-PEO" secondAttribute="bottom" id="Xk9-6s-ZkA"/>
+                                        <constraint firstItem="Yiq-Nj-tRH" firstAttribute="top" secondItem="Zz9-zS-N6A" secondAttribute="bottom" constant="20" id="ghr-fs-Ude"/>
+                                        <constraint firstItem="WAz-y6-PEO" firstAttribute="leading" secondItem="T77-Ti-VcM" secondAttribute="leading" id="joQ-iE-3sX"/>
+                                        <constraint firstItem="Zz9-zS-N6A" firstAttribute="width" secondItem="clf-tM-zPC" secondAttribute="width" id="nGB-GX-noS"/>
+                                        <constraint firstItem="Zz9-zS-N6A" firstAttribute="top" secondItem="clf-tM-zPC" secondAttribute="bottom" constant="20" id="nio-np-qZn"/>
+                                        <constraint firstItem="clf-tM-zPC" firstAttribute="top" secondItem="T77-Ti-VcM" secondAttribute="top" constant="10" id="pgq-Kx-adS"/>
+                                        <constraint firstItem="WAz-y6-PEO" firstAttribute="top" secondItem="T77-Ti-VcM" secondAttribute="top" id="si9-5O-YOI"/>
+                                        <constraint firstItem="clf-tM-zPC" firstAttribute="centerX" secondItem="Zz9-zS-N6A" secondAttribute="centerX" id="tVY-0p-ihD"/>
+                                        <constraint firstAttribute="height" constant="150" id="y2I-kd-EXg"/>
+                                        <constraint firstItem="Yiq-Nj-tRH" firstAttribute="centerX" secondItem="Zz9-zS-N6A" secondAttribute="centerX" id="z8b-XX-rD2"/>
+                                        <constraint firstAttribute="trailing" secondItem="clf-tM-zPC" secondAttribute="trailing" constant="10" id="z9c-AC-bzt"/>
                                     </constraints>
-                                    <fontDescription key="fontDescription" name="ForgottenFuturistRg-Regular" family="Forgotten Futurist" pointSize="17"/>
-                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                    <nil key="highlightedColor"/>
-                                </label>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="One $3.00 Margarita" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Yiq-Nj-tRH">
-                                    <constraints>
-                                        <constraint firstAttribute="height" constant="20" id="2k1-kl-fR9"/>
-                                    </constraints>
-                                    <fontDescription key="fontDescription" name="ForgottenFuturistRg-Regular" family="Forgotten Futurist" pointSize="17"/>
-                                    <color key="textColor" red="0.42352941179999998" green="0.58431372550000005" blue="0.32549019610000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                    <nil key="highlightedColor"/>
-                                </label>
+                                </view>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Promotion must be shown to server in order to redeem." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6FY-GV-lMH">
                                     <fontDescription key="fontDescription" name="ForgottenFuturistRg-Regular" family="Forgotten Futurist" pointSize="18"/>
                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -3461,22 +3483,17 @@
                             </subviews>
                             <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                             <constraints>
-                                <constraint firstItem="Zz9-zS-N6A" firstAttribute="top" secondItem="clf-tM-zPC" secondAttribute="bottom" constant="4" id="2MD-TG-K43"/>
                                 <constraint firstItem="alZ-c7-xS2" firstAttribute="centerX" secondItem="6FY-GV-lMH" secondAttribute="centerX" id="2vg-RQ-9Vs"/>
                                 <constraint firstItem="6FY-GV-lMH" firstAttribute="top" secondItem="cuu-4q-dSX" secondAttribute="bottom" constant="9" id="6Oe-XQ-qvu"/>
+                                <constraint firstItem="T77-Ti-VcM" firstAttribute="leading" secondItem="6FY-GV-lMH" secondAttribute="leading" id="AXH-SK-awV"/>
                                 <constraint firstItem="cuu-4q-dSX" firstAttribute="leading" secondItem="6FY-GV-lMH" secondAttribute="leading" id="BFO-BU-2v5"/>
-                                <constraint firstItem="Yiq-Nj-tRH" firstAttribute="top" secondItem="Zz9-zS-N6A" secondAttribute="bottom" constant="4" id="CHK-vg-J1L"/>
                                 <constraint firstItem="alZ-c7-xS2" firstAttribute="leading" secondItem="ZdY-xi-ydi" secondAttribute="leading" constant="96" id="EMK-0N-1cA"/>
                                 <constraint firstItem="alZ-c7-xS2" firstAttribute="top" secondItem="6FY-GV-lMH" secondAttribute="bottom" constant="74" id="IdK-RW-kVp"/>
                                 <constraint firstItem="6FY-GV-lMH" firstAttribute="leading" secondItem="ZdY-xi-ydi" secondAttribute="leadingMargin" id="KNV-Io-AcG"/>
-                                <constraint firstItem="cuu-4q-dSX" firstAttribute="centerX" secondItem="clf-tM-zPC" secondAttribute="centerX" id="MCQ-JO-XlV"/>
-                                <constraint firstItem="clf-tM-zPC" firstAttribute="leading" secondItem="ZdY-xi-ydi" secondAttribute="leading" constant="22" id="PMR-1X-6zy"/>
-                                <constraint firstItem="Zz9-zS-N6A" firstAttribute="trailing" secondItem="clf-tM-zPC" secondAttribute="trailing" id="SLs-s2-lAm"/>
-                                <constraint firstItem="cuu-4q-dSX" firstAttribute="top" secondItem="Yiq-Nj-tRH" secondAttribute="bottom" constant="61" id="gH9-As-2od"/>
-                                <constraint firstItem="Zz9-zS-N6A" firstAttribute="trailing" secondItem="Yiq-Nj-tRH" secondAttribute="trailing" id="qJe-jv-7zf"/>
-                                <constraint firstItem="Yiq-Nj-tRH" firstAttribute="leading" secondItem="Zz9-zS-N6A" secondAttribute="leading" id="smh-sV-o4z"/>
+                                <constraint firstItem="T77-Ti-VcM" firstAttribute="trailing" secondItem="6FY-GV-lMH" secondAttribute="trailing" id="cAY-fU-iYk"/>
                                 <constraint firstItem="6FY-GV-lMH" firstAttribute="trailing" secondItem="ZdY-xi-ydi" secondAttribute="trailingMargin" id="um5-BJ-vYn"/>
-                                <constraint firstItem="clf-tM-zPC" firstAttribute="top" secondItem="ZdY-xi-ydi" secondAttribute="top" constant="81" id="xHM-py-xls"/>
+                                <constraint firstItem="T77-Ti-VcM" firstAttribute="top" secondItem="ZdY-xi-ydi" secondAttribute="top" constant="40" id="vXq-9d-8b9"/>
+                                <constraint firstItem="cuu-4q-dSX" firstAttribute="top" secondItem="T77-Ti-VcM" secondAttribute="bottom" constant="29" id="x1M-mK-KTS"/>
                                 <constraint firstItem="cuu-4q-dSX" firstAttribute="trailing" secondItem="6FY-GV-lMH" secondAttribute="trailing" id="yyf-py-BRn"/>
                             </constraints>
                         </view>
@@ -3521,11 +3538,13 @@
                     <connections>
                         <outlet property="lblExpireTime" destination="cuu-4q-dSX" id="HZD-1G-oS4"/>
                         <outlet property="lblOfferPrice" destination="Yiq-Nj-tRH" id="S0n-rS-nrd"/>
+                        <outlet property="promotionContainerView" destination="T77-Ti-VcM" id="PpE-sw-xmb"/>
+                        <outlet property="promotionImageView" destination="WAz-y6-PEO" id="rdT-k3-o7H"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0Lm-mH-A5D" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2642" y="199.5"/>
+            <point key="canvasLocation" x="2641.5" y="199"/>
         </scene>
         <!--Followers View Controller-->
         <scene sceneID="T0z-YH-hQp">
