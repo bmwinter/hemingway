@@ -57,7 +57,6 @@ class SignUpTableViewController: UIViewController {
     @IBOutlet weak var dob: UIButton!
     @IBOutlet weak var countryCode: UITextField!
     @IBOutlet weak var phoneNo: UITextField!
-    @IBOutlet weak var gender: UISegmentedControl!
     @IBOutlet weak var checkmark: UIButton!
     @IBOutlet weak var spaceBetween: NSLayoutConstraint!
     @IBOutlet weak var firstNameWidth: NSLayoutConstraint!
