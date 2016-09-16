@@ -80,24 +80,24 @@ extension UIImage {
             break
         }
         
-        let context = CGBitmapContextCreate(nil, Int(self.size.width), Int(self.size.height), CGImageGetBitsPerComponent(self.CGImage), 0, CGImageGetColorSpace(self.CGImage), CGImageGetBitmapInfo(self.CGImage).rawValue)
+        let context = CGBitmapContextCreate(nil, Int(self.size.width), Int(self.size.height), CGImageGetBitsPerComponent(self.CGImage!), 0, CGImageGetColorSpace(self.CGImage!)!, CGImageGetBitmapInfo(self.CGImage!).rawValue)!
         CGContextConcatCTM(context, transform)
         
         switch (self.imageOrientation) {
         case .Left:
-            CGContextDrawImage(context, CGRectMake(0, 0, self.size.height, self.size.width), self.CGImage)
+            CGContextDrawImage(context, CGRectMake(0, 0, self.size.height, self.size.width), self.CGImage!)
             break
         case .LeftMirrored:
-            CGContextDrawImage(context, CGRectMake(0, 0, self.size.height, self.size.width), self.CGImage)
+            CGContextDrawImage(context, CGRectMake(0, 0, self.size.height, self.size.width), self.CGImage!)
             break
         case .Right:
-            CGContextDrawImage(context, CGRectMake(0, 0, self.size.height, self.size.width), self.CGImage)
+            CGContextDrawImage(context, CGRectMake(0, 0, self.size.height, self.size.width), self.CGImage!)
             break
         case .RightMirrored:
-            CGContextDrawImage(context, CGRectMake(0, 0, self.size.height, self.size.width), self.CGImage)
+            CGContextDrawImage(context, CGRectMake(0, 0, self.size.height, self.size.width), self.CGImage!)
             break
         default:
-            CGContextDrawImage(context, CGRectMake(0, 0, self.size.width, self.size.height), self.CGImage)
+            CGContextDrawImage(context, CGRectMake(0, 0, self.size.width, self.size.height), self.CGImage!)
             break
         }
         

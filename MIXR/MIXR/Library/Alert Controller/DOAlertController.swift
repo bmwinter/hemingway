@@ -92,7 +92,7 @@ class DOAlertAnimation : NSObject, UIViewControllerAnimatedTransitioning {
         } else {
             alertController.alertView.transform = CGAffineTransformMakeTranslation(0, alertController.alertView.frame.height)
         }
-        containerView!.addSubview(alertController.view)
+        containerView.addSubview(alertController.view)
         
         UIView.animateWithDuration(0.25,
             animations: {
@@ -643,7 +643,7 @@ class DOAlertController : UIViewController, UITextFieldDelegate, UIViewControlle
         let contextRef: CGContextRef = UIGraphicsGetCurrentContext()!
         CGContextSetFillColorWithColor(contextRef, color.CGColor)
         CGContextFillRect(contextRef, rect)
-        let img: UIImage = UIGraphicsGetImageFromCurrentImageContext()
+        let img: UIImage = UIGraphicsGetImageFromCurrentImageContext()!
         UIGraphicsEndImageContext()
         return img
     }

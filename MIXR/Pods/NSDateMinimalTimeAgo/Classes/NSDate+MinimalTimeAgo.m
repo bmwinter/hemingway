@@ -38,17 +38,17 @@ static int const YEAR = (DAY * 365);
     // Hour
     else if (secondsSinceNow < DAY) {
         prefix = secondsSinceNow / HOUR;
-        suffix = @"hr";
+        suffix = @"h";
     }
     // Day
     else if (secondsSinceNow < WEEK) {
         prefix = secondsSinceNow / DAY;
-        suffix = @"days";
+        suffix = @"d";
     }
     // Week
     else if (secondsSinceNow < MONTH) {
         prefix = secondsSinceNow / WEEK;
-        suffix = @"wk";
+        suffix = @"w";
     }
     // Month
     else if (secondsSinceNow < YEAR) {
@@ -58,7 +58,7 @@ static int const YEAR = (DAY * 365);
     // Year
     else {
         prefix = secondsSinceNow / YEAR;
-        suffix = @"yr";
+        suffix = @"y";
     }
 
     return [NSString stringWithFormat:@"%d%@", prefix, suffix];
