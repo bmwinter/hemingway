@@ -12,12 +12,18 @@ class PromotionModel {
     let status: String
     let timestamp: NSTimeInterval
     
+    private let sourceData: [String: String]!
+    
     init(object: [String: String]) {
+        sourceData = object
+        
         status = object["promoters"] ?? ""
+        
         if let hrString = object["userHr"],
             let intHr = Int(hrString) {
             timestamp = NSTimeInterval(intHr)
         } else {
+            // should never get here
             timestamp = NSDate().timeIntervalSince1970 - 60*3
         }
     }
