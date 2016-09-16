@@ -28,6 +28,10 @@ class PostViewController: BaseViewController {
     
     private var selectedViewController: UIViewController?
     
+    // TODO: remove if possible
+    var userId = ""
+    var isUserProfile = false
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         

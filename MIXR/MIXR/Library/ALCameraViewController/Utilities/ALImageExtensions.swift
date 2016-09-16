@@ -19,12 +19,12 @@ extension UIImage {
         let drawPoint = CGPointZero
         UIGraphicsBeginImageContextWithOptions(mutableRect.size, false, 0)
         let context = UIGraphicsGetCurrentContext()
-        CGContextTranslateCTM(context, -mutableRect.origin.x, -mutableRect.origin.y)
-        CGContextScaleCTM(context, scale * screenScale, scale * screenScale)
+        CGContextTranslateCTM(context!, -mutableRect.origin.x, -mutableRect.origin.y)
+        CGContextScaleCTM(context!, scale * screenScale, scale * screenScale)
         drawAtPoint(drawPoint)
         let croppedImage = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext();
-        return croppedImage
+        return croppedImage!
     }
     
     func fixFrontCameraOrientation() -> UIImage {

@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import Haneke
 import MediaPlayer
 import Player
 import AssetsLibrary
@@ -194,7 +193,7 @@ class NewsFeedTableViewController: UITableViewController {
                 }
                 
                 
-                let post = JSON(value)
+                let post = JSON.parse(value)
                 if let string = post.rawString() {
                     
                     if response.response?.statusCode == 400{
@@ -218,10 +217,9 @@ class NewsFeedTableViewController: UITableViewController {
                             return;
                         }
                     }else{
-                        let responseArray:NSArray? = globalConstants.convertStringToArray(string)
-                        if let searchArray = responseArray as? NSMutableArray
+                        if let searchArray = post.arrayObject
                         {
-                            self.feedsArray = searchArray.mutableCopy() as! NSMutableArray
+                            self.feedsArray = searchArray as! NSMutableArray
                             self.reloadTable()
                         }
                     }
@@ -649,7 +647,8 @@ extension NewsFeedTableViewController {
         let attachmentString = NSAttributedString(attachment: attachment)
         let myString = NSMutableAttributedString(string: " ")
         myString.appendAttributedString(attachmentString)
-        myString.appendAttributedString(NSMutableAttributedString(string: String(feedsArray[indexPath.row]["likes"] as! NSInteger)))
+        let numLikes = feedsArray[indexPath.row]["likes"] as? NSInteger ?? 0
+        myString.appendAttributedString(NSMutableAttributedString(string: String(numLikes)))
         cell.lblLike.attributedText = myString
         
         
@@ -726,12 +725,13 @@ extension NewsFeedTableViewController: PlayerDelegate {
     func playerBufferingStateDidChange(player: Player) {
     }
     
+    func playerCurrentTimeDidChange(player: Player) { }
+    
     func playerPlaybackWillStartFromBeginning(player: Player) {
     }
     
     func playerPlaybackDidEnd(player: Player) {
     }
-    
     
     
     func videoHasFinishedPlaying(notification: NSNotification){
