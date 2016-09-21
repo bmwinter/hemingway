@@ -11,11 +11,10 @@ import SwiftyJSON
 import Alamofire
 import AlamofireImage
 
-class SearchViewController: BaseViewController, UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate {
+class SearchViewController: BaseViewController {
     
     var refreshControl:UIRefreshControl!
-    //var usersArray : Array<JSON> = []
-    var usersArray : NSMutableArray = NSMutableArray()
+    var usersArray = NSMutableArray()
     
     @IBOutlet weak var lblNoResultFound: UILabel!
     var searchingArray:NSMutableArray!
@@ -36,14 +35,13 @@ class SearchViewController: BaseViewController, UITableViewDelegate,UITableViewD
         self.tableView.separatorColor = UIColor .clearColor()
         self.loadData()
         
+        searchBarObj.delegate = self
+        
         //let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "dismissKeyboard")
         // view.addGestureRecognizer(tap)
         
         searchingArray = []
         searchBarObj.layer.cornerRadius = 10.0
-        
-        // self.pullToReferesh()
-        // Do any additional setup after loading the view.
     }
     
     func pullToReferesh()
@@ -119,7 +117,7 @@ class SearchViewController: BaseViewController, UITableViewDelegate,UITableViewD
             //Alamofire.Manager.sharedInstance.session.configuration.HTTPAdditionalHeaders?.updateValue("application/json", forKey: "Accept")
             
             Alamofire.request(.POST, URL , parameters: parameters, encoding: .JSON, headers : headers)
-                .responseString { response in
+                .responseString { [unowned self] response in
 //            Alamofire.request(.POST, URL , parameters: parameters, encoding: .JSON)
 //                .responseString { response in
                     
@@ -145,12 +143,11 @@ class SearchViewController: BaseViewController, UITableViewDelegate,UITableViewD
                     }
                     
                     
-                    let post = JSON(value)
-                    if let string = post.rawString()
-                    {
-                        if response.response?.statusCode == 400
-                        {
-                            let responseDic:[String:AnyObject]? = self.convertStringToDictionary(string)
+                    let jsonResponse = JSON.parse(value)
+                    if let statusCode = response.response?.statusCode {
+                        switch statusCode {
+                        case 400:
+                            let responseDic:[String:AnyObject]? = jsonResponse.dictionaryObject
                             print("The Response Error is:   \(response.response?.statusCode)")
                             
                             if let val = responseDic?["code"]
@@ -182,39 +179,19 @@ class SearchViewController: BaseViewController, UITableViewDelegate,UITableViewD
                                     }
                                 }
                                 self.reloadTable()
-
+                                
                                 return;
                             }
-                        }
-                        else if (response.response?.statusCode == 200 || response.response?.statusCode == 201)
-                        {
-                            let responseArray:NSArray? = self.convertStringToArray(string)
-                            if let searchArray = responseArray as? NSMutableArray
-                            {
-                                // if(self.feedcount == 0)
-                                // {
-                                //     self.usersArray = self.createDisplayArray(searchArray)
-                                //     self.feedcount = self.usersArray.count
-                                // }
-                                // else
-                                // {
-                                //     if(self.usersArray.count > 0)
-                                //     {
-                                //         let newData : NSMutableArray = self.createDisplayArray(searchArray)
-                                //         
-                                //         for (var cnt = 0; cnt < newData.count ; cnt++)
-                                //         {
-                                //             self.usersArray.addObject(newData[cnt])
-                                //         }
-                                //         
-                                //         self.feedcount = self.usersArray.count
-                                //     }
-                                // }
-                                
-                                self.usersArray = self.createDisplayArray(searchArray)
-                                self.feedcount = self.usersArray.count
-                                self.searchingArray = self.usersArray
-                            }
+                        case 200, 201:
+                            // TODO: refactor this to stop using NSMutableArray
+                            let tempArray = NSMutableArray(array: jsonResponse.arrayObject ?? [])
+                            self.usersArray = NSMutableArray(array: self.createDisplayArray(tempArray))
+                            self.feedcount = self.usersArray.count
+                            self.searchingArray = self.usersArray
+                            
+                        default:
+                            return
+                            
                         }
                         
                         self.reloadTable()
@@ -223,9 +200,9 @@ class SearchViewController: BaseViewController, UITableViewDelegate,UITableViewD
         }
     }
     
-    func createDisplayArray(inputArray :NSMutableArray)->NSMutableArray
+    func createDisplayArray(inputArray: NSMutableArray) -> [AnyObject]
     {
-        let newData : NSMutableArray = []
+        var newData = [AnyObject]()
         
         //for (cnt,inputDict) in inputArray.enumerate()
         for inputDict in inputArray
@@ -255,10 +232,16 @@ class SearchViewController: BaseViewController, UITableViewDelegate,UITableViewD
                 }
                 
                 outPutDict.setValue("", forKey: "subtitle")
-                newData.addObject(outPutDict)
+                newData.append(outPutDict)
             //}
         }
-        return newData
+        // TODO: move this to the server side
+        return newData.filter({ (elem) -> Bool in
+            if let dict = elem as? NSDictionary, let _ = dict["venue_id"] {
+                return true
+            }
+            return false
+        })
     }
     
     func reloadTable()
@@ -266,6 +249,47 @@ class SearchViewController: BaseViewController, UITableViewDelegate,UITableViewD
         tableView.reloadData()
     }
     
+    // if tableView is set in attribute inspector with selection to multiple Selection it should work.
+    
+    // Just set it back in deselect
+    
+    //  MARK:- Searchbar Delegate -
+    func searchBar(searchBar: UISearchBar, textDidChange searchText: String)
+    {
+        self.searchingArray.removeAllObjects()
+        self.usersArray.removeAllObjects()
+        
+        if searchBar.text!.isEmpty
+        {
+            is_searching = true
+            tableView.reloadData()
+        }
+        else
+        {
+            print("search text %@ ",searchBar.text! as NSString)
+            is_searching = false
+            searchingArray.removeAllObjects()
+            //let temp = self.searchBarObj.text
+            self.loadSearchData()
+            
+            return;
+            /*
+            print(self.usersArray)
+            
+            var tempArray : NSMutableArray = []
+            
+            let resultPredicate : NSPredicate = NSPredicate(format: "title contains[c] %@ || subtitle contains[c] %@",searchBar.text! as NSString,searchBar.text! as NSString)
+            let searchResults = self.usersArray.filteredArrayUsingPredicate(resultPredicate)
+            self.searchingArray = NSMutableArray(array: searchResults)
+            
+            print("seaarching array \(self.searchingArray)")
+            
+            tableView.reloadData()
+             */
+        }
+    }
+}
+extension SearchViewController: UITableViewDataSource {
     //  MARK:- Tableview delegate -
     func numberOfSectionsInTableView(tableView: UITableView) -> Int
     {
@@ -273,7 +297,7 @@ class SearchViewController: BaseViewController, UITableViewDelegate,UITableViewD
     }
     
     func tableView(tableView: UITableView,
-        numberOfRowsInSection section: Int) -> Int
+                   numberOfRowsInSection section: Int) -> Int
     {
         if (self.usersArray.count > 0)
         {
@@ -285,90 +309,97 @@ class SearchViewController: BaseViewController, UITableViewDelegate,UITableViewD
         }
         return self.usersArray.count  //Currently Giving default Value
         
-//        if is_searching == true
-//        {
-//            return searchingArray.count
-//        }
-//        else
-//        {
-//            if (self.usersArray.count > 0)
-//            {
-//                self.lblNoResultFound.hidden = true
-//            }
-//            else
-//            {
-//                self.lblNoResultFound.hidden = false
-//            }
-//            return self.usersArray.count  //Currently Giving default Value
-//        }
+        //        if is_searching == true
+        //        {
+        //            return searchingArray.count
+        //        }
+        //        else
+        //        {
+        //            if (self.usersArray.count > 0)
+        //            {
+        //                self.lblNoResultFound.hidden = true
+        //            }
+        //            else
+        //            {
+        //                self.lblNoResultFound.hidden = false
+        //            }
+        //            return self.usersArray.count  //Currently Giving default Value
+        //        }
     }
     
     func tableView(tableView: UITableView,
-        cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell
+                   cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell
     {
         
         let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as! SearchTableViewCell
         cell.selectionStyle = UITableViewCellSelectionStyle.None
         
-//        if is_searching == true
-//        {
-//            let feedDict : NSDictionary = searchingArray[indexPath.row] as! NSDictionary
-//            cell.imagePerson.image  = UIImage(named: feedDict["profile_picture"] as! String)
-//            cell.labelName.text = feedDict["title"] as! NSString as String
-//            cell.mobileNumber.text = feedDict["subtitle"] as! NSString as String
-//            //cell.textLabel!.text = searchingArray[indexPath.row] as! NSString as String
-//            if(indexPath.row == (searchingArray.count-4) && searchingArray.count > 8)
-//            {
-//                self.loadData()
-//            }
-//        }
-//        else
-//        {
-            let feedDict : NSDictionary = self.usersArray[indexPath.row] as! NSDictionary
-            
-            if let imageNameStr = feedDict["image_url"] as? String
+        //        if is_searching == true
+        //        {
+        //            let feedDict : NSDictionary = searchingArray[indexPath.row] as! NSDictionary
+        //            cell.imagePerson.image  = UIImage(named: feedDict["profile_picture"] as! String)
+        //            cell.labelName.text = feedDict["title"] as! NSString as String
+        //            cell.mobileNumber.text = feedDict["subtitle"] as! NSString as String
+        //            //cell.textLabel!.text = searchingArray[indexPath.row] as! NSString as String
+        //            if(indexPath.row == (searchingArray.count-4) && searchingArray.count > 8)
+        //            {
+        //                self.loadData()
+        //            }
+        //        }
+        //        else
+        //        {
+        let feedDict : NSDictionary = self.usersArray[indexPath.row] as! NSDictionary
+        
+        if let imageNameStr = feedDict["image_url"] as? String
+        {
+            if (imageNameStr.characters.count > 0)
             {
-                if (imageNameStr.characters.count > 0)
-                {
-                    //cell.imagePerson.image  = aImage
-                    let URL = NSURL(string: imageNameStr)!
-                    //let URL = NSURL(string: "https://avatars1.githubusercontent.com/u/1846768?v=3&s=460")!
-                    
-                    Request.addAcceptableImageContentTypes(["binary/octet-stream"])
-                    let filter = AspectScaledToFillSizeWithRoundedCornersFilter(
-                        size: cell.imagePerson.frame.size,
-                        radius: 0.0
-                    )
-                    cell.imagePerson.af_setImageWithURL(URL, placeholderImage: UIImage(named: "ALPlaceholder"), filter: filter, imageTransition: .None, completion: { (response) -> Void in
-                        print("image: \(cell.imagePerson.image)")
-                        print(response.result.value) //# UIImage
-                        print(response.result.error) //# NSError
-                    })
-                    
-                    //let placeholderImage = UIImage(named: "ALPlaceholder")!
-                    //cell.imagePerson.af_setImageWithURL(URL, placeholderImage: placeholderImage)
-                    
-                }
-                else
-                {
-                    cell.imagePerson.image = UIImage(named:"ALPlaceholder")
-                }
+                //cell.imagePerson.image  = aImage
+                let URL = NSURL(string: imageNameStr)!
+                //let URL = NSURL(string: "https://avatars1.githubusercontent.com/u/1846768?v=3&s=460")!
+                
+                Request.addAcceptableImageContentTypes(["binary/octet-stream"])
+                let filter = AspectScaledToFillSizeWithRoundedCornersFilter(
+                    size: cell.imagePerson.frame.size,
+                    radius: 0.0
+                )
+                cell.imagePerson.af_setImageWithURL(URL, placeholderImage: UIImage(named: "ALPlaceholder"), filter: filter, imageTransition: .None, completion: { (response) -> Void in
+                    print("image: \(cell.imagePerson.image)")
+                    print(response.result.value) //# UIImage
+                    print(response.result.error) //# NSError
+                })
+                
+                //let placeholderImage = UIImage(named: "ALPlaceholder")!
+                //cell.imagePerson.af_setImageWithURL(URL, placeholderImage: placeholderImage)
+                
             }
             else
             {
                 cell.imagePerson.image = UIImage(named:"ALPlaceholder")
             }
-            
-            cell.labelName.text = feedDict["title"] as? String
-            cell.mobileNumber.text = feedDict["subtitle"] as! NSString as String
-            
-            if(indexPath.row == (self.usersArray.count-4) && self.usersArray.count > 8)
-            {
-                self.loadData()
-            }
+        }
+        else
+        {
+            cell.imagePerson.image = UIImage(named:"ALPlaceholder")
+        }
+        
+        cell.labelName.text = feedDict["title"] as? String
+        cell.mobileNumber.text = feedDict["subtitle"] as! NSString as String
+        
+        if(indexPath.row == (self.usersArray.count-4) && self.usersArray.count > 8)
+        {
+            self.loadData()
+        }
         //}
         
         return cell
+    }
+}
+
+extension SearchViewController: UITableViewDelegate {
+    func tableView(tableView: UITableView, didDeselectRowAtIndexPath indexPath: NSIndexPath) {
+        // let cellToDeSelect:UITableViewCell = tableView.cellForRowAtIndexPath(indexPath)!
+        //  cellToDeSelect.contentView.backgroundColor = UIColor.lightGrayColor()
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath)
@@ -407,49 +438,30 @@ class SearchViewController: BaseViewController, UITableViewDelegate,UITableViewD
         //let selectedCell:UITableViewCell = tableView.cellForRowAtIndexPath(indexPath)!
         //selectedCell.contentView.backgroundColor = UIColor.clearColor()
     }
+}
+
+extension SearchViewController: UISearchBarDelegate {
     
-    // if tableView is set in attribute inspector with selection to multiple Selection it should work.
-    
-    // Just set it back in deselect
-    
-    func tableView(tableView: UITableView, didDeselectRowAtIndexPath indexPath: NSIndexPath) {
-        // let cellToDeSelect:UITableViewCell = tableView.cellForRowAtIndexPath(indexPath)!
-        //  cellToDeSelect.contentView.backgroundColor = UIColor.lightGrayColor()
+    func searchBarTextDidBeginEditing(searchBar: UISearchBar) {
+        searchBar.showsCancelButton = true
+        
+        for subview: UIView in ((searchBar.subviews[0] )).subviews {
+            
+            if let btn = subview as? UIButton {
+                btn.setTitleColor(UIColor.mixrLightGray(), forState: .Normal)
+            }
+        }
     }
     
-    //  MARK:- Searchbar Delegate -
-    func searchBar(searchBar: UISearchBar, textDidChange searchText: String)
-    {
-        self.searchingArray.removeAllObjects()
-        self.usersArray.removeAllObjects()
-        
-        if searchBar.text!.isEmpty
-        {
-            is_searching = true
-            tableView.reloadData()
-        }
-        else
-        {
-            print("search text %@ ",searchBar.text! as NSString)
-            is_searching = false
-            searchingArray.removeAllObjects()
-            //let temp = self.searchBarObj.text
-            self.loadSearchData()
-            
-            return;
-            /*
-            print(self.usersArray)
-            
-            var tempArray : NSMutableArray = []
-            
-            let resultPredicate : NSPredicate = NSPredicate(format: "title contains[c] %@ || subtitle contains[c] %@",searchBar.text! as NSString,searchBar.text! as NSString)
-            let searchResults = self.usersArray.filteredArrayUsingPredicate(resultPredicate)
-            self.searchingArray = NSMutableArray(array: searchResults)
-            
-            print("seaarching array \(self.searchingArray)")
-            
-            tableView.reloadData()
-             */
-        }
+    func searchBarTextDidEndEditing(searchBar: UISearchBar) {
+        searchBar.showsCancelButton = false
+    }
+    
+    func searchBarSearchButtonClicked(searchBar: UISearchBar) {
+        searchBar.resignFirstResponder()
+    }
+    
+    func searchBarCancelButtonClicked(searchBar: UISearchBar) {
+        searchBar.resignFirstResponder()
     }
 }
