@@ -727,7 +727,7 @@
                     <tabBarItem key="tabBarItem" title="Venue Feed" image="venu_tab.png" id="acW-dT-cKf"/>
                     <toolbarItems/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="mOs-Fh-xjp">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="mOs-Fh-xjp">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="tintColor" red="0.035294117649999998" green="0.035294117649999998" blue="0.035294117649999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -783,7 +783,7 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="oMK-uV-76d" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Map" image="locationtab.png" id="cPa-gy-q4n"/>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="r1n-BL-oMb">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="r1n-BL-oMb">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
