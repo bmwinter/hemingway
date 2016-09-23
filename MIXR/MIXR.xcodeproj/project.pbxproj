@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0C3E0A611D937F9B00EBACE4 /* PromotionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C3E0A601D937F9B00EBACE4 /* PromotionModel.swift */; };
 		0C5AC26F1D6BEE9300F19672 /* PromotionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C5AC26E1D6BEE9300F19672 /* PromotionsViewController.swift */; };
 		0C5AC2721D6BF0B200F19672 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C5AC2711D6BF0B200F19672 /* Colors.swift */; };
 		0C5AC2741D6BF0BC00F19672 /* Fonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C5AC2731D6BF0BC00F19672 /* Fonts.swift */; };
@@ -179,7 +180,7 @@
 		5C6DF59D1C3000AE00F2910B /* Specials.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C6DF59C1C3000AE00F2910B /* Specials.swift */; };
 		5C6E2C4A1BC90B940036259A /* DatePickerDialog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C6E2C491BC90B940036259A /* DatePickerDialog.swift */; };
 		5C92A1441BC5785A00EB6B9E /* User.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5C92A1431BC5785A00EB6B9E /* User.storyboard */; };
-		5CF4687E1C0E8ABD007F87AA /* PromotionDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CF4687C1C0E8ABD007F87AA /* PromotionDetail.swift */; };
+		5CF4687E1C0E8ABD007F87AA /* PromotionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CF4687C1C0E8ABD007F87AA /* PromotionViewController.swift */; };
 		5CF4687F1C0E8ABD007F87AA /* Notifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CF4687D1C0E8ABD007F87AA /* Notifications.swift */; };
 		5CF468811C0E8B0C007F87AA /* NotificationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CF468801C0E8B0C007F87AA /* NotificationCell.swift */; };
 		5CF468831C0E8B3B007F87AA /* PromotionsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CF468821C0E8B3B007F87AA /* PromotionsCell.swift */; };
@@ -206,6 +207,7 @@
 
 /* Begin PBXFileReference section */
 		051D90BDBA721D3432D3C2E3 /* Pods_MIXR.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MIXR.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		0C3E0A601D937F9B00EBACE4 /* PromotionModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PromotionModel.swift; sourceTree = "<group>"; };
 		0C5AC26E1D6BEE9300F19672 /* PromotionsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PromotionsViewController.swift; sourceTree = "<group>"; };
 		0C5AC2711D6BF0B200F19672 /* Colors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Colors.swift; path = "MIXR Styles/Colors.swift"; sourceTree = "<group>"; };
 		0C5AC2731D6BF0BC00F19672 /* Fonts.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Fonts.swift; path = "MIXR Styles/Fonts.swift"; sourceTree = "<group>"; };
@@ -379,7 +381,7 @@
 		5C6DF59C1C3000AE00F2910B /* Specials.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Specials.swift; sourceTree = "<group>"; };
 		5C6E2C491BC90B940036259A /* DatePickerDialog.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DatePickerDialog.swift; sourceTree = "<group>"; };
 		5C92A1431BC5785A00EB6B9E /* User.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = User.storyboard; sourceTree = "<group>"; };
-		5CF4687C1C0E8ABD007F87AA /* PromotionDetail.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PromotionDetail.swift; sourceTree = "<group>"; };
+		5CF4687C1C0E8ABD007F87AA /* PromotionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PromotionViewController.swift; sourceTree = "<group>"; };
 		5CF4687D1C0E8ABD007F87AA /* Notifications.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Notifications.swift; sourceTree = "<group>"; };
 		5CF468801C0E8B0C007F87AA /* NotificationCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationCell.swift; sourceTree = "<group>"; };
 		5CF468821C0E8B3B007F87AA /* PromotionsCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PromotionsCell.swift; sourceTree = "<group>"; };
@@ -778,6 +780,7 @@
 				5C6DF59C1C3000AE00F2910B /* Specials.swift */,
 				0C64EDED1D48037100DAE12D /* Venue.swift */,
 				0C64EDEF1D48082300DAE12D /* Location.swift */,
+				0C3E0A601D937F9B00EBACE4 /* PromotionModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -849,7 +852,7 @@
 				5C218AC11BEA769800F7DA82 /* ChangePassword.swift */,
 				5C218AC31BEA7EA900F7DA82 /* SMSVerification.swift */,
 				5C1F05D31C2561840036830D /* ForgotPassword.swift */,
-				5CF4687C1C0E8ABD007F87AA /* PromotionDetail.swift */,
+				5CF4687C1C0E8ABD007F87AA /* PromotionViewController.swift */,
 				5CF4687D1C0E8ABD007F87AA /* Notifications.swift */,
 				5C4BAE841C674FB7009A6BDC /* RecoverPassword.swift */,
 				5C586DF01C6EE77900169A7E /* VenueSelection.swift */,
@@ -1218,7 +1221,7 @@
 				154E6E831C7C82F400B00CB4 /* FollowingRequestCell.swift in Sources */,
 				0C64EDDF1D47F7D800DAE12D /* PostViewController.swift in Sources */,
 				0C64EDD61D47F7D800DAE12D /* FullScreenImageViewController.swift in Sources */,
-				5CF4687E1C0E8ABD007F87AA /* PromotionDetail.swift in Sources */,
+				5CF4687E1C0E8ABD007F87AA /* PromotionViewController.swift in Sources */,
 				5C520FE01C54FA9600299990 /* ALPermissionsView.swift in Sources */,
 				0C64EDD71D47F7D800DAE12D /* LoginViewController.swift in Sources */,
 				5C520FE71C54FE4D00299990 /* DOAlertController.swift in Sources */,
@@ -1244,6 +1247,7 @@
 				0C64EDD91D47F7D800DAE12D /* MapNavigationController.swift in Sources */,
 				5C520FD81C54FA9600299990 /* ALCameraViewController.swift in Sources */,
 				5C520FDE1C54FA9600299990 /* ALCropOverlay.swift in Sources */,
+				0C3E0A611D937F9B00EBACE4 /* PromotionModel.swift in Sources */,
 				5C520FD51C54FA9600299990 /* ALImageExtensions.swift in Sources */,
 				0C64EDDE1D47F7D800DAE12D /* PersonalProfileViewController.swift in Sources */,
 				0C64EDE21D47F7D800DAE12D /* RecentPhotoVideoController.swift in Sources */,
@@ -1463,6 +1467,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.mixr.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 2.3;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MIXR.app/MIXR";
 			};
 			name = Debug;
@@ -1480,6 +1485,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.mixr.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 2.3;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MIXR.app/MIXR";
 			};
 			name = Release;
