@@ -9,9 +9,11 @@
 import Alamofire
 import SwiftyJSON
 
-class RecoverPassword: UITableViewController {
+import SpringIndicator
+
+class RecoverPassword: UITableViewController, SpringIndicatorTrait {
     
-    
+    var springIndicator: SpringIndicator?
     
     @IBOutlet weak var phoneNo: UITextField!
     @IBOutlet weak var verificationCode: UITextField!
@@ -19,18 +21,41 @@ class RecoverPassword: UITableViewController {
     @IBOutlet weak var confirmNewPassword: UITextField!
     @IBOutlet weak var doneButton: UIButton!
     
-    var phoneNumber:NSString!
+    var phoneNumber: NSString!
     
+    var phoneNumberString: String {
+        switch phoneNo.text {
+        case .Some(let value):
+            return value
+        case .None:
+            return ""
+        }
+    }
+    
+    var verificationCodeString: String {
+        switch verificationCode.text {
+        case .Some(let value):
+            return value
+        case .None:
+            return ""
+        }
+    }
+    
+    var passwordString: String {
+        switch newPassword.text {
+        case .Some(let value):
+            return value
+        case .None:
+            return ""
+        }
+    }
     
     override func viewDidLoad() {
-
+        super.viewDidLoad()
         self.phoneNo?.userInteractionEnabled = false
         self.phoneNo?.text = self.phoneNumber as String
         
         self.tableView.backgroundView = UIImageView(image: UIImage(named: "BG"))
-//        self.title = "Recover Password"
-        
-        // Do any additional setup after loading the view, typically from a nib.
     }
 
     @IBAction func doneButtonTapped (sender:AnyObject){
@@ -82,86 +107,64 @@ class RecoverPassword: UITableViewController {
         return (password == conformPassword)
     }
 
-    
-    /*
-    // Common alert method need to be used to display alert, by passing alert string as parameter to it.
-    */
-    
-    func displayCommonAlert(alertMesage : NSString){
-        
-        let alertController = UIAlertController (title: globalConstants.kAppName, message: alertMesage as String?, preferredStyle:.Alert)
-        let okayAction: UIAlertAction = UIAlertAction(title: "Ok", style: .Cancel) { action -> Void in
-            //Just dismiss the action sheet
-        }
-        alertController.addAction(okayAction)
-        self.presentViewController(alertController, animated: true, completion: nil)
-    }
-
 
     /*
     // recoverPassword used to send email to user to reset the password
     */
     
-    func recoverPasswordUpdate(){
-        let parameters = [
-            "phone_number": self.phoneNo.text!.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet()),
-            "code":self.verificationCode.text!.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet()),
-            "password":self.newPassword.text!.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
-        ]
+    func recoverPasswordUpdate() {
         
-        let URL =  globalConstants.kAPIURL + globalConstants.kPasswordRecoverChange
+        APIManager.sharedInstance.recoverPasswordWithConfirmationCode(verificationCodeString,
+                                                                      phoneNumber: phoneNumberString,
+                                                                      password: passwordString,
+                                                                      success: { [weak self] (response) in
+                                                                        if !(response["confirmation"].object is NSNull) {
+                                                                            self?.navigationController?.popToRootViewControllerAnimated(true)
+                                                                        }
+            }, failure: nil)
         
-        let appDelegate=AppDelegate() //You create a new instance,not get the exist one
-        appDelegate.startAnimation((self.navigationController?.view)!)
-
-        Alamofire.request(.POST, URL , parameters: parameters, encoding: .JSON)
-            .responseString { response in
-                
-                appDelegate.stopAnimation()
-                guard let value = response.result.value else {
-                    print("Error: did not receive data")
-                    return
-                }
-                
-                guard response.result.error == nil else {
-                    print("error calling POST")
-                    print(response.result.error)
-                    return
-                }
-                
-
-                let post = JSON(value)
-                if let string = post.rawString() {
-                    let responseDic:[String:AnyObject]? = self.convertStringToDictionary(string)
-                    
-                    if response.response?.statusCode == 400{
-                        print("The Response Error is:   \(response.response?.statusCode)")
-                        if let errorData = responseDic?["detail"] {
-                            //let errorMessage = errorData[0] as! String
-                            let errorMessage = (errorData as? NSArray)?[0] as! String
-                            self.displayCommonAlert(errorMessage)
-                            return;
-                        }
-                    }
-                    
-                    if let tokenData = responseDic?["confirmation"] {
-                        self.navigationController?.popToRootViewControllerAnimated(true)
-                    }
-                }
-        }
-    }
-    
-    //MARK: convertStringObject to Dictionary
-    
-    func convertStringToDictionary(text:String) -> [String:AnyObject]? {
-        if let data = text.dataUsingEncoding(NSUTF8StringEncoding) {
-            do {
-                return try NSJSONSerialization.JSONObjectWithData(data, options: []) as? [String:AnyObject]
-            } catch let error as NSError {
-                print(error)
-            }
-        }
-        return nil
+//        let parameters = [
+//            "phone_number": self.phoneNo.text!.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet()),
+//            "code":self.verificationCode.text!.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet()),
+//            "password":self.newPassword.text!.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
+//        ]
+        
+//        let URL =  globalConstants.kAPIURL + globalConstants.kPasswordRecoverChange
+//
+//        Alamofire.request(.POST, URL , parameters: parameters, encoding: .JSON)
+//            .responseString { response in
+//                
+//                guard let value = response.result.value else {
+//                    print("Error: did not receive data")
+//                    return
+//                }
+//                
+//                guard response.result.error == nil else {
+//                    print("error calling POST")
+//                    print(response.result.error)
+//                    return
+//                }
+//                
+//
+//                let post = JSON(value)
+//                if let string = post.rawString() {
+//                    let responseDic:[String:AnyObject]? = self.convertStringToDictionary(string)
+//                    
+//                    if response.response?.statusCode == 400{
+//                        print("The Response Error is:   \(response.response?.statusCode)")
+//                        if let errorData = responseDic?["detail"] {
+//                            //let errorMessage = errorData[0] as! String
+//                            let errorMessage = (errorData as? NSArray)?[0] as! String
+//                            self.displayCommonAlert(errorMessage)
+//                            return;
+//                        }
+//                    }
+//                    
+//                    if let tokenData = responseDic?["confirmation"] {
+//                        self.navigationController?.popToRootViewControllerAnimated(true)
+//                    }
+//                }
+//        }
     }
 
     /*

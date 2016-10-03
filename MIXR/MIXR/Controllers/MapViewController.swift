@@ -34,45 +34,65 @@ class MapViewController: BaseViewController {
     
     func loadMapData() {
         
-        let URL =  globalConstants.kAPIURL + globalConstants.kVenueCoordinatesAPIEndPoint
-        
-        Alamofire.request(.GET, URL , encoding: .JSON)
-            .responseJSON { response in
-                guard let value = response.result.value else {
-                    print("Error: did not receive data")
-                    return
-                }
+        APIManager.sharedInstance.getAllVenueCoordinates({ [weak self] (response) in
+            for subJson in response.arrayValue {
+                let venue = Venue(venue: subJson.dictionaryObject ?? [:])
                 
-                guard response.result.error == nil else {
-                    print("error calling POST")
-                    print(response.result.error)
-                    return
-                }
+                let name = venue.name
+                let address = venue.location?.address
+                let longitude = venue.location?.longitude
+                let latitude = venue.location?.latitude
                 
-                
-                let json = JSON(response.result.value!)
-              
-                for (_, subJson): (String, JSON) in json {
-                  let venue = Venue(venue: subJson.dictionaryObject!)
-                
-                  let name = venue.name
-                  let address = venue.location?.address
-                  let longitude = venue.location?.longitude
-                  let latitude = venue.location?.latitude
-                
-                  if let long = longitude, let lat = latitude {
+                if let long = longitude, let lat = latitude {
                     let coordinate = CLLocationCoordinate2D(latitude: lat, longitude: long)
                     let point = MGLPointAnnotation()
                     point.coordinate = coordinate
                     point.title = name
                     point.subtitle = address
-                    self.mapView.addAnnotation(point)
-                  }
-                  
+                    self?.mapView.addAnnotation(point)
                 }
-                
-                print("Response String:")
-        }
+            }
+        }, failure: nil)
+        
+//        let URL =  globalConstants.kAPIURL + globalConstants.kVenueCoordinatesAPIEndPoint
+//        
+//        Alamofire.request(.GET, URL , encoding: .JSON)
+//            .responseJSON { response in
+//                guard let value = response.result.value else {
+//                    print("Error: did not receive data")
+//                    return
+//                }
+//                
+//                guard response.result.error == nil else {
+//                    print("error calling POST")
+//                    print(response.result.error)
+//                    return
+//                }
+//                
+//                
+//                let json = JSON(response.result.value!)
+//              
+//                for (_, subJson): (String, JSON) in json {
+//                  let venue = Venue(venue: subJson.dictionaryObject!)
+//                
+//                  let name = venue.name
+//                  let address = venue.location?.address
+//                  let longitude = venue.location?.longitude
+//                  let latitude = venue.location?.latitude
+//                
+//                  if let long = longitude, let lat = latitude {
+//                    let coordinate = CLLocationCoordinate2D(latitude: lat, longitude: long)
+//                    let point = MGLPointAnnotation()
+//                    point.coordinate = coordinate
+//                    point.title = name
+//                    point.subtitle = address
+//                    self.mapView.addAnnotation(point)
+//                  }
+//                  
+//                }
+//                
+//                print("Response String:")
+//        }
     }
 }
 

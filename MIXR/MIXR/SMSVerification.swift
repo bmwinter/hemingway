@@ -10,14 +10,17 @@ import UIKit
 import Alamofire
 import SwiftyJSON
 
+import SpringIndicator
 
 class SMSVerification: UITableViewController {
     
     @IBOutlet weak var phoneInput: UITextField!
     @IBOutlet weak var btnDone: UIBarButtonItem!
-    var phoneNumber: NSString?
+    var phoneNumber: String?
     var verificationCode: NSString?
+    
     override func viewDidLoad() {
+        super.viewDidLoad()
         
         self.navigationItem.backBarButtonItem = UIBarButtonItem(title:"", style:.Plain, target:nil, action:nil)
 
@@ -27,8 +30,6 @@ class SMSVerification: UITableViewController {
         self.phoneInput?.text = ""
         
         self.title = "Verify"
-        // Do any additional setup after loading the view, typically from a nib.
-        
     }
 
     override func viewWillAppear(animated: Bool) {
@@ -65,115 +66,127 @@ class SMSVerification: UITableViewController {
     */
     
     func getVerificationCode(){
-        let appDelegate=AppDelegate() //You create a new instance,not get the exist one
-        appDelegate.startAnimation((self.navigationController?.view)!)
-
-        let parameters = [
-            "phone_number": self.phoneNumber as! AnyObject
-        ]
-        //self.phoneInput.text!.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet()),
         
-        let URL =  globalConstants.kAPIURL + globalConstants.kGetVerificationCode
+        APIManager.sharedInstance.getVerificationCode(phoneNumber: phoneNumber ?? "",
+                                                      success: { [weak self] (response) in
+                                                        self?.verificationCode = response["token"].string
+            }, failure: { (error) in
+                
+        })
         
-        Alamofire.request(.POST, URL , parameters: parameters, encoding: .JSON)
-            .responseString { response in
-                
-                appDelegate.stopAnimation()
-                guard let value = response.result.value else {
-                    print("Error: did not receive data")
-                    return
-                }
-                
-                guard response.result.error == nil else {
-                    print("error calling POST")
-                    print(response.result.error)
-                    return
-                }
-                
-
-                let post = JSON(value)
-                print("The post is: " + post.description)
-                
-                if let string = post.rawString() {
-                    let responseDic:[String:AnyObject]? = self.convertStringToDictionary(string)
-                    
-                    if response.response?.statusCode == 400{
-                        print("The Response Error is:   \(response.response?.statusCode)")
-                        if let errorData = responseDic?["detail"] {
-                            //let errorMessage = errorData[0] as! String
-                            let errorMessage = (errorData as? NSArray)?[0] as! String
-                            self.displayCommonAlert(errorMessage)
-                            return;
-                        }
-                    }
-                    
-                    if let tokenData = responseDic?["code"] {
-                        self.verificationCode = tokenData as! String
-                        print(self.verificationCode)
-                    }
-                }
-        }
+//        let URL =  globalConstants.kAPIURL + globalConstants.kGetVerificationCode
+//        
+//        Alamofire.request(.POST, URL , parameters: parameters, encoding: .JSON)
+//            .responseString { [weak self] response in
+//                guard let `self` = self else { return }
+//                self.stopAnimatingSpringIndicator()
+//                
+//                guard let value = response.result.value else {
+//                    print("Error: did not receive data")
+//                    return
+//                }
+//                
+//                guard response.result.error == nil else {
+//                    print("error calling POST")
+//                    print(response.result.error)
+//                    return
+//                }
+//                
+//
+//                let post = JSON(value)
+//                print("The post is: " + post.description)
+//                
+//                if let string = post.rawString() {
+//                    let responseDic:[String:AnyObject]? = self.convertStringToDictionary(string)
+//                    
+//                    if response.response?.statusCode == 400{
+//                        print("The Response Error is:   \(response.response?.statusCode)")
+//                        if let errorData = responseDic?["detail"] {
+//                            //let errorMessage = errorData[0] as! String
+//                            let errorMessage = (errorData as? NSArray)?[0] as! String
+//                            self.displayCommonAlert(errorMessage)
+//                            return;
+//                        }
+//                    }
+//                    
+//                    if let tokenData = responseDic?["code"] {
+//                        self.verificationCode = tokenData as! String
+//                        print(self.verificationCode)
+//                    }
+//                }
+//        }
     }
 
     //MARK: Check Verification Code Function
     
     func checkVerificationCode(){
-        let appDelegate=AppDelegate() //You create a new instance,not get the exist one
-        appDelegate.startAnimation((self.navigationController?.view)!)
-
-        let parameters = [
-            "phone_number": self.phoneNumber as! String,
-            "code": self.phoneInput.text!.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())//"5626"
-            //phoneInput.text!.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet()),
-        ]
-        
-        let URL =  globalConstants.kAPIURL + globalConstants.kVerifyCodeAPIEndPoint
-        
-        Alamofire.request(.POST, URL , parameters: parameters, encoding: .JSON)
-            .responseString { response in
-                
-                appDelegate.stopAnimation()
-                guard let value = response.result.value else {
-                    print("Error: did not receive data")
-                    return
-                }
-                
-                guard response.result.error == nil else {
-                    print("error calling POST")
-                    print(response.result.error)
-                    return
-                }
-                
-                let post = JSON(value)
-                if let string = post.rawString() {
-                    let responseDic:[String:AnyObject]? = self.convertStringToDictionary(string)
-                    
-                    if response.response?.statusCode == 400{
-                        print("The Response Error is:   \(response.response?.statusCode)")
-                        if let errorData = responseDic?["detail"] {
-                            //let errorMessage = errorData[0] as! String
-                            let errorMessage = (errorData as? NSArray)?[0] as! String
-                            self.displayCommonAlert(errorMessage)
-                            return;
-                        }
-                    }
-                    
-                    if let tokenData = responseDic?["code"] {
-                        self.performSignUp()
-                        self.verificationCode = tokenData as! String
-                        print(self.verificationCode)
-                    }
-                }
+        if let phoneNumber = phoneNumber, code = phoneInput.text {
+            APIManager.sharedInstance.confirmVerificationCode(phoneNumber: phoneNumber,
+                                                              code: code,
+                                                              success: { [weak self] (response) in
+                                                                if let token = response["code"].string {
+                                                                    self?.verificationCode = token
+                                                                    self?.performSignUp()
+                                                                }
+                }, failure: nil)
         }
+//        let parameters = [
+//            "phone_number": self.phoneNumber as! String,
+//            "code": self.phoneInput.text!.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())//"5626"
+//            //phoneInput.text!.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet()),
+//        ]
+//        
+//        let URL =  globalConstants.kAPIURL + globalConstants.kVerifyCodeAPIEndPoint
+//        
+//        Alamofire.request(.POST, URL , parameters: parameters, encoding: .JSON)
+//            .responseString { response in
+//                guard let value = response.result.value else {
+//                    print("Error: did not receive data")
+//                    return
+//                }
+//                
+//                guard response.result.error == nil else {
+//                    print("error calling POST")
+//                    print(response.result.error)
+//                    return
+//                }
+//                
+//                let post = JSON(value)
+//                if let string = post.rawString() {
+//                    let responseDic:[String:AnyObject]? = self.convertStringToDictionary(string)
+//                    
+//                    if response.response?.statusCode == 400{
+//                        print("The Response Error is:   \(response.response?.statusCode)")
+//                        if let errorData = responseDic?["detail"] {
+//                            //let errorMessage = errorData[0] as! String
+//                            let errorMessage = (errorData as? NSArray)?[0] as! String
+//                            self.displayCommonAlert(errorMessage)
+//                            return;
+//                        }
+//                    }
+//                    
+//                    if let tokenData = responseDic?["code"] {
+//                        self.performSignUp()
+//                        self.verificationCode = tokenData as! String
+//                        print(self.verificationCode)
+//                    }
+//                }
+//        }
     }
     
     /*
     // performLoginAction used to Call the Login API & store logged in user's data in NSUserDefault
     */
     
-    func performSignUp(){
+    func performSignUp() {
+        if let parameters = NSUserDefaults.standardUserDefaults().objectForKey("UserInfo") as? [String: AnyObject] {
+            APIManager.sharedInstance.signUp(withParams: parameters, success: { [weak self] (response) in
+                if let _ = response["email"].string {
+                    self?.navigationController?.popToRootViewControllerAnimated(true)
+                }
+                }, failure: nil)
+        }
         
-        let parameters = NSUserDefaults.standardUserDefaults().objectForKey("UserInfo") as?[String:AnyObject]
 
         //        let parameters = [
         //            "first_name": "test",
@@ -185,78 +198,43 @@ class SMSVerification: UITableViewController {
         //        ]
         
         
-        let URL =  globalConstants.kAPIURL + globalConstants.kSignUpAPIEndPoint
-        
-        let appDelegate=AppDelegate() //You create a new instance,not get the exist one
-        appDelegate.startAnimation((self.navigationController?.view)!)
-        
-        Alamofire.request(.POST, URL , parameters: parameters, encoding: .JSON)
-            .responseString { response in
-                
-                appDelegate.stopAnimation()
-                guard let value = response.result.value else {
-                    print("Error: did not receive data")
-                    return
-                }
-                
-                guard response.result.error == nil else {
-                    print("error calling POST on SignUp")
-                    print(response.result.error)
-                    return
-                }
-                
-                
-                let post = JSON(value)
-                if let string = post.rawString() {
-                    let responseDic:[String:AnyObject]? = self.convertStringToDictionary(string)
-                    
-                    if response.response?.statusCode == 400{
-                        print("The Response Error is:   \(response.response?.statusCode)")
-                        if let errorData = responseDic?["detail"] {
-                            //let errorMessage = errorData[0] as! String
-                            let errorMessage = (errorData as? NSArray)?[0] as! String
-                            self.displayCommonAlert(errorMessage)
-                            return;
-                        }
-                    }
-                    
-                    if (responseDic?["email"]) != nil
-                    {
-                        self.navigationController?.popToRootViewControllerAnimated(true)
-                    }
-                }
-        }
+//        let URL =  globalConstants.kAPIURL + globalConstants.kSignUpAPIEndPoint
+//        
+//        Alamofire.request(.POST, URL , parameters: parameters, encoding: .JSON)
+//            .responseString { response in
+//                guard let value = response.result.value else {
+//                    print("Error: did not receive data")
+//                    return
+//                }
+//                
+//                guard response.result.error == nil else {
+//                    print("error calling POST on SignUp")
+//                    print(response.result.error)
+//                    return
+//                }
+//                
+//                
+//                let post = JSON(value)
+//                if let string = post.rawString() {
+//                    let responseDic:[String:AnyObject]? = self.convertStringToDictionary(string)
+//                    
+//                    if response.response?.statusCode == 400{
+//                        print("The Response Error is:   \(response.response?.statusCode)")
+//                        if let errorData = responseDic?["detail"] {
+//                            //let errorMessage = errorData[0] as! String
+//                            let errorMessage = (errorData as? NSArray)?[0] as! String
+//                            self.displayCommonAlert(errorMessage)
+//                            return;
+//                        }
+//                    }
+//                    
+//                    if (responseDic?["email"]) != nil
+//                    {
+//                        self.navigationController?.popToRootViewControllerAnimated(true)
+//                    }
+//                }
+//        }
     }
-
-    
-    //MARK: convertStringObject to Dictionary
-    
-    func convertStringToDictionary(text:String) -> [String:AnyObject]? {
-        if let data = text.dataUsingEncoding(NSUTF8StringEncoding) {
-            do {
-                return try NSJSONSerialization.JSONObjectWithData(data, options: []) as? [String:AnyObject]
-            } catch let error as NSError {
-                print(error)
-            }
-        }
-        return nil
-    }
-
-    /*
-    // Common alert method need to be used to display alert, by passing alert string as parameter to it.
-    */
-    
-    func displayCommonAlert(alertMesage : NSString){
-        
-        let alertController = UIAlertController (title: globalConstants.kAppName, message: alertMesage as String?, preferredStyle:.Alert)
-        let okayAction: UIAlertAction = UIAlertAction(title: "Ok", style: .Cancel) { action -> Void in
-            //Just dismiss the action sheet
-        }
-        alertController.addAction(okayAction)
-        self.presentViewController(alertController, animated: true, completion: nil)
-    }
-    
-
     
     /*
     // Table View delegate methods

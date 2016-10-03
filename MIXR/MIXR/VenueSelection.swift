@@ -14,102 +14,9 @@ import MediaPlayer
 import Alamofire
 import SwiftyJSON
 
-extension UIImage {
-    var fixedOrientation: UIImage {
-        if self.imageOrientation == .Up {
-            return self
-        }
-        
-        var transform: CGAffineTransform = CGAffineTransformIdentity
-        
-        switch (self.imageOrientation) {
-        case .Down:
-            transform = CGAffineTransformTranslate(transform, self.size.width, self.size.width)
-            transform = CGAffineTransformRotate(transform, CGFloat(M_PI))
-            break
-        case .DownMirrored:
-            transform = CGAffineTransformTranslate(transform, self.size.width, self.size.width)
-            transform = CGAffineTransformRotate(transform, CGFloat(M_PI))
-            break
-        case .Left:
-            transform = CGAffineTransformTranslate(transform, self.size.width, 0)
-            transform = CGAffineTransformRotate(transform, CGFloat(M_PI_2))
-            break
-        case .LeftMirrored:
-            transform = CGAffineTransformTranslate(transform, self.size.width, 0)
-            transform = CGAffineTransformRotate(transform, CGFloat(M_PI_2))
-            break
-        case .Right:
-            transform = CGAffineTransformTranslate(transform, 0, self.size.height)
-            transform = CGAffineTransformRotate(transform, CGFloat(-M_PI_2))
-            break
-        case .RightMirrored:
-            transform = CGAffineTransformTranslate(transform, 0, self.size.height)
-            transform = CGAffineTransformRotate(transform, CGFloat(-M_PI_2))
-            break
-        case .Up:
-            break
-        case .UpMirrored:
-            break
-        }
-        
-        switch (self.imageOrientation) {
-        case .UpMirrored:
-            transform = CGAffineTransformTranslate(transform, self.size.width, 0)
-            transform = CGAffineTransformScale(transform, -1, 1)
-            break;
-        case .DownMirrored:
-            transform = CGAffineTransformTranslate(transform, self.size.width, 0)
-            transform = CGAffineTransformScale(transform, -1, 1)
-            break;
-        case .LeftMirrored:
-            transform = CGAffineTransformTranslate(transform, self.size.height, 0)
-            transform = CGAffineTransformScale(transform, -1, 1)
-            break
-        case .RightMirrored:
-            transform = CGAffineTransformTranslate(transform, self.size.height, 0)
-            transform = CGAffineTransformScale(transform, -1, 1)
-            break
-        case .Up:
-            break
-        case .Right:
-            break
-        case .Down:
-            break
-        case .Left:
-            break
-        }
-        
-        let context = CGBitmapContextCreate(nil, Int(self.size.width), Int(self.size.height), CGImageGetBitsPerComponent(self.CGImage!), 0, CGImageGetColorSpace(self.CGImage!)!, CGImageGetBitmapInfo(self.CGImage!).rawValue)!
-        CGContextConcatCTM(context, transform)
-        
-        switch (self.imageOrientation) {
-        case .Left:
-            CGContextDrawImage(context, CGRectMake(0, 0, self.size.height, self.size.width), self.CGImage!)
-            break
-        case .LeftMirrored:
-            CGContextDrawImage(context, CGRectMake(0, 0, self.size.height, self.size.width), self.CGImage!)
-            break
-        case .Right:
-            CGContextDrawImage(context, CGRectMake(0, 0, self.size.height, self.size.width), self.CGImage!)
-            break
-        case .RightMirrored:
-            CGContextDrawImage(context, CGRectMake(0, 0, self.size.height, self.size.width), self.CGImage!)
-            break
-        default:
-            CGContextDrawImage(context, CGRectMake(0, 0, self.size.width, self.size.height), self.CGImage!)
-            break
-        }
-        
-        let cgImage = CGBitmapContextCreateImage(context)
-        let uiImage = UIImage.init(CGImage: cgImage!)
-        
-        return uiImage
-    }
-}
+import SpringIndicator
 
-
-class VenueSelection : UIViewController,UIGestureRecognizerDelegate {
+class VenueSelection : UIViewController, SpringIndicatorTrait {
     @IBOutlet weak var capturedImage: UIImageView!
     @IBOutlet weak var videoIcon: UIImageView!
     var isVideo: Bool!
@@ -120,7 +27,7 @@ class VenueSelection : UIViewController,UIGestureRecognizerDelegate {
     
     var menuView: BTNavigationDropdownMenu!
     
-    
+    var springIndicator: SpringIndicator?
     
     func videoHasFinishedPlaying(notification: NSNotification){
         
@@ -215,10 +122,7 @@ class VenueSelection : UIViewController,UIGestureRecognizerDelegate {
 
         self.navigationItem.backBarButtonItem = UIBarButtonItem(title:"", style:.Plain, target:nil, action:nil)
 
-        
         self.addtapGesture()
-
-        // Do any additional setup after loading the view, typically from a nib.
     }
     
     // MARK : Load the Venue data from top navigation bar
@@ -256,24 +160,6 @@ class VenueSelection : UIViewController,UIGestureRecognizerDelegate {
             self.selectedVenueInfo = self.venuesArray[indexPath] as! NSMutableDictionary
         }
         self.navigationItem.titleView = menuView
-    }
-    
-    // MARK : Add Tap Gesture to ImageView
-    func addtapGesture(){
-        let tap = UITapGestureRecognizer(target: self, action: #selector(VenueSelection.handleTapEvent(_:)))
-        // we use our delegate
-        tap.delegate = self
-        // allow for user interaction
-        self.capturedImage.userInteractionEnabled = true
-        // add tap as a gestureRecognizer to tapView
-        self.capturedImage.addGestureRecognizer(tap)
-    }
-    
-    func handleTapEvent(sender: UITapGestureRecognizer? = nil) {
-        // just creating an alert to prove our tap worked!
-        if self.isVideo == true {
-            self.startPlayingVideo()
-        }
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -324,115 +210,88 @@ class VenueSelection : UIViewController,UIGestureRecognizerDelegate {
         
         self.venuesArray.removeAllObjects()
         
-        let appDelegate=AppDelegate() //You create a new instance,not get the exist one
-        appDelegate.startAnimation((self.navigationController?.view)!)
+        startAnimatingSpringIndicator()
         
-        var tokenString = "token "
-        if let appToken =  NSUserDefaults.standardUserDefaults().objectForKey("LoginToken") as? String
-        {
-            tokenString +=  appToken
-            
-            let URL =  globalConstants.kAPIURL + globalConstants.kGetVenuesList
-            
-            let headers = [
-                "Authorization": tokenString,
-                ]
-            
-            Alamofire.request(.GET, URL , parameters: nil, encoding: .JSON, headers : headers)
-                .responseString { response in
-                    
-                    print("response \(response)")
-                    appDelegate.stopAnimation()
-                    guard let value = response.result.value else
-                    {
-                        print("Error: did not receive data")
-                        return
-                    }
-                    
-                    guard response.result.error == nil else
-                    {
-                        print("error calling POST on Login")
-                        print(response.result.error)
-                        return
-                    }
-                    
-                    
-                    let post = JSON(value)
-                    if let string = post.rawString()
-                    {
-                        if (response.response?.statusCode == 400 || response.response?.statusCode == 401)
-                        {
-                            let responseDic:[String:AnyObject]? = globalConstants.convertStringToDictionary(string)
-                            print("The Response Error is:   \(response.response?.statusCode)")
-                            
-                            if let val = responseDic?["code"]
-                            {
-                                if val[0].isEqualToString("13")
-                                {
-                                    //print("Equals")
-                                    //self.displayCommonAlert(responseDic?["detail"]?[0] as! String)
-                                    self.displayCommonAlert((responseDic?["detail"] as? NSArray)?[0] as! String)
-                                    return
-                                }
-                                // now val is not nil and the Optional has been unwrapped, so use it
-                            }
-                            
-                            if let errorData = responseDic?["detail"]
-                            {
-                                
-                                if let errorMessage = errorData as? String
-                                {
-                                    self.displayCommonAlert(errorMessage)
-                                    
-                                }
-                                else if let errorMessage = errorData as? NSArray
-                                {
-                                    if let errorMessageStr = errorMessage[0] as? String
-                                    {
-                                        self.displayCommonAlert(errorMessageStr)
-                                    }
-                                }
-                                return;
-                            }
-                        }
-                        else if (response.response?.statusCode == 200 || response.response?.statusCode == 201)
-                        {
-                            let responseArray:NSArray? = globalConstants.convertStringToArray(string)
-                            if let searchArray = responseArray as? NSMutableArray
-                            {
-                                self.venuesArray = searchArray.mutableCopy() as! NSMutableArray
-                                self.displayVenuesData()
-                            }
-                        }
-                        else
-                        {
-                        }
-                    }
+        APIManager.sharedInstance.getVenues({ [weak self] (response) in
+            if let arr = response.arrayObject {
+                self?.venuesArray = NSMutableArray(array: arr)
+                self?.displayVenuesData()
             }
-        }
-    }
-    
-    /*
-     // Common alert method need to be used to display alert, by passing alert string as parameter to it.
-     */
-    
-    func displayCommonAlert(alertMesage : NSString){
+            }, failure: { (error) in
+            
+        })
         
-        let alertController = UIAlertController (title: globalConstants.kAppName, message: alertMesage as String?, preferredStyle:.Alert)
-        let okayAction: UIAlertAction = UIAlertAction(title: "Ok", style: .Cancel) { action -> Void in
-            //Just dismiss the action sheet
-        }
-        alertController.addAction(okayAction)
-        self.presentViewController(alertController, animated: true, completion: nil)
+//        var tokenString = "token "
+//        if let appToken =  NSUserDefaults.standardUserDefaults().objectForKey("LoginToken") as? String
+//        {
+//            tokenString +=  appToken
+//            
+//            let URL =  globalConstants.kAPIURL + globalConstants.kGetVenuesList
+//            
+//            let headers = [
+//                "Authorization": tokenString,
+//                ]
+//            
+//            Alamofire.request(.GET, URL , parameters: nil, encoding: .JSON, headers : headers)
+//                .responseString { [weak self] response in
+//                guard let `self` = self else { return }
+//                
+//                self.stopAnimatingSpringIndicator()
+//                guard let value = response.result.value else {
+//                    print("Error: did not receive data")
+//                    return
+//                }
+//                
+//                guard response.result.error == nil else {
+//                    print("error calling POST on Login")
+//                    print(response.result.error)
+//                    return
+//                }
+//                
+//                let post = JSON(value)
+//                if let string = post.rawString() {
+//                    if (response.response?.statusCode == 400 || response.response?.statusCode == 401) {
+//                        let responseDic:[String:AnyObject]? = self.convertStringToDictionary(string)
+//                        print("The Response Error is:   \(response.response?.statusCode)")
+//                        
+//                        if let val = responseDic?["code"] {
+//                            if val[0].isEqualToString("13") {
+//                                //print("Equals")
+//                                //self.displayCommonAlert(responseDic?["detail"]?[0] as! String)
+//                                self.displayCommonAlert((responseDic?["detail"] as? NSArray)?[0] as! String)
+//                                return
+//                            }
+//                            // now val is not nil and the Optional has been unwrapped, so use it
+//                        }
+//                        
+//                        if let errorData = responseDic?["detail"] {
+//                            
+//                            if let errorMessage = errorData as? String {
+//                                self.displayCommonAlert(errorMessage)
+//                                
+//                            } else if let errorMessage = errorData as? NSArray {
+//                                if let errorMessageStr = errorMessage[0] as? String {
+//                                    self.displayCommonAlert(errorMessageStr)
+//                                }
+//                            }
+//                            return;
+//                        }
+//                    } else if (response.response?.statusCode == 200 || response.response?.statusCode == 201) {
+//                        let responseArray:NSArray? = globalConstants.convertStringToArray(string)
+//                        if let searchArray = responseArray as? NSMutableArray {
+//                            self.venuesArray = searchArray.mutableCopy() as! NSMutableArray
+//                            self.displayVenuesData()
+//                        }
+//                    }
+//                }
+//            }
+//        }
     }
-
 
     //MARK: Temp function to check upload file on server.
-    
-    func shareVenuePhotoVideo(){
-        
-        let appDelegate=AppDelegate() //You create a new instance,not get the exist one
-        appDelegate.startAnimation((self.navigationController?.view)!)
+    // MARK: still need to fix photo/video upload
+    func shareVenuePhotoVideo() {
+        startAnimatingSpringIndicator()
 
         let ID = self.selectedVenueInfo["venue_id"] as! Int
         let VenueID = String(ID)
@@ -454,16 +313,8 @@ class VenueSelection : UIViewController,UIGestureRecognizerDelegate {
         
         let manager = Manager.sharedInstance
         manager.session.configuration.HTTPAdditionalHeaders = headers
-
-//        Alamofire.Manager.sharedInstance.session.configuration.HTTPAdditionalHeaders?.updateValue(tokenString, forKey: "Authorization")
         
-//        Alamofire.Manager.sharedInstance.session.configuration
-//            .HTTPAdditionalHeaders?.updateValue("multipart/form-data",
-//                forKey: "Content-Type")
-
-        //    Alamofire.Manager.sharedInstance.session.configuration.HTTPAdditionalHeaders?.updateValue("attachment; filename=media_filename.png;", forKey: "Content-Disposition")
-
-        var dataPath:NSString
+        var dataPath: NSString
         
         if (self.isVideo == true){
             dataPath = globalConstants.getStoreImageVideoPath(globalConstants.kTempVideoFileName)
@@ -475,20 +326,11 @@ class VenueSelection : UIViewController,UIGestureRecognizerDelegate {
         Alamofire.upload(.POST, URL, multipartFormData: {
             multipartFormData in
             
-//            if let _image = image {
-//                if let imageData = UIImageJPEGRepresentation(_image, 0.5) {
-//                    multipartFormData.appendBodyPart(data: imageData, name: "file", fileName: "file.png", mimeType: "image/png")
-//                }
-//            }
-            
             if (self.isVideo == true){
                 multipartFormData.appendBodyPart(fileURL: NSURL(fileURLWithPath: dataPath as String), name: "file",fileName: globalConstants.kTempVideoFileName, mimeType: "video/mp4")
             }else{
                 multipartFormData.appendBodyPart(fileURL: NSURL(fileURLWithPath: dataPath as String), name: "file",fileName: globalConstants.kTempImageFileNmae, mimeType: "image/png")
-
-//                multipartFormData.appendBodyPart(fileURL: NSURL(fileURLWithPath: dataPath as String), name: "file",fileName: globalConstants.kTempImageFileNmae, mimeType:"binary/octet-stream")//"image/png"
             }
-//            multipartFormData.appendBodyPart(fileURL: NSURL(fileURLWithPath: dataPath), name: "video")
             
             for (key, value) in parameters {
                 multipartFormData.appendBodyPart(data: value.dataUsingEncoding(NSUTF8StringEncoding)!, name: key)
@@ -499,35 +341,29 @@ class VenueSelection : UIViewController,UIGestureRecognizerDelegate {
                 
                 switch encodingResult {
                 case .Success(let upload, _, _):
-                    upload.responseJSON { response in
-                        appDelegate.stopAnimation()
-                        debugPrint(response)
+                    upload.responseJSON { [weak self] response in
+                        guard let `self` = self else { return }
+                        self.stopAnimatingSpringIndicator()
 
-                        guard let value = response.result.value else
-                        {
+                        guard let value = response.result.value else {
                             print("Error: did not receive data")
                             return
                         }
                         
-                        guard response.result.error == nil else
-                        {
+                        guard response.result.error == nil else {
                             print("error calling POST on Login")
                             print(response.result.error)
                             return
                         }
                         
                         let post = JSON(value)
-                        if let string = post.rawString()
-                        {
-                            if (response.response?.statusCode == 400 || response.response?.statusCode == 401)
-                            {
-                                let responseDic:[String:AnyObject]? = globalConstants.convertStringToDictionary(string)
+                        if let string = post.rawString() {
+                            if (response.response?.statusCode == 400 || response.response?.statusCode == 401) {
+                                let responseDic:[String:AnyObject]? = self.convertStringToDictionary(string)
                                 print("The Response Error is:   \(response.response?.statusCode)")
                                 
-                                if let val = responseDic?["code"]
-                                {
-                                    if val[0].isEqualToString("13")
-                                    {
+                                if let val = responseDic?["code"] {
+                                    if val[0].isEqualToString("13") {
                                         //print("Equals")
                                         //self.displayCommonAlert(responseDic?["detail"]?[0] as! String)
                                         self.displayCommonAlert((responseDic?["detail"] as? NSArray)?[0] as! String)
@@ -536,43 +372,28 @@ class VenueSelection : UIViewController,UIGestureRecognizerDelegate {
                                     // now val is not nil and the Optional has been unwrapped, so use it
                                 }
                                 
-                                if let errorData = responseDic?["detail"]
-                                {
-                                    
-                                    if let errorMessage = errorData as? String
-                                    {
+                                if let errorData = responseDic?["detail"] {
+                                    if let errorMessage = errorData as? String {
                                         self.displayCommonAlert(errorMessage)
                                         
-                                    }
-                                    else if let errorMessage = errorData as? NSArray
-                                    {
-                                        if let errorMessageStr = errorMessage[0] as? String
-                                        {
+                                    } else if let errorMessage = errorData as? NSArray {
+                                        if let errorMessageStr = errorMessage[0] as? String {
                                             self.displayCommonAlert(errorMessageStr)
                                         }
                                     }
                                     return;
                                 }
-                            }
-                            else if (response.response?.statusCode == 200 || response.response?.statusCode == 201)
-                            {
-                                let responseDic:[String:AnyObject]? = globalConstants.convertStringToDictionary(string)
+                            } else if (response.response?.statusCode == 200 || response.response?.statusCode == 201) {
+                                let responseDic:[String:AnyObject]? = self.convertStringToDictionary(string)
                                 self.navigationController?.popViewControllerAnimated(true)
-                            }
-                            else
-                            {
-                                
                             }
                         }
                     }
                 case .Failure(let encodingError):
-                    appDelegate.stopAnimation()
+                    self.stopAnimatingSpringIndicator()
                     print(encodingError)
                 }
         })
-
-        
-        
     }
 
     
@@ -580,4 +401,24 @@ class VenueSelection : UIViewController,UIGestureRecognizerDelegate {
         self.shareVenuePhotoVideo()
     }
 
+}
+
+extension VenueSelection: UIGestureRecognizerDelegate {
+    func addtapGesture(){
+        let tap = UITapGestureRecognizer(target: self, action: #selector(VenueSelection.handleTapEvent(_:)))
+        // we use our delegate
+        tap.delegate = self
+        // allow for user interaction
+        self.capturedImage.userInteractionEnabled = true
+        // add tap as a gestureRecognizer to tapView
+        self.capturedImage.addGestureRecognizer(tap)
+    }
+    
+    func handleTapEvent(sender: UITapGestureRecognizer? = nil) {
+        // just creating an alert to prove our tap worked!
+        if self.isVideo == true {
+            self.startPlayingVideo()
+        }
+    }
+    
 }

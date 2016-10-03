@@ -17,6 +17,17 @@ class ChangePassword: UITableViewController {
     @IBOutlet weak var changePassword: UITextField!
     @IBOutlet weak var confirmPassword: UITextField!
     @IBOutlet weak var doneButton: UIBarButtonItem!
+    
+    var oldPassword: String? {
+        return currentPassword.text?.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
+    }
+    
+    var newPassword: String? {
+        return changePassword.text?.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
+    }
+    
+    private let connection = APIConnection()
+    
     override func viewDidLoad() {
         
         self.navigationItem.backBarButtonItem = UIBarButtonItem(title:"", style:.Plain, target:nil, action:nil)
@@ -24,6 +35,7 @@ class ChangePassword: UITableViewController {
         
         self.tableView.backgroundView = UIImageView(image: UIImage(named: "BG"))
         self.title = "Change Password"
+        
         // Do any additional setup after loading the view, typically from a nib.
     }
     
@@ -79,20 +91,6 @@ class ChangePassword: UITableViewController {
         return (password == conformPassword)
     }
 
-    /*
-    // Common alert method need to be used to display alert, by passing alert string as parameter to it.
-    */
-    
-    func displayCommonAlert(alertMesage : NSString){
-        
-        let alertController = UIAlertController (title: globalConstants.kAppName, message: alertMesage as String?, preferredStyle:.Alert)
-        let okayAction: UIAlertAction = UIAlertAction(title: "Ok", style: .Cancel) { action -> Void in
-            //Just dismiss the action sheet
-        }
-        alertController.addAction(okayAction)
-        self.presentViewController(alertController, animated: true, completion: nil)
-    }
-
     @IBAction func settingsButtonTapped (sender:AnyObject){
         
     }
@@ -101,56 +99,61 @@ class ChangePassword: UITableViewController {
     // getSettingsData used to retrieve user settings data
     */
     
-    func changePasswordAPICall()
-    {
-        let parameters = [
-            "password_old": currentPassword.text!.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet()),
-            "password_new": changePassword.text!.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
-        ]
-        var tokenString = "token "
-        if let appToken =  NSUserDefaults.standardUserDefaults().objectForKey("LoginToken") as? String
-        {
-            tokenString +=  appToken
+    func changePasswordAPICall() {
+        if let old = oldPassword, new = newPassword {
+            APIManager.sharedInstance.changePassword(old: old,
+                                                     new: new,
+                                                     success: { [weak self] (response) in
+                                                        if let _ = response["confirmation"].string {
+                                                            self?.navigationController?.popToRootViewControllerAnimated(true)
+                                                        }
+                }, failure: { (error) in
+                                                        
+            })
         }
-
-        Alamofire.Manager.sharedInstance.session.configuration.HTTPAdditionalHeaders?.updateValue(tokenString, forKey: "Authorization")
-
         
-        let URL =  globalConstants.kAPIURL + globalConstants.kChangePasswordAPIEndPoint
         
-        Alamofire.request(.POST, URL , parameters: parameters, encoding: .JSON)
-            .responseJSON { response in
-                guard let value = response.result.value else {
-                    print("Error: did not receive data")
-                    return
-                }
-                
-                guard response.result.error == nil else {
-                    print("error calling POST")
-                    print(response.result.error)
-                    return
-                }
-                let post = JSON(value)
-                print("The post is: " + post.description)
-                if let string = post.rawString() {
-                    let responseDic:[String:AnyObject]? = globalConstants.convertStringToDictionary(string)
-                    
-                    if response.response?.statusCode == 400{
-                        print("The Response Error is:   \(response.response?.statusCode)")
-                        if let errorData = responseDic?["detail"] {
-                            //let errorMessage = errorData[0] as! String
-                            let errorMessage = (errorData as? NSArray)?[0] as! String
-                            self.displayCommonAlert(errorMessage)
-                            return;
-                        }
-                    }
-                    
-                    if (responseDic?["confirmation"]) != nil {
-                        self.navigationController?.popToRootViewControllerAnimated(true)
-                    }
-                }
-
-        }
+//        let parameters = [
+//            "password_old": currentPassword.text!.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet()),
+//            "password_new": changePassword.text!.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
+//        ]
+//
+//        
+//        let URL =  globalConstants.kAPIURL + globalConstants.kChangePasswordAPIEndPoint
+//        
+//        Alamofire.request(.POST, URL , parameters: parameters, encoding: .JSON)
+//            .responseJSON { response in
+//                guard let value = response.result.value else {
+//                    print("Error: did not receive data")
+//                    return
+//                }
+//                
+//                guard response.result.error == nil else {
+//                    print("error calling POST")
+//                    print(response.result.error)
+//                    return
+//                }
+//                let post = JSON(value)
+//                print("The post is: " + post.description)
+//                if let string = post.rawString() {
+//                    let responseDic:[String:AnyObject]? = self.convertStringToDictionary(string)
+//                    
+//                    if response.response?.statusCode == 400{
+//                        print("The Response Error is:   \(response.response?.statusCode)")
+//                        if let errorData = responseDic?["detail"] {
+//                            //let errorMessage = errorData[0] as! String
+//                            let errorMessage = (errorData as? NSArray)?[0] as! String
+//                            self.displayCommonAlert(errorMessage)
+//                            return;
+//                        }
+//                    }
+//                    
+//                    if (responseDic?["confirmation"]) != nil {
+//                        self.navigationController?.popToRootViewControllerAnimated(true)
+//                    }
+//                }
+//
+//        }
     }
     
     /*

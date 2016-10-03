@@ -13,13 +13,13 @@ import SwiftyJSON
 import AlamofireImage
 import MobileCoreServices
 
-class EditProfilePicViewController: UIViewController,UIGestureRecognizerDelegate {
+class EditProfilePicViewController: UIViewController, UIGestureRecognizerDelegate {
     
     var userDict : NSDictionary = NSDictionary()
     @IBOutlet weak var profileImage : UIImageView!
-    @IBOutlet weak var Name : UITextField!
-    @IBOutlet weak var Phone : UITextField!
-    @IBOutlet weak var Email : UITextField!
+    @IBOutlet weak var nameField : UITextField!
+    @IBOutlet weak var phoneField : UITextField!
+    @IBOutlet weak var emailField : UITextField!
     var userId: String! = ""
     
     override func viewDidLoad() {
@@ -81,122 +81,125 @@ class EditProfilePicViewController: UIViewController,UIGestureRecognizerDelegate
             self.userId = "1"
         }
         
-        let appDelegate=AppDelegate() //You create a new instance,not get the exist one
-        appDelegate.startAnimation((self.navigationController?.view)!)
+        APIManager.sharedInstance.getUserProfile(forUserId: userId,
+                                                 success: { [weak self] (response) in
+                                                    self?.userDict = NSDictionary(dictionary: response.dictionaryObject ?? [:])
+                                                    self?.nameField.text = response["name"].string
+                                                    self?.loadData()
+            }, failure: { (error) in
         
-        var tokenString = "token "
-        if let appToken =  NSUserDefaults.standardUserDefaults().objectForKey("LoginToken") as? String
-        {
-            tokenString +=  appToken
-            
-            let URL =  globalConstants.kAPIURL + globalConstants.kProfileOther
-            
-            
-            let headers = [
-                "Authorization": tokenString,
-                ]
-            
-            let parameters = [
-                "user_id": self.userId//.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet()),
-            ]
-            Alamofire.request(.POST, URL , parameters: parameters, encoding: .JSON, headers : headers)
-                .responseString { response in
-                    
-                    print("response \(response)")
-                    appDelegate.stopAnimation()
-                    guard let value = response.result.value else
-                    {
-                        print("Error: did not receive data")
-                        self.loadData()
-                        
-                        return
-                    }
-                    
-                    guard response.result.error == nil else
-                    {
-                        print("error calling POST on Login")
-                        print(response.result.error)
-                        self.loadData()
-                        
-                        return
-                    }
-                    
-                    
-                    let post = JSON(value)
-                    if let string = post.rawString()
-                    {
-                        if (response.response?.statusCode == 400 || response.response?.statusCode == 401)
-                        {
-                            let responseDic:[String:AnyObject]? = globalConstants.convertStringToDictionary(string)
-                            print("The Response Error is:   \(response.response?.statusCode)")
-                            
-                            if let val = responseDic?["code"]
-                            {
-                                if val[0].isEqualToString("13")
-                                {
-                                    //print("Equals")
-                                    //self.displayCommonAlert(responseDic?["detail"]?[0] as! String)
-                                    self.displayCommonAlert((responseDic?["detail"] as? NSArray)?[0] as! String)
-                                    self.loadData()
-                                    
-                                    return
-                                }
-                                // now val is not nil and the Optional has been unwrapped, so use it
-                            }
-                            
-                            if let errorData = responseDic?["detail"]
-                            {
-                                
-                                if let errorMessage = errorData as? String
-                                {
-                                    self.displayCommonAlert(errorMessage)
-                                    
-                                }
-                                else if let errorMessage = errorData as? NSArray
-                                {
-                                    if let errorMessageStr = errorMessage[0] as? String
-                                    {
-                                        self.displayCommonAlert(errorMessageStr)
-                                    }
-                                }
-                                self.loadData()
-                                return;
-                            }
-                        }
-                        else if (response.response?.statusCode == 200 || response.response?.statusCode == 201)
-                        {
-                            let responseDic:[String:AnyObject]? = globalConstants.convertStringToDictionary(string)
-                            self.userDict = responseDic!
-                            print("The  responseDic is:   \(self.userDict)")
-                            print("The  user_id is:   \(self.userDict["user_id"]!)")
-                            print("The  name is:   \(self.userDict["name"]!)")
-                            print("The  image_url is:   \(self.userDict["image_url"]!)")
-                            
-                            self.Name.text = self.userDict["name"]! as? String
-                            
-                            /*
-                             "user_id": 1,
-                             "name": "Brendan Winter",
-                             "image_url": "https://s3-us-west-2.amazonaws.com/mixrprofile/2016_03_04_03_58_1.jpg"
-                             */
-                            
-                        }
-                        else
-                        {
-                            
-                        }
-                        self.loadData()
-                    }
-            }
-        }
+        })
+        
+//        startAnimatingSpringIndicator()
+        
+//        var tokenString = "token "
+//        if let appToken =  NSUserDefaults.standardUserDefaults().objectForKey("LoginToken") as? String
+//        {
+//            tokenString +=  appToken
+//            
+//            let URL =  globalConstants.kAPIURL + globalConstants.kProfileOther
+//            
+//            
+//            let headers = [
+//                "Authorization": tokenString,
+//                ]
+//            
+//            let parameters = [
+//                "user_id": self.userId//.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet()),
+//            ]
+//            Alamofire.request(.POST, URL , parameters: parameters, encoding: .JSON, headers : headers)
+//                .responseString { [weak self] response in
+//                    guard let `self` = self else { return }
+//                    self.stopAnimatingSpringIndicator()
+//                    guard let value = response.result.value else
+//                    {
+//                        print("Error: did not receive data")
+//                        self.loadData()
+//                        
+//                        return
+//                    }
+//                    
+//                    guard response.result.error == nil else
+//                    {
+//                        print("error calling POST on Login")
+//                        print(response.result.error)
+//                        self.loadData()
+//                        
+//                        return
+//                    }
+//                    
+//                    
+//                    let post = JSON(value)
+//                    if let string = post.rawString()
+//                    {
+//                        if (response.response?.statusCode == 400 || response.response?.statusCode == 401)
+//                        {
+//                            let responseDic:[String:AnyObject]? = self.convertStringToDictionary(string)
+//                            print("The Response Error is:   \(response.response?.statusCode)")
+//                            
+//                            if let val = responseDic?["code"]
+//                            {
+//                                if val[0].isEqualToString("13")
+//                                {
+//                                    //print("Equals")
+//                                    //self.displayCommonAlert(responseDic?["detail"]?[0] as! String)
+//                                    self.displayCommonAlert((responseDic?["detail"] as? NSArray)?[0] as! String)
+//                                    self.loadData()
+//                                    
+//                                    return
+//                                }
+//                                // now val is not nil and the Optional has been unwrapped, so use it
+//                            }
+//                            
+//                            if let errorData = responseDic?["detail"]
+//                            {
+//                                
+//                                if let errorMessage = errorData as? String
+//                                {
+//                                    self.displayCommonAlert(errorMessage)
+//                                    
+//                                }
+//                                else if let errorMessage = errorData as? NSArray
+//                                {
+//                                    if let errorMessageStr = errorMessage[0] as? String
+//                                    {
+//                                        self.displayCommonAlert(errorMessageStr)
+//                                    }
+//                                }
+//                                self.loadData()
+//                                return;
+//                            }
+//                        }
+//                        else if (response.response?.statusCode == 200 || response.response?.statusCode == 201)
+//                        {
+//                            let responseDic:[String:AnyObject]? = self.convertStringToDictionary(string)
+//                            self.userDict = responseDic!
+//                            print("The  responseDic is:   \(self.userDict)")
+//                            print("The  user_id is:   \(self.userDict["user_id"]!)")
+//                            print("The  name is:   \(self.userDict["name"]!)")
+//                            print("The  image_url is:   \(self.userDict["image_url"]!)")
+//                            
+//                            self.Name.text = self.userDict["name"]! as? String
+//                            
+//                            /*
+//                             "user_id": 1,
+//                             "name": "Brendan Winter",
+//                             "image_url": "https://s3-us-west-2.amazonaws.com/mixrprofile/2016_03_04_03_58_1.jpg"
+//                             */
+//                            
+//                        }
+//                        else
+//                        {
+//                            
+//                        }
+//                        self.loadData()
+//                    }
+//            }
+//        }
     }
     
     
     func updateProfilePic(){
-        
-        let appDelegate=AppDelegate() //You create a new instance,not get the exist one
-        appDelegate.startAnimation((self.navigationController?.view)!)
-        
         
         let URL = globalConstants.kAPIURL + globalConstants.kProfileUpdate
         
@@ -227,8 +230,8 @@ class EditProfilePicViewController: UIViewController,UIGestureRecognizerDelegate
                 
                 switch encodingResult {
                 case .Success(let upload, _, _):
-                    upload.responseJSON { response in
-                        appDelegate.stopAnimation()
+                    upload.responseJSON { [weak self] response in
+                        guard let `self` = self else { return }
                         debugPrint(response)
 
                         guard let value = response.result.value else
@@ -249,7 +252,7 @@ class EditProfilePicViewController: UIViewController,UIGestureRecognizerDelegate
                         {
                             if (response.response?.statusCode == 400 || response.response?.statusCode == 401)
                             {
-                                let responseDic:[String:AnyObject]? = globalConstants.convertStringToDictionary(string)
+                                let responseDic:[String:AnyObject]? = self.convertStringToDictionary(string)
                                 print("The Response Error is:   \(response.response?.statusCode)")
                                 
                                 if let val = responseDic?["code"]
@@ -299,14 +302,13 @@ class EditProfilePicViewController: UIViewController,UIGestureRecognizerDelegate
 //                        }
                     }
                 case .Failure(let encodingError):
-                    appDelegate.stopAnimation()
                     print(encodingError)
                 }
         })
     }
     
     //MARK: Temp function to check upload file on server.
-    
+    // TODO: work out file upload
     func uploadFileOnServer(){
         
         let fileURL = globalConstants.getStoreImageVideoPath(globalConstants.kProfilePicName)//NSBundle.mainBundle().URLForResource("mixriconApp_icon", withExtension: "png")
@@ -338,20 +340,6 @@ class EditProfilePicViewController: UIViewController,UIGestureRecognizerDelegate
             .responseJSON { response in
                 debugPrint(response)
         }
-    }
-
-    
-    /*
-     // Common alert method need to be used to display alert, by passing alert string as parameter to it.
-     */
-    func displayCommonAlert(alertMesage : NSString){
-        
-        let alertController = UIAlertController (title: globalConstants.kAppName, message: alertMesage as String?, preferredStyle:.Alert)
-        let okayAction: UIAlertAction = UIAlertAction(title: "Ok", style: .Cancel) { action -> Void in
-            //Just dismiss the action sheet
-        }
-        alertController.addAction(okayAction)
-        self.presentViewController(alertController, animated: true, completion: nil)
     }
 
     func loadData()

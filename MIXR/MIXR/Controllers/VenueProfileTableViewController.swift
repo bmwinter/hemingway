@@ -12,8 +12,9 @@ import SwiftyJSON
 import Alamofire
 import AlamofireImage
 
-class VenueProfileTableViewController: UITableViewController,UIGestureRecognizerDelegate
-{
+import SpringIndicator
+
+class VenueProfileTableViewController: UITableViewController, UIGestureRecognizerDelegate, SpringIndicatorTrait {
     var venueFeedArray:NSMutableArray = []
     var feedsArray : Array<JSON> = []
     var venueSpecialArray : NSArray = []
@@ -23,6 +24,8 @@ class VenueProfileTableViewController: UITableViewController,UIGestureRecognizer
     var moviePlayer:MPMoviePlayerController!
     var vwVideoPreview:UIView = UIView()
     var vwCenterVideoPreview:UIView = UIView()
+    
+    var springIndicator: SpringIndicator?
     
      var followIndex = 0
     @IBOutlet weak var btnFollowing: UIButton!
@@ -45,7 +48,7 @@ class VenueProfileTableViewController: UITableViewController,UIGestureRecognizer
     
     @IBOutlet weak var venueNameBtn: BorderedButton!
     
-    var venuId: String! = ""
+    var venueId: String = ""
 
     override func viewDidLoad()
     {
@@ -363,23 +366,24 @@ class VenueProfileTableViewController: UITableViewController,UIGestureRecognizer
             "userID": "1"
         ]
         
-        let URL =  globalConstants.kAPIURL + globalConstants.kVenueDetailsAPIEndPoint
-        
-        Alamofire.request(.POST, URL , parameters: parameters, encoding: .JSON)
-            .responseJSON { response in
-                guard let value = response.result.value else {
-                    print("Error: did not receive data")
-                    return
-                }
-                
-                guard response.result.error == nil else {
-                    print("error calling POST")
-                    print(response.result.error)
-                    return
-                }
-                let post = JSON(value)
-                print("The post is: " + post.description)
-        }
+        // TODO: we're not using this data yet, defer implementation
+//        let URL =  globalConstants.kAPIURL + globalConstants.kVenueDetailsAPIEndPoint
+//        
+//        Alamofire.request(.POST, URL , parameters: parameters, encoding: .JSON)
+//            .responseJSON { response in
+//                guard let value = response.result.value else {
+//                    print("Error: did not receive data")
+//                    return
+//                }
+//                
+//                guard response.result.error == nil else {
+//                    print("error calling POST")
+//                    print(response.result.error)
+//                    return
+//                }
+//                let post = JSON(value)
+//                print("The post is: " + post.description)
+//        }
     }
     
     
@@ -652,13 +656,10 @@ class VenueProfileTableViewController: UITableViewController,UIGestureRecognizer
  
     func loadData()
     {
-        if (appDelegate.selectedVenueId.count == 0)
-        {
-            self.venuId = "1"
-        }
-        else
-        {
-            self.venuId = appDelegate.selectedVenueId
+        if let venueId =  AppPersistedStore.sharedInstance.selectedVenueId {
+            self.venueId = venueId
+        } else {
+            self.venueId = "1"
         }
         
         self.venueSpecialArray = []
@@ -673,466 +674,505 @@ class VenueProfileTableViewController: UITableViewController,UIGestureRecognizer
         getFollowStatus()
     }
     
-    func loadVenueData()
-    {
+    func loadVenueData() {
         
-        let appDelegate=AppDelegate() //You create a new instance,not get the exist one
-        appDelegate.startAnimation((self.navigationController?.view)!)
+        APIManager.sharedInstance.getVenueProfile(venueId: venueId,
+                                                  success: { [weak self] (response) in
+                                                    
+                                                    if let dict = response.dictionaryObject {
+                                                        self?.venueDict = NSDictionary(dictionary: dict)
+                                                    }
+//                                                    let responseArray : NSArray =  self.convertStringToArray(string)!
+//                                                    let responseDic:[String:AnyObject]? = responseArray[0] as? [String : AnyObject]
+//                                                    self.venueDict = responseDic!
+//                                                    print("The  responseDic is:   \(self.venueDict)")
+//                                                    print("The  id is:   \(self.venueDict["id"]!)")
+//                                                    print("The  name is:   \(self.venueDict["name"]!)")
+//                                                    print("The  location is:   \(self.venueDict["location"]!)")
+//                                                    print("The  operating_hours is:   \(self.venueDict["operating_hours"]!)")
+                                                    /*
+                                                     {
+                                                     "id": "1",
+                                                     "name": "Harry's Bar",
+                                                     "operating_hours": "5pm-3am",
+                                                     "location":
+                                                     {
+                                                     "address": "169 Grandview Road",
+                                                     "city": "Springfield",
+                                                     "state": "Pennsylvania",
+                                                     "zipcode": "19064",
+                                                     "longitude": "-75.337555",
+                                                     "latitude": "39.9392799"
+                                                     }
+                                                     }
+                                                     */
+            }, failure: { (error) in
+                
+        })
         
-        var tokenString = "token "
-        if let appToken =  NSUserDefaults.standardUserDefaults().objectForKey("LoginToken") as? String
-        {
-            tokenString +=  appToken
-            
-            let URL =  globalConstants.kAPIURL + globalConstants.kProfileVenue
-            
-            
-            let headers = [
-                "Authorization": tokenString,
-            ]
-            
-            let parameters = [
-                "venue_id": self.venuId//.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet()),
-            ]
-            
-            Alamofire.request(.POST, URL , parameters: parameters, encoding: .JSON, headers : headers)
-                .responseString { response in
-                    
-                    print("response \(response)")
-                    appDelegate.stopAnimation()
-                    guard let value = response.result.value else
-                    {
-                        print("Error: did not receive data")
-                        self.loadDummyScrollViewData()
-                        
-                        return
-                    }
-                    
-                    guard response.result.error == nil else
-                    {
-                        print("error calling POST on Login")
-                        print(response.result.error)
-                        self.loadDummyScrollViewData()
-                        
-                        return
-                    }
-                    
-                    let post = JSON(value)
-                    if let string = post.rawString()
-                    {
-                        if (response.response?.statusCode == 400 || response.response?.statusCode == 401)
-                        {
-                            let responseDic:[String:AnyObject]? = self.convertStringToDictionary(string)
-                            print("The Response Error is:   \(response.response?.statusCode)")
-                            
-                            if let val = responseDic?["code"]
-                            {
-                                if val[0].isEqualToString("13")
-                                {
-                                    //print("Equals")
-                                    //self.displayCommonAlert(responseDic?["detail"]?[0] as! String)
-                                    self.loadDummyScrollViewData()
-                                    
-                                    return
-                                }
-                                // now val is not nil and the Optional has been unwrapped, so use it
-                            }
-                            
-                            if let errorData = responseDic?["detail"]
-                            {
-                                
-                                if errorData is String
-                                {
-                                    //self.displayCommonAlert(errorMessage)
-                                    
-                                }
-                                else if let errorMessage = errorData as? NSArray
-                                {
-                                    if errorMessage[0] is String
-                                    {
-                                        //self.displayCommonAlert(errorMessageStr)
-                                    }
-                                }
-                                self.loadDummyScrollViewData()
-                                return;
-                            }
-                            
-                        }
-                        else if (response.response?.statusCode == 200 || response.response?.statusCode == 201)
-                        {
-                            let responseArray : NSArray =  self.convertStringToArray(string)!
-                            let responseDic:[String:AnyObject]? = responseArray[0] as? [String : AnyObject]
-                            self.venueDict = responseDic!
-                            print("The  responseDic is:   \(self.venueDict)")
-                            print("The  id is:   \(self.venueDict["id"]!)")
-                            print("The  name is:   \(self.venueDict["name"]!)")
-                            print("The  location is:   \(self.venueDict["location"]!)")
-                            print("The  operating_hours is:   \(self.venueDict["operating_hours"]!)")
-                            /*
-                            {
-                                "id": "1",
-                                "name": "Harry's Bar",
-                                "operating_hours": "5pm-3am",
-                                "location": 
-                                    {
-                                        "address": "169 Grandview Road",
-                                        "city": "Springfield",
-                                        "state": "Pennsylvania",
-                                        "zipcode": "19064",
-                                        "longitude": "-75.337555",
-                                        "latitude": "39.9392799"
-                                    }
-                                }
-                            */
-                            
-                        }
-                        else
-                        {
-                            
-                        }
-                        
-                        self.loadDummyScrollViewData()
-                    }
-            }
-        }
+//        startAnimatingSpringIndicator()
+//        
+//        var tokenString = "token "
+//        if let appToken =  NSUserDefaults.standardUserDefaults().objectForKey("LoginToken") as? String
+//        {
+//            tokenString +=  appToken
+//            
+//            let URL =  globalConstants.kAPIURL + globalConstants.kProfileVenue
+//            
+//            
+//            let headers = [
+//                "Authorization": tokenString,
+//            ]
+//            
+//            let parameters = [
+//                "venue_id": self.venueId//.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet()),
+//            ]
+//            
+//            Alamofire.request(.POST, URL , parameters: parameters, encoding: .JSON, headers : headers)
+//                .responseString { response in
+//                    guard let value = response.result.value else
+//                    {
+//                        print("Error: did not receive data")
+//                        self.loadDummyScrollViewData()
+//                        
+//                        return
+//                    }
+//                    
+//                    guard response.result.error == nil else
+//                    {
+//                        print("error calling POST on Login")
+//                        print(response.result.error)
+//                        self.loadDummyScrollViewData()
+//                        
+//                        return
+//                    }
+//                    
+//                    let post = JSON(value)
+//                    if let string = post.rawString()
+//                    {
+//                        if (response.response?.statusCode == 400 || response.response?.statusCode == 401)
+//                        {
+//                            let responseDic:[String:AnyObject]? = self.convertStringToDictionary(string)
+//                            print("The Response Error is:   \(response.response?.statusCode)")
+//                            
+//                            if let val = responseDic?["code"]
+//                            {
+//                                if val[0].isEqualToString("13")
+//                                {
+//                                    //print("Equals")
+//                                    //self.displayCommonAlert(responseDic?["detail"]?[0] as! String)
+//                                    self.loadDummyScrollViewData()
+//                                    
+//                                    return
+//                                }
+//                                // now val is not nil and the Optional has been unwrapped, so use it
+//                            }
+//                            
+//                            if let errorData = responseDic?["detail"]
+//                            {
+//                                
+//                                if errorData is String
+//                                {
+//                                    //self.displayCommonAlert(errorMessage)
+//                                    
+//                                }
+//                                else if let errorMessage = errorData as? NSArray
+//                                {
+//                                    if errorMessage[0] is String
+//                                    {
+//                                        //self.displayCommonAlert(errorMessageStr)
+//                                    }
+//                                }
+//                                self.loadDummyScrollViewData()
+//                                return;
+//                            }
+//                            
+//                        }
+//                        else if (response.response?.statusCode == 200 || response.response?.statusCode == 201)
+//                        {
+//                            let responseArray : NSArray =  self.convertStringToArray(string)!
+//                            let responseDic:[String:AnyObject]? = responseArray[0] as? [String : AnyObject]
+//                            self.venueDict = responseDic!
+//                            print("The  responseDic is:   \(self.venueDict)")
+//                            print("The  id is:   \(self.venueDict["id"]!)")
+//                            print("The  name is:   \(self.venueDict["name"]!)")
+//                            print("The  location is:   \(self.venueDict["location"]!)")
+//                            print("The  operating_hours is:   \(self.venueDict["operating_hours"]!)")
+//                            /*
+//                            {
+//                                "id": "1",
+//                                "name": "Harry's Bar",
+//                                "operating_hours": "5pm-3am",
+//                                "location": 
+//                                    {
+//                                        "address": "169 Grandview Road",
+//                                        "city": "Springfield",
+//                                        "state": "Pennsylvania",
+//                                        "zipcode": "19064",
+//                                        "longitude": "-75.337555",
+//                                        "latitude": "39.9392799"
+//                                    }
+//                                }
+//                            */
+//                            
+//                        }
+//                        else
+//                        {
+//                            
+//                        }
+//                        
+//                        self.loadDummyScrollViewData()
+//                    }
+//            }
+//        }
     }
     
-    func loadVenueSpecialData()
-    {
-        let appDelegate=AppDelegate() //You create a new instance,not get the exist one
-        appDelegate.startAnimation((self.navigationController?.view)!)
+    func loadVenueSpecialData() {
         
-        var tokenString = "token "
-        if let appToken =  NSUserDefaults.standardUserDefaults().objectForKey("LoginToken") as? String
-        {
-            tokenString +=  appToken
-            
-            let URL =  globalConstants.kAPIURL + globalConstants.kProfileVenueSpecial
-            
-            
-            let headers = [
-                "Authorization": tokenString,
-            ]
-            
-            let parameters = [
-                "venue_id": self.venuId//.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet()),
-            ]
-            Alamofire.request(.POST, URL , parameters: parameters, encoding: .JSON, headers : headers)
-                .responseString { response in
-                    
-                    print("response \(response)")
-                    appDelegate.stopAnimation()
-                    guard let value = response.result.value else
-                    {
-                        print("Error: did not receive data")
-                        self.loadDummyScrollViewData()
-                        
-                        return
-                    }
-                    
-                    guard response.result.error == nil else
-                    {
-                        print("error calling POST on Login")
-                        print(response.result.error)
-                        self.loadDummyScrollViewData()
-                        
-                        return
-                    }
-                    
-                    
-                    let post = JSON(value)
-                    if let string = post.rawString()
-                    {
-                        if (response.response?.statusCode == 400 || response.response?.statusCode == 401)
-                        {
-                            let responseDic:[String:AnyObject]? = self.convertStringToDictionary(string)
-                            print("The Response Error is:   \(response.response?.statusCode)")
-                            
-                            if let val = responseDic?["code"]
-                            {
-                                if val[0].isEqualToString("13")
-                                {
-                                    //print("Equals")
-                                    //self.displayCommonAlert(responseDic?["detail"]?[0] as! String)
-                                    self.loadDummyScrollViewData()
-                                    
-                                    return
-                                }
-                                // now val is not nil and the Optional has been unwrapped, so use it
-                            }
-                            
-                            if let errorData = responseDic?["detail"]
-                            {
-                                
-                                if errorData is String
-                                {
-                                    //self.displayCommonAlert(errorMessage)
-                                    
-                                }
-                                else if let errorMessage = errorData as? NSArray
-                                {
-                                    if errorMessage[0] is String
-                                    {
-                                        //self.displayCommonAlert(errorMessageStr)
-                                    }
-                                }
-                                self.loadDummyScrollViewData()
-                                return;
-                            }
-                        }
-                        else if (response.response?.statusCode == 200 || response.response?.statusCode == 201)
-                        {
-                            //let responseArray : NSArray =  self.convertStringToArray(string)!
-                            //let responseDic:[String:AnyObject]? = responseArray[0] as? [String : AnyObject]
-                            self.venueSpecialArray = self.convertStringToArray(string)!
-                            print("The  venueSpecialArray is:   \(self.venueSpecialArray)")
-                           
-                            /*
-                            {
-                            "id": "1",
-                            "name": "Harry's Bar",
-                            "operating_hours": "5pm-3am",
-                            "location":
-                            {
-                            "address": "169 Grandview Road",
-                            "city": "Springfield",
-                            "state": "Pennsylvania",
-                            "zipcode": "19064",
-                            "longitude": "-75.337555",
-                            "latitude": "39.9392799"
-                            }
-                            }
-                            */
-                            
-                        }
-                        else
-                        {
-                            
-                        }
-                        
-                        self.loadDummyScrollViewData()
-                    }
-            }
-        }
+        APIManager.sharedInstance.getVenueSpecials(venueId: venueId,
+                                                   success: { [weak self] (response) in
+                                                    if let arr = response.arrayObject {
+                                                        self?.venueSpecialArray = arr
+                                                    }
+            }, failure: { (error) in
+                
+        })
+        
+//        var tokenString = "token "
+//        if let appToken =  NSUserDefaults.standardUserDefaults().objectForKey("LoginToken") as? String
+//        {
+//            tokenString +=  appToken
+//            
+//            let URL =  globalConstants.kAPIURL + globalConstants.kProfileVenueSpecial
+//            
+//            
+//            let headers = [
+//                "Authorization": tokenString,
+//            ]
+//            
+//            let parameters = [
+//                "venue_id": self.venueId//.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet()),
+//            ]
+//            Alamofire.request(.POST, URL , parameters: parameters, encoding: .JSON, headers : headers)
+//                .responseString { response in
+//                    guard let value = response.result.value else
+//                    {
+//                        print("Error: did not receive data")
+//                        self.loadDummyScrollViewData()
+//                        
+//                        return
+//                    }
+//                    
+//                    guard response.result.error == nil else
+//                    {
+//                        print("error calling POST on Login")
+//                        print(response.result.error)
+//                        self.loadDummyScrollViewData()
+//                        
+//                        return
+//                    }
+//                    
+//                    
+//                    let post = JSON(value)
+//                    if let string = post.rawString()
+//                    {
+//                        if (response.response?.statusCode == 400 || response.response?.statusCode == 401)
+//                        {
+//                            let responseDic:[String:AnyObject]? = self.convertStringToDictionary(string)
+//                            print("The Response Error is:   \(response.response?.statusCode)")
+//                            
+//                            if let val = responseDic?["code"]
+//                            {
+//                                if val[0].isEqualToString("13")
+//                                {
+//                                    //print("Equals")
+//                                    //self.displayCommonAlert(responseDic?["detail"]?[0] as! String)
+//                                    self.loadDummyScrollViewData()
+//                                    
+//                                    return
+//                                }
+//                                // now val is not nil and the Optional has been unwrapped, so use it
+//                            }
+//                            
+//                            if let errorData = responseDic?["detail"]
+//                            {
+//                                
+//                                if errorData is String
+//                                {
+//                                    //self.displayCommonAlert(errorMessage)
+//                                    
+//                                }
+//                                else if let errorMessage = errorData as? NSArray
+//                                {
+//                                    if errorMessage[0] is String
+//                                    {
+//                                        //self.displayCommonAlert(errorMessageStr)
+//                                    }
+//                                }
+//                                self.loadDummyScrollViewData()
+//                                return;
+//                            }
+//                        }
+//                        else if (response.response?.statusCode == 200 || response.response?.statusCode == 201)
+//                        {
+//                            //let responseArray : NSArray =  self.convertStringToArray(string)!
+//                            //let responseDic:[String:AnyObject]? = responseArray[0] as? [String : AnyObject]
+//                            self.venueSpecialArray = self.convertStringToArray(string)!
+//                            print("The  venueSpecialArray is:   \(self.venueSpecialArray)")
+//                           
+//                            /*
+//                            {
+//                            "id": "1",
+//                            "name": "Harry's Bar",
+//                            "operating_hours": "5pm-3am",
+//                            "location":
+//                            {
+//                            "address": "169 Grandview Road",
+//                            "city": "Springfield",
+//                            "state": "Pennsylvania",
+//                            "zipcode": "19064",
+//                            "longitude": "-75.337555",
+//                            "latitude": "39.9392799"
+//                            }
+//                            }
+//                            */
+//                            
+//                        }
+//                        else
+//                        {
+//                            
+//                        }
+//                        
+//                        self.loadDummyScrollViewData()
+//                    }
+//            }
+//        }
     }
     
-    func loadVenueEventData()
-    {
-        let appDelegate=AppDelegate() //You create a new instance,not get the exist one
-        appDelegate.startAnimation((self.navigationController?.view)!)
+    func loadVenueEventData() {
         
-        var tokenString = "token "
-        if let appToken =  NSUserDefaults.standardUserDefaults().objectForKey("LoginToken") as? String
-        {
-            tokenString +=  appToken
-            
-            let URL =  globalConstants.kAPIURL + globalConstants.kProfileVenueEvent
-            
-            
-            let headers = [
-                "Authorization": tokenString,
-            ]
-            
-            let parameters = [
-                "venue_id": self.venuId//.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet()),
-            ]
-            Alamofire.request(.POST, URL , parameters: parameters, encoding: .JSON, headers : headers)
-                .responseString { response in
-                    
-                    print("response \(response)")
-                    appDelegate.stopAnimation()
-                    guard let value = response.result.value else
-                    {
-                        print("Error: did not receive data")
-                        self.loadDummyScrollViewData()
-                        
-                        return
-                    }
-                    
-                    guard response.result.error == nil else
-                    {
-                        print("error calling POST on Login")
-                        print(response.result.error)
-                        self.loadDummyScrollViewData()
-                        
-                        return
-                    }
-                    
-                    
-                    let post = JSON(value)
-                    if let string = post.rawString()
-                    {
-                        if (response.response?.statusCode == 400 || response.response?.statusCode == 401)
-                        {
-                            let responseDic:[String:AnyObject]? = self.convertStringToDictionary(string)
-                            print("The Response Error is:   \(response.response?.statusCode)")
-                            
-                            if let val = responseDic?["code"]
-                            {
-                                if val[0].isEqualToString("13")
-                                {
-                                    //print("Equals")
-                                    //self.displayCommonAlert(responseDic?["detail"]?[0] as! String)
-                                    self.loadDummyScrollViewData()
-                                    
-                                    return
-                                }
-                                // now val is not nil and the Optional has been unwrapped, so use it
-                            }
-                            
-                            if let errorData = responseDic?["detail"]
-                            {
-                                
-                                if errorData is String
-                                {
-                                    //self.displayCommonAlert(errorMessage)
-                                    
-                                }
-                                else if let errorMessage = errorData as? NSArray
-                                {
-                                    if errorMessage[0] is String
-                                    {
-                                        //self.displayCommonAlert(errorMessageStr)
-                                    }
-                                }
-                                self.loadDummyScrollViewData()
-                                return;
-                            }
-                        }
-                        else if (response.response?.statusCode == 200 || response.response?.statusCode == 201)
-                        {
-                            //let responseArray : NSArray =  self.convertStringToArray(string)!
-                            //let responseDic:[String:AnyObject]? = responseArray[0] as? [String : AnyObject]
-                            self.venueEventArray = self.convertStringToArray(string)!
-                            print("The  venueEventArray is:   \(self.venueEventArray)")
-                            
-                            /*
-                            {
-                            "id": "1",
-                            "name": "Harry's Bar",
-                            "operating_hours": "5pm-3am",
-                            "location":
-                            {
-                            "address": "169 Grandview Road",
-                            "city": "Springfield",
-                            "state": "Pennsylvania",
-                            "zipcode": "19064",
-                            "longitude": "-75.337555",
-                            "latitude": "39.9392799"
-                            }
-                            }
-                            */
-                            
-                        }
-                        else
-                        {
-                            
-                        }
-                        
-                        self.loadDummyScrollViewData()
-                    }
-            }
-        }
+        APIManager.sharedInstance.getVenueEvents(venueId: venueId,
+                                                 success: { [weak self] (response: JSON) in
+                                                    self?.venueEventArray = NSArray(array: response.arrayObject ?? [])
+            }, failure: { (error) in
+                
+        })
+        
+//        var tokenString = "token "
+//        if let appToken =  NSUserDefaults.standardUserDefaults().objectForKey("LoginToken") as? String
+//        {
+//            tokenString +=  appToken
+//            
+//            let URL =  globalConstants.kAPIURL + globalConstants.kProfileVenueEvent
+//            
+//            
+//            let headers = [
+//                "Authorization": tokenString,
+//            ]
+//            
+//            let parameters = [
+//                "venue_id": self.venueId//.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet()),
+//            ]
+//            Alamofire.request(.POST, URL , parameters: parameters, encoding: .JSON, headers : headers)
+//                .responseString { response in
+//                    guard let value = response.result.value else
+//                    {
+//                        print("Error: did not receive data")
+//                        self.loadDummyScrollViewData()
+//                        
+//                        return
+//                    }
+//                    
+//                    guard response.result.error == nil else
+//                    {
+//                        print("error calling POST on Login")
+//                        print(response.result.error)
+//                        self.loadDummyScrollViewData()
+//                        
+//                        return
+//                    }
+//                    
+//                    
+//                    let post = JSON(value)
+//                    if let string = post.rawString()
+//                    {
+//                        if (response.response?.statusCode == 400 || response.response?.statusCode == 401)
+//                        {
+//                            let responseDic:[String:AnyObject]? = self.convertStringToDictionary(string)
+//                            print("The Response Error is:   \(response.response?.statusCode)")
+//                            
+//                            if let val = responseDic?["code"]
+//                            {
+//                                if val[0].isEqualToString("13")
+//                                {
+//                                    //print("Equals")
+//                                    //self.displayCommonAlert(responseDic?["detail"]?[0] as! String)
+//                                    self.loadDummyScrollViewData()
+//                                    
+//                                    return
+//                                }
+//                                // now val is not nil and the Optional has been unwrapped, so use it
+//                            }
+//                            
+//                            if let errorData = responseDic?["detail"]
+//                            {
+//                                
+//                                if errorData is String
+//                                {
+//                                    //self.displayCommonAlert(errorMessage)
+//                                    
+//                                }
+//                                else if let errorMessage = errorData as? NSArray
+//                                {
+//                                    if errorMessage[0] is String
+//                                    {
+//                                        //self.displayCommonAlert(errorMessageStr)
+//                                    }
+//                                }
+//                                self.loadDummyScrollViewData()
+//                                return;
+//                            }
+//                        }
+//                        else if (response.response?.statusCode == 200 || response.response?.statusCode == 201)
+//                        {
+//                            //let responseArray : NSArray =  self.convertStringToArray(string)!
+//                            //let responseDic:[String:AnyObject]? = responseArray[0] as? [String : AnyObject]
+//                            self.venueEventArray = self.convertStringToArray(string)!
+//                            print("The  venueEventArray is:   \(self.venueEventArray)")
+//                            
+//                            /*
+//                            {
+//                            "id": "1",
+//                            "name": "Harry's Bar",
+//                            "operating_hours": "5pm-3am",
+//                            "location":
+//                            {
+//                            "address": "169 Grandview Road",
+//                            "city": "Springfield",
+//                            "state": "Pennsylvania",
+//                            "zipcode": "19064",
+//                            "longitude": "-75.337555",
+//                            "latitude": "39.9392799"
+//                            }
+//                            }
+//                            */
+//                            
+//                        }
+//                        else
+//                        {
+//                            
+//                        }
+//                        
+//                        self.loadDummyScrollViewData()
+//                    }
+//            }
+//        }
     }
     
-    func getVenueNewsFeed()
-    {
-        let appDelegate=AppDelegate() //You create a new instance,not get the exist one
-        appDelegate.startAnimation((self.navigationController?.view)!)
+    func getVenueNewsFeed() {
         
-        var tokenString = "token "
+        APIManager.sharedInstance.getNewsfeed(forVenueId: venueId,
+                                              success: { [weak self] (response) in
+                                                let responseArray = NSMutableArray(array: response.arrayObject ?? [])
+                                                if let venueFeedArray = self?.createDisplayArray(responseArray) {
+                                                    self?.venueFeedArray = venueFeedArray
+                                                }
+                                                self?.reloadTable()
+            }, failure: { (error) in
+                
+        })
         
-        if let appToken =  NSUserDefaults.standardUserDefaults().objectForKey("LoginToken") as? String
-        {
-            tokenString +=  appToken
-            
-            let URL =  globalConstants.kAPIURL + globalConstants.kNewsfeedVenueAPIEndPoint
-            
-            
-            let headers = [
-                "Authorization": tokenString,
-            ]
-            
-            let parameters = [
-                "venue_id": self.venuId//.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet()),
-            ]
-            Alamofire.request(.POST, URL , parameters: parameters, encoding: .JSON, headers : headers)
-                .responseString { response in
-                   
-                    self.venueFeedArray.removeAllObjects()
-                    
-                    appDelegate.stopAnimation()
-                    guard let value = response.result.value else
-                    {
-                        print("Error: did not receive data")
-                        self.reloadTable()
-                        
-                        return
-                    }
-                    
-                    guard response.result.error == nil else
-                    {
-                        print("error calling POST on Login")
-                        print(response.result.error)
-                        self.reloadTable()
-                        
-                        return
-                    }
-                    
-                    
-                    let post = JSON(value)
-                    if let string = post.rawString()
-                    {
-                        if response.response?.statusCode == 400
-                        {
-                            let responseDic:[String:AnyObject]? = self.convertStringToDictionary(string)
-                            print("The Response Error is:   \(response.response?.statusCode)")
-                            
-                            if let val = responseDic?["code"]
-                            {
-                                if val[0].isEqualToString("13")
-                                {
-                                    //print("Equals")
-                                    //self.displayCommonAlert(responseDic?["detail"]?[0] as! String)
-                                    self.reloadTable()
-                                    
-                                    return
-                                }
-                                // now val is not nil and the Optional has been unwrapped, so use it
-                            }
-                            
-                            if let errorData = responseDic?["detail"]
-                            {
-                                
-                                if errorData is String
-                                {
-                                    //self.displayCommonAlert(errorMessage)
-                                    
-                                }
-                                else if let errorMessage = errorData as? NSArray
-                                {
-                                    if errorMessage[0] is String
-                                    {
-                                        //self.displayCommonAlert(errorMessageStr)
-                                    }
-                                }
-                                 self.reloadTable()
-                                return;
-                            }
-                        }
-                        else if (response.response?.statusCode == 200 || response.response?.statusCode == 201)
-                        {
-                            let responseArray:NSArray? = self.convertStringToArray(string)
-                            if let FeedArray = responseArray as? NSMutableArray
-                            {
-                                self.venueFeedArray = self.createDisplayArray(FeedArray)
-                            }
-                        }
-                        
-                        self.reloadTable()
-                    }
-            }
-        }
+//        var tokenString = "token "
+//        
+//        if let appToken =  NSUserDefaults.standardUserDefaults().objectForKey("LoginToken") as? String
+//        {
+//            tokenString +=  appToken
+//            
+//            let URL =  globalConstants.kAPIURL + globalConstants.kNewsfeedVenueAPIEndPoint
+//            
+//            
+//            let headers = [
+//                "Authorization": tokenString,
+//            ]
+//            
+//            let parameters = [
+//                "venue_id": self.venueId//.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet()),
+//            ]
+//            Alamofire.request(.POST, URL , parameters: parameters, encoding: .JSON, headers : headers)
+//                .responseString { response in
+//                   
+//                    self.venueFeedArray.removeAllObjects()
+//                    guard let value = response.result.value else
+//                    {
+//                        print("Error: did not receive data")
+//                        self.reloadTable()
+//                        
+//                        return
+//                    }
+//                    
+//                    guard response.result.error == nil else
+//                    {
+//                        print("error calling POST on Login")
+//                        print(response.result.error)
+//                        self.reloadTable()
+//                        
+//                        return
+//                    }
+//                    
+//                    
+//                    let post = JSON(value)
+//                    if let string = post.rawString()
+//                    {
+//                        if response.response?.statusCode == 400
+//                        {
+//                            let responseDic:[String:AnyObject]? = self.convertStringToDictionary(string)
+//                            print("The Response Error is:   \(response.response?.statusCode)")
+//                            
+//                            if let val = responseDic?["code"]
+//                            {
+//                                if val[0].isEqualToString("13")
+//                                {
+//                                    //print("Equals")
+//                                    //self.displayCommonAlert(responseDic?["detail"]?[0] as! String)
+//                                    self.reloadTable()
+//                                    
+//                                    return
+//                                }
+//                                // now val is not nil and the Optional has been unwrapped, so use it
+//                            }
+//                            
+//                            if let errorData = responseDic?["detail"]
+//                            {
+//                                
+//                                if errorData is String
+//                                {
+//                                    //self.displayCommonAlert(errorMessage)
+//                                    
+//                                }
+//                                else if let errorMessage = errorData as? NSArray
+//                                {
+//                                    if errorMessage[0] is String
+//                                    {
+//                                        //self.displayCommonAlert(errorMessageStr)
+//                                    }
+//                                }
+//                                 self.reloadTable()
+//                                return;
+//                            }
+//                        }
+//                        else if (response.response?.statusCode == 200 || response.response?.statusCode == 201)
+//                        {
+//                            let responseArray:NSArray? = self.convertStringToArray(string)
+//                            if let FeedArray = responseArray as? NSMutableArray
+//                            {
+//                                self.venueFeedArray = self.createDisplayArray(FeedArray)
+//                            }
+//                        }
+//                        
+//                        self.reloadTable()
+//                    }
+//            }
+//        }
     }
     
     func createDisplayArray(inputArray :NSMutableArray)->NSMutableArray
@@ -1171,43 +1211,6 @@ class VenueProfileTableViewController: UITableViewController,UIGestureRecognizer
             }
         }
         return newData
-    }
-    
-    func convertStringToDictionary(text:String) -> [String:AnyObject]? {
-        if let data = text.dataUsingEncoding(NSUTF8StringEncoding) {
-            do {
-                return try NSJSONSerialization.JSONObjectWithData(data, options: []) as? [String:AnyObject]
-            } catch let error as NSError {
-                print(error)
-            }
-        }
-        return nil
-    }
-    
-    func convertStringToArray(text:String) -> NSArray?
-    {
-        if let data = text.dataUsingEncoding(NSUTF8StringEncoding) {
-            do {
-                return try NSJSONSerialization.JSONObjectWithData(data, options: []) as? NSArray
-            } catch let error as NSError {
-                print(error)
-            }
-        }
-        return nil
-    }
-    
-    /*
-    // Common alert method need to be used to display alert, by passing alert string as parameter to it.
-    */
-    
-    func displayCommonAlert(alertMesage : NSString){
-        
-        let alertController = UIAlertController (title: globalConstants.kAppName, message: alertMesage as String?, preferredStyle:.Alert)
-        let okayAction: UIAlertAction = UIAlertAction(title: "Ok", style: .Cancel) { action -> Void in
-            //Just dismiss the action sheet
-        }
-        alertController.addAction(okayAction)
-        self.presentViewController(alertController, animated: true, completion: nil)
     }
 
     func playVideo() {
@@ -1287,240 +1290,243 @@ class VenueProfileTableViewController: UITableViewController,UIGestureRecognizer
     @IBAction func btnFollowing(sender: AnyObject)
     {
         let btn : UIButton = (sender as? UIButton)!
-        if(!btn.selected)
-        {
+        if(!btn.selected) {
             self.btnFollowing.backgroundColor = UIColor(red: 96/255,green: 134/255.0,blue: 72/255,alpha: 1.0)
             self.setFollowBtnPost()
             
-        }
-        else
-        {
+        } else {
             self.btnFollowing.backgroundColor = UIColor(red: 194/255,green: 194/255.0,blue: 194/255,alpha: 1.0)
         }
         btn.selected = !btn.selected
         
     }
 
-    func setFollowBtnPost()
-    {
-        let appDelegate=AppDelegate() //You create a new instance,not get the exist one
-        appDelegate.startAnimation((self.navigationController?.view)!)
+    func setFollowBtnPost() {
+        APIManager.sharedInstance.followVenue(withVenueId: venueId,
+                                              success: { [weak self] (response) in
+                                                if let followIndex = response["follow_status"].int {
+                                                    self?.followIndex = followIndex
+                                                }
+                                                self?.setupFollowBtnState()
+            }, failure: { (error) in
+                
+        })
         
-        var tokenString = "token "
-        if let appToken =  NSUserDefaults.standardUserDefaults().objectForKey("LoginToken") as? String
-        {
-            tokenString +=  appToken
-            
-            let URL =  globalConstants.kAPIURL + globalConstants.kFollowRequestForVenueAPIEndPoint
-            
-            
-            let headers = [
-                "Authorization": tokenString,
-                ]
-            
-            let parameters = [
-                "follower_venue_id": self.venuId//.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet()),
-            ]
-            Alamofire.request(.POST, URL , parameters: parameters, encoding: .JSON, headers : headers)
-                .responseString { response in
-                    
-                    print("response \(response)")
-                    appDelegate.stopAnimation()
-                    guard let value = response.result.value else
-                    {
-                        print("Error: did not receive data")
-                        //self.loadData()
-                        
-                        return
-                    }
-                    
-                    guard response.result.error == nil else
-                    {
-                        print("error calling POST on Login")
-                        print(response.result.error)
-                        //self.loadData()
-                        
-                        return
-                    }
-                    
-                    
-                    let post = JSON(value)
-                    if let string = post.rawString()
-                    {
-                        if (response.response?.statusCode == 400 || response.response?.statusCode == 401)
-                        {
-                            let responseDic:[String:AnyObject]? = self.convertStringToDictionary(string)
-                            print("The Response Error is:   \(response.response?.statusCode)")
-                            
-                            if let val = responseDic?["code"]
-                            {
-                                if val[0].isEqualToString("13")
-                                {
-                                    //print("Equals")
-                                    //self.displayCommonAlert(responseDic?["detail"]?[0] as! String)
-                                    self.displayCommonAlert((responseDic?["detail"] as? NSArray)?[0] as! String)
-                                    //self.loadData()
-                                    
-                                    return
-                                }
-                                // now val is not nil and the Optional has been unwrapped, so use it
-                            }
-                            
-                            if let errorData = responseDic?["detail"]
-                            {
-                                
-                                if let errorMessage = errorData as? String
-                                {
-                                    self.displayCommonAlert(errorMessage)
-                                    
-                                }
-                                else if let errorMessage = errorData as? NSArray
-                                {
-                                    if let errorMessageStr = errorMessage[0] as? String
-                                    {
-                                        self.displayCommonAlert(errorMessageStr)
-                                    }
-                                }
-                                self.loadData()
-                                return;
-                            }
-                        }
-                        else if (response.response?.statusCode == 200 || response.response?.statusCode == 201)
-                        {
-                            let responseDic:[String:AnyObject]? = self.convertStringToDictionary(string)
-                            print("The  responseDic is:   \(responseDic)")
-                            print("The  follow_status is:   \(responseDic!["follow_status"])")
-                            self.followIndex = (responseDic!["follow_status"]?.integerValue)!
-                            
-                            print("The  self.followIndex is:   \(self.followIndex)")
-                            
-                            /*
-                             "user_id": 1,
-                             "name": "Brendan Winter",
-                             "image_url": "https://s3-us-west-2.amazonaws.com/mixrprofile/2016_03_04_03_58_1.jpg"
-                             */
-                            
-                        }
-                        else
-                        {
-                            
-                        }
-                        
-                        self.setupFollowBtnState()
-                    }
-            }
-        }
+//        var tokenString = "token "
+//        if let appToken =  NSUserDefaults.standardUserDefaults().objectForKey("LoginToken") as? String
+//        {
+//            tokenString +=  appToken
+//            
+//            let URL =  globalConstants.kAPIURL + globalConstants.kFollowRequestForVenueAPIEndPoint
+//            
+//            
+//            let headers = [
+//                "Authorization": tokenString,
+//                ]
+//            
+//            let parameters = [
+//                "follower_venue_id": self.venueId//.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet()),
+//            ]
+//            Alamofire.request(.POST, URL , parameters: parameters, encoding: .JSON, headers : headers)
+//                .responseString { response in
+//                    guard let value = response.result.value else
+//                    {
+//                        print("Error: did not receive data")
+//                        //self.loadData()
+//                        
+//                        return
+//                    }
+//                    
+//                    guard response.result.error == nil else
+//                    {
+//                        print("error calling POST on Login")
+//                        print(response.result.error)
+//                        //self.loadData()
+//                        
+//                        return
+//                    }
+//                    
+//                    
+//                    let post = JSON(value)
+//                    if let string = post.rawString()
+//                    {
+//                        if (response.response?.statusCode == 400 || response.response?.statusCode == 401)
+//                        {
+//                            let responseDic:[String:AnyObject]? = self.convertStringToDictionary(string)
+//                            print("The Response Error is:   \(response.response?.statusCode)")
+//                            
+//                            if let val = responseDic?["code"]
+//                            {
+//                                if val[0].isEqualToString("13")
+//                                {
+//                                    //print("Equals")
+//                                    //self.displayCommonAlert(responseDic?["detail"]?[0] as! String)
+//                                    self.displayCommonAlert((responseDic?["detail"] as? NSArray)?[0] as! String)
+//                                    //self.loadData()
+//                                    
+//                                    return
+//                                }
+//                                // now val is not nil and the Optional has been unwrapped, so use it
+//                            }
+//                            
+//                            if let errorData = responseDic?["detail"]
+//                            {
+//                                
+//                                if let errorMessage = errorData as? String
+//                                {
+//                                    self.displayCommonAlert(errorMessage)
+//                                    
+//                                }
+//                                else if let errorMessage = errorData as? NSArray
+//                                {
+//                                    if let errorMessageStr = errorMessage[0] as? String
+//                                    {
+//                                        self.displayCommonAlert(errorMessageStr)
+//                                    }
+//                                }
+//                                self.loadData()
+//                                return;
+//                            }
+//                        }
+//                        else if (response.response?.statusCode == 200 || response.response?.statusCode == 201)
+//                        {
+//                            let responseDic:[String:AnyObject]? = self.convertStringToDictionary(string)
+//                            print("The  responseDic is:   \(responseDic)")
+//                            print("The  follow_status is:   \(responseDic!["follow_status"])")
+//                            self.followIndex = (responseDic!["follow_status"]?.integerValue)!
+//                            
+//                            print("The  self.followIndex is:   \(self.followIndex)")
+//                            
+//                            /*
+//                             "user_id": 1,
+//                             "name": "Brendan Winter",
+//                             "image_url": "https://s3-us-west-2.amazonaws.com/mixrprofile/2016_03_04_03_58_1.jpg"
+//                             */
+//                            
+//                        }
+//                        else
+//                        {
+//                            
+//                        }
+//                        
+//                        self.setupFollowBtnState()
+//                    }
+//            }
+//        }
     }
     
-    func getFollowStatus()
-    {
-        let appDelegate=AppDelegate() //You create a new instance,not get the exist one
-        appDelegate.startAnimation((self.navigationController?.view)!)
+    func getFollowStatus() {
+        APIManager.sharedInstance.getFollowStatus(forVenueId: venueId,
+                                                  success: { [weak self] (response) in
+                                                    if let followIndex = response["follow_status"].int {
+                                                        self?.followIndex = followIndex
+                                                    }
+                                                    self?.setupFollowBtnState()
+            }, failure: { (error) in
+                
+        })
         
-        var tokenString = "token "
-        if let appToken =  NSUserDefaults.standardUserDefaults().objectForKey("LoginToken") as? String
-        {
-            tokenString +=  appToken
-            
-            let URL =  globalConstants.kAPIURL + globalConstants.kFollowStatusForVenueAPIEndPoint
-            
-            let headers = [
-                "Authorization": tokenString,
-                ]
-            
-            let parameters = [
-                "venue_id": self.venuId//.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet()),
-            ]
-            
-            Alamofire.request(.POST, URL , parameters: parameters, encoding: .JSON, headers : headers)
-                .responseString { response in
-                    
-                    print("response \(response)")
-                    appDelegate.stopAnimation()
-                    guard let value = response.result.value else
-                    {
-                        print("Error: did not receive data")
-                        //self.loadData()
-                        
-                        return
-                    }
-                    
-                    guard response.result.error == nil else
-                    {
-                        print("error calling POST on Login")
-                        print(response.result.error)
-                        //self.loadData()
-                        
-                        return
-                    }
-                    
-                    
-                    let post = JSON(value)
-                    if let string = post.rawString()
-                    {
-                        if (response.response?.statusCode == 400 || response.response?.statusCode == 401)
-                        {
-                            let responseDic:[String:AnyObject]? = self.convertStringToDictionary(string)
-                            print("The Response Error is:   \(response.response?.statusCode)")
-                            
-                            if let val = responseDic?["code"]
-                            {
-                                if val[0].isEqualToString("13")
-                                {
-                                    //print("Equals")
-//                                    self.displayCommonAlert(responseDic?["detail"]?[0] as! String)
-                                    self.displayCommonAlert((responseDic?["detail"] as? NSArray)?[0] as! String)
-                                    //self.loadData()
-                                    
-                                    return
-                                }
-                                // now val is not nil and the Optional has been unwrapped, so use it
-                            }
-                            
-                            if let errorData = responseDic?["detail"]
-                            {
-                                
-                                if let errorMessage = errorData as? String
-                                {
-                                    self.displayCommonAlert(errorMessage)
-                                    
-                                }
-                                else if let errorMessage = errorData as? NSArray
-                                {
-                                    if let errorMessageStr = errorMessage[0] as? String
-                                    {
-                                        self.displayCommonAlert(errorMessageStr)
-                                    }
-                                }
-                                //self.loadData()
-                                return;
-                            }
-                        }
-                        else if (response.response?.statusCode == 200 || response.response?.statusCode == 201)
-                        {
-                            let responseDic:[String:AnyObject]? = self.convertStringToDictionary(string)
-                            print("The  responseDic is:   \(responseDic)")
-                            print("The  follow_status is:   \(responseDic!["follow_status"])")
-                            self.followIndex = (responseDic!["follow_status"]?.integerValue)!
-                            
-                            print("The  self.followIndex is:   \(self.followIndex)")
-                            
-                            /*
-                             "user_id": 1,
-                             "name": "Brendan Winter",
-                             "image_url": "https://s3-us-west-2.amazonaws.com/mixrprofile/2016_03_04_03_58_1.jpg"
-                             */
-                            
-                        }
-                        else
-                        {
-                            
-                        }
-                        
-                        self.setupFollowBtnState()
-                    }
-            }
-        }
+//        var tokenString = "token "
+//        if let appToken =  NSUserDefaults.standardUserDefaults().objectForKey("LoginToken") as? String
+//        {
+//            tokenString +=  appToken
+//            
+//            let URL =  globalConstants.kAPIURL + globalConstants.kFollowStatusForVenueAPIEndPoint
+//            
+//            let headers = [
+//                "Authorization": tokenString,
+//                ]
+//            
+//            let parameters = [
+//                "venue_id": self.venueId//.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet()),
+//            ]
+//            
+//            Alamofire.request(.POST, URL , parameters: parameters, encoding: .JSON, headers : headers)
+//                .responseString { response in
+//                    guard let value = response.result.value else
+//                    {
+//                        print("Error: did not receive data")
+//                        //self.loadData()
+//                        
+//                        return
+//                    }
+//                    
+//                    guard response.result.error == nil else
+//                    {
+//                        print("error calling POST on Login")
+//                        print(response.result.error)
+//                        //self.loadData()
+//                        
+//                        return
+//                    }
+//                    
+//                    
+//                    let post = JSON(value)
+//                    if let string = post.rawString()
+//                    {
+//                        if (response.response?.statusCode == 400 || response.response?.statusCode == 401)
+//                        {
+//                            let responseDic:[String:AnyObject]? = self.convertStringToDictionary(string)
+//                            print("The Response Error is:   \(response.response?.statusCode)")
+//                            
+//                            if let val = responseDic?["code"]
+//                            {
+//                                if val[0].isEqualToString("13")
+//                                {
+//                                    //print("Equals")
+////                                    self.displayCommonAlert(responseDic?["detail"]?[0] as! String)
+//                                    self.displayCommonAlert((responseDic?["detail"] as? NSArray)?[0] as! String)
+//                                    //self.loadData()
+//                                    
+//                                    return
+//                                }
+//                                // now val is not nil and the Optional has been unwrapped, so use it
+//                            }
+//                            
+//                            if let errorData = responseDic?["detail"]
+//                            {
+//                                
+//                                if let errorMessage = errorData as? String
+//                                {
+//                                    self.displayCommonAlert(errorMessage)
+//                                    
+//                                }
+//                                else if let errorMessage = errorData as? NSArray
+//                                {
+//                                    if let errorMessageStr = errorMessage[0] as? String
+//                                    {
+//                                        self.displayCommonAlert(errorMessageStr)
+//                                    }
+//                                }
+//                                //self.loadData()
+//                                return;
+//                            }
+//                        }
+//                        else if (response.response?.statusCode == 200 || response.response?.statusCode == 201)
+//                        {
+//                            let responseDic:[String:AnyObject]? = self.convertStringToDictionary(string)
+//                            print("The  responseDic is:   \(responseDic)")
+//                            print("The  follow_status is:   \(responseDic!["follow_status"])")
+//                            self.followIndex = (responseDic!["follow_status"]?.integerValue)!
+//                            
+//                            print("The  self.followIndex is:   \(self.followIndex)")
+//                            
+//                            /*
+//                             "user_id": 1,
+//                             "name": "Brendan Winter",
+//                             "image_url": "https://s3-us-west-2.amazonaws.com/mixrprofile/2016_03_04_03_58_1.jpg"
+//                             */
+//                            
+//                        }
+//                        else
+//                        {
+//                            
+//                        }
+//                        
+//                        self.setupFollowBtnState()
+//                    }
+//            }
+//        }
     }
     
     func setupFollowBtnState()
