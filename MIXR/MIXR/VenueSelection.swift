@@ -163,7 +163,6 @@ class VenueSelection : UIViewController, SpringIndicatorTrait {
     }
     
     override func viewWillAppear(animated: Bool) {
-        self.navigationController?.navigationBarHidden = false
         super.viewWillAppear(true)
         if self.isVideo == true {
             self.videoIcon.hidden = false

@@ -39,16 +39,6 @@ class ChangePassword: UITableViewController {
         // Do any additional setup after loading the view, typically from a nib.
     }
     
-    override func viewWillAppear(animated: Bool)
-    {
-        self.navigationController?.navigationBarHidden = false
-    }
-    
-    override func viewWillDisappear(animated: Bool)
-    {
-        //self.navigationController?.navigationBarHidden = false
-    }
-    
     @IBAction func doneButtonTapped (sender:AnyObject)
     {
         self.currentPassword.resignFirstResponder()

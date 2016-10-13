@@ -69,14 +69,8 @@ class VenueProfileTableViewController: UITableViewController, UIGestureRecognize
     override func viewWillAppear(animated: Bool)
     {
         super.viewWillAppear(animated)
-        self.navigationController?.navigationBarHidden = true
 
         loadData()
-    }
-    
-    override func viewDidDisappear(animated: Bool)
-    {
-        //self.navigationController?.navigationBarHidden = false
     }
     
     func pullToReferesh()

@@ -23,6 +23,8 @@ class PromotionsViewController: BaseViewController {
     private var promotionsDataSource = [PromotionModel]()
     
     override func viewDidLoad() {
+        super.viewDidLoad()
+        
         tableView?.delegate = self
         tableView?.dataSource = self
         

@@ -37,10 +37,20 @@ extension PersistedStore {
         isDirty = false
     }
     
+    private func setMapValue<T>(newValue: T, forKey key: String) {
+        attrsMap[key] = newValue as? AnyObject
+        isDirty = true
+    }
+    
     func setObject<T: Equatable>(object: T?, forKey key: String) {
-        if let newValue = object as? AnyObject, let oldValue = attrsMap[key] as? T where object != oldValue {
-            attrsMap[key] = newValue
-            isDirty = true
+        if let newValue = object {
+            if let oldValue = attrsMap[key] as? T {
+                if oldValue != newValue {
+                    setMapValue(newValue, forKey: key)
+                }
+            } else {
+                setMapValue(newValue, forKey: key)
+            }
         }
     }
 }

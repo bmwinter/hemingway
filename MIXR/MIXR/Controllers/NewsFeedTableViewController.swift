@@ -82,7 +82,6 @@ class NewsFeedTableViewController: UITableViewController, SpringIndicatorTrait {
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(true)
-        self.navigationController?.navigationBarHidden = true
     }
 
     override func viewDidAppear(animated: Bool) {

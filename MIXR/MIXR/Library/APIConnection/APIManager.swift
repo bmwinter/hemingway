@@ -14,14 +14,14 @@ class APIRequest: NSObject {
     
     var type: Alamofire.Method
     var action: APIAction
-    var params: [String: AnyObject]
+    var params: [String: AnyObject]?
     var success: MIXRResponseSuccessClosure?
     var failure: MIXRResponseFailureClosure?
     
     init(type: Alamofire.Method, action: APIAction, params: [String: AnyObject]?, success: MIXRResponseSuccessClosure?, failure: MIXRResponseFailureClosure?) {
         self.type = type
         self.action = action
-        self.params = params ?? [:]
+        self.params = params
         self.success = success
         self.failure = failure
         
@@ -65,7 +65,7 @@ extension APIManager {
     }
     
     func signUp(withParams params: [String: AnyObject], success: MIXRResponseSuccessClosure?, failure: MIXRResponseFailureClosure?) {
-        if let email = params["email"] as? String, password = params["password"] as? String {
+        if let email = params["email"] as? String, let password = params["password"] as? String {
             let request = APIRequest(type: Alamofire.Method.POST,
                                      action: .Signup,
                                      params: params,
@@ -80,7 +80,7 @@ extension APIManager {
     
     func loginWithEmail(email: String, password: String, success: MIXRResponseSuccessClosure?, failure: MIXRResponseFailureClosure?) {
         var params = [String: AnyObject]()
-        params["email"] = email
+        params["username"] = email
         params["password"] = password
         
         login(params, success: success, failure: failure)

@@ -14,19 +14,22 @@ import MobileCoreServices
 import Agrume
 import MediaPlayer
 
+class MXNavigationController: UINavigationController { }
+
 class BaseViewController: UIViewController, UINavigationControllerDelegate {
     @IBOutlet var btnNotificationNumber : UIButton?
-    
-    var shouldShowBackButton = true
 }
 
 // MARK: - View Lifecycle
 extension BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupNavigationBar()
         
-        self.navigationItem.backBarButtonItem = UIBarButtonItem(title:"", style:.Plain, target:nil, action:nil)
+        if navigationController is MXNavigationController {
+            setupNavigationBar()
+        } else {
+            navigationController?.navigationBarHidden = true
+        }
         
         if ((self.navigationController?.respondsToSelector(Selector("interactivePopGestureRecognizer"))) != nil) {
             Log("interactivePopGestureRecognizer true \(self.navigationController!.viewControllers.count)")
@@ -87,9 +90,6 @@ extension BaseViewController: UIImagePickerControllerDelegate {
 
 // MARK: - NavigationBar & Related Utility Methods
 extension BaseViewController {
-    func setupNavigationBar() {
-        
-    }
     
     @IBAction func onBackClicked(sender: AnyObject) {
         self.navigationController?.popViewControllerAnimated(true)
@@ -138,95 +138,7 @@ extension BaseViewController {
 // MARK: - Photo methods
 extension BaseViewController {
     
-    /// Get Image From Video URL
-    func videoSnapshot(filePathLocal: NSString) -> UIImage? {
-        
-        let vidURL = NSURL(fileURLWithPath:filePathLocal as String)
-        let asset = AVURLAsset(URL: vidURL)
-        let generator = AVAssetImageGenerator(asset: asset)
-        generator.appliesPreferredTrackTransform = true
-        
-        let timestamp = CMTime(seconds: 1, preferredTimescale: 60)
-        
-        do {
-            let imageRef = try generator.copyCGImageAtTime(timestamp, actualTime: nil)
-            return UIImage(CGImage: imageRef)
-        } catch let error as NSError {
-            Log("Image generation failed with error \(error)")
-            return nil
-        }
-    }
-    
-    func openCameraForVideo() {
-        if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.Camera) {
-            let imagePicker = UIImagePickerController()
-            
-            imagePicker.delegate = self
-            imagePicker.sourceType = .Camera;
-            imagePicker.mediaTypes = [kUTTypeMovie as String]
-            imagePicker.allowsEditing = false
-            imagePicker.videoMaximumDuration = 10.0
-            imagePicker.showsCameraControls = true
-            
-            self.presentViewController(imagePicker, animated: true, completion: nil)
-        } else {
-            Log("Camera not available.")
-        }
-    }
-    
-    func displayActionSheetForCamera() {
-        let cancelButtonTitle = "Cancel"
-        let photoButton = "Take Photo"
-        let videoButton = "Record Video"
-        
-        let alertController = DOAlertController(title: nil, message: nil, preferredStyle: .ActionSheet)
-        
-        // Create the actions.
-        let cancelAction = DOAlertAction(title: cancelButtonTitle, style: .Cancel) { action in
-            Log("The \"Okay/Cancel\" alert action sheet's cancel action occured.")
-        }
-        
-        let photoButtonAction = DOAlertAction(title: photoButton, style: .Default) { action in
-            self.dismissViewControllerAnimated(false, completion: nil)
-            self.openPhotoGallery()
-            Log("The \"Okay/Cancel\" alert action sheet's destructive action occured.")
-        }
-        
-        let videoButtonAction = DOAlertAction(title: videoButton, style: .Default) { action in
-            self.dismissViewControllerAnimated(false, completion: nil)
-            self.openCameraForVideo()
-            Log("The \"Okay/Cancel\" alert action sheet's destructive action occured.")
-        }
-        
-        // Add the actions.
-        alertController.addAction(cancelAction)
-        alertController.addAction(photoButtonAction)
-        alertController.addAction(videoButtonAction)
-        
-        presentViewController(alertController, animated: true, completion: nil)
-    }
-    
-    
-    func openPhotoGallery() {
-        let cameraViewController = ALCameraViewController(croppingEnabled: true, allowsLibraryAccess: true) { (image) -> Void in
-            
-            self.dismissViewControllerAnimated(true, completion: nil)
-            if image != nil{
-                let imageData = UIImageJPEGRepresentation(image!, 0.5)
-                if globalConstants.storeImageVideoToDocumentDirectory(imageData!, name: globalConstants.kTempImageFileNmae) {
-                    let storyboard: UIStoryboard = UIStoryboard(name: "User", bundle: nil)
-                    let vc = storyboard.instantiateViewControllerWithIdentifier("VenueSelection") as! VenueSelection
-                    vc.isVideo = false
-                    vc.capturedImageFile = image
-                    self.showViewController(vc, sender: self)
-                }
-            }
-        }
-        presentViewController(cameraViewController, animated: true, completion: nil)
-    }
-    
     func pushPreviewController() {
-        self.navigationController?.navigationBarHidden = false
         let storyboard: UIStoryboard = UIStoryboard(name: "User", bundle: nil)
         let vc = storyboard.instantiateViewControllerWithIdentifier("VenueSelection") as! VenueSelection
         vc.isVideo = true
@@ -276,5 +188,164 @@ extension UIViewController {
             }
         }
         return nil
+    }
+}
+
+extension BaseViewController {
+}
+
+extension BaseViewController: MXNavigationBarTrait {
+    func setupNavigationBar() {
+        guard let navigationBar = navigationController?.navigationBar else { return }
+        navigationBar.barTintColor = UIColor.mixrGray()
+        
+        let useDefaultImage = shouldUseDefaultImage()
+        navigationBar.hidden = shouldHideNavigationBar()
+        
+        if useDefaultImage {
+            let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 40, height: 40))
+            imageView.contentMode = .ScaleAspectFit
+            let image = UIImage(named: "MixrLogo")
+            imageView.image = image
+            navigationItem.titleView = imageView
+        }
+        
+        if navigationController?.viewControllers.count <= 1 {
+            navigationItem.leftBarButtonItem = barButtonItem(withType: leftBarButtonType())
+        } else {
+            navigationItem.leftBarButtonItem = barButtonItem(withType: .Back)
+        }
+        navigationItem.rightBarButtonItem = barButtonItem(withType: rightBarButtonType())
+    }
+    
+    func shouldHideNavigationBar() -> Bool {
+        return false
+    }
+    
+    private func barButtonItem(withType type: MXBarButtonType) -> UIBarButtonItem? {
+        let button = UIButton(frame: CGRect(x: 0, y: 0, width: 30, height: 30))
+        
+        switch type {
+        case .Notification:
+            button.setBackgroundImage(UIImage(named: "martini3-1"), forState: .Normal)
+            button.addTarget(self, action: #selector(BaseViewController.notificationBarButtonWasClicked(_:)), forControlEvents: .TouchUpInside)
+            break
+        case .Camera:
+            button.setBackgroundImage(UIImage(named: "camera_icon"), forState: .Normal)
+            button.frame = CGRect(x: 0, y: 0, width: 35, height: 30)
+            button.addTarget(self, action: #selector(BaseViewController.cameraBarButtonWasClicked(_:)), forControlEvents: .TouchUpInside)
+            break
+        case .Back:
+            button.setBackgroundImage(UIImage(named: "ArrowLeft"), forState: .Normal)
+            button.frame = CGRect(x: 0, y: 0, width: 16, height: 28)
+            button.addTarget(self, action: #selector(BaseViewController.backBarButtonWasClicked(_:)), forControlEvents: .TouchUpInside)
+        default:
+            return nil
+        }
+        
+        return UIBarButtonItem(customView: button)
+    }
+}
+
+// MARK: bar button actions
+extension BaseViewController {
+    @objc func notificationBarButtonWasClicked(button: UIBarButtonItem) {
+        if let promotionVC = self.storyboard?.instantiateViewControllerWithIdentifier("PromotionsViewController") as? PromotionsViewController {
+            self.navigationController?.pushViewController(promotionVC, animated: true)
+        }
+    }
+    
+    @objc func cameraBarButtonWasClicked(button: UIBarButtonItem) {
+        displayActionSheetForCamera()
+    }
+    
+    @objc func backBarButtonWasClicked(button: UIBarButtonItem) {
+        self.navigationController?.popViewControllerAnimated(true)
+    }
+}
+
+extension BaseViewController {
+    /// Get Image From Video URL
+    func videoSnapshot(filePathLocal: NSString) -> UIImage? {
+        
+        let vidURL = NSURL(fileURLWithPath:filePathLocal as String)
+        let asset = AVURLAsset(URL: vidURL)
+        let generator = AVAssetImageGenerator(asset: asset)
+        generator.appliesPreferredTrackTransform = true
+        
+        let timestamp = CMTime(seconds: 1, preferredTimescale: 60)
+        
+        do {
+            let imageRef = try generator.copyCGImageAtTime(timestamp, actualTime: nil)
+            return UIImage(CGImage: imageRef)
+        } catch let error as NSError {
+            Log("Image generation failed with error \(error)")
+            return nil
+        }
+    }
+    
+    func openCameraForVideo() {
+        if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.Camera) {
+            let imagePicker = UIImagePickerController()
+            
+            imagePicker.delegate = self
+            imagePicker.sourceType = .Camera;
+            imagePicker.mediaTypes = [kUTTypeMovie as String]
+            imagePicker.allowsEditing = false
+            imagePicker.videoMaximumDuration = 10.0
+            imagePicker.showsCameraControls = true
+            
+            self.presentViewController(imagePicker, animated: true, completion: nil)
+        } else {
+            Log("Camera not available.")
+        }
+    }
+    
+    func displayActionSheetForCamera() {
+        let cancelButtonTitle = "Cancel"
+        let photoButton = "Take Photo"
+        let videoButton = "Record Video"
+        
+        let alertController = DOAlertController(title: nil, message: nil, preferredStyle: .ActionSheet)
+        
+        // Create the actions.
+        let cancelAction = DOAlertAction(title: cancelButtonTitle, style: .Cancel) { action in
+        }
+        
+        let photoButtonAction = DOAlertAction(title: photoButton, style: .Default) { action in
+            self.dismissViewControllerAnimated(false, completion: nil)
+            self.openPhotoGallery()
+        }
+        
+        let videoButtonAction = DOAlertAction(title: videoButton, style: .Default) { action in
+            self.dismissViewControllerAnimated(false, completion: nil)
+            self.openCameraForVideo()
+        }
+        
+        // Add the actions.
+        alertController.addAction(cancelAction)
+        alertController.addAction(photoButtonAction)
+        alertController.addAction(videoButtonAction)
+        
+        presentViewController(alertController, animated: true, completion: nil)
+    }
+    
+    
+    func openPhotoGallery() {
+        let cameraViewController = ALCameraViewController(croppingEnabled: true, allowsLibraryAccess: true) { (image) -> Void in
+            
+            self.dismissViewControllerAnimated(true, completion: nil)
+            if image != nil{
+                let imageData = UIImageJPEGRepresentation(image!, 0.5)
+                if globalConstants.storeImageVideoToDocumentDirectory(imageData!, name: globalConstants.kTempImageFileNmae) {
+                    let storyboard: UIStoryboard = UIStoryboard(name: "User", bundle: nil)
+                    let vc = storyboard.instantiateViewControllerWithIdentifier("VenueSelection") as! VenueSelection
+                    vc.isVideo = false
+                    vc.capturedImageFile = image
+                    self.showViewController(vc, sender: self)
+                }
+            }
+        }
+        presentViewController(cameraViewController, animated: true, completion: nil)
     }
 }

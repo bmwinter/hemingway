@@ -31,16 +31,6 @@ class EditProfilePicViewController: UIViewController, UIGestureRecognizerDelegat
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
     }
-    
-    override func viewWillAppear(animated: Bool) {
-        super.viewWillAppear(true)
-    }
-    
-    override func viewDidAppear(animated: Bool) {
-        self.navigationController?.navigationBarHidden = false
-        super.viewDidAppear(animated)
-        
-    }
 
     func addtapGesture(){
         let tap = UITapGestureRecognizer(target: self, action: #selector(EditProfilePicViewController.handleTapEvent(_:)))
@@ -209,7 +199,7 @@ class EditProfilePicViewController: UIViewController, UIGestureRecognizerDelegat
             tokenString +=  appToken
         }
         
-        Alamofire.Manager.sharedInstance.session.configuration.HTTPAdditionalHeaders?.updateValue(tokenString, forKey: "Authorization")
+//        Alamofire.Manager.sharedInstance.session.configuration.HTTPAdditionalHeaders?.updateValue(tokenString, forKey: "Authorization")
 //        Alamofire.Manager.sharedInstance.session.configuration.HTTPAdditionalHeaders?.updateValue("attachment; filename=profilepic.png;", forKey: "Content-Disposition")
 
         var dataPath:NSString
@@ -322,9 +312,9 @@ class EditProfilePicViewController: UIViewController, UIGestureRecognizerDelegat
             
         }
         
-        Alamofire.Manager.sharedInstance.session.configuration.HTTPAdditionalHeaders?.updateValue(tokenString, forKey: "Authorization")
+//        Alamofire.Manager.sharedInstance.session.configuration.HTTPAdditionalHeaders?.updateValue(tokenString, forKey: "Authorization")
     
-    Alamofire.Manager.sharedInstance.session.configuration.HTTPAdditionalHeaders?.updateValue("attachment; filename=profilepic.png;", forKey: "Content-Disposition")
+//    Alamofire.Manager.sharedInstance.session.configuration.HTTPAdditionalHeaders?.updateValue("attachment; filename=profilepic.png;", forKey: "Content-Disposition")
         
         
         Alamofire.upload(.POST, URL, file: NSURL.fileURLWithPath(fileURL as String))

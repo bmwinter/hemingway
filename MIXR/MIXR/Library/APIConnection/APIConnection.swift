@@ -16,10 +16,11 @@ let TIME_OUT_TIME = 60.0  // in seconds
 let UseAlamofire = true
 
 //MARK: - SERVER URL's -
+let IP_SERVER = "http://54.174.249.237/"
 let MOCK_SERVER = "http://private-9f4d0-mixr1.apiary-mock.com/"
 let PRODUCTION_SERVER = "http://private-9f4d0-mixr1.apiary-mock.com/"
 
-let BASE_URL                = MOCK_SERVER
+let BASE_URL                = IP_SERVER
 let CONTENT_TYPE_ENCODED    = "urlencoded"
 let CONTENT_TYPE_JSON       = "json"
 let kAPIData                = "Data"
@@ -190,7 +191,7 @@ enum APIAction: String {
         case .NewsfeedVenue:
             return "newsfeed/venue"
         case .NewsfeedAll:
-            return "newfeed"
+            return "newsfeed"
             
         case .VenueCoordinates:
             return "venue"
@@ -222,34 +223,37 @@ enum APIError: ErrorType {
 
 class APIConnection: NSObject, SpringIndicatorTrait {
     
-    var springIndicator: SpringIndicator?
+    var springIndicator: SpringIndicator? = SpringIndicator()
+    let sessionManager = Alamofire.Manager()
     
-    weak var delegate: APIConnectionDelegate?
-    var param : NSDictionary?
+    weak var delegate: APIConnectionDelegate? {
+        return nil
+    }
     
     func CoreHTTPAuthorizationHeaderWithXAuthToken(param : NSDictionary , token : String) -> NSDictionary {
-        let username: AnyObject? = param[kAPIUsername]
-        let password: AnyObject? = param[kAPIPassword]
-        var headers: NSDictionary?
-        
-        if param.count > 0 && param[kAPIPassword] != nil && param[kAPIUsername] != nil {
-            //send x-auth token and authorization header
-            let str = "\(username!):\(password!)"
-            let base64Encoded = encodeStringToBase64(str)
-            
-            headers = [
-                //"Content-Type":"application/json, charset=utf-8",
-                //"Authorization": "Bearer \(token)"
-                "x-auth": token,
-                "authorization": "Basic \(base64Encoded)"
-            ]
-        } else {
-            //send x-auth token
-            headers = ["x-auth": token]
-        }
-        
-        appHeader = headers!
-        return headers!
+//        let username: AnyObject? = param[kAPIUsername]
+//        let password: AnyObject? = param[kAPIPassword]
+//        var headers: NSDictionary?
+//        
+//        if param.count > 0 && param[kAPIPassword] != nil && param[kAPIUsername] != nil {
+//            //send x-auth token and authorization header
+//            let str = "\(username!):\(password!)"
+//            let base64Encoded = encodeStringToBase64(str)
+//            
+//            headers = [
+//                //"Content-Type":"application/json, charset=utf-8",
+//                //"Authorization": "Bearer \(token)"
+//                "x-auth": token,
+//                "authorization": "Basic \(base64Encoded)"
+//            ]
+//        } else {
+//            //send x-auth token
+//            headers = ["x-auth": token]
+//        }
+//        
+//        appHeader = headers!
+//        return headers!
+        return NSDictionary()
     }
     
     func addQueryStringToUrl(url : String, param : NSDictionary) -> String {
@@ -277,30 +281,28 @@ class APIConnection: NSObject, SpringIndicatorTrait {
 // MARK: core api functions
 extension APIConnection {
 
-    func POST(action: APIAction, params: [String: AnyObject], success: MIXRResponseSuccessClosure?, failure: MIXRResponseFailureClosure?) throws -> AnyObject {
+    func POST(action: APIAction, params: [String: AnyObject]?, success: MIXRResponseSuccessClosure?, failure: MIXRResponseFailureClosure?) throws {
         try API(Method.POST, action: action, params: params, success: success, failure: failure)
-        return self
     }
     
-    func GET(action: APIAction, params: [String: AnyObject], withHeader isHeaderNeeded: Bool, success: MIXRResponseSuccessClosure?, failure: MIXRResponseFailureClosure) throws -> AnyObject {
+    func GET(action: APIAction, params: [String: AnyObject]?, withHeader isHeaderNeeded: Bool, success: MIXRResponseSuccessClosure?, failure: MIXRResponseFailureClosure) throws {
         try API(Method.GET, action: action, params: params, success: success, failure: failure)
-        return self
     }
     
-    func API(type: Alamofire.Method, action: APIAction, params: [String: AnyObject], success: MIXRResponseSuccessClosure?, failure: MIXRResponseFailureClosure?) throws -> AnyObject {
+    func API(type: Alamofire.Method, action: APIAction, params: [String: AnyObject]?, success: MIXRResponseSuccessClosure?, failure: MIXRResponseFailureClosure?) throws {
         let isHeaderNeeded = action.requiresAuthToken
         let apiURL = action.completeURLString
         
-        let sharedCompletion = { [weak self] (response: Response<AnyObject, NSError>, action: APIAction) in
-            self?.stopAnimatingSpringIndicator()
+        let sharedCompletion = { [weak self] (response: Response<String, NSError>, action: APIAction) in
+            self?.hideSpringIndicator()
             self?.processResponse(response, action: action, success: success, failure: failure)
         }
         
-        startAnimatingSpringIndicator()
+        showSpringIndicator()
         
         if(UseAlamofire) {
             if (!isHeaderNeeded) {
-                Alamofire.request(type, apiURL).validate().responseJSON { response in
+                sessionManager.request(type, apiURL, parameters: params, encoding: .JSON).responseString { response in
                     sharedCompletion(response, action)
                 }
             } else {
@@ -308,10 +310,7 @@ extension APIConnection {
                     throw APIError.NoAuthToken
                 }
                 let tokenString = "token \(authToken)"
-                Alamofire.Manager.sharedInstance.session.configuration.HTTPAdditionalHeaders?.updateValue(tokenString, forKey: "Authorization")
-                
-                Alamofire.request(type, apiURL, parameters: params, headers: appHeader as? [String : String])
-                    .responseJSON { response in
+                sessionManager.request(type, apiURL, parameters: params, encoding: .JSON, headers: ["Authorization": tokenString]).responseString { response in
                     sharedCompletion(response, action)
                 }
             }
@@ -320,7 +319,7 @@ extension APIConnection {
                 cachePolicy: .UseProtocolCachePolicy,
                 timeoutInterval: TIME_OUT_TIME)
             request.HTTPMethod = "POST"
-            request.HTTPBody =  try? NSJSONSerialization.dataWithJSONObject(params , options: NSJSONWritingOptions())
+            request.HTTPBody =  try? NSJSONSerialization.dataWithJSONObject(params ?? [:] , options: NSJSONWritingOptions())
             request.addValue("application/json", forHTTPHeaderField: "Content-Type")
             request.addValue("application/json", forHTTPHeaderField: "Accept")
             
@@ -340,22 +339,26 @@ extension APIConnection {
             
             dataTask.resume()
         }
-        return self
     }
 }
 
 // MARK: Response Handling
 extension APIConnection {
-    func processResponse(response: Response<AnyObject, NSError>, action: APIAction, success: MIXRResponseSuccessClosure?, failure: MIXRResponseFailureClosure?) {
-        print("Request:\(response.request)")  // original URL request
-        print("Response: \(response.response)") // URL response
-        print("Data: \(response.data)")     // server data
-        print("Result: \(response.result)")   // result of response serialization
+    func processResponse(response: Response<String, NSError>, action: APIAction, success: MIXRResponseSuccessClosure?, failure: MIXRResponseFailureClosure?) {
+        
+        if true {
+            print("Request Header: \(response.request?.allHTTPHeaderFields)")
+            print("Request:\(response.request)")  // original URL request
+            print("Response: \(response.response)") // URL response
+//            print("Data: \(response.data)")     // server data
+            print("Result: \(response.result)")   // result of response serialization
+        }
+        
         
         switch response.result {
         case .Success(let value):
             // TODO: check out errors here
-            let jsonResponse = JSON(value)
+            let jsonResponse = JSON.parse(value)
             dispatch_async(dispatch_get_main_queue()) {
                 success?(response: jsonResponse)
             }
@@ -415,12 +418,12 @@ extension APIConnection {
     func showSpringIndicator() {
         if let topVC = appDelegate.visibleViewController {
             addSpringIndicatorToView(topVC.view)
-            springIndicator?.startAnimation()
+            startAnimatingSpringIndicator()
         }
     }
     
     func hideSpringIndicator() {
-        springIndicator?.stopAnimation(false)
+        stopAnimatingSpringIndicator()
         springIndicator?.removeFromSuperview()
         springIndicator = nil
     }

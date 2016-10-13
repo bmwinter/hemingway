@@ -46,8 +46,7 @@ extension NSDate {
 
 
 
-class SignUpTableViewController: UIViewController {
-    
+class SignUpTableViewController: BaseViewController {
     
     @IBOutlet weak var firstname: UITextField!
     @IBOutlet weak var lastname: UITextField!
@@ -84,16 +83,14 @@ class SignUpTableViewController: UIViewController {
         // 26
         let width = (self.navigationController?.view.frame.size.width)! - 26.0
         self.firstNameWidth.constant = width/2.0
-        self.lastNameWidth.constant = width/2.0
-        self.navigationController?.navigationBarHidden = true
 //        self.performSignUp()
     }
 
     /*
     //  Check mark button method
     */
-    
-    @IBAction func checkmarkButtonTapped(sender: AnyObject){
+
+    @IBAction func checkmarkButtonTapped(sender: AnyObject) {
         checkmark.selected = !checkmark.selected
     }
     
@@ -235,8 +232,6 @@ class SignUpTableViewController: UIViewController {
 
 //        self.navigationController?.navigationBarHidden = false
 //        self.performSegueWithIdentifier("SMSVerification", sender: nil)
-
-        return;
         
 //        let parameters = [
 //            "first_name": "test",
@@ -254,7 +249,6 @@ class SignUpTableViewController: UIViewController {
                                          birthdate: birthdate,
                                          phoneNumber: phoneNumber,
                                          success: { [weak self] (response) in
-            self?.navigationController?.navigationBarHidden = false
             self?.performSegueWithIdentifier("SMSVerification", sender: nil)
             }, failure: { (error) in
                 
@@ -371,7 +365,10 @@ class SignUpTableViewController: UIViewController {
         textField.resignFirstResponder()
         return true
     }
-    
+}
 
-    
+extension SignUpTableViewController {
+    override func shouldHideNavigationBar() -> Bool {
+        return true
+    }
 }

@@ -15,12 +15,7 @@ class VenueProfileViewController: BaseViewController  {
         //self.navigationController?.interactivePopGestureRecognizer!.delegate =  self
         //self.navigationController?.interactivePopGestureRecognizer!.enabled = true        
     }
-    
-    override func viewWillAppear(animated: Bool)
-    {
-        self.navigationController?.navigationBarHidden = true
-    }
-    
+
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.

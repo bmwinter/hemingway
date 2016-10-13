@@ -31,7 +31,7 @@ enum SettingsTag: Int {
 
 class SettingsTableViewController: UITableViewController {
     
-    @IBOutlet weak var publicPrivateSwitch: UISwitch!
+    @IBOutlet weak var publicPrivateSwitch: UISwitch?
     /*
     // Table View delegate methods
     */
@@ -51,7 +51,6 @@ class SettingsTableViewController: UITableViewController {
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         getProfilePrivacy()
-        self.navigationController?.navigationBarHidden = true
     }
     
     //MARK: PublicPrivate Switch Event
@@ -62,13 +61,13 @@ class SettingsTableViewController: UITableViewController {
     
     func getProfilePrivacy() {
         APIManager.sharedInstance.fetchProfilePrivacy({ [weak self] (response) in
-            self?.publicPrivateSwitch.on = response["public"].boolValue
+            self?.publicPrivateSwitch?.on = response["public"].boolValue
             }, failure: nil)
     }
     
     func updateProfilePrivacy() {
         APIManager.sharedInstance.updateProfilePrivacy({ [weak self] (response) in
-            self?.publicPrivateSwitch.on = response["public"].boolValue
+            self?.publicPrivateSwitch?.on = response["public"].boolValue
             }, failure: nil)
     }
     
@@ -283,7 +282,6 @@ extension SettingsTableViewController {
             switch setting {
             case .ChangePassword:
                 let aChangePassword : ChangePassword = self.storyboard!.instantiateViewControllerWithIdentifier("ChangePassword") as! ChangePassword
-                self.navigationController?.navigationBarHidden = false
                 self.navigationController!.pushViewController(aChangePassword, animated: true)
             case .PrivacyPolicy:
                 print("Terms & Condition")

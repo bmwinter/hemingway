@@ -10,7 +10,6 @@ import Foundation
 import UIKit
 class SplashScreenViewController: BaseViewController {
     override func viewDidLoad() {
-        self.navigationController?.navigationBarHidden = true
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
     }
@@ -23,5 +22,11 @@ class SplashScreenViewController: BaseViewController {
     
     func PushLoginVC(){
         self.performSegueWithIdentifier("LoginSegue", sender: nil)
+    }
+}
+
+extension SplashScreenViewController {
+    override func shouldHideNavigationBar() -> Bool {
+        return true
     }
 }

@@ -22,17 +22,15 @@ class LoginViewController: BaseViewController {
     @IBOutlet weak var userPasswordTextField: UITextField!
     
     var email: String? {
-        return userEmailTextField.text
+        return userEmailTextField.text?.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
     }
     
     var password: String? {
-        return userPasswordTextField.text
+        return userPasswordTextField.text?.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
     }
         
     override func viewDidLoad() {
         self.title = "Login"
-        self.navigationItem.backBarButtonItem = UIBarButtonItem(title:"", style:.Plain, target:nil, action:nil)
-        
         
         if let _ = AppPersistedStore.sharedInstance.authToken {
             self.loadTabar()
@@ -42,7 +40,6 @@ class LoginViewController: BaseViewController {
     }
     
     override func viewDidAppear(animated: Bool) {
-        self.navigationController?.navigationBarHidden = true
         super.viewDidAppear(animated)
         
         if (isTesting == 1)
@@ -76,13 +73,11 @@ class LoginViewController: BaseViewController {
     {
         let storyboard: UIStoryboard = UIStoryboard(name:"Main", bundle: NSBundle.mainBundle())
         let tabBarController: UITabBarController = storyboard.instantiateViewControllerWithIdentifier("TabBarController") as! UITabBarController
-        self.navigationController?.navigationBarHidden = true
         self.presentViewController(tabBarController, animated: false, completion: nil)
     }
     
     @IBAction func signupButtonTapped(sender: AnyObject)
     {
-        self.navigationController?.navigationBarHidden = true
         self.performSegueWithIdentifier("SignUpSegue", sender: nil)
     }
     
@@ -94,7 +89,6 @@ class LoginViewController: BaseViewController {
     {
         // self.displayActionSheetForCamera()
         // return;
-        self.navigationController?.navigationBarHidden = false
         self.performSegueWithIdentifier("ForgotPasswordSegue", sender: nil)
     }
     
@@ -219,9 +213,9 @@ class LoginViewController: BaseViewController {
     */
     
     func performLoginAction() {
-        let parameters = [
-            "username": userEmailTextField.text!.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet()),
-            "password": userPasswordTextField.text!.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())]
+//        let parameters = [
+//            "username": userEmailTextField.text!.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet()),
+//            "password": userPasswordTextField.text!.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())]
         
         if let email = email, let password = password {
             APIManager.sharedInstance.loginWithEmail(email,
@@ -233,7 +227,7 @@ class LoginViewController: BaseViewController {
         
 //        let URL =  globalConstants.kAPIURL + globalConstants.kLoginAPIEndPoint
 //        
-//        //        Alamofire.Manager.sharedInstance.session.configuration.HTTPAdditionalHeaders?.updateValue("application/json", forKey: "Accept")
+//        Alamofire.Manager.sharedInstance.session.configuration.HTTPAdditionalHeaders?.updateValue("application/json", forKey: "Accept")
 //        
 //        
 //        Alamofire.request(.POST, URL , parameters: parameters, encoding: .JSON)
@@ -297,6 +291,12 @@ extension LoginViewController: UITextFieldDelegate {
     }
     func textFieldShouldReturn(textField: UITextField) -> Bool{
         textField.resignFirstResponder()
+        return true
+    }
+}
+
+extension LoginViewController {
+    override func shouldHideNavigationBar() -> Bool {
         return true
     }
 }

@@ -10,22 +10,14 @@
 import UIKit
 import SwiftyJSON
 
-class VenueFeedViewController:BaseViewController {
+class VenueFeedViewController: BaseViewController {
     
     override func viewDidLoad()
     {
         super.viewDidLoad()
         view.backgroundColor = UIColor.blackColor()
+        
         //performSelector(Selector(setFrames()), withObject: nil, afterDelay: 1.0)
-    }
-    
-    override func viewWillAppear(animated: Bool) {
-        super.viewWillAppear(animated)
-        //self.navigationController?.navigationBarHidden = false
-    }
-    
-    override func viewWillDisappear(animated: Bool) {
-        //self.navigationController?.navigationBarHidden = true
     }
     
     @IBAction func onUserProfileClicked(sender: AnyObject)

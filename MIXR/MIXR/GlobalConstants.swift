@@ -104,6 +104,8 @@ struct globalConstants {
     static let kPostVenuePhotoVideo = "post"
     static let kProfileUpdate = "profile"
     
+    static let kLoginAPIEndPoint = "login"
+    
     /*
     // Method to check wether email is valid or not.
     */

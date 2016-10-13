@@ -73,10 +73,6 @@ class SearchViewController: BaseViewController, SpringIndicatorTrait {
         //self.refreshControl?.removeFromSuperview()
     }
     
-    override func viewWillAppear(animated: Bool) {
-        self.navigationController?.navigationBarHidden = true
-    }
-    
     //  MARK:- UITapGestureRecognizer  -
     //Calls this function when the tap is recognized.
     
