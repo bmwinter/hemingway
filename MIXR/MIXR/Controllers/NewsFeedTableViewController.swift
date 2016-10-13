@@ -14,37 +14,30 @@ import SwiftyJSON
 import Alamofire
 import AlamofireImage
 
+import SpringIndicator
+
 let isLocalData = false
 //let videoUrl = NSURL(string: "https://v.cdn.vine.co/r/videos/AA3C120C521177175800441692160_38f2cbd1ffb.1.5.13763579289575020226.mp4")!
 
 let videoUrl = NSURL(string: "https://s3-us-west-2.amazonaws.com/mixruploads/2016_03_27_04_57_66.mp4")!
 
-class NewsFeedTableViewController: UITableViewController {
+class NewsFeedTableViewController: UITableViewController, SpringIndicatorTrait {
     
     var feedcount : Int = 0
-//    var feedsArray : Array<JSON> = []
     var feedsArray : NSMutableArray  = NSMutableArray()
-    //var refreshControl:UIRefreshControl!
     private var player: Player!
     var moviePlayer : MPMoviePlayerController?
+    
+    var springIndicator: SpringIndicator?
 
-    override func viewDidLoad()
-    {
-        
-//        self.playVideoFile()
+    override func viewDidLoad() {
         super.viewDidLoad()
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-        
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem()
-        self.pullToReferesh()
-        
         view.backgroundColor = UIColor.clearColor()
-        //performSelector(Selector(setFrames()), withObject: nil, afterDelay: 1.0)
+        
+        self.pullToReferesh()
     }
     
-    func playVideoFile(){
+    func playVideoFile() {
         self.view.autoresizingMask = ([UIViewAutoresizing.FlexibleWidth, UIViewAutoresizing.FlexibleHeight])
         
         self.player = Player()
@@ -64,53 +57,41 @@ class NewsFeedTableViewController: UITableViewController {
         let tapGestureRecognizer: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(NewsFeedTableViewController.handleTapGestureRecognizer(_:)))
         tapGestureRecognizer.numberOfTapsRequired = 1
         self.player.view.addGestureRecognizer(tapGestureRecognizer)
-
     }
     
-    func pullToReferesh()
-    {
+    func pullToReferesh() {
         self.refreshControl = UIRefreshControl()
         self.refreshControl!.attributedTitle = NSAttributedString(string: "")//Updating
         self.refreshControl!.addTarget(self, action: #selector(NewsFeedTableViewController.refresh(_:)), forControlEvents: UIControlEvents.ValueChanged)
         self.tableView.addSubview(self.refreshControl!)
     }
     
-    func refresh(sender:AnyObject)
-    {
+    func refresh(sender:AnyObject) {
         feedcount = 0
         self.loadData()
         // Code to refresh table view
         self.performSelector(#selector(NewsFeedTableViewController.endReferesh), withObject: nil, afterDelay: 1.0)
     }
     
-    func endReferesh()
-    {
+    func endReferesh() {
         //End refresh control
         self.refreshControl?.endRefreshing()
         //Remove refresh control to superview
         //self.refreshControl?.removeFromSuperview()
     }
     
-    override func viewWillAppear(animated: Bool)
-    {
-
+    override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(true)
-        self.navigationController?.navigationBarHidden = true
-        print(self.parentViewController?.description)
-        print(self.description)
     }
 
     override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(true)
         
         NSTimer.scheduledTimerWithTimeInterval(1.0, target: self, selector: #selector(NewsFeedTableViewController.loadData), userInfo: nil, repeats: false)
-        
-        super.viewDidAppear(true)
     }
 
-    func loadData()
-    {
-        if (isLocalData)
-        {
+    func loadData() {
+        if (isLocalData) {
             feedsArray = [["venueName":"Mad River1","venueImage":"venueImage1.jpg","userName":"Grant Boyle1"],
                 ["venueName":"Mad River2","venueImage":"venueImage2.jpg","userName":"Grant Boyle2"],
                 ["venueName":"Mad River3","venueImage":"venueImage3.jpg","userName":"Grant Boyle3"],
@@ -123,123 +104,116 @@ class NewsFeedTableViewController: UITableViewController {
                 ["venueName":"Mad River10","venueImage":"venueImage10.jpg","userName":"Grant Boyle10"]]
             reloadTable()
             
+        } else {
+            self.getAllNewsFeed()
         }
-        else
-        {
-            self.getAllNewsFeed();
-//            let param: Dictionary = Dictionary<String, AnyObject>()
-//            //call API for to get venues
-//            let object = APIConnection().POST(APIName.Venues.rawValue, withAPIName: "VenueList", withMessage: "", withParam: param, withProgresshudShow: true, withHeader: false) as! APIConnection
-//            object.delegate = self
-            
+    }
+    
+    func newsFeedType() -> APIAction {
+        if let controller = parentViewController as? PostViewController {
+            if controller.isUserProfile {
+                return .MyNewsfeed
+            } else {
+                return .NewsfeedUser
+            }
         }
+        
+        return .NewsfeedAll
     }
     
     // MARK: Retrieve All News Feed data.
     func getAllNewsFeed(){
-        
-        
-    
-        
-        var urlString = ""
-        
-        if self.parentViewController!.isKindOfClass(VenueFeedViewController){
-            urlString = globalConstants.kAPIURL + globalConstants.kAllNewsFeed
-        }else if self.parentViewController!.isKindOfClass(PostViewController){
-            let controller = self.parentViewController as! PostViewController
-            if(controller.isUserProfile){
-                urlString = globalConstants.kAPIURL + globalConstants.kNewsfeedMyAPIEndPoint
-            }else{
-                urlString = globalConstants.kAPIURL + globalConstants.kNewsfeedUserAPIEndPoint
-            }
-        }
-        else{
-            urlString = globalConstants.kAPIURL + globalConstants.kAllNewsFeed
-        }
-        
-        
-        let appDelegate=AppDelegate() //You create a new instance,not get the exist one
-        appDelegate.startAnimation((self.parentViewController!.view))
-        
-
-        let URL =  urlString
-        
-                    
-        var tokenString = "token "
-        if let appToken =  NSUserDefaults.standardUserDefaults().objectForKey("LoginToken") as? String
-        {
-            tokenString +=  appToken
-            
-            
-            let headers = [
-                "Authorization": tokenString,
-                ]
-            
-        
-        
-        Alamofire.request(.GET, URL , parameters: nil, encoding: .JSON, headers: headers)
-            .responseString { response in
+        APIManager.sharedInstance.getNewsfeed(forType: newsFeedType(),
+                                              success: { [weak self] (response) in
+                                                if let arr = response.arrayObject {
+                                                    self?.feedsArray = NSMutableArray(array: arr)
+                                                } else {
+                                                    self?.feedsArray = []
+                                                }
+                                                self?.reloadTable()
+        }, failure: { (error) in
                 
-                appDelegate.stopAnimation()
-                guard let value = response.result.value else {
-                    print("Error: did not receive data")
-                    return
-                }
-                
-                guard response.result.error == nil else {
-                    print("error calling POST on Login")
-                    print(response.result.error)
-                    return
-                }
-                
-                
-                let post = JSON.parse(value)
-                if let string = post.rawString() {
-                    
-                    if response.response?.statusCode == 400{
-                        let responseDic:[String:AnyObject]? = globalConstants.convertStringToDictionary(string)
-                        print("The Response Error is:   \(response.response?.statusCode)")
-                        
-                        if let val = responseDic?["code"] {
-                            if val[0].isEqualToString("13") {
-                                //                                print("Equals")
-                                self.displayCommonAlert((responseDic?["detail"] as? NSArray)?[0] as! String)
-                                return
-                            }
-                            // now val is not nil and the Optional has been unwrapped, so use it
-                        }
-                        
-                        if let errorData = responseDic?["detail"] {
-                            
-                            let errorMessage = errorData.objectAtIndex(0) as! String
-                            //let errorMessage = errorData[0] as! String
-                            self.displayCommonAlert(errorMessage)
-                            return;
-                        }
-                    }else{
-                        if let searchArray = post.arrayObject
-                        {
-                            self.feedsArray = searchArray as! NSMutableArray
-                            self.reloadTable()
-                        }
-                    }
-                }
-            }
-        }
-    }
-    
-    /*
-    // Common alert method need to be used to display alert, by passing alert string as parameter to it.
-    */
-    
-    func displayCommonAlert(alertMesage : NSString){
+        })
         
-        let alertController = UIAlertController (title: globalConstants.kAppName, message: alertMesage as String?, preferredStyle:.Alert)
-        let okayAction: UIAlertAction = UIAlertAction(title: "Ok", style: .Cancel) { action -> Void in
-            //Just dismiss the action sheet
-        }
-        alertController.addAction(okayAction)
-        self.presentViewController(alertController, animated: true, completion: nil)
+//        var urlString = ""
+//        
+//        if self.parentViewController!.isKindOfClass(VenueFeedViewController){
+//            urlString = globalConstants.kAPIURL + globalConstants.kAllNewsFeed
+//        }else if self.parentViewController!.isKindOfClass(PostViewController){
+//            let controller = self.parentViewController as! PostViewController
+//            if(controller.isUserProfile){
+//                urlString = globalConstants.kAPIURL + globalConstants.kNewsfeedMyAPIEndPoint
+//            }else{
+//                urlString = globalConstants.kAPIURL + globalConstants.kNewsfeedUserAPIEndPoint
+//            }
+//        }
+//        else{
+//            urlString = globalConstants.kAPIURL + globalConstants.kAllNewsFeed
+//        }
+//        
+//        startAnimatingSpringIndicator()
+//
+//        let URL =  urlString
+//        
+//        var tokenString = "token "
+//        if let appToken =  NSUserDefaults.standardUserDefaults().objectForKey("LoginToken") as? String {
+//            tokenString +=  appToken
+//            
+//            let headers = [
+//                "Authorization": tokenString,
+//                ]
+//
+//            Alamofire.request(.GET, URL , parameters: nil, encoding: .JSON, headers: headers)
+//            .responseString { [weak self] response in
+//                guard let `self` = self else { return }
+//                
+//                self.stopAnimatingSpringIndicator()
+//                
+//                guard let value = response.result.value else {
+//                    print("Error: did not receive data")
+//                    return
+//                }
+//                
+//                guard response.result.error == nil else {
+//                    print("error calling POST on Login")
+//                    print(response.result.error)
+//                    return
+//                }
+//                
+//                
+//                let post = JSON.parse(value)
+//                if let string = post.rawString() {
+//                    
+//                    if response.response?.statusCode == 400{
+//                        let responseDic:[String:AnyObject]? = self.convertStringToDictionary(string)
+//                        print("The Response Error is:   \(response.response?.statusCode)")
+//                        
+//                        if let val = responseDic?["code"] {
+//                            if val[0].isEqualToString("13") {
+//                                //                                print("Equals")
+//                                self.displayCommonAlert((responseDic?["detail"] as? NSArray)?[0] as! String)
+//                                return
+//                            }
+//                            // now val is not nil and the Optional has been unwrapped, so use it
+//                        }
+//                        
+//                        if let errorData = responseDic?["detail"] {
+//                            
+//                            let errorMessage = errorData.objectAtIndex(0) as! String
+//                            //let errorMessage = errorData[0] as! String
+//                            self.displayCommonAlert(errorMessage)
+//                            return;
+//                        }
+//                    }else{
+//                        if let searchArray = post.arrayObject
+//                        {
+//                            self.feedsArray = searchArray as! NSMutableArray
+//                            self.reloadTable()
+//                        }
+//                    }
+//                }
+//            }
+//        }
     }
     
     func reloadTable()
@@ -344,7 +318,7 @@ class NewsFeedTableViewController: UITableViewController {
         let dicPost : NSDictionary = self.feedsArray[feedTag] as! NSDictionary
 
         let aVenueProfileViewController : VenueProfileViewController = self.storyboard!.instantiateViewControllerWithIdentifier("VenueProfileViewController") as! VenueProfileViewController
-        appDelegate.selectedVenueId = String(dicPost["venue_id"]) 
+        AppPersistedStore.sharedInstance.selectedVenueId = String(dicPost["venue_id"])
         
         self.navigationController!.pushViewController(aVenueProfileViewController, animated: true)
         return
@@ -362,12 +336,35 @@ class NewsFeedTableViewController: UITableViewController {
 
     // MARK : Like POST API call
     
-    func likePost(tag:Int){
+    func likePost(tag: Int){
         
         let dicFeed = self.feedsArray.objectAtIndex(tag)
         
-        let appDelegate=AppDelegate() //You create a new instance,not get the exist one
-        appDelegate.startAnimation((self.navigationController?.view)!)
+        if let postId = dicFeed["post_id"] as? Int, activeLike = dicFeed["user_likes"] as? Int {
+            APIManager.sharedInstance.likePost(withPostId: String(postId),
+                                               activeLike: activeLike == 0,
+                                               success: { [weak self] (response) in
+                                                if let _ = response["post_id"].string {
+                                                    if let dicFeed = self?.feedsArray.objectAtIndex(tag).mutableCopy(),
+                                                        var likeCount = dicFeed["likes"] as? Int,
+                                                        let userlike = dicFeed["user_likes"] as? Int {
+                                                        if userlike == 0 {
+                                                            likeCount = likeCount + 1;
+                                                            dicFeed.setValue(1, forKey: "user_likes")
+                                                        }else{
+                                                            likeCount = likeCount - 1;
+                                                            dicFeed.setValue(0, forKey: "user_likes")
+                                                        }
+                                                        
+                                                        dicFeed.setValue(likeCount, forKey: "likes")
+                                                        self?.feedsArray.replaceObjectAtIndex(tag, withObject: dicFeed.mutableCopy())
+                                                        self?.reloadTable()
+                                                    }
+                                                }
+                }, failure: nil)
+        }
+        
+        startAnimatingSpringIndicator()
         
         let postID = dicFeed["post_id"] as! Int
         
@@ -390,88 +387,89 @@ class NewsFeedTableViewController: UITableViewController {
 //            "post_id": String(1),
 //            "like": "true"]
 
-        
-        let URL =  globalConstants.kAPIURL + globalConstants.kLikePost
-        
-        var tokenString = "token "
-        if let appToken =  NSUserDefaults.standardUserDefaults().objectForKey("LoginToken") as? String
-        {
-            tokenString +=  appToken
-        }
-        
-        let headers = [
-            "Authorization": tokenString,
-            ]
-
-        let manager = Manager.sharedInstance
-        manager.session.configuration.HTTPAdditionalHeaders = headers
-
-        //        Alamofire.Manager.sharedInstance.session.configuration.HTTPAdditionalHeaders?.updateValue("application/json", forKey: "Accept")
-        
-        
-        Alamofire.request(.POST, URL , parameters: parameters, encoding: .JSON)
-            .responseString { response in
-                
-                appDelegate.stopAnimation()
-                guard let value = response.result.value else {
-                    print("Error: did not receive data")
-                    return
-                }
-                
-                guard response.result.error == nil else {
-                    print("error calling POST on Login")
-                    print(response.result.error)
-                    return
-                }
-                
-                
-                let post = JSON(value)
-                if let string = post.rawString() {
-                    let responseDic:[String:AnyObject]? = globalConstants.convertStringToDictionary(string)
-                    
-                    if response.response?.statusCode == 400{
-                        print("The Response Error is:   \(response.response?.statusCode)")
-                        
-                        if let val = responseDic?["code"] {
-                            if val[0].isEqualToString("13") {
-                                //                                print("Equals")
-                                //self.displayCommonAlert(responseDic?["detail"]?[0] as! String)
-                                self.displayCommonAlert((responseDic?["detail"] as? NSArray)?[0] as! String)
-                                
-                                return
-                            }
-                            // now val is not nil and the Optional has been unwrapped, so use it
-                        }
-                        
-                        if let errorData = responseDic?["detail"] {
-                            
-                            let errorMessage = (errorData as? NSArray)?[0] as! String
-                            self.displayCommonAlert(errorMessage)
-                            return;
-                        }
-                    }
-                    
-                    if (responseDic?["post_id"]) != nil {
-                        let dicFeed = self.feedsArray.objectAtIndex(tag).mutableCopy()
-                        var likeCount = dicFeed["likes"] as! Int
-                        
-                        let userlike = dicFeed["user_likes"] as! Int
-                        if userlike == 0 {
-                            likeCount = likeCount + 1;
-                            dicFeed.setValue(1, forKey: "user_likes")
-                        }else{
-                            likeCount = likeCount - 1;
-                            dicFeed.setValue(0, forKey: "user_likes")
-                        }
-
-                        dicFeed.setValue(likeCount, forKey: "likes")
-                        
-                        self.feedsArray.replaceObjectAtIndex(tag, withObject: dicFeed.mutableCopy())
-                        
-                        self.reloadTable()
-                    }
-                }
-        }
+//        
+//        let URL =  globalConstants.kAPIURL + globalConstants.kLikePost
+//        
+//        var tokenString = "token "
+//        if let appToken =  NSUserDefaults.standardUserDefaults().objectForKey("LoginToken") as? String
+//        {
+//            tokenString +=  appToken
+//        }
+//        
+//        let headers = [
+//            "Authorization": tokenString,
+//            ]
+//
+//        let manager = Manager.sharedInstance
+//        manager.session.configuration.HTTPAdditionalHeaders = headers
+//
+//        //        Alamofire.Manager.sharedInstance.session.configuration.HTTPAdditionalHeaders?.updateValue("application/json", forKey: "Accept")
+//        
+//        
+//        Alamofire.request(.POST, URL , parameters: parameters, encoding: .JSON)
+//            .responseString { [weak self] response in
+//                guard let `self` = self else { return }
+//                self.stopAnimatingSpringIndicator()
+//                
+//                guard let value = response.result.value else {
+//                    print("Error: did not receive data")
+//                    return
+//                }
+//                
+//                guard response.result.error == nil else {
+//                    print("error calling POST on Login")
+//                    print(response.result.error)
+//                    return
+//                }
+//                
+//                
+//                let post = JSON(value)
+//                if let string = post.rawString() {
+//                    let responseDic:[String:AnyObject]? = self.convertStringToDictionary(string)
+//                    
+//                    if response.response?.statusCode == 400{
+//                        print("The Response Error is:   \(response.response?.statusCode)")
+//                        
+//                        if let val = responseDic?["code"] {
+//                            if val[0].isEqualToString("13") {
+//                                //                                print("Equals")
+//                                //self.displayCommonAlert(responseDic?["detail"]?[0] as! String)
+//                                self.displayCommonAlert((responseDic?["detail"] as? NSArray)?[0] as! String)
+//                                
+//                                return
+//                            }
+//                            // now val is not nil and the Optional has been unwrapped, so use it
+//                        }
+//                        
+//                        if let errorData = responseDic?["detail"] {
+//                            
+//                            let errorMessage = (errorData as? NSArray)?[0] as! String
+//                            self.displayCommonAlert(errorMessage)
+//                            return;
+//                        }
+//                    }
+//                    
+//                    if (responseDic?["post_id"]) != nil {
+//                        let dicFeed = self.feedsArray.objectAtIndex(tag).mutableCopy()
+//                        var likeCount = dicFeed["likes"] as! Int
+//                        
+//                        let userlike = dicFeed["user_likes"] as! Int
+//                        if userlike == 0 {
+//                            likeCount = likeCount + 1;
+//                            dicFeed.setValue(1, forKey: "user_likes")
+//                        }else{
+//                            likeCount = likeCount - 1;
+//                            dicFeed.setValue(0, forKey: "user_likes")
+//                        }
+//
+//                        dicFeed.setValue(likeCount, forKey: "likes")
+//                        
+//                        self.feedsArray.replaceObjectAtIndex(tag, withObject: dicFeed.mutableCopy())
+//                        
+//                        self.reloadTable()
+//                    }
+//                }
+//        }
     }
     
     //MARK: - APIConnection Delegate -

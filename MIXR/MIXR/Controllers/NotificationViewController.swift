@@ -88,7 +88,7 @@ class NotificationViewController: BaseViewController,UITableViewDelegate,UITable
         promotersArray.addObject(["promoters":"Mark Houser's coupon valid until 13/2/2016","userHr":""])
         
         
-        self.loadfollowingRequestData()
+        self.loadFollowingRequestData()
         /*
         followingRequestArray.addObject(["followingReques":"Jennifer Lawrence wants to follow you","userImage":"venueImage1.jpg","userHr":"1"])
         followingRequestArray.addObject(["followingReques":"Mark Houser wants to follow you","userImage":"venueImage2.jpg","userHr":"2"])
@@ -103,108 +103,108 @@ class NotificationViewController: BaseViewController,UITableViewDelegate,UITable
         */
     }
     
-    func loadfollowingRequestData()
-    {
+    func loadFollowingRequestData() {
+        
         self.followingRequestArray.removeAllObjects()
+        APIManager.sharedInstance.getFollowers({ [weak self] (response) in
+            guard let `self` = self else { return }
+            let mutableArray = NSMutableArray(array: response.arrayObject ?? [])
+            self.followingRequestArray = self.createDisplayArray(mutableArray)
+            self.followRequestTableView.reloadData()
+            }, failure: nil)
         
-        let appDelegate=AppDelegate() //You create a new instance,not get the exist one
-        appDelegate.startAnimation((self.navigationController?.view)!)
-        
-        var tokenString = "token "
-        if let appToken =  NSUserDefaults.standardUserDefaults().objectForKey("LoginToken") as? String
-        {
-            tokenString +=  appToken
-            
-            let URL =  globalConstants.kAPIURL + globalConstants.kFollowRequestAPIEndPoint
-            
-            Alamofire.Manager.sharedInstance.session.configuration.HTTPAdditionalHeaders?.updateValue(tokenString, forKey: "authorization")
-            let headers = [
-                "Authorization": tokenString,
-            ]
-            
-            Alamofire.request(.GET, URL , parameters: nil, encoding: .JSON, headers : headers)
-                .responseString { response in
-
-                    print("response \(response)")
-                    appDelegate.stopAnimation()
-                    
-                    guard let value = response.result.value else
-                    {
-                        print("Error: did not receive data")
-                        self.followRequestTableView.reloadData()
-                        
-                        return
-                    }
-                    
-                    guard response.result.error == nil else
-                    {
-                        print("error calling POST on Login")
-                        print(response.result.error)
-                        self.followRequestTableView.reloadData()
-                        
-                        return
-                    }
-                    
-                    let post = JSON(value)
-                    if let string = post.rawString()
-                    {
-                        if (response.response?.statusCode == 400 || response.response?.statusCode == 401)
-                        {
-                            let responseDic:[String:AnyObject]? = self.convertStringToDictionary(string)
-                            print("The Response Error is:   \(response.response?.statusCode)")
-                            
-                            if let val = responseDic?["code"]
-                            {
-                                if val[0].isEqualToString("13")
-                                {
-                                    //print("Equals")
-                                    //self.displayCommonAlert(responseDic?["detail"]?[0] as! String)
-                                    self.displayCommonAlert((responseDic?["detail"] as? NSArray)?[0] as! String)
-
-                                    self.followRequestTableView.reloadData()
-                                    
-                                    return
-                                }
-                                // now val is not nil and the Optional has been unwrapped, so use it
-                            }
-                            
-                            if let errorData = responseDic?["detail"]
-                            {
-                                
-                                if let errorMessage = errorData as? String
-                                {
-                                    self.displayCommonAlert(errorMessage)
-                                    
-                                }
-                                else if let errorMessage = errorData as? NSArray
-                                {
-                                    if let errorMessageStr = errorMessage[0] as? String
-                                    {
-                                        self.displayCommonAlert(errorMessageStr)
-                                    }
-                                }
-                                self.followRequestTableView.reloadData()
-                                return;
-                            }
-                           
-                        }
-                        else if (response.response?.statusCode == 200 || response.response?.statusCode == 201)
-                        {
-                            let responseArray:NSArray? = self.convertStringToArray(string)
-                            if let searchArray = responseArray as? NSMutableArray
-                            {
-                                self.followingRequestArray = self.createDisplayArray(searchArray)
-                                print("The Response self.followingRequestArray is:   \(self.followingRequestArray)")
-                            }
-                        }
-                        else
-                        {
-                            
-                        }
-                        self.followRequestTableView.reloadData()
-                    }
-            }
-        }
+//        var tokenString = "token "
+//        if let appToken =  NSUserDefaults.standardUserDefaults().objectForKey("LoginToken") as? String
+//        {
+//            tokenString +=  appToken
+//            
+//            let URL =  globalConstants.kAPIURL + globalConstants.kFollowRequestAPIEndPoint
+//            
+//            Alamofire.Manager.sharedInstance.session.configuration.HTTPAdditionalHeaders?.updateValue(tokenString, forKey: "authorization")
+//            let headers = [
+//                "Authorization": tokenString,
+//            ]
+//            
+//            Alamofire.request(.GET, URL , parameters: nil, encoding: .JSON, headers : headers)
+//                .responseString { response in
+//                    
+//                    guard let value = response.result.value else
+//                    {
+//                        print("Error: did not receive data")
+//                        self.followRequestTableView.reloadData()
+//                        
+//                        return
+//                    }
+//                    
+//                    guard response.result.error == nil else
+//                    {
+//                        print("error calling POST on Login")
+//                        print(response.result.error)
+//                        self.followRequestTableView.reloadData()
+//                        
+//                        return
+//                    }
+//                    
+//                    let post = JSON(value)
+//                    if let string = post.rawString()
+//                    {
+//                        if (response.response?.statusCode == 400 || response.response?.statusCode == 401)
+//                        {
+//                            let responseDic:[String:AnyObject]? = self.convertStringToDictionary(string)
+//                            print("The Response Error is:   \(response.response?.statusCode)")
+//                            
+//                            if let val = responseDic?["code"]
+//                            {
+//                                if val[0].isEqualToString("13")
+//                                {
+//                                    //print("Equals")
+//                                    //self.displayCommonAlert(responseDic?["detail"]?[0] as! String)
+//                                    self.displayCommonAlert((responseDic?["detail"] as? NSArray)?[0] as! String)
+//
+//                                    self.followRequestTableView.reloadData()
+//                                    
+//                                    return
+//                                }
+//                                // now val is not nil and the Optional has been unwrapped, so use it
+//                            }
+//                            
+//                            if let errorData = responseDic?["detail"]
+//                            {
+//                                
+//                                if let errorMessage = errorData as? String
+//                                {
+//                                    self.displayCommonAlert(errorMessage)
+//                                    
+//                                }
+//                                else if let errorMessage = errorData as? NSArray
+//                                {
+//                                    if let errorMessageStr = errorMessage[0] as? String
+//                                    {
+//                                        self.displayCommonAlert(errorMessageStr)
+//                                    }
+//                                }
+//                                self.followRequestTableView.reloadData()
+//                                return;
+//                            }
+//                           
+//                        }
+//                        else if (response.response?.statusCode == 200 || response.response?.statusCode == 201)
+//                        {
+//                            let responseArray:NSArray? = self.convertStringToArray(string)
+//                            if let searchArray = responseArray as? NSMutableArray
+//                            {
+//                                self.followingRequestArray = self.createDisplayArray(searchArray)
+//                                print("The Response self.followingRequestArray is:   \(self.followingRequestArray)")
+//                            }
+//                        }
+//                        else
+//                        {
+//                            
+//                        }
+//                        self.followRequestTableView.reloadData()
+//                    }
+//            }
+//        }
     }
     
     
@@ -484,102 +484,102 @@ class NotificationViewController: BaseViewController,UITableViewDelegate,UITable
     {
         self.followingRequestArray.removeAllObjects()
         
-        let appDelegate=AppDelegate() //You create a new instance,not get the exist one
-        appDelegate.startAnimation((self.navigationController?.view)!)
+        APIManager.sharedInstance.updateFollowRequest(ownerId: owner_id,
+                                                      followStatus: follow_status,
+                                                      success: { [weak self] (response) in
+                                                        self?.loadData()
+            }, failure: nil)
         
-        var tokenString = "token "
-        if let appToken =  NSUserDefaults.standardUserDefaults().objectForKey("LoginToken") as? String
-        {
-            tokenString +=  appToken
-            
-            let URL =  globalConstants.kAPIURL + globalConstants.kFollowRequestUpdateAPIEndPoint
-            
-            Alamofire.Manager.sharedInstance.session.configuration.HTTPAdditionalHeaders?.updateValue(tokenString, forKey: "authorization")
-            let headers = [
-                "Authorization": tokenString,
-            ]
-            
-            let parameters = [
-                "owner_id": owner_id,
-                "follow_status":follow_status
-            ]
-            
-            Alamofire.request(.POST, URL , parameters: parameters, encoding: .JSON, headers : headers)
-                .responseString { response in
-                    
-                    print("response \(response)")
-                    appDelegate.stopAnimation()
-                    
-                    guard let value = response.result.value else
-                    {
-                        print("Error: did not receive data")
-                        self.loadData()
-                        return
-                    }
-                    
-                    guard response.result.error == nil else
-                    {
-                        print("error calling POST on Login")
-                        print(response.result.error)
-                        self.loadData()
-                        return
-                    }
-                    
-                    let post = JSON(value)
-                    if let string = post.rawString()
-                    {
-                        if (response.response?.statusCode == 400 || response.response?.statusCode == 401)
-                        {
-                            let responseDic:[String:AnyObject]? = self.convertStringToDictionary(string)
-                            print("The Response Error is:   \(response.response?.statusCode)")
-                            
-                            if let val = responseDic?["code"]
-                            {
-                                if val[0].isEqualToString("13")
-                                {
-                                    //print("Equals")
-                                    //self.displayCommonAlert(responseDic?["detail"]?[0] as! String)
-                                    self.displayCommonAlert((responseDic?["detail"] as? NSArray)?[0] as! String)
-
-                                    self.loadData()
-                                    
-                                    return
-                                }
-                                // now val is not nil and the Optional has been unwrapped, so use it
-                            }
-                            
-                            if let errorData = responseDic?["detail"]
-                            {
-                                
-                                if let errorMessage = errorData as? String
-                                {
-                                    self.displayCommonAlert(errorMessage)
-                                    
-                                }
-                                else if let errorMessage = errorData as? NSArray
-                                {
-                                    if let errorMessageStr = errorMessage[0] as? String
-                                    {
-                                        self.displayCommonAlert(errorMessageStr)
-                                    }
-                                }
-                                self.loadData()
-                                return;
-                            }
-                            
-                        }
-                        else if (response.response?.statusCode == 200 || response.response?.statusCode == 201)
-                        {
-                            print("The Response stringis:   \(string)")
-                        }
-                        else
-                        {
-                            
-                        }
-                        self.loadData()
-                    }
-            }
-        }
+//        var tokenString = "token "
+//        if let appToken =  NSUserDefaults.standardUserDefaults().objectForKey("LoginToken") as? String
+//        {
+//            tokenString +=  appToken
+//            
+//            let URL =  globalConstants.kAPIURL + globalConstants.kFollowRequestUpdateAPIEndPoint
+//            
+//            Alamofire.Manager.sharedInstance.session.configuration.HTTPAdditionalHeaders?.updateValue(tokenString, forKey: "authorization")
+//            let headers = [
+//                "Authorization": tokenString,
+//            ]
+//            
+//            let parameters = [
+//                "owner_id": owner_id,
+//                "follow_status":follow_status
+//            ]
+//            
+//            Alamofire.request(.POST, URL , parameters: parameters, encoding: .JSON, headers : headers)
+//                .responseString { response in
+//                    
+//                    guard let value = response.result.value else
+//                    {
+//                        print("Error: did not receive data")
+//                        self.loadData()
+//                        return
+//                    }
+//                    
+//                    guard response.result.error == nil else
+//                    {
+//                        print("error calling POST on Login")
+//                        print(response.result.error)
+//                        self.loadData()
+//                        return
+//                    }
+//                    
+//                    let post = JSON(value)
+//                    if let string = post.rawString()
+//                    {
+//                        if (response.response?.statusCode == 400 || response.response?.statusCode == 401)
+//                        {
+//                            let responseDic:[String:AnyObject]? = self.convertStringToDictionary(string)
+//                            print("The Response Error is:   \(response.response?.statusCode)")
+//                            
+//                            if let val = responseDic?["code"]
+//                            {
+//                                if val[0].isEqualToString("13")
+//                                {
+//                                    //print("Equals")
+//                                    //self.displayCommonAlert(responseDic?["detail"]?[0] as! String)
+//                                    self.displayCommonAlert((responseDic?["detail"] as? NSArray)?[0] as! String)
+//
+//                                    self.loadData()
+//                                    
+//                                    return
+//                                }
+//                                // now val is not nil and the Optional has been unwrapped, so use it
+//                            }
+//                            
+//                            if let errorData = responseDic?["detail"]
+//                            {
+//                                
+//                                if let errorMessage = errorData as? String
+//                                {
+//                                    self.displayCommonAlert(errorMessage)
+//                                    
+//                                }
+//                                else if let errorMessage = errorData as? NSArray
+//                                {
+//                                    if let errorMessageStr = errorMessage[0] as? String
+//                                    {
+//                                        self.displayCommonAlert(errorMessageStr)
+//                                    }
+//                                }
+//                                self.loadData()
+//                                return;
+//                            }
+//                            
+//                        }
+//                        else if (response.response?.statusCode == 200 || response.response?.statusCode == 201)
+//                        {
+//                            print("The Response stringis:   \(string)")
+//                        }
+//                        else
+//                        {
+//                            
+//                        }
+//                        self.loadData()
+//                    }
+//            }
+//        }
     }
 
     /*

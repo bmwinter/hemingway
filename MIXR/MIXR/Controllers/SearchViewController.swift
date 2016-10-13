@@ -11,7 +11,9 @@ import SwiftyJSON
 import Alamofire
 import AlamofireImage
 
-class SearchViewController: BaseViewController {
+import SpringIndicator
+
+class SearchViewController: BaseViewController, SpringIndicatorTrait {
     
     var refreshControl:UIRefreshControl!
     var usersArray = NSMutableArray()
@@ -23,60 +25,52 @@ class SearchViewController: BaseViewController {
     
     var is_searching:Bool!
     
+    var query: String {
+        switch searchBarObj.text {
+        case .Some(let value):
+            return value.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
+        case .None:
+            return ""
+        }
+    }
+    
     @IBOutlet var backgroundView: UIView!
     @IBOutlet var tableView: UITableView!
     
     var feedcount : Int = 0
     
-    override func viewDidLoad()
-    {
+    var springIndicator: SpringIndicator?
+    
+    override func viewDidLoad() {
         super.viewDidLoad()
         is_searching = false
         self.tableView.separatorColor = UIColor .clearColor()
         self.loadData()
         
         searchBarObj.delegate = self
-        
-        //let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "dismissKeyboard")
-        // view.addGestureRecognizer(tap)
-        
         searchingArray = []
         searchBarObj.layer.cornerRadius = 10.0
     }
     
-    func pullToReferesh()
-    {
+    func pullToReferesh() {
         self.refreshControl = UIRefreshControl()
         self.refreshControl!.attributedTitle = NSAttributedString(string: "")//Updating
         self.refreshControl!.addTarget(self, action: #selector(SearchViewController.refresh(_:)), forControlEvents: UIControlEvents.ValueChanged)
         self.tableView.addSubview(self.refreshControl!)
     }
     
-    func refresh(sender:AnyObject)
-    {
+    func refresh(sender:AnyObject) {
         feedcount = 0
         self.loadData()
         // Code to refresh table view
         self.performSelector(#selector(SearchViewController.endReferesh), withObject: nil, afterDelay: 1.0)
     }
     
-    func endReferesh()
-    {
+    func endReferesh() {
         //End refresh control
         self.refreshControl?.endRefreshing()
         //Remove refresh control to superview
         //self.refreshControl?.removeFromSuperview()
-    }
-    
-    override func viewWillAppear(animated: Bool)
-    {
-        self.navigationController?.navigationBarHidden = true
-    }
-    
-    override func didReceiveMemoryWarning()
-    {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
     //  MARK:- UITapGestureRecognizer  -
@@ -94,10 +88,8 @@ class SearchViewController: BaseViewController {
         
     }
     
-    func loadSearchData()
-    {
-        let appDelegate=AppDelegate() //You create a new instance,not get the exist one
-        appDelegate.startAnimation((self.navigationController?.view)!)
+    func loadSearchData() {
+        startAnimatingSpringIndicator()
         
         var tokenString = "token "
         if let appToken =  NSUserDefaults.standardUserDefaults().objectForKey("LoginToken") as? String
@@ -106,97 +98,105 @@ class SearchViewController: BaseViewController {
             
             //Alamofire.Manager.sharedInstance.session.configuration.HTTPAdditionalHeaders?.updateValue(tokenString, forKey: "authorization")
            
-            let headers = [
-                "Authorization": tokenString,
-            ]
+//            let headers = [
+//                "Authorization": tokenString,
+//            ]
+//            
+//            let parameters = [
+//                "query": self.searchBarObj.text!//.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet()),
+//            ]
+//            let URL =  globalConstants.kAPIURL + globalConstants.kSearchAPIEndPoint
             
-            let parameters = [
-                "query": self.searchBarObj.text!//.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet()),
-            ]
-            let URL =  globalConstants.kAPIURL + globalConstants.kSearchAPIEndPoint
+            APIManager.sharedInstance.search(withQuery: query,
+                                             success: { (jsonResponse) in
+                                                let tempArray = NSMutableArray(array: jsonResponse.arrayObject ?? [])
+                                                self.usersArray = NSMutableArray(array: self.createDisplayArray(tempArray))
+                                                self.feedcount = self.usersArray.count
+                                                self.searchingArray = self.usersArray
+                }, failure: { (error) in
+                    
+            })
             //Alamofire.Manager.sharedInstance.session.configuration.HTTPAdditionalHeaders?.updateValue("application/json", forKey: "Accept")
             
-            Alamofire.request(.POST, URL , parameters: parameters, encoding: .JSON, headers : headers)
-                .responseString { [unowned self] response in
-//            Alamofire.request(.POST, URL , parameters: parameters, encoding: .JSON)
-//                .responseString { response in
-                    
-                    self.usersArray.removeAllObjects()
-                    self.searchingArray .removeAllObjects()
-                    
-                    appDelegate.stopAnimation()
-                    guard let value = response.result.value else
-                    {
-                        print("Error: did not receive data")
-                        self.reloadTable()
-                        
-                        return
-                    }
-                    
-                    guard response.result.error == nil else
-                    {
-                        print("error calling POST on Login")
-                        print(response.result.error)
-                        self.reloadTable()
-                        
-                        return
-                    }
-                    
-                    
-                    let jsonResponse = JSON.parse(value)
-                    if let statusCode = response.response?.statusCode {
-                        switch statusCode {
-                        case 400:
-                            let responseDic:[String:AnyObject]? = jsonResponse.dictionaryObject
-                            print("The Response Error is:   \(response.response?.statusCode)")
-                            
-                            if let val = responseDic?["code"]
-                            {
-                                if val[0].isEqualToString("13")
-                                {
-                                    //print("Equals")
-                                    //self.displayCommonAlert(responseDic?["detail"]?[0] as! String)
-                                    self.reloadTable()
-                                    
-                                    return
-                                }
-                                // now val is not nil and the Optional has been unwrapped, so use it
-                            }
-                            
-                            if let errorData = responseDic?["detail"]
-                            {
-                                
-                                if errorData is String
-                                {
-                                    //self.displayCommonAlert(errorMessage)
-                                    
-                                }
-                                else if errorData is NSArray
-                                {
-                                    if (errorData as? NSArray)?[0] is String
-                                    {
-                                        //self.displayCommonAlert(errorMessageStr)
-                                    }
-                                }
-                                self.reloadTable()
-                                
-                                return;
-                            }
-                        case 200, 201:
-                            // TODO: refactor this to stop using NSMutableArray
-                            let tempArray = NSMutableArray(array: jsonResponse.arrayObject ?? [])
-                            self.usersArray = NSMutableArray(array: self.createDisplayArray(tempArray))
-                            self.feedcount = self.usersArray.count
-                            self.searchingArray = self.usersArray
-                            
-                        default:
-                            return
-                            
-                        }
-                        
-                        self.reloadTable()
-                    }
-            }
+//            Alamofire.request(.POST, URL , parameters: parameters, encoding: .JSON, headers : headers)
+//                .responseString { [unowned self] response in
+//                    
+//                    self.usersArray.removeAllObjects()
+//                    self.searchingArray .removeAllObjects()
+//                    
+//                    self.stopAnimatingSpringIndicator()
+//                    guard let value = response.result.value else
+//                    {
+//                        print("Error: did not receive data")
+//                        self.reloadTable()
+//                        
+//                        return
+//                    }
+//                    
+//                    guard response.result.error == nil else
+//                    {
+//                        print("error calling POST on Login")
+//                        print(response.result.error)
+//                        self.reloadTable()
+//                        
+//                        return
+//                    }
+//                    
+//                    
+//                    let jsonResponse = JSON.parse(value)
+//                    if let statusCode = response.response?.statusCode {
+//                        switch statusCode {
+//                        case 400:
+//                            let responseDic:[String:AnyObject]? = jsonResponse.dictionaryObject
+//                            print("The Response Error is:   \(response.response?.statusCode)")
+//                            
+//                            if let val = responseDic?["code"]
+//                            {
+//                                if val[0].isEqualToString("13")
+//                                {
+//                                    //print("Equals")
+//                                    //self.displayCommonAlert(responseDic?["detail"]?[0] as! String)
+//                                    self.reloadTable()
+//                                    
+//                                    return
+//                                }
+//                                // now val is not nil and the Optional has been unwrapped, so use it
+//                            }
+//                            
+//                            if let errorData = responseDic?["detail"]
+//                            {
+//                                
+//                                if errorData is String
+//                                {
+//                                    //self.displayCommonAlert(errorMessage)
+//                                    
+//                                }
+//                                else if errorData is NSArray
+//                                {
+//                                    if (errorData as? NSArray)?[0] is String
+//                                    {
+//                                        //self.displayCommonAlert(errorMessageStr)
+//                                    }
+//                                }
+//                                self.reloadTable()
+//                                
+//                                return;
+//                            }
+//                        case 200, 201:
+//                            // TODO: refactor this to stop using NSMutableArray
+//                            let tempArray = NSMutableArray(array: jsonResponse.arrayObject ?? [])
+//                            self.usersArray = NSMutableArray(array: self.createDisplayArray(tempArray))
+//                            self.feedcount = self.usersArray.count
+//                            self.searchingArray = self.usersArray
+//                            
+//                        default:
+//                            return
+//                            
+//                        }
+//                        
+//                        self.reloadTable()
+//                    }
+//            }
         }
     }
     
@@ -415,7 +415,7 @@ extension SearchViewController: UITableViewDelegate {
                 // Venu Id
                 NSLog("venue_idStr = \(venue_idStr)")
                 let aVenueProfileViewController : VenueProfileViewController = self.storyboard!.instantiateViewControllerWithIdentifier("VenueProfileViewController") as! VenueProfileViewController
-                appDelegate.selectedVenueId = venue_idStr
+                AppPersistedStore.sharedInstance.selectedVenueId = venue_idStr
                 self.navigationController!.pushViewController(aVenueProfileViewController, animated: true)
             }
             else

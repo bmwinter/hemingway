@@ -14,43 +14,32 @@ import Foundation
 import MobileCoreServices
 
 var isTesting : Int = 2
-/*
-b@me.com/test
-*/
-extension String {
-    var count: Int { return self.characters.count }
-}
 
 
 class LoginViewController: BaseViewController {
     
     @IBOutlet weak var userEmailTextField: UITextField!
     @IBOutlet weak var userPasswordTextField: UITextField!
+    
+    var email: String? {
+        return userEmailTextField.text?.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
+    }
+    
+    var password: String? {
+        return userPasswordTextField.text?.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
+    }
         
     override func viewDidLoad() {
         self.title = "Login"
-        self.navigationItem.backBarButtonItem = UIBarButtonItem(title:"", style:.Plain, target:nil, action:nil)
         
-        
-        if let loginToken = NSUserDefaults.standardUserDefaults().objectForKey("LoginToken") as? String
-        {
-            print(loginToken)
-
-            if loginToken.count > 0{
-                self.loadTabar()
-            }
+        if let _ = AppPersistedStore.sharedInstance.authToken {
+            self.loadTabar()
         }
 
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
-    }
-    
-    override func viewWillAppear(animated: Bool) {
-        super.viewWillAppear(true)
     }
     
     override func viewDidAppear(animated: Bool) {
-        self.navigationController?.navigationBarHidden = true
         super.viewDidAppear(animated)
         
         if (isTesting == 1)
@@ -76,10 +65,6 @@ class LoginViewController: BaseViewController {
         
     }
     
-    override func viewWillDisappear(animated: Bool) {
-        super.viewWillDisappear(true)
-    }
-    
     /*
     // Custom button methods for SignUP
     */
@@ -88,17 +73,11 @@ class LoginViewController: BaseViewController {
     {
         let storyboard: UIStoryboard = UIStoryboard(name:"Main", bundle: NSBundle.mainBundle())
         let tabBarController: UITabBarController = storyboard.instantiateViewControllerWithIdentifier("TabBarController") as! UITabBarController
-        self.navigationController?.navigationBarHidden = true
-        self.presentViewController(tabBarController, animated: false) { () -> Void in
-            
-        }
-//        self.navigationController?.pushViewController(tabBarController, animated: true)
-//        appDelegate.window!.rootViewController = tabBarController
+        self.presentViewController(tabBarController, animated: false, completion: nil)
     }
     
     @IBAction func signupButtonTapped(sender: AnyObject)
     {
-        self.navigationController?.navigationBarHidden = true
         self.performSegueWithIdentifier("SignUpSegue", sender: nil)
     }
     
@@ -110,7 +89,6 @@ class LoginViewController: BaseViewController {
     {
         // self.displayActionSheetForCamera()
         // return;
-        self.navigationController?.navigationBarHidden = false
         self.performSegueWithIdentifier("ForgotPasswordSegue", sender: nil)
     }
     
@@ -198,155 +176,113 @@ class LoginViewController: BaseViewController {
     }
     
     //MARK: Temp function to check upload file on server.
-    
-    func uploadFileOnServer(){
-        let fileURL = NSBundle.mainBundle().URLForResource("mixriconApp_icon", withExtension: "png")
-        let URL =  globalConstants.kAPIURL + globalConstants.kProfileUpdate
-        
-        //        Alamofire.Manager.sharedInstance.session.configuration.HTTPAdditionalHeaders?.updateValue("application/json", forKey: "Accept")
-        
-        //        Token 2952a5dcad5181d80b79c1bc335ab91c97c03f14
-        
-        var tokenString = "token "
-        tokenString +=  "2952a5dcad5181d80b79c1bc335ab91c97c03f14"//NSUserDefaults.standardUserDefaults().objectForKey("LoginToken") as! String
-        
-        
-        Alamofire.Manager.sharedInstance.session.configuration.HTTPAdditionalHeaders?.updateValue(tokenString, forKey: "Authorization")
-        Alamofire.Manager.sharedInstance.session.configuration.HTTPAdditionalHeaders?.updateValue("attachment; filename=media_filename.png;", forKey: "Content-Disposition")
-        
-        
-        Alamofire.upload(.POST, URL, file: fileURL!)
-            .progress { bytesWritten, totalBytesWritten, totalBytesExpectedToWrite in
-                print(totalBytesWritten)
-                
-                // This closure is NOT called on the main queue for performance
-                // reasons. To update your ui, dispatch to the main queue.
-                dispatch_async(dispatch_get_main_queue()) {
-                    print("Total bytes written on main queue: \(totalBytesWritten)")
-                }
-            }
-            .responseJSON { response in
-                debugPrint(response)
-        }
-        
-        
+    // TODO: file upload
+    func uploadFileOnServer() {
+//        let fileURL = NSBundle.mainBundle().URLForResource("mixriconApp_icon", withExtension: "png")
+//        let URL =  globalConstants.kAPIURL + globalConstants.kProfileUpdate
+//        
+//        //        Alamofire.Manager.sharedInstance.session.configuration.HTTPAdditionalHeaders?.updateValue("application/json", forKey: "Accept")
+//        
+//        //        Token 2952a5dcad5181d80b79c1bc335ab91c97c03f14
+//        
+//        var tokenString = "token "
+//        tokenString +=  "2952a5dcad5181d80b79c1bc335ab91c97c03f14"//NSUserDefaults.standardUserDefaults().objectForKey("LoginToken") as! String
+//        
+//        
+//        Alamofire.Manager.sharedInstance.session.configuration.HTTPAdditionalHeaders?.updateValue(tokenString, forKey: "Authorization")
+//        Alamofire.Manager.sharedInstance.session.configuration.HTTPAdditionalHeaders?.updateValue("attachment; filename=media_filename.png;", forKey: "Content-Disposition")
+//        
+//        
+//        Alamofire.upload(.POST, URL, file: fileURL!)
+//            .progress { bytesWritten, totalBytesWritten, totalBytesExpectedToWrite in
+//                print(totalBytesWritten)
+//                
+//                // This closure is NOT called on the main queue for performance
+//                // reasons. To update your ui, dispatch to the main queue.
+//                dispatch_async(dispatch_get_main_queue()) {
+//                    print("Total bytes written on main queue: \(totalBytesWritten)")
+//                }
+//            }
+//            .responseJSON { response in
+//                debugPrint(response)
+//        }
     }
     
     /*
     // performLoginAction used to Call the Login API & store logged in user's data in NSUserDefault
     */
     
-    func performLoginAction(){
-        let appDelegate=AppDelegate() //You create a new instance,not get the exist one
-        appDelegate.startAnimation((self.navigationController?.view)!)
+    func performLoginAction() {
+//        let parameters = [
+//            "username": userEmailTextField.text!.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet()),
+//            "password": userPasswordTextField.text!.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())]
         
-        let parameters = [
-            "username": userEmailTextField.text!.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet()),
-            "password": userPasswordTextField.text!.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())]
+        if let email = email, let password = password {
+            APIManager.sharedInstance.loginWithEmail(email,
+                                                     password: password,
+                                                     success: { [weak self] (response) in
+                                                            self?.loadTabar()
+                }, failure: nil)
+        }
         
-        let URL =  globalConstants.kAPIURL + globalConstants.kLoginAPIEndPoint
-        
-        //        Alamofire.Manager.sharedInstance.session.configuration.HTTPAdditionalHeaders?.updateValue("application/json", forKey: "Accept")
-        
-        
-        Alamofire.request(.POST, URL , parameters: parameters, encoding: .JSON)
-            .responseString { response in
-                
-                appDelegate.stopAnimation()
-                guard let value = response.result.value else {
-                    print("Error: did not receive data")
-                    return
-                }
-                
-                guard response.result.error == nil else {
-                    print("error calling POST on Login")
-                    print(response.result.error)
-                    return
-                }
-                
-                
-                let post = JSON(value)
-                if let string = post.rawString() {
-                    let responseDic:[String:AnyObject]? = self.convertStringToDictionary(string)
-                    
-                    if response.response?.statusCode == 400{
-                        print("The Response Error is:   \(response.response?.statusCode)")
-                        
-                        if let val = responseDic?["code"] {
-                            if val[0].isEqualToString("13") {
-                                //                                print("Equals")
-                                //self.displayCommonAlert(responseDic?["detail"]?[0] as! String)
-                                self.displayCommonAlert((responseDic?["detail"] as? NSArray)?[0] as! String)
+//        let URL =  globalConstants.kAPIURL + globalConstants.kLoginAPIEndPoint
+//        
+//        Alamofire.Manager.sharedInstance.session.configuration.HTTPAdditionalHeaders?.updateValue("application/json", forKey: "Accept")
+//        
+//        
+//        Alamofire.request(.POST, URL , parameters: parameters, encoding: .JSON)
+//            .responseString { response in
+//                
+//                guard let value = response.result.value else {
+//                    print("Error: did not receive data")
+//                    return
+//                }
+//                
+//                guard response.result.error == nil else {
+//                    print("error calling POST on Login")
+//                    print(response.result.error)
+//                    return
+//                }
+//                
+//                
+//                let post = JSON(value)
+//                if let string = post.rawString() {
+//                    let responseDic:[String:AnyObject]? = self.convertStringToDictionary(string)
+//                    
+//                    if response.response?.statusCode == 400{
+//                        print("The Response Error is:   \(response.response?.statusCode)")
+//                        
+//                        if let val = responseDic?["code"] {
+//                            if val[0].isEqualToString("13") {
+//                                //                                print("Equals")
+//                                //self.displayCommonAlert(responseDic?["detail"]?[0] as! String)
+//                                self.displayCommonAlert((responseDic?["detail"] as? NSArray)?[0] as! String)
+//
+//                                return
+//                            }
+//                            // now val is not nil and the Optional has been unwrapped, so use it
+//                        }
+//                        
+//                        if let errorData = responseDic?["detail"] {
+//                            
+//                            let errorMessage = (errorData as? NSArray)?[0] as! String
+//                            self.displayCommonAlert(errorMessage)
+//                            return;
+//                        }
+//                    }
+//                    
+//                    if let tokenData = responseDic?["token"] {
+//                        let tokenString = tokenData as! String
+//                        NSUserDefaults.standardUserDefaults().setObject(tokenString, forKey: "LoginToken")
+//                        print(tokenString)
+//                        self.loadTabar()
+//                    }
+//                }
+//        }
+    }
+}
 
-                                return
-                            }
-                            // now val is not nil and the Optional has been unwrapped, so use it
-                        }
-                        
-                        if let errorData = responseDic?["detail"] {
-                            
-                            let errorMessage = (errorData as? NSArray)?[0] as! String
-                            self.displayCommonAlert(errorMessage)
-                            return;
-                        }
-                    }
-                    
-                    if let tokenData = responseDic?["token"] {
-                        let tokenString = tokenData as! String
-                        NSUserDefaults.standardUserDefaults().setObject(tokenString, forKey: "LoginToken")
-                        print(tokenString)
-                        self.loadTabar()
-                    }
-                }
-        }
-    }
-    
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject!) {
-        if (segue.identifier == "SMSVerification") {
-            //Checking identifier is crucial as there might be multiple
-            // segues attached to same view
-            //            NSUserDefaults.standardUserDefaults().setObject(parameters, forKey: "UserInfo")
-            let detailVC = segue.destinationViewController as! SMSVerification;
-            
-            let userData = NSUserDefaults.standardUserDefaults().objectForKey("UserInfo") as?NSDictionary
-            
-            detailVC.phoneNumber = userData?["phone_number"] as? String
-        }
-    }
-    
-    
-    //MARK: convertStringObject to Dictionary
-    
-    override func convertStringToDictionary(text:String) -> [String:AnyObject]? {
-        if let data = text.dataUsingEncoding(NSUTF8StringEncoding) {
-            do {
-                return try NSJSONSerialization.JSONObjectWithData(data, options: []) as? [String:AnyObject]
-            } catch let error as NSError {
-                print(error)
-            }
-        }
-        return nil
-    }
-    
-    /*
-    // Common alert method need to be used to display alert, by passing alert string as parameter to it.
-    */
-    
-    override func displayCommonAlert(alertMesage : NSString){
-        
-        let alertController = UIAlertController (title: globalConstants.kAppName, message: alertMesage as String?, preferredStyle:.Alert)
-        let okayAction: UIAlertAction = UIAlertAction(title: "Ok", style: .Cancel) { action -> Void in
-            //Just dismiss the action sheet
-        }
-        alertController.addAction(okayAction)
-        self.presentViewController(alertController, animated: true, completion: nil)
-    }
-    
-    /*
-    // Text field delegate methods..
-    */
-    
-    
+extension LoginViewController: UITextFieldDelegate {
     func textFieldDidBeginEditing(textField: UITextField) {
         
     }
@@ -357,7 +293,10 @@ class LoginViewController: BaseViewController {
         textField.resignFirstResponder()
         return true
     }
-    
-    
-    
+}
+
+extension LoginViewController {
+    override func shouldHideNavigationBar() -> Bool {
+        return true
+    }
 }

@@ -10,14 +10,17 @@ import UIKit
 import Alamofire
 import SwiftyJSON
 
+import SpringIndicator
+
 let TIME_OUT_TIME = 60.0  // in seconds
 let UseAlamofire = true
 
 //MARK: - SERVER URL's -
+let IP_SERVER = "http://54.174.249.237/"
 let MOCK_SERVER = "http://private-9f4d0-mixr1.apiary-mock.com/"
 let PRODUCTION_SERVER = "http://private-9f4d0-mixr1.apiary-mock.com/"
 
-let BASE_URL                = MOCK_SERVER
+let BASE_URL                = IP_SERVER
 let CONTENT_TYPE_ENCODED    = "urlencoded"
 let CONTENT_TYPE_JSON       = "json"
 let kAPIData                = "Data"
@@ -40,10 +43,12 @@ let kAPIPassword            = "Password"
 let IS_TESTING              = true
 
 let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
-var appHeader:NSDictionary = ["":""]
+var appHeader: NSDictionary = ["":""]
 
-public enum Method1: String
-{
+typealias MIXRResponseSuccessClosure = (response: JSON) -> Void
+typealias MIXRResponseFailureClosure = (error: ErrorType) -> Void
+
+public enum MixrMethod: String {
     case OPTIONS    = "OPTIONS"
     case GET        = "GET"
     case HEAD       = "HEAD"
@@ -55,158 +60,270 @@ public enum Method1: String
     case CONNECT    = "CONNECT"
 }
 
-protocol APIConnectionDelegate
-{
-    func connectionFailedForAction(action: Int, andWithResponse result: Dictionary <String, JSON>!, method : String)
-    
-    func connectionDidFinishedForAction(action: Int, andWithResponse result: Dictionary <String, JSON>!, method : String)
-    
-    func connectionDidFinishedErrorResponceForAction(action: Int, andWithResponse result: Dictionary <String, JSON>!, method : String)
-    
-    func connectionDidUpdateAPIProgress(action: Int,bytesWritten: Int64, totalBytesWritten: Int64 ,totalBytesExpectedToWrite: Int64)
+enum MixrError: Int {
+    case StandardError = 0
 }
 
-class APIConnection: NSObject
-{
+enum APIAction: String {
+    // Login Flow
+    case Login
+    case Signup
+    case GetVerificationCode
+    case ConfirmVerificationCode
+    case PasswordRecover
+    case PasswordRecoverChange
+    case PasswordChange
     
-    var delegate: APIConnectionDelegate! =  nil
-    var param : NSDictionary?
+    case ProfileUser
+    case ProfileUpdate
+    case ProfileOther
+    case ProfileVenue
+    case ProfileVenueSpecial
+    case ProfileVenueEvent
+    case VenueDetails
     
+    case Notifications
+    case Promotions
     
-    func CoreHTTPAuthorizationHeaderWithXAuthToken(param : NSDictionary , token : String) -> NSDictionary
-    {
-        let username: AnyObject? = param[kAPIUsername]
-        let password: AnyObject? = param[kAPIPassword]
-        var headers: NSDictionary?
-        
-        if param.count > 0 && param[kAPIPassword] != nil && param[kAPIUsername] != nil
-        {
-            //send x-auth token and authorization header
-            let str = "\(username!):\(password!)"
-            let base64Encoded = encodeStringToBase64(str)
-            
-            headers = [
-                //"Content-Type":"application/json, charset=utf-8",
-                //"Authorization": "Bearer \(token)"
-                "x-auth": token,
-                "authorization": "Basic \(base64Encoded)"
-            ]
+    case Settings
+    
+    case Search
+    
+    case Following
+    case Followers
+    case FollowRequest
+    case FollowRequestForVenue
+    case FollowRequestUpdate
+    case FollowStatusForUser
+    case FollowStatusForVenue
+    
+    case VenueCoordinates
+
+    case Post
+    
+    case Newsfeed
+    case NewsfeedUser
+    case MyNewsfeed
+    case NewsfeedVenue
+    case NewsfeedAll
+    
+    case ProfilePrivacy
+    case LikePost
+    case Venues
+    
+    var requiresAuthToken: Bool {
+        switch self {
+        case .Signup, .GetVerificationCode, .ConfirmVerificationCode, .PasswordRecover, .PasswordRecoverChange, .Login, .ProfileVenue, .ProfileVenueSpecial, .ProfileVenueEvent:
+            return false
+        default:
+            return true
         }
-        else
-        {
-            //send x-auth token
-            headers = ["x-auth": token]
-        }
-        
-        appHeader = headers!
-        return headers!
     }
     
-    //    func SocialCoreHTTPAuthorizationHeaderWithXAuthToken(param : NSDictionary , token : String) -> NSDictionary
-    //    {
-    //        let socialType: AnyObject? = param[kAPISocialType]
-    //        let socialId: AnyObject? = param[kAPISocialId]
-    //        let socialToken: AnyObject? = param[kAPISocialToken]
-    //
-    //        var headers: NSDictionary?
-    //        
-    //        if param.count > 0 && param[kAPISocialType] != nil && param[kAPISocialId] != nil && param[kAPISocialToken] != nil
-    //        {
-    //            //send x-auth token and authorization header
-    //            let str = "\(socialType!)_\(socialId!):\(socialToken!)"
-    //            let base64Encoded = encodeStringToBase64(str)
-    //            
-    //            headers = [
-    //                "x-auth": token,
-    //                "authorization": "Basic \(base64Encoded)"
-    //            ]
-    //        }
-    //        else
-    //        {
-    //            //send x-auth token
-    //            headers = ["x-auth": token]
-    //        }
-    //        return headers!
-    //    }
+    var completeURLString: String {
+        return "\(BASE_URL)\(apiURI)"
+    }
     
-    func addQueryStringToUrl(url : String, param : NSDictionary) -> String
-    {
+    var apiURI: String {
+        switch self {
+        case .Login:
+            return "login"
+        case .Signup:
+            return "register"
+        case .GetVerificationCode:
+            return "confirmation"
+        case .ConfirmVerificationCode:
+            return "confirmation/check"
+        case .PasswordRecover:
+            return "password/recover"
+        case .PasswordRecoverChange:
+            return "password/recover/change"
+        case .PasswordChange:
+            return "password/change"
+            
+        case .ProfileUser:
+            return "UserProfile"
+        case .ProfileUpdate:
+            return "profile"
+        case .ProfileOther:
+            return "profile/other"
+        case .ProfileVenue:
+            return "profile/venue"
+            
+        case .ProfileVenueSpecial:
+            return "venue/specials"
+        case .ProfileVenueEvent:
+            return "venue/events"
+        case .VenueDetails:
+            return "VenueDetails"
+            
+        case .Notifications:
+            return "Notifications"
+        case .Promotions:
+            return "Promotions"
+        case .Settings:
+            return "UserSettings"
+            
+        case .Search:
+            return "search"
+            
+        case .Following:
+            return "following"
+        case .Followers:
+            return "followers"
+        case .FollowRequest:
+            return "follow/request"
+        case .FollowRequestForVenue:
+            return "follow/request/venue"
+        case .FollowRequestUpdate:
+            return "follow/request/update"
+        case .FollowStatusForUser:
+            return "follow/status/user"
+        case .FollowStatusForVenue:
+            return "follow/status/venue"
+            
+        case .Newsfeed:
+            return "newsfeed"
+        case .NewsfeedUser:
+            return "newsfeed/user"
+        case .MyNewsfeed:
+            return "newsfeed/my"
+        case .NewsfeedVenue:
+            return "newsfeed/venue"
+        case .NewsfeedAll:
+            return "newsfeed"
+            
+        case .VenueCoordinates:
+            return "venue"
+            
+        case .Post:
+            return "post"
+        case .ProfilePrivacy:
+            return "profile/public"
+        case .LikePost:
+            return "post/like"
+        case .Venues:
+            return "venue"
+        }
+    }
+}
+
+protocol APIConnectionDelegate: class {
+    func connectionFailedForAction(action: APIAction, andWithResponse result: Dictionary <String, JSON>!, method : String)
+    func connectionDidFinishedForAction(action: APIAction, andWithResponse result: Dictionary <String, JSON>!, method : String)
+    func connectionDidFinishedErrorResponceForAction(action: APIAction, andWithResponse result: Dictionary <String, JSON>!, method : String)
+    func connectionDidUpdateAPIProgress(action: APIAction,bytesWritten: Int64, totalBytesWritten: Int64 ,totalBytesExpectedToWrite: Int64)
+}
+
+enum APIError: ErrorType {
+    case NoAuthToken
+    case Failure(response: JSON)
+    case UnknownError
+}
+
+class APIConnection: NSObject, SpringIndicatorTrait {
+    
+    var springIndicator: SpringIndicator? = SpringIndicator()
+    let sessionManager = Alamofire.Manager()
+    
+    weak var delegate: APIConnectionDelegate? {
+        return nil
+    }
+    
+    func CoreHTTPAuthorizationHeaderWithXAuthToken(param : NSDictionary , token : String) -> NSDictionary {
+//        let username: AnyObject? = param[kAPIUsername]
+//        let password: AnyObject? = param[kAPIPassword]
+//        var headers: NSDictionary?
+//        
+//        if param.count > 0 && param[kAPIPassword] != nil && param[kAPIUsername] != nil {
+//            //send x-auth token and authorization header
+//            let str = "\(username!):\(password!)"
+//            let base64Encoded = encodeStringToBase64(str)
+//            
+//            headers = [
+//                //"Content-Type":"application/json, charset=utf-8",
+//                //"Authorization": "Bearer \(token)"
+//                "x-auth": token,
+//                "authorization": "Basic \(base64Encoded)"
+//            ]
+//        } else {
+//            //send x-auth token
+//            headers = ["x-auth": token]
+//        }
+//        
+//        appHeader = headers!
+//        return headers!
+        return NSDictionary()
+    }
+    
+    func addQueryStringToUrl(url : String, param : NSDictionary) -> String {
         var queryString : String = url
         
-        if param.count > 0
-        {
+        if param.count > 0 {
             for (key, value) in param {
                 
                 DLog("\(key) = \(value)")
                 
-                if queryString.rangeOfString("?") == nil
-                {
+                if queryString.rangeOfString("?") == nil {
                     queryString = queryString.stringByAppendingString("?\(key)=\(value)")
-                }
-                else
-                {
+                } else {
                     queryString = queryString.stringByAppendingString("&\(key)=\(value)")
-                    
                 }
             }
             DLog("\(queryString)")
             return queryString
-            
         }
         return queryString
-        
-    }
-    func POST(action: Int, withAPIName apiName: String, withMessage message: String, withParam param: [String:AnyObject], withProgresshudShow isProgresshudShow: CBool,  withHeader isHeaderNeeded: CBool) -> AnyObject
-    {
-        self.API(action, type: Method.POST.rawValue, withAPIName: apiName, withMessage: message, withParam: param, withProgresshudShow: isProgresshudShow, withHeader: isHeaderNeeded)
-        return self
     }
     
-    func GET(action: Int, withAPIName apiName: String, withMessage message: String, withParam param: [String:AnyObject], withProgresshudShow isProgresshudShow: CBool,  withHeader isHeaderNeeded: CBool) -> AnyObject
-    {
-        self.API(action, type: Method.GET.rawValue, withAPIName: apiName, withMessage: message, withParam: param, withProgresshudShow: isProgresshudShow, withHeader: isHeaderNeeded)
-        return self
+}
+
+// MARK: core api functions
+extension APIConnection {
+
+    func POST(action: APIAction, params: [String: AnyObject]?, success: MIXRResponseSuccessClosure?, failure: MIXRResponseFailureClosure?) throws {
+        try API(Method.POST, action: action, params: params, success: success, failure: failure)
     }
     
-    func API(action: Int, type: String, withAPIName apiName: String, withMessage message: String, withParam param: [String:AnyObject], withProgresshudShow isProgresshudShow: CBool,  withHeader isHeaderNeeded: CBool) -> AnyObject
-    {
-        if isProgresshudShow == true
-        {
-            showLoader()
+    func GET(action: APIAction, params: [String: AnyObject]?, withHeader isHeaderNeeded: Bool, success: MIXRResponseSuccessClosure?, failure: MIXRResponseFailureClosure) throws {
+        try API(Method.GET, action: action, params: params, success: success, failure: failure)
+    }
+    
+    func API(type: Alamofire.Method, action: APIAction, params: [String: AnyObject]?, success: MIXRResponseSuccessClosure?, failure: MIXRResponseFailureClosure?) throws {
+        let isHeaderNeeded = action.requiresAuthToken
+        let apiURL = action.completeURLString
+        
+        let sharedCompletion = { [weak self] (response: Response<String, NSError>, action: APIAction) in
+            self?.hideSpringIndicator()
+            self?.processResponse(response, action: action, success: success, failure: failure)
         }
         
-        let mapType  = Method(rawValue: type)
-        let apiURL = BASE_URL +  apiName;
-        DLog("apiURL = \(apiURL)")
+        showSpringIndicator()
         
-        if(UseAlamofire)
-        {
-            if (!isHeaderNeeded)
-            {
-                Alamofire.request(mapType!, apiURL).validate().responseJSON { response in
-                    self.processResponse(response, isProgresshudShow: isProgresshudShow, action: action)
+        if(UseAlamofire) {
+            if (!isHeaderNeeded) {
+                sessionManager.request(type, apiURL, parameters: params, encoding: .JSON).responseString { response in
+                    sharedCompletion(response, action)
+                }
+            } else {
+                guard let authToken =  AppPersistedStore.sharedInstance.authToken else {
+                    throw APIError.NoAuthToken
+                }
+                let tokenString = "token \(authToken)"
+                sessionManager.request(type, apiURL, parameters: params, encoding: .JSON, headers: ["Authorization": tokenString]).responseString { response in
+                    sharedCompletion(response, action)
                 }
             }
-            else
-            {
-                Alamofire.request(mapType!, apiURL, parameters: param, headers: appHeader as? [String : String])
-                    .responseJSON { response in
-                        self.processResponse(response, isProgresshudShow: isProgresshudShow, action: action)
-                }
-            }
-        }
-        else
-        {
+        } else {
             let request = NSMutableURLRequest(URL: NSURL(string: apiURL)!,
                 cachePolicy: .UseProtocolCachePolicy,
                 timeoutInterval: TIME_OUT_TIME)
             request.HTTPMethod = "POST"
-            request.HTTPBody =  try? NSJSONSerialization.dataWithJSONObject(param , options: NSJSONWritingOptions())
+            request.HTTPBody =  try? NSJSONSerialization.dataWithJSONObject(params ?? [:] , options: NSJSONWritingOptions())
             request.addValue("application/json", forHTTPHeaderField: "Content-Type")
             request.addValue("application/json", forHTTPHeaderField: "Accept")
             
-            if(isHeaderNeeded)
-            {
+            if(isHeaderNeeded) {
                 request.allHTTPHeaderFields = appHeader as? [String : String]
             }
             
@@ -216,55 +333,119 @@ class APIConnection: NSObject
                 
                 let jsonResponse = JSON(data!)
                 dispatch_async(dispatch_get_main_queue()) {
-                    self.coreResponseHandling(request, response: httpResponse, jsonResponse: jsonResponse, error: error, action: action, method : Method.POST.rawValue)
+                    self.coreResponseHandling(request, response: httpResponse, jsonResponse: jsonResponse, error: error, action: action, method : Method.POST.rawValue, success: success, failure: failure)
                 }
             })
             
             dataTask.resume()
         }
-        return self
     }
-    
-    
-    func processResponse(response: Response<AnyObject, NSError>,isProgresshudShow: CBool,action: Int)
-    {
-        print("Request:\(response.request)")  // original URL request
-        print("Response: \(response.response)") // URL response
-        print("Data: \(response.data)")     // server data
-        print("Result: \(response.result)")   // result of response serialization
+}
+
+// MARK: Response Handling
+extension APIConnection {
+    func processResponse(response: Response<String, NSError>, action: APIAction, success: MIXRResponseSuccessClosure?, failure: MIXRResponseFailureClosure?) {
+        
+        if true {
+            print("Request Header: \(response.request?.allHTTPHeaderFields)")
+            print("Request:\(response.request)")  // original URL request
+            print("Response: \(response.response)") // URL response
+//            print("Data: \(response.data)")     // server data
+            print("Result: \(response.result)")   // result of response serialization
+        }
+        
         
         switch response.result {
-        case .Success:
-            if let value = response.result.value
-            {
-                let jsonResponse = JSON(value)
-                print("JSON: \(jsonResponse)")
-                dispatch_async(dispatch_get_main_queue()) {
-                    self.coreResponseHandling(response.request!, response: response.response, jsonResponse: jsonResponse, error: nil, action: action, method : Method.POST.rawValue)
-                }
+        case .Success(let value):
+            // TODO: check out errors here
+            let jsonResponse = JSON.parse(value)
+            dispatch_async(dispatch_get_main_queue()) {
+                success?(response: jsonResponse)
             }
         case .Failure(let error):
-            
-            if isProgresshudShow == true
-            {
-                hideLoader()
+            dispatch_async(dispatch_get_main_queue()) {
+                failure?(error: error)
             }
-            print(error)
         }
         
     }
     
-    func UPLOAD_PROFILE_PIC(action: Int, withAPIName apiName: String, withMessage message: String, withParam param:NSDictionary, withProgresshudShow isProgresshudShow: CBool,  isShowNoInternetView: CBool, token : String) -> AnyObject
-    {
+    /// DEPRECATED
+    func coreResponseHandling(request: NSURLRequest,
+                              response: NSHTTPURLResponse?,
+                              jsonResponse: JSON,
+                              error: NSError?,
+                              action: APIAction,
+                              method: String,
+                              success: MIXRResponseSuccessClosure?,
+                              failure: MIXRResponseFailureClosure?) {
+        hideLoader()
         
-        if isProgresshudShow == true
-        {
+        if(error != nil) {
+            DLog("\(error!.localizedDescription) res:\(response?.statusCode)")
+            
+            if(response == nil) {
+                if let delegate = self.delegate {
+                    delegate.connectionFailedForAction(action, andWithResponse: nil, method : method)
+                }
+            } else {
+                if let delegate = self.delegate {
+                    delegate.connectionFailedForAction(action, andWithResponse: nil, method : method)
+                }
+            }
+        } else {
+            DLog("req:\(request) \n res:\(response?.statusCode) \n \(error) ")
+            
+            if ((response?.statusCode == 200) || (response?.statusCode == 201)) {
+                //let json = JSON(data: jsonResponse)
+                
+                //If not a Dictionary or nil, return [:]
+                let dic: Dictionary <String, JSON> = jsonResponse.dictionaryValue
+                //                var dic : NSDictionary = NSDictionary()
+                
+                if let delegate = self.delegate
+                {
+                    delegate.connectionDidFinishedForAction(action, andWithResponse: dic,method : method)
+                }
+                return
+            }
+        }
+    }
+}
+
+// MARK: loading indicator
+extension APIConnection {
+    func showSpringIndicator() {
+        if let topVC = appDelegate.visibleViewController {
+            addSpringIndicatorToView(topVC.view)
+            startAnimatingSpringIndicator()
+        }
+    }
+    
+    func hideSpringIndicator() {
+        stopAnimatingSpringIndicator()
+        springIndicator?.removeFromSuperview()
+        springIndicator = nil
+    }
+}
+
+// MARK: misc unused code
+extension APIConnection {
+    // TODO: this is unused why is it here?
+    func UPLOAD_PROFILE_PIC(action: APIAction,
+                            withAPIName apiName: String,
+                                        withMessage message: String,
+                                                    withParam param: NSDictionary,
+                                                              withProgresshudShow isProgresshudShow: CBool,
+                                                                                  isShowNoInternetView: CBool,
+                                                                                  token: String) -> AnyObject {
+        
+        if isProgresshudShow == true {
             showLoader()
         }
         let headers: NSDictionary  = CoreHTTPAuthorizationHeaderWithXAuthToken(param, token: token)
         
-        if isProfilePicExist()
-        {
+        if isProfilePicExist() {
             let image: UIImage = UIImage(contentsOfFile: getProfilePicPath())!
             
             let base64String = convertImageToBase64(image)
@@ -276,8 +457,8 @@ class APIConnection: NSObject
             DLog("ImageData=\(base64String)")
             
             let request = NSMutableURLRequest(URL: NSURL(string: BASE_URL +  apiName)!,
-                cachePolicy: .UseProtocolCachePolicy,
-                timeoutInterval: TIME_OUT_TIME)
+                                              cachePolicy: .UseProtocolCachePolicy,
+                                              timeoutInterval: TIME_OUT_TIME)
             request.HTTPMethod = "PUT"
             request.allHTTPHeaderFields = headers as? [String : String]
             request.HTTPBody =  try? NSJSONSerialization.dataWithJSONObject(param , options: NSJSONWritingOptions())
@@ -291,8 +472,8 @@ class APIConnection: NSObject
                 
                 let jsonResponse = JSON(data!)
                 dispatch_async(dispatch_get_main_queue())
-                    {
-                        self.coreResponseHandling(request, response: httpResponse, jsonResponse: jsonResponse, error: error, action: action, method : Method.POST.rawValue)
+                {
+                    self.coreResponseHandling(request, response: httpResponse, jsonResponse: jsonResponse, error: error, action: action, method : Method.POST.rawValue, success: nil, failure: nil)
                 }
             })
             
@@ -301,609 +482,4 @@ class APIConnection: NSObject
         
         return self
     }
-    //MARK: - Respose Handling -
-    
-    func coreResponseHandling(request: NSURLRequest,response: NSHTTPURLResponse?,jsonResponse: JSON!,error: NSError?,action: Int,method : String)
-    {
-        //DLog("Stop loading \(action)")
-        hideLoader()
-        
-        if(error != nil)
-        {
-            DLog("\(error!.localizedDescription) res:\(response?.statusCode)")
-            
-            if(response == nil)
-            {
-                if let delegate = self.delegate
-                {
-                    delegate.connectionFailedForAction(action, andWithResponse: nil, method : method)
-                }
-            }
-            else
-            {
-                if let delegate = self.delegate
-                {
-                    delegate.connectionFailedForAction(action, andWithResponse: nil, method : method)
-                }
-            }
-        }
-        else
-        {
-            DLog("req:\(request) \n res:\(response?.statusCode) \n \(error) ")
-            
-            if ((response?.statusCode == 200) || (response?.statusCode == 201))
-            {
-                //let json = JSON(data: jsonResponse)
-                
-                //If not a Dictionary or nil, return [:]
-                let dic: Dictionary <String, JSON> = jsonResponse.dictionaryValue
-                //                var dic : NSDictionary = NSDictionary()
-                
-                if let delegate = self.delegate
-                {
-                    delegate.connectionDidFinishedForAction(action, andWithResponse: dic,method : method)
-                }
-                return
-            }
-            
-        }
-    }
-    
-    
-    
-    //                //var dic : NSDictionary = NSDictionary()
-    //                var string : String = String()
-    //                
-    //                if (json  != nil)
-    //                {
-    //                    //String
-    //                    do {
-    //                        let jsonResult = try NSJSONSerialization.JSONObjectWithData(json, options: NSJSONReadingOptions.AllowFragments) as? String
-    //                        // use anyObj here
-    //                        if (jsonResult != nil && jsonResult?.characters.count > 0)
-    //                        {
-    //                            DLog(jsonResult!)
-    //                            
-    //                            if ( jsonResult!.isKindOfClass(NSString))
-    //                            {
-    //                                string = jsonResult!
-    //                                
-    //                                if (action == APIName.AuthenticationTokens.rawValue) || (action == APIName.Venues.rawValue)
-    //                                {
-    //                                    let myDict:NSDictionary = [kAPIAuthToken : string]
-    //                                    dic = myDict
-    //                                    
-    //                                }
-    //                                DLog(string)
-    //                            }
-    //                        }
-    //                    }
-    //                    catch
-    //                    {
-    //                        print(error)
-    //                        DLog(ALERT_TITLE_404 + ALERT_404_FOUND)
-    //                        
-    //                    }
-    //                    
-    //                    //NSDictinary
-    //                    do {
-    //                        let jsonResult = try NSJSONSerialization.JSONObjectWithData(json, options: NSJSONReadingOptions.AllowFragments) as? NSDictionary
-    //                        // use anyObj here
-    //                        if (( jsonResult?.isKindOfClass(NSDictionary)) != nil)
-    //                        {
-    //                            //DLog(jsonResult)
-    //                            
-    //                            dic = jsonResult!
-    //                        }
-    //                        
-    //                    } catch {
-    //                        print(error)
-    //                        DLog(ALERT_TITLE_404 + ALERT_404_FOUND)
-    //                        
-    //                    }
-    //                    
-    //                    //Array
-    //                    do {
-    //                        let jsonResult = try NSJSONSerialization.JSONObjectWithData(json, options: NSJSONReadingOptions.AllowFragments) as? NSArray
-    //                        // use anyObj here
-    //                        if (( jsonResult?.isKindOfClass(NSArray)) != nil)
-    //                        {
-    //                            DLog(jsonResult!)
-    //                            
-    //                            let dicMutable : NSMutableDictionary = NSMutableDictionary()
-    //                            dicMutable.setObject(jsonResult!, forKey: kAPIData)
-    //                            dic = dicMutable as NSDictionary
-    //                        }
-    //                        
-    //                        
-    //                    } catch {
-    //                        print(error)
-    //                        DLog(ALERT_TITLE_404 + ALERT_404_FOUND)
-    //                        
-    //                    }
-    //                    
-    //                    
-    //                    if let delegate = self.delegate
-    //                    {
-    //                        delegate.connectionDidFinishedForAction(action, andWithResponse: dic,method : method)
-    //                    }
-    //                }
-    //            }
-    //            else
-    //            {
-    //                var dic : NSDictionary = NSDictionary()
-    //                
-    //                if (json  != nil)
-    //                {
-    //                    do {
-    //                        let jsonResult = try NSJSONSerialization.JSONObjectWithData(json, options: []) as! [NSDictionary:AnyObject]
-    //                        
-    //                        if jsonResult.count > 0
-    //                        {
-    //                            dic = jsonResult as NSDictionary
-    //                            DLog(dic)
-    //                            //AccessDenied
-    //                            if(response?.statusCode == 400 && dic[kAPIErrorCode] as? String == "AccessDenied")//GenericError
-    //                            {
-    //                                if appDelegate.navigationController != nil
-    //                                {
-    //                                    //Check for if kAPIAuthToken is available then session is running otherwise session time out.
-    //                                    let dicLoginData: NSMutableDictionary = getUserDefaultDataFromKey(USER_DEFAULT_LOGIN_USER_DATA)
-    //                                    
-    //                                    if(dicLoginData.isKindOfClass(NSDictionary))
-    //                                    {
-    //                                        if dicLoginData.valueForKey(kAPIAuthToken) != nil
-    //                                        {
-    //                                            let alert = UIAlertView()
-    //                                            alert.title = ALERT_TITLE
-    //                                            alert.message = ALERT_SESSION_TIME_OUT
-    //                                            alert.addButtonWithTitle(ALERT_OK)
-    //                                            alert.show()
-    //                                            
-    //                                            //appDelegate.navigationController?.popToRootViewControllerAnimated(true)
-    //                                            //BaseVC.sharedInstance.popForcefullyLoginScreenWhenSessionTimeOutWithClassName(WelComeStep1aLoginVC(), identifier:"WelComeStep1aLoginVC" , animated: true, animationType: AnimationType.Default)
-    //                                        }
-    //                                    }
-    //                                }
-    //                            }
-    //                            else
-    //                            {
-    //                                if let delegate = self.delegate
-    //                                {
-    //                                    delegate.connectionDidFinishedErrorResponceForAction(action, andWithResponse: dic,method: method )
-    //                                }
-    //                            }
-    //                        }
-    //                        
-    //                        
-    //                        // use anyObj here
-    //                    } catch {
-    //                        print(error)
-    //                        DLog(ALERT_TITLE_404 + ALERT_404_FOUND)
-    //                        //DAlert(ALERT_TITLE_404, message: ALERT_404_FOUND, action: ALERT_OK, sender:(appDelegate.navigationController?.topViewController)!)//\(jsonParseError.localizedDescription)
-    //                        
-    //                    }
-    //                    
-    //                }
-    //                else
-    //                {
-    //                    //static
-    //                    if let delegate = self.delegate
-    //                    {
-    //                        delegate.connectionDidFinishedForAction(action, andWithResponse: dic,method : method)
-    //                    }
-    //                }
-    //            }
-    //        }
-}
-
-
-
-//MARK: - Convert Dictinary To Data -
-//        request.HTTPBody = self.convertDicToMutableData(param)
-//request.addValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
-func convertDicToMutableData(param:NSDictionary) -> NSMutableData
-{
-    var postData : NSMutableData?
-    
-    if param.count > 0
-    {
-        for (key, value) in param
-        {
-            // DLog("\(key) : \(value)")
-            
-            if postData == nil
-            {
-                postData = NSMutableData(data: "\(key)=\(value)".dataUsingEncoding(NSUTF8StringEncoding)!)
-            }
-            else
-            {
-                postData!.appendData("&\(key)=\(value)".dataUsingEncoding(NSUTF8StringEncoding)!)
-            }
-        }
-        return postData!
-        
-    }
-    return postData!
-}
-
-
-
-//MARK: - BASE64 To String & String To Base64 -
-func encodeStringToBase64(str : String) -> String
-{
-    // UTF 8 str from original
-    // NSData! type returned (optional)
-    let utf8str = str.dataUsingEncoding(NSUTF8StringEncoding)
-    
-    // Base64 encode UTF 8 string
-    // fromRaw(0) is equivalent to objc 'base64EncodedStringWithOptions:0'
-    // Notice the unwrapping given the NSData! optional
-    // NSString! returned (optional)
-    let base64Encoded = utf8str!.base64EncodedStringWithOptions(NSDataBase64EncodingOptions(rawValue: 0))
-    // DLog("Encoded:  \(base64Encoded)")
-    
-    /*// Base64 Decode (go back the other way)
-    // Notice the unwrapping given the NSString! optional
-    // NSData returned
-    let data = NSData(base64EncodedString: base64Encoded, options: NSDataBase64DecodingOptions(rawValue: 0))
-    
-    // Convert back to a string
-    let base64Decoded = NSString(data: data!, encoding: NSUTF8StringEncoding)
-    DLog("Decoded:  \(base64Decoded)")*/
-    
-    
-    return base64Encoded;
-}
-
-//MARK: - DLog -
-
-func DLog(message: AnyObject = "",file: String = #file, line: UInt = #line , function: String = #function)
-{
-    /*  #if DEBUG : In comment then display log
-    #if DEBUG : Not comment then stop log
-    */
-    //#if IS_TESTING
-    print("fuction:\(function) line:\(line) file:\(file) \n=================================================================================================\n \(message) ")
-    // #endif
-}
-
-func Log(message: AnyObject = "",file: String = #file, line: UInt = #line , function: String = #function)
-{
-    /*  #if DEBUG : In comment then display log
-    #if DEBUG : Not comment then stop log
-    */
-    //#if IS_TESTING
-    print("\(message) ")
-    //#endif
-}
-
-func DAlert(title: String, message: String, action: String, sender: UIViewController)
-{
-    if sender.respondsToSelector(Selector("UIAlertController"))
-    {
-        let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.Alert)
-        alert.addAction(UIAlertAction(title: action, style: UIAlertActionStyle.Default, handler:nil))
-        sender.presentViewController(alert, animated: true, completion: nil)
-    }
-    else
-    {
-        let alert = UIAlertView(title: title, message: message, delegate: sender, cancelButtonTitle:action)
-        alert.show()
-    }
-}
-
-//MARK: - Loader Hide/Show  -
-func showLoader()
-{
-    UIApplication.sharedApplication().networkActivityIndicatorVisible = true
-}
-
-func hideLoader()
-{
-    UIApplication.sharedApplication().networkActivityIndicatorVisible = false
-}
-
-//MARK: - Profile Pic -
-func isProfilePicExist() -> Bool
-{
-    let fileManager = NSFileManager.defaultManager()
-    
-    if (fileManager.fileExistsAtPath(getProfilePicPath()))
-    {
-        return true
-    }
-    return false
-}
-
-func deleteProfilePic()
-{
-    let fileManager = NSFileManager.defaultManager()
-    
-    let path = getProfilePicPath()
-    if (fileManager.fileExistsAtPath(path))
-    {
-        do {
-            try fileManager.removeItemAtPath(path)
-        } catch _ {
-        }
-    }
-    
-}
-func deleteContactProfilePic()
-{
-    let paths = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0]
-    
-    let dataPath = paths.stringByAppendingPathComponent("ContactProfilePicture")
-    
-    if NSFileManager.defaultManager().fileExistsAtPath(dataPath)
-    {
-        do {
-            try NSFileManager.defaultManager().removeItemAtPath(dataPath)
-        } catch _ {
-        }
-        
-    }
-}
-//MARK: - Image TO Base64 <-> Base64 TO Image -
-
-// convert images into base64 and keep them into string
-
-func convertImageToBase64(image: UIImage) -> String {
-    
-    let imageData = UIImageJPEGRepresentation(image,1.0)
-    //        let imageData = UIImagePNGRepresentation(image)
-    
-    if imageData != nil
-    {
-        let base64String = imageData!.base64EncodedStringWithOptions([.Encoding64CharacterLineLength, .EncodingEndLineWithCarriageReturn])
-        
-        return base64String
-        
-    }
-    return ""
-    
-}// end convertImageToBase64
-
-
-// convert images into base64 and keep them into string
-
-func convertBase64ToImage(base64String: String) -> UIImage {
-    
-    //        let decodedData = NSData(base64EncodedString: base64String, options:NSDataBase64DecodingOptions(rawValue: 0))
-    //        let decodedData = NSData(base64EncodedString: base64String, options: NSDataBase64EncodingOptions.Encoding64CharacterLineLength)
-    var decodedimage = UIImage(named: "placeHolder")
-    
-    if let decodedData = NSData(base64EncodedString: base64String, options: NSDataBase64DecodingOptions(rawValue: 0)) {
-        decodedimage = UIImage(data: decodedData)
-        
-    } else {
-        print("Not Base64")
-    }
-    if decodedimage == nil
-    {
-        decodedimage = UIImage(named: "placeHolder")
-    }
-    return decodedimage!
-    
-}// end convertBase64ToImage
-
-
-func getProfilePicPath() -> String
-{
-    let paths = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0]
-    
-    let path = paths.stringByAppendingPathComponent("ProfilePic.png")
-    
-    return path
-    
-}
-
-extension String {
-    
-    func stringByAppendingPathComponent(path: String) -> String {
-        
-        let nsSt = self as NSString
-        
-        return nsSt.stringByAppendingPathComponent(path)
-    }
-}
-//MARK: - UserDefault Operation -
-func isExistUserDefaultKey(key : String) -> Bool
-{
-    if  (NSUserDefaults.standardUserDefaults().valueForKey(key) != nil)
-    {
-        return true;
-    }
-    return false;
-}
-
-func removeUserDefaultKey(key : String)
-{
-    if  (NSUserDefaults.standardUserDefaults().valueForKey(key) != nil)
-    {
-        NSUserDefaults.standardUserDefaults().removeObjectForKey(key)
-        NSUserDefaults.standardUserDefaults().synchronize()
-    }
-}
-
-func clearUserDefaultAllKey()
-{
-    for key in NSUserDefaults.standardUserDefaults().dictionaryRepresentation().keys {
-        NSUserDefaults.standardUserDefaults().removeObjectForKey(key)
-    }
-}
-
-func getUserDefaultDataFromKey(key : String) -> NSMutableDictionary
-{
-    var dic: NSMutableDictionary = NSMutableDictionary()
-    
-    if  (NSUserDefaults.standardUserDefaults().valueForKey(USER_DEFAULT_LOGIN_USER_DATA) != nil)
-    {
-        dic = NSUserDefaults.standardUserDefaults().valueForKey(USER_DEFAULT_LOGIN_USER_DATA)!.mutableCopy() as! NSMutableDictionary
-        return dic
-    }
-    return dic
-}
-func getUserDefaultIntergerFromKey(key : String) -> Int
-{
-    var value : Int = 0
-    
-    if  (NSUserDefaults.standardUserDefaults().valueForKey(key) != nil)
-    {
-        value = NSUserDefaults.standardUserDefaults().valueForKey(key) as! Int
-        return value
-    }
-    return value
-}
-
-func getUserDefaultStringFromKey(key : String) -> String
-{
-    var value : String = String()
-    
-    if  (NSUserDefaults.standardUserDefaults().valueForKey(key) != nil)
-    {
-        value = NSUserDefaults.standardUserDefaults().valueForKey(key) as! String
-        return value
-    }
-    return value
-}
-func getUserDefaultDictionaryFromKey(key : String) -> NSMutableDictionary
-{
-    var dic: NSMutableDictionary = NSMutableDictionary()
-    
-    if  (NSUserDefaults.standardUserDefaults().valueForKey(key) != nil)
-    {
-        dic = NSUserDefaults.standardUserDefaults().valueForKey(key)!.mutableCopy() as! NSMutableDictionary
-        return dic
-    }
-    return dic
-}
-
-func getUserDefaultBoolFromKey(key : String) -> Bool
-{
-    let value : Bool = false
-    
-    if  (NSUserDefaults.standardUserDefaults().valueForKey(USER_DEFAULT_LOGIN_USER_DATA) != nil)
-    {
-        let dic: NSMutableDictionary = NSUserDefaults.standardUserDefaults().valueForKey(USER_DEFAULT_LOGIN_USER_DATA)!.mutableCopy() as! NSMutableDictionary
-        
-        if(dic.isKindOfClass(NSDictionary))
-        {
-            if (dic.valueForKey(key) != nil)
-            {
-                return dic.valueForKey(key) as! Bool
-            }
-        }
-    }
-    return value
-}
-
-func setUserDefaultDataFromKey(key : String ,dic : NSMutableDictionary)
-{
-    if dic.isKindOfClass(NSMutableDictionary)
-    {
-        NSUserDefaults.standardUserDefaults().setObject(dic, forKey:USER_DEFAULT_LOGIN_USER_DATA)
-        NSUserDefaults.standardUserDefaults().synchronize()
-        DLog("\(getUserDefaultDataFromKey(USER_DEFAULT_LOGIN_USER_DATA))")
-    }
-}
-func setUserDefaultIntergerFromKey(key : String ,value : Int)
-{
-    NSUserDefaults.standardUserDefaults().setObject(value, forKey:key)
-    NSUserDefaults.standardUserDefaults().synchronize()
-}
-
-func setUserDefaultStringFromKey(key : String ,value : String)
-{
-    if value.isKindOfClass(NSString)
-    {
-        NSUserDefaults.standardUserDefaults().setObject(value, forKey:key)
-        NSUserDefaults.standardUserDefaults().synchronize()
-    }
-}
-func setUserDefaultDictionaryFromKey(key : String ,value : NSDictionary)
-{
-    if value.isKindOfClass(NSDictionary)
-    {
-        NSUserDefaults.standardUserDefaults().setObject(value, forKey:key)
-        NSUserDefaults.standardUserDefaults().synchronize()
-    }
-}
-
-func setUserDefaultIntergerObjectFromKey(key : String ,object : Int)
-{
-    if  (NSUserDefaults.standardUserDefaults().valueForKey(USER_DEFAULT_LOGIN_USER_DATA) != nil)
-    {
-        let dic: NSMutableDictionary = NSUserDefaults.standardUserDefaults().valueForKey(USER_DEFAULT_LOGIN_USER_DATA)!.mutableCopy() as! NSMutableDictionary
-        
-        if(dic.isKindOfClass(NSDictionary))
-        {
-            if (dic.valueForKey(key) != nil)
-            {
-                dic.setObject(object, forKey: key)
-                
-            }
-            else
-            {
-                dic.setObject(object, forKey: key)
-            }
-        }
-        NSUserDefaults.standardUserDefaults().setObject(dic, forKey: USER_DEFAULT_LOGIN_USER_DATA)
-        NSUserDefaults.standardUserDefaults().synchronize()
-        
-        DLog(NSUserDefaults.standardUserDefaults().valueForKey(USER_DEFAULT_LOGIN_USER_DATA)!)
-    }
-    
-}
-
-func setUserDefaultStringObjectFromKey(key : String ,object : String)
-{
-    if  (NSUserDefaults.standardUserDefaults().valueForKey(USER_DEFAULT_LOGIN_USER_DATA) != nil)
-    {
-        let dic: NSMutableDictionary = NSUserDefaults.standardUserDefaults().valueForKey(USER_DEFAULT_LOGIN_USER_DATA)!.mutableCopy() as! NSMutableDictionary
-        
-        if(dic.isKindOfClass(NSDictionary))
-        {
-            if (dic.valueForKey(key) != nil)
-            {
-                dic.setObject(object, forKey: key)
-                
-            }
-            else
-            {
-                dic.setObject(object, forKey: key)
-            }
-        }
-        NSUserDefaults.standardUserDefaults().setObject(dic, forKey: USER_DEFAULT_LOGIN_USER_DATA)
-        NSUserDefaults.standardUserDefaults().synchronize()
-        
-        DLog(NSUserDefaults.standardUserDefaults().valueForKey(USER_DEFAULT_LOGIN_USER_DATA)!)
-    }
-    
-}
-
-func setUserDefaultBOOLObjectFromKey(key : String ,object : Bool)
-{
-    if  (NSUserDefaults.standardUserDefaults().valueForKey(USER_DEFAULT_LOGIN_USER_DATA) != nil)
-    {
-        let dic: NSMutableDictionary = NSUserDefaults.standardUserDefaults().valueForKey(USER_DEFAULT_LOGIN_USER_DATA)!.mutableCopy() as! NSMutableDictionary
-        
-        if(dic.isKindOfClass(NSDictionary))
-        {
-            if (dic.valueForKey(key) != nil)
-            {
-                dic.setObject(object, forKey: key)
-                
-            }
-            else
-            {
-                dic.setObject(object, forKey: key)
-            }
-        }
-        NSUserDefaults.standardUserDefaults().setObject(dic, forKey: USER_DEFAULT_LOGIN_USER_DATA)
-        NSUserDefaults.standardUserDefaults().synchronize()
-        DLog(NSUserDefaults.standardUserDefaults().valueForKey(USER_DEFAULT_LOGIN_USER_DATA)!)
-    }
-    
 }

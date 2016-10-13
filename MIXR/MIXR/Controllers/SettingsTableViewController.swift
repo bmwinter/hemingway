@@ -29,9 +29,9 @@ enum SettingsTag: Int {
     }
 }
 
-class SettingsTableViewController: UITableViewController,UIGestureRecognizerDelegate {
+class SettingsTableViewController: UITableViewController {
     
-    @IBOutlet weak var publicPrivateSwitch: UISwitch!
+    @IBOutlet weak var publicPrivateSwitch: UISwitch?
     /*
     // Table View delegate methods
     */
@@ -50,175 +50,170 @@ class SettingsTableViewController: UITableViewController,UIGestureRecognizerDele
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        self.makeProfilePublicPrivate("GET")
-        self.navigationController?.navigationBarHidden = true
+        getProfilePrivacy()
     }
     
     //MARK: PublicPrivate Switch Event
     
     @IBAction func publicPrivateSwitchChange (sender:AnyObject){
-        self.makeProfilePublicPrivate("POST")
+        self.updateProfilePrivacy()
     }
     
-    // MARK: Make profile public private
-    func makeProfilePublicPrivate(methodName : NSString){
-        
-        let appDelegate=AppDelegate() //You create a new instance,not get the exist one
-        appDelegate.startAnimation((self.navigationController?.view)!)
-        
-        var tokenString = "token "
-        if let appToken =  NSUserDefaults.standardUserDefaults().objectForKey("LoginToken") as? String
-        {
-            tokenString +=  appToken
-        }
-        
-        Alamofire.Manager.sharedInstance.session.configuration.HTTPAdditionalHeaders?.updateValue(tokenString, forKey: "Authorization")
-        
-        let URL =  globalConstants.kAPIURL + globalConstants.kMakeProfilePublicPrivate
-        
-        if methodName == "GET" {
-            Alamofire.request(.GET, URL , parameters: nil, encoding: .JSON)
-                .responseString
-                { response in
-                    
-                    appDelegate.stopAnimation()
-                    guard let value = response.result.value else {
-                        print("Error: did not receive data")
-                        return
-                    }
-                    
-                    guard response.result.error == nil else {
-                        print("error calling POST on Login")
-                        print(response.result.error)
-                        return
-                    }
-                    let post = JSON(value)
-                    if let string = post.rawString() {
-                        
-                        if response.response?.statusCode == 400{
-                            let responseDic:[String:AnyObject]? = globalConstants.convertStringToDictionary(string)
-                            print("The Response Error is:   \(response.response?.statusCode)")
-                            if let errorData = responseDic?["detail"] {
-                                if let errorMessage = errorData as? String
-                                {
-                                    self.displayCommonAlert(errorMessage)
-                                    
-                                }
-                                else if let errorMessage = errorData as? NSArray
-                                {
-                                    if let errorMessageStr = errorMessage[0] as? String
-                                    {
-                                        self.displayCommonAlert(errorMessageStr)
-                                    }
-                                }
-                                return;
-                            }
-                        }else{
-                            //                        "{\"public\":false}"
-                            let responseDic:[String:AnyObject]? = globalConstants.convertStringToDictionary(string)
-                            if (self.publicPrivateSwitch != nil)
-                            {
-                                if let isPublic = responseDic!["public"] as? Bool
-                                {
-                                    self.publicPrivateSwitch.on = isPublic
-                                }
-                                else
-                                {
-                                    self.publicPrivateSwitch.on = false
-                                }
-                            }
-                        }
-                    }
-            }
-        }else{
-            Alamofire.request(.POST, URL , parameters: nil, encoding: .JSON)
-                .responseString
-                { response in
-                    
-                    appDelegate.stopAnimation()
-                    guard let value = response.result.value else {
-                        print("Error: did not receive data")
-                        return
-                    }
-                    
-                    guard response.result.error == nil else {
-                        print("error calling POST on Login")
-                        print(response.result.error)
-                        return
-                    }
-                    let post = JSON(value)
-                    if let string = post.rawString() {
-                        
-                        if response.response?.statusCode == 400{
-                            let responseDic:[String:AnyObject]? = globalConstants.convertStringToDictionary(string)
-                            print("The Response Error is:   \(response.response?.statusCode)")
-                            if let errorData = responseDic?["detail"] {
-                                
-                                if let errorMessage = errorData as? String
-                                {
-                                    self.displayCommonAlert(errorMessage)
-                                    
-                                }
-                                else if let errorMessage = errorData as? NSArray
-                                {
-                                    if let errorMessageStr = errorMessage[0] as? String
-                                    {
-                                        self.displayCommonAlert(errorMessageStr)
-                                    }
-                                }
-                                return;
-                            }
-                        }else{
-                            //                        "{\"public\":false}"
-                            let responseDic:[String:AnyObject]? = globalConstants.convertStringToDictionary(string)
-                            self.publicPrivateSwitch.on = responseDic?["public"] as! Bool
-                        }
-                    }
-                }
-        }
+    func getProfilePrivacy() {
+        APIManager.sharedInstance.fetchProfilePrivacy({ [weak self] (response) in
+            self?.publicPrivateSwitch?.on = response["public"].boolValue
+            }, failure: nil)
     }
     
-    /*
-    // Common alert method need to be used to display alert, by passing alert string as parameter to it.
-    */
-    
-    func displayCommonAlert(alertMesage : NSString){
-        
-        let alertController = UIAlertController (title: globalConstants.kAppName, message: alertMesage as String?, preferredStyle:.Alert)
-        let okayAction: UIAlertAction = UIAlertAction(title: "Ok", style: .Cancel) { action -> Void in
-            //Just dismiss the action sheet
-        }
-        alertController.addAction(okayAction)
-        self.presentViewController(alertController, animated: true, completion: nil)
+    func updateProfilePrivacy() {
+        APIManager.sharedInstance.updateProfilePrivacy({ [weak self] (response) in
+            self?.publicPrivateSwitch?.on = response["public"].boolValue
+            }, failure: nil)
     }
+    
+//    // MARK: Make profile public private
+//    func makeProfilePublicPrivate(methodName : NSString) {
+//        
+//        APIManager.sharedInstance.togglePrivacy({ (response) in
+//            if response[]
+//            }, failure: nil)
+//        
+//        var tokenString = "token "
+//        if let appToken =  NSUserDefaults.standardUserDefaults().objectForKey("LoginToken") as? String
+//        {
+//            tokenString +=  appToken
+//        }
+//        
+//        Alamofire.Manager.sharedInstance.session.configuration.HTTPAdditionalHeaders?.updateValue(tokenString, forKey: "Authorization")
+//        
+//        let URL =  globalConstants.kAPIURL + globalConstants.kMakeProfilePublicPrivate
+//        
+//        if methodName == "GET" {
+//            Alamofire.request(.GET, URL , parameters: nil, encoding: .JSON)
+//                .responseString
+//                { response in
+//                    guard let value = response.result.value else {
+//                        print("Error: did not receive data")
+//                        return
+//                    }
+//                    
+//                    guard response.result.error == nil else {
+//                        print("error calling POST on Login")
+//                        print(response.result.error)
+//                        return
+//                    }
+//                    let post = JSON(value)
+//                    if let string = post.rawString() {
+//                        
+//                        if response.response?.statusCode == 400{
+//                            let responseDic:[String:AnyObject]? = self.convertStringToDictionary(string)
+//                            print("The Response Error is:   \(response.response?.statusCode)")
+//                            if let errorData = responseDic?["detail"] {
+//                                if let errorMessage = errorData as? String
+//                                {
+//                                    self.displayCommonAlert(errorMessage)
+//                                    
+//                                }
+//                                else if let errorMessage = errorData as? NSArray
+//                                {
+//                                    if let errorMessageStr = errorMessage[0] as? String
+//                                    {
+//                                        self.displayCommonAlert(errorMessageStr)
+//                                    }
+//                                }
+//                                return;
+//                            }
+//                        }else{
+//                            //                        "{\"public\":false}"
+//                            let responseDic:[String:AnyObject]? = self.convertStringToDictionary(string)
+//                            if (self.publicPrivateSwitch != nil)
+//                            {
+//                                if let isPublic = responseDic!["public"] as? Bool
+//                                {
+//                                    self.publicPrivateSwitch.on = isPublic
+//                                }
+//                                else
+//                                {
+//                                    self.publicPrivateSwitch.on = false
+//                                }
+//                            }
+//                        }
+//                    }
+//            }
+//        }else{
+//            Alamofire.request(.POST, URL , parameters: nil, encoding: .JSON)
+//                .responseString
+//                { response in
+//                    guard let value = response.result.value else {
+//                        print("Error: did not receive data")
+//                        return
+//                    }
+//                    
+//                    guard response.result.error == nil else {
+//                        print("error calling POST on Login")
+//                        print(response.result.error)
+//                        return
+//                    }
+//                    let post = JSON(value)
+//                    if let string = post.rawString() {
+//                        
+//                        if response.response?.statusCode == 400{
+//                            let responseDic:[String:AnyObject]? = self.convertStringToDictionary(string)
+//                            print("The Response Error is:   \(response.response?.statusCode)")
+//                            if let errorData = responseDic?["detail"] {
+//                                
+//                                if let errorMessage = errorData as? String
+//                                {
+//                                    self.displayCommonAlert(errorMessage)
+//                                    
+//                                }
+//                                else if let errorMessage = errorData as? NSArray
+//                                {
+//                                    if let errorMessageStr = errorMessage[0] as? String
+//                                    {
+//                                        self.displayCommonAlert(errorMessageStr)
+//                                    }
+//                                }
+//                                return;
+//                            }
+//                        }else{
+//                            //                        "{\"public\":false}"
+//                            let responseDic:[String:AnyObject]? = self.convertStringToDictionary(string)
+//                            self.publicPrivateSwitch.on = responseDic?["public"] as! Bool
+//                        }
+//                    }
+//                }
+//        }
+//    }
     
     /*
     // getSettingsData used to retrieve user settings data
     */
-    
-    func getSettingsData(){
-        let parameters = [
-            "userID": "1"
-        ]
-        
-        let URL =  globalConstants.kAPIURL + globalConstants.kSettingAPIEndPoint
-        
-        Alamofire.request(.POST, URL , parameters: parameters, encoding: .JSON)
-            .responseJSON { response in
-                guard let value = response.result.value else {
-                    print("Error: did not receive data")
-                    return
-                }
-                
-                guard response.result.error == nil else {
-                    print("error calling POST")
-                    print(response.result.error)
-                    return
-                }
-                let post = JSON(value)
-                print("The post is: " + post.description)
-        }
-    }
+    // TODO: the response isn't used...why?
+//    
+//    func getSettingsData(){
+//        let parameters = [
+//            "userID": "1"
+//        ]
+//        
+//        let URL =  globalConstants.kAPIURL + globalConstants.kSettingAPIEndPoint
+//        
+//        Alamofire.request(.POST, URL , parameters: parameters, encoding: .JSON)
+//            .responseJSON { response in
+//                guard let value = response.result.value else {
+//                    print("Error: did not receive data")
+//                    return
+//                }
+//                
+//                guard response.result.error == nil else {
+//                    print("error calling POST")
+//                    print(response.result.error)
+//                    return
+//                }
+//                let post = JSON(value)
+//                print("The post is: " + post.description)
+//        }
+//    }
 }
 
 // MARK: UITableViewDataSource Protocol
@@ -287,7 +282,6 @@ extension SettingsTableViewController {
             switch setting {
             case .ChangePassword:
                 let aChangePassword : ChangePassword = self.storyboard!.instantiateViewControllerWithIdentifier("ChangePassword") as! ChangePassword
-                self.navigationController?.navigationBarHidden = false
                 self.navigationController!.pushViewController(aChangePassword, animated: true)
             case .PrivacyPolicy:
                 print("Terms & Condition")

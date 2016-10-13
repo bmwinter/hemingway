@@ -8,62 +8,62 @@
 
 import UIKit
 import IQKeyboardManagerSwift
-import Alamofire
 import SwiftyJSON
 import Foundation
 import MobileCoreServices
 import Agrume
 import MediaPlayer
 
-class BaseViewController: UIViewController  ,UIImagePickerControllerDelegate, UINavigationControllerDelegate,UIGestureRecognizerDelegate {
-    @IBOutlet var btnNotificationNumber : UIButton!
-    override func viewDidLoad()
-    {
+class MXNavigationController: UINavigationController { }
+
+class BaseViewController: UIViewController, UINavigationControllerDelegate {
+    @IBOutlet var btnNotificationNumber : UIButton?
+}
+
+// MARK: - View Lifecycle
+extension BaseViewController {
+    override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.navigationItem.backBarButtonItem = UIBarButtonItem(title:"", style:.Plain, target:nil, action:nil)
+        if navigationController is MXNavigationController {
+            setupNavigationBar()
+        } else {
+            navigationController?.navigationBarHidden = true
+        }
         
-        
-        if ((self.navigationController?.respondsToSelector(Selector("interactivePopGestureRecognizer"))) != nil)
-        {
+        if ((self.navigationController?.respondsToSelector(Selector("interactivePopGestureRecognizer"))) != nil) {
             Log("interactivePopGestureRecognizer true \(self.navigationController!.viewControllers.count)")
-            if (self.navigationController!.viewControllers.count > 1)
-            {
+            if (self.navigationController!.viewControllers.count > 1) {
                 self.navigationController!.interactivePopGestureRecognizer!.delegate =  self
                 self.navigationController!.interactivePopGestureRecognizer!.enabled = true
-            }
-            else
-            {
+            } else {
                 self.navigationController!.interactivePopGestureRecognizer!.delegate =  nil
                 self.navigationController!.interactivePopGestureRecognizer!.enabled = false
             }
-        }
-        else
-        {
+        } else {
             Log("interactivePopGestureRecognizer false")
             self.navigationController?.interactivePopGestureRecognizer?.delegate =  nil
             self.navigationController?.interactivePopGestureRecognizer?.enabled = false
         }
         
         self.updateNotificationBadge()
-        // Do any additional setup after loading the view.
     }
     
-    override func viewWillAppear(animated: Bool)
-    {
-        // self.loadNotificationsFromServer()
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
         self.updateNotificationText(10)
     }
     
-    override func viewDidLayoutSubviews()
-    {
+    override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        if (self.btnNotificationNumber != nil)
-        {
-            self.btnNotificationNumber.layer.cornerRadius = self.btnNotificationNumber.frame.size.width / 2
+        if let notificationNumberButton = btnNotificationNumber {
+            notificationNumberButton.layer.cornerRadius = notificationNumberButton.frame.size.width / 2
         }
     }
-    
+}
+
+// MARK: - UIGestureRecognizerDelegate
+extension BaseViewController: UIGestureRecognizerDelegate {
     func gestureRecognizer(gestureRecognizer: UIGestureRecognizer, shouldBeRequiredToFailByGestureRecognizer otherGestureRecognizer: UIGestureRecognizer) -> Bool {
         return gestureRecognizer.isKindOfClass(UIScreenEdgePanGestureRecognizer)
     }
@@ -71,33 +71,10 @@ class BaseViewController: UIViewController  ,UIImagePickerControllerDelegate, UI
     func gestureRecognizer(gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWithGestureRecognizer otherGestureRecognizer: UIGestureRecognizer) -> Bool {
         return true
     }
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
-    @IBAction func onBackClicked(sender: AnyObject)
-    {
-        self.navigationController?.popViewControllerAnimated(true)
-    }
-    
-    @IBAction func onCameraClicked(sender: AnyObject)
-    {
-        self.displayActionSheetForCamera()
-    }
-    /*
-    // MARK: - Navigation
-    
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-    // Get the new view controller using segue.destinationViewController.
-    // Pass the selected object to the new view controller.
-    }
-    */
-    // MARK:
-    // MARK: Picker Controller Delegate Methods
-    
+}
+
+// MARK: - UIImagePickerControllerDelegate
+extension BaseViewController: UIImagePickerControllerDelegate {
     func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
         let tempImage = info[UIImagePickerControllerMediaURL] as! NSURL!
         self.dismissViewControllerAnimated(true, completion: {
@@ -109,8 +86,186 @@ class BaseViewController: UIViewController  ,UIImagePickerControllerDelegate, UI
             }
         })
     }
+}
+
+// MARK: - NavigationBar & Related Utility Methods
+extension BaseViewController {
     
-    //MARK: - Get Image From Video URL
+    @IBAction func onBackClicked(sender: AnyObject) {
+        self.navigationController?.popViewControllerAnimated(true)
+    }
+    
+    @IBAction func onCameraClicked(sender: AnyObject) {
+        self.displayActionSheetForCamera()
+    }
+    
+    @IBAction func onNotificationButtonClicked(sender: AnyObject) {
+        if let promotionVC = self.storyboard?.instantiateViewControllerWithIdentifier("PromotionsViewController") as? PromotionsViewController {
+            self.navigationController?.pushViewController(promotionVC, animated: true)
+        }
+    }
+    
+    func updateNotificationBadge()
+    {
+        if let notificationNumberButton = btnNotificationNumber {
+            notificationNumberButton.layer.cornerRadius = notificationNumberButton.frame.size.width/2
+            notificationNumberButton.setTitle("10", forState: UIControlState.Normal)
+        }
+    }
+    
+    
+    func updateNotificationText(notificationCount:Int)
+    {
+        if (self.btnNotificationNumber != nil) {
+            if (notificationCount > 0) {
+                if (notificationCount == 0) {
+                    self.btnNotificationNumber?.hidden = true
+                    self.btnNotificationNumber?.setTitle("", forState: UIControlState.Normal)
+                } else {
+                    self.btnNotificationNumber?.hidden = false
+                    self.btnNotificationNumber?.setTitle("\(notificationCount)", forState: UIControlState.Normal)
+                }
+            }
+            else
+            {
+                self.btnNotificationNumber?.hidden = true
+                self.btnNotificationNumber?.setTitle("", forState: UIControlState.Normal)
+            }
+        }
+    }
+}
+
+// MARK: - Photo methods
+extension BaseViewController {
+    
+    func pushPreviewController() {
+        let storyboard: UIStoryboard = UIStoryboard(name: "User", bundle: nil)
+        let vc = storyboard.instantiateViewControllerWithIdentifier("VenueSelection") as! VenueSelection
+        vc.isVideo = true
+        self.showViewController(vc, sender: self)
+    }
+    
+    @IBAction func onImagePreviewClicked(sender: AnyObject) {
+        if let button = sender as? UIButton,
+            let image = button.imageForState(.Normal) {
+            self.previewImages(image)
+        }
+    }
+    
+    func previewImages(image : UIImage = UIImage(named: "placeholder.png")!) {
+        let images = [
+            image
+        ]
+        self.previewImagesFromArray(images)
+    }
+    
+    func previewImagesFromArray(images : NSArray, startIndex : Int = 0) {
+        let agrume = Agrume(images: images as! [UIImage], startIndex: startIndex, backgroundBlurStyle: .ExtraLight)
+        agrume.showFrom(self)
+    }
+}
+
+// MARK: - Leftover methods from previous developer
+extension UIViewController {
+    func convertStringToDictionary(text:String) -> [String:AnyObject]? {
+        if let data = text.dataUsingEncoding(NSUTF8StringEncoding) {
+            do {
+                return try NSJSONSerialization.JSONObjectWithData(data, options: []) as? [String:AnyObject]
+            } catch let error as NSError {
+                print(error)
+            }
+        }
+        return nil
+    }
+    
+    func convertStringToArray(text:String) -> NSArray?
+    {
+        if let data = text.dataUsingEncoding(NSUTF8StringEncoding) {
+            do {
+                return try NSJSONSerialization.JSONObjectWithData(data, options: []) as? NSArray
+            } catch let error as NSError {
+                print(error)
+            }
+        }
+        return nil
+    }
+}
+
+extension BaseViewController {
+}
+
+extension BaseViewController: MXNavigationBarTrait {
+    func setupNavigationBar() {
+        guard let navigationBar = navigationController?.navigationBar else { return }
+        navigationBar.barTintColor = UIColor.mixrGray()
+        
+        let useDefaultImage = shouldUseDefaultImage()
+        navigationBar.hidden = shouldHideNavigationBar()
+        
+        if useDefaultImage {
+            let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 40, height: 40))
+            imageView.contentMode = .ScaleAspectFit
+            let image = UIImage(named: "MixrLogo")
+            imageView.image = image
+            navigationItem.titleView = imageView
+        }
+        
+        if navigationController?.viewControllers.count <= 1 {
+            navigationItem.leftBarButtonItem = barButtonItem(withType: leftBarButtonType())
+        } else {
+            navigationItem.leftBarButtonItem = barButtonItem(withType: .Back)
+        }
+        navigationItem.rightBarButtonItem = barButtonItem(withType: rightBarButtonType())
+    }
+    
+    func shouldHideNavigationBar() -> Bool {
+        return false
+    }
+    
+    private func barButtonItem(withType type: MXBarButtonType) -> UIBarButtonItem? {
+        let button = UIButton(frame: CGRect(x: 0, y: 0, width: 30, height: 30))
+        
+        switch type {
+        case .Notification:
+            button.setBackgroundImage(UIImage(named: "martini3-1"), forState: .Normal)
+            button.addTarget(self, action: #selector(BaseViewController.notificationBarButtonWasClicked(_:)), forControlEvents: .TouchUpInside)
+            break
+        case .Camera:
+            button.setBackgroundImage(UIImage(named: "camera_icon"), forState: .Normal)
+            button.frame = CGRect(x: 0, y: 0, width: 35, height: 30)
+            button.addTarget(self, action: #selector(BaseViewController.cameraBarButtonWasClicked(_:)), forControlEvents: .TouchUpInside)
+            break
+        case .Back:
+            button.setBackgroundImage(UIImage(named: "ArrowLeft"), forState: .Normal)
+            button.frame = CGRect(x: 0, y: 0, width: 16, height: 28)
+            button.addTarget(self, action: #selector(BaseViewController.backBarButtonWasClicked(_:)), forControlEvents: .TouchUpInside)
+        default:
+            return nil
+        }
+        
+        return UIBarButtonItem(customView: button)
+    }
+}
+
+// MARK: bar button actions
+extension BaseViewController {
+    @objc func notificationBarButtonWasClicked(button: UIBarButtonItem) {
+        if let promotionVC = self.storyboard?.instantiateViewControllerWithIdentifier("PromotionsViewController") as? PromotionsViewController {
+            self.navigationController?.pushViewController(promotionVC, animated: true)
+        }
+    }
+    
+    @objc func cameraBarButtonWasClicked(button: UIBarButtonItem) {
+        displayActionSheetForCamera()
+    }
+    
+    @objc func backBarButtonWasClicked(button: UIBarButtonItem) {
+        self.navigationController?.popViewControllerAnimated(true)
+    }
+}
+
+extension BaseViewController {
+    /// Get Image From Video URL
     func videoSnapshot(filePathLocal: NSString) -> UIImage? {
         
         let vidURL = NSURL(fileURLWithPath:filePathLocal as String)
@@ -123,31 +278,14 @@ class BaseViewController: UIViewController  ,UIImagePickerControllerDelegate, UI
         do {
             let imageRef = try generator.copyCGImageAtTime(timestamp, actualTime: nil)
             return UIImage(CGImage: imageRef)
-        }
-        catch let error as NSError
-        {
-            print("Image generation failed with error \(error)")
+        } catch let error as NSError {
+            Log("Image generation failed with error \(error)")
             return nil
         }
     }
-
-    //MARK: - Push Preview View Controller
-    func pushPreviewController(){
-        self.navigationController?.navigationBarHidden = false
-        let storyboard: UIStoryboard = UIStoryboard(name: "User", bundle: nil)
-        let vc = storyboard.instantiateViewControllerWithIdentifier("VenueSelection") as! VenueSelection
-        vc.isVideo = true
-        self.showViewController(vc, sender: self)
-        
-    }
     
-    // MARK:
-    // MARK: Open Video
-    
-    func openCameraForVideo(){
+    func openCameraForVideo() {
         if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.Camera) {
-            print("captureVideoPressed and camera available.")
-            
             let imagePicker = UIImagePickerController()
             
             imagePicker.delegate = self
@@ -157,21 +295,43 @@ class BaseViewController: UIViewController  ,UIImagePickerControllerDelegate, UI
             imagePicker.videoMaximumDuration = 10.0
             imagePicker.showsCameraControls = true
             
-            
             self.presentViewController(imagePicker, animated: true, completion: nil)
-            
-        }
-            
-        else {
-            print("Camera not available.")
+        } else {
+            Log("Camera not available.")
         }
     }
     
-    // MARK:
-    // MARK: Open PhotoController
+    func displayActionSheetForCamera() {
+        let cancelButtonTitle = "Cancel"
+        let photoButton = "Take Photo"
+        let videoButton = "Record Video"
+        
+        let alertController = DOAlertController(title: nil, message: nil, preferredStyle: .ActionSheet)
+        
+        // Create the actions.
+        let cancelAction = DOAlertAction(title: cancelButtonTitle, style: .Cancel) { action in
+        }
+        
+        let photoButtonAction = DOAlertAction(title: photoButton, style: .Default) { action in
+            self.dismissViewControllerAnimated(false, completion: nil)
+            self.openPhotoGallery()
+        }
+        
+        let videoButtonAction = DOAlertAction(title: videoButton, style: .Default) { action in
+            self.dismissViewControllerAnimated(false, completion: nil)
+            self.openCameraForVideo()
+        }
+        
+        // Add the actions.
+        alertController.addAction(cancelAction)
+        alertController.addAction(photoButtonAction)
+        alertController.addAction(videoButtonAction)
+        
+        presentViewController(alertController, animated: true, completion: nil)
+    }
     
-    func openPhotoGallery()
-    {
+    
+    func openPhotoGallery() {
         let cameraViewController = ALCameraViewController(croppingEnabled: true, allowsLibraryAccess: true) { (image) -> Void in
             
             self.dismissViewControllerAnimated(true, completion: nil)
@@ -188,153 +348,4 @@ class BaseViewController: UIViewController  ,UIImagePickerControllerDelegate, UI
         }
         presentViewController(cameraViewController, animated: true, completion: nil)
     }
-    
-    // MARK:
-    // MARK: Custom Camera button
-    
-    func displayActionSheetForCamera(){
-        let cancelButtonTitle = "Cancel"
-        let photoButton = "Take Photo"
-        let videoButton = "Record Video"
-        
-        let alertController = DOAlertController(title: nil, message: nil, preferredStyle: .ActionSheet)
-        
-        // Create the actions.
-        let cancelAction = DOAlertAction(title: cancelButtonTitle, style: .Cancel) { action in
-            NSLog("The \"Okay/Cancel\" alert action sheet's cancel action occured.")
-        }
-        
-        let photoButtonAction = DOAlertAction(title: photoButton, style: .Default) { action in
-            self.dismissViewControllerAnimated(false, completion: nil)
-            self.openPhotoGallery()
-            NSLog("The \"Okay/Cancel\" alert action sheet's destructive action occured.")
-        }
-        
-        let videoButtonAction = DOAlertAction(title: videoButton, style: .Default) { action in
-            self.dismissViewControllerAnimated(false, completion: nil)
-            self.openCameraForVideo()
-            NSLog("The \"Okay/Cancel\" alert action sheet's destructive action occured.")
-        }
-        
-        // Add the actions.
-        alertController.addAction(cancelAction)
-        alertController.addAction(photoButtonAction)
-        alertController.addAction(videoButtonAction)
-        
-        presentViewController(alertController, animated: true, completion: nil)
-    }
-    
-    // MARK:
-    // MARK: Image preview
-    @IBAction func onImagePreviewClicked(sender: AnyObject)
-    {
-        if let button = sender as? UIButton {
-            
-            if let image = button.imageForState(.Normal)
-            {
-                self.previewImages(image)
-            }
-            //            let agrume = Agrume(image: image)
-            //            agrume.showFrom(self)
-        }
-    }
-    
-    func previewImages(image : UIImage = UIImage(named: "placeholder.png")!)
-    {
-        let images = [
-            image
-        ]
-        self.previewImagesFromArray(images)
-    }
-    
-    func previewImagesFromArray(images : NSArray, startIndex : Int = 0)
-    {
-        let agrume = Agrume(images: images as! [UIImage], startIndex: startIndex, backgroundBlurStyle: .ExtraLight)
-        //        agrume.didScroll = {
-        //            [unowned self] index in
-        //            Log("index \(index)")
-        //            //            self.collectionView?.scrollToItemAtIndexPath(NSIndexPath(forRow: index, inSection: 0),
-        //            //                atScrollPosition: [],
-        //            //                animated: false)
-        //        }
-        agrume.showFrom(self)
-    }
-    
-    func updateNotificationBadge()
-    {
-        if(self.btnNotificationNumber != nil)
-        {
-            self.btnNotificationNumber.layer.cornerRadius = self.btnNotificationNumber.frame.size.width/2
-            self.btnNotificationNumber.setTitle("10", forState: UIControlState.Normal)
-        }
-    }
-    
-    @IBAction func NotificatiDeatil(sender: AnyObject) {
-        if let promotionVC = self.storyboard?.instantiateViewControllerWithIdentifier("PromotionsViewController") as? PromotionsViewController {
-            self.navigationController?.pushViewController(promotionVC, animated: true)
-        }
-    }
-    
-    
-    func updateNotificationText(notificationCount:Int)
-    {
-        if (self.btnNotificationNumber != nil)
-        {
-            if (notificationCount > 0)
-            {
-                if (notificationCount == 0)
-                {
-                    self.btnNotificationNumber.hidden = true
-                    self.btnNotificationNumber.setTitle("", forState: UIControlState.Normal)
-                }
-                else
-                {
-                    self.btnNotificationNumber.hidden = false
-                    self.btnNotificationNumber.setTitle("\(notificationCount)", forState: UIControlState.Normal)
-                }
-            }
-            else
-            {
-                self.btnNotificationNumber.hidden = true
-                self.btnNotificationNumber.setTitle("", forState: UIControlState.Normal)
-            }
-        }
-    }
-    
-    func convertStringToDictionary(text:String) -> [String:AnyObject]? {
-        if let data = text.dataUsingEncoding(NSUTF8StringEncoding) {
-            do {
-                return try NSJSONSerialization.JSONObjectWithData(data, options: []) as? [String:AnyObject]
-            } catch let error as NSError {
-                print(error)
-            }
-        }
-        return nil
-    }
-    
-    func convertStringToArray(text:String) -> NSArray? {
-        if let data = text.dataUsingEncoding(NSUTF8StringEncoding) {
-            do {
-                return try NSJSONSerialization.JSONObjectWithData(data, options: []) as? NSArray
-            } catch let error as NSError {
-                print(error)
-            }
-        }
-        return nil
-    }
-    
-    /*
-    // Common alert method need to be used to display alert, by passing alert string as parameter to it.
-    */
-    
-    func displayCommonAlert(alertMesage : NSString){
-        
-        let alertController = UIAlertController (title: globalConstants.kAppName, message: alertMesage as String?, preferredStyle:.Alert)
-        let okayAction: UIAlertAction = UIAlertAction(title: "Ok", style: .Cancel) { action -> Void in
-            //Just dismiss the action sheet
-        }
-        alertController.addAction(okayAction)
-        self.presentViewController(alertController, animated: true, completion: nil)
-    }
-    
 }
