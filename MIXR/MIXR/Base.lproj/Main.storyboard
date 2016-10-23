@@ -1,7 +1,6 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11201" systemVersion="15G1004" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" colorMatched="YES" initialViewController="49e-Tb-3d3">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11201" systemVersion="16A323" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" colorMatched="YES" initialViewController="49e-Tb-3d3">
     <dependencies>
-        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
         <capability name="Alignment constraints to the first baseline" minToolsVersion="6.0"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
@@ -261,8 +260,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="WfW-4M-Pmh" userLabel="Map View" customClass="MGLMapView">
-                                <frame key="frameInset" minY="64" width="375" height="554"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WfW-4M-Pmh" userLabel="Map View" customClass="MGLMapView">
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="latitude">
@@ -294,7 +292,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4Nw-L8-lE0" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-403" y="1250"/>
+            <point key="canvasLocation" x="-347" y="1250"/>
         </scene>
         <!--Search-->
         <scene sceneID="kZO-rQ-JYg">
@@ -576,13 +574,14 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="oMK-uV-76d" customClass="MXNavigationController" customModule="MIXR" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Map" image="locationtab.png" id="cPa-gy-q4n"/>
                     <toolbarItems/>
+                    <navigationItem key="navigationItem" id="eR6-fp-30t"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="r1n-BL-oMb">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="8rJ-Kc-sve" kind="relationship" relationship="rootViewController" id="68e-iq-TqQ"/>
+                        <segue destination="8rJ-Kc-sve" kind="relationship" relationship="rootViewController" id="xkW-0w-y2g"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Cou-EN-wwu" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -2954,8 +2953,8 @@
         <simulatedScreenMetrics key="destination" type="retina4_7.fullscreen"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="OEs-83-fJg"/>
         <segue reference="XyO-qq-pzR"/>
+        <segue reference="OEs-83-fJg"/>
         <segue reference="lmw-2a-LvO"/>
     </inferredMetricsTieBreakers>
 </document>

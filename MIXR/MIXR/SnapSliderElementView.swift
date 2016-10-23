@@ -8,11 +8,20 @@
 
 import UIKit
 
+protocol SnapSliderElementViewDelegate: class {
+    func snapSliderElementView(snapSliderElementView: SnapSliderElementView, didReceiveTouchEventFromSender sender: AnyObject)
+}
+
 class SnapSliderElementView: UIView {
     
-    static var count = 0
+    private struct Styles {
+        static let verticalLabelSpacing: CGFloat = 10.0
+        static let fontSize: CGFloat = 10.0
+    }
     
     private(set) var element: SnapSliderElementModel!
+    
+    weak var delegate: SnapSliderElementViewDelegate?
     
     let containerView = UIView()
     let button = UIButton()
@@ -22,7 +31,6 @@ class SnapSliderElementView: UIView {
         self.init(frame: CGRectZero)
         self.element = element
         commonInit()
-        SnapSliderElementView.count += 1
     }
 }
 
@@ -33,11 +41,11 @@ private extension SnapSliderElementView {
     }
     
     func setupUI() {
-        backgroundColor = [UIColor.greenColor(), UIColor.purpleColor()][SnapSliderElementView.count]
-        
         label.text = element.label
+        label.font = UIFont.regularFontWithSize(Styles.fontSize)
         button.setImage(UIImage(named: "snap-track-unselected"), forState: .Normal)
         button.imageView?.contentMode = UIViewContentMode.ScaleAspectFit
+        button.addTarget(self, action: #selector(SnapSliderElementView.didTapButton(_:)), forControlEvents: .TouchUpInside)
         
         addSubview(label)
         addSubview(button)
@@ -47,27 +55,17 @@ private extension SnapSliderElementView {
         
         button.translatesAutoresizingMaskIntoConstraints = false
         label.translatesAutoresizingMaskIntoConstraints = false
-        
-        let views = [
-            "button": button,
-            "label": label
-        ]
-        
-        let metrics = [
-            "horizontalPadding": 5,
-            "verticalPadding": 5
-        ]
-        
        
         button.widthAnchor.constraintEqualToConstant(40).active = true
         button.heightAnchor.constraintEqualToAnchor(button.widthAnchor, multiplier: 1.0).active = true
+        button.centerYAnchor.constraintEqualToAnchor(centerYAnchor).active = true
+        button.centerXAnchor.constraintEqualToAnchor(centerXAnchor).active = true
         
-        let verticalConstraints = NSLayoutConstraint.constraintsWithVisualFormat("V:|-verticalPadding-[button]-[label]-verticalPadding-|", options: NSLayoutFormatOptions(rawValue: 0), metrics: metrics, views: views)
-        let horizontalButtonConstraints = NSLayoutConstraint.constraintsWithVisualFormat("H:|-horizontalPadding-[button]-horizontalPadding-|", options: NSLayoutFormatOptions(rawValue: 0), metrics: metrics, views: views)
-        let horizontalLabelConstraints = NSLayoutConstraint.constraintsWithVisualFormat("H:|-horizontalPadding-[label]-horizontalPadding-|", options: NSLayoutFormatOptions(rawValue: 0), metrics: metrics, views: views)
-        
-        NSLayoutConstraint.activateConstraints(verticalConstraints)
-        NSLayoutConstraint.activateConstraints(horizontalButtonConstraints)
-        NSLayoutConstraint.activateConstraints(horizontalLabelConstraints)
+        label.centerXAnchor.constraintEqualToAnchor(centerXAnchor).active = true
+        label.topAnchor.constraintEqualToAnchor(button.bottomAnchor, constant: -1*Styles.verticalLabelSpacing).active = true
+    }
+    
+    @objc func didTapButton(sender: UIButton) {
+        delegate?.snapSliderElementView(self, didReceiveTouchEventFromSender: sender)
     }
 }

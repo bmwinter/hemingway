@@ -14,13 +14,20 @@ import MapKit
 
 class MapViewController: BaseViewController {
     
+    private struct Styles {
+        static let SliderBottomMargins: CGFloat = -40
+        static let SliderHeight: CGFloat = 40
+    }
+    
     @IBOutlet var mapView: MGLMapView!
+    var sliderView: SnapSliderView!
     
     override func viewDidLoad() {
-      super.viewDidLoad()
-
-      mapView.delegate = self
-      loadMapData()
+        super.viewDidLoad()
+        
+        setupUI()
+        applyConstraints()
+        loadMapData()
     }
     
     override func didReceiveMemoryWarning() {
@@ -49,46 +56,45 @@ class MapViewController: BaseViewController {
                 }
             }
         }, failure: nil)
+    }
+}
+
+private extension MapViewController {
+    func setupUI() {
+        sliderView = SnapSliderView(elements: [
+            SnapSliderElementModel(label: "1mi", value: 1),
+            SnapSliderElementModel(label: "5mi", value: 5),
+            SnapSliderElementModel(label: "10mi", value: 10),
+            SnapSliderElementModel(label: "15mi", value: 15),
+            SnapSliderElementModel(label: "20mi", value: 20)
+            ])
+        sliderView.delegate = self
+        view.addSubview(sliderView)
         
-//        let URL =  globalConstants.kAPIURL + globalConstants.kVenueCoordinatesAPIEndPoint
-//        
-//        Alamofire.request(.GET, URL , encoding: .JSON)
-//            .responseJSON { response in
-//                guard let value = response.result.value else {
-//                    print("Error: did not receive data")
-//                    return
-//                }
-//                
-//                guard response.result.error == nil else {
-//                    print("error calling POST")
-//                    print(response.result.error)
-//                    return
-//                }
-//                
-//                
-//                let json = JSON(response.result.value!)
-//              
-//                for (_, subJson): (String, JSON) in json {
-//                  let venue = Venue(venue: subJson.dictionaryObject!)
-//                
-//                  let name = venue.name
-//                  let address = venue.location?.address
-//                  let longitude = venue.location?.longitude
-//                  let latitude = venue.location?.latitude
-//                
-//                  if let long = longitude, let lat = latitude {
-//                    let coordinate = CLLocationCoordinate2D(latitude: lat, longitude: long)
-//                    let point = MGLPointAnnotation()
-//                    point.coordinate = coordinate
-//                    point.title = name
-//                    point.subtitle = address
-//                    self.mapView.addAnnotation(point)
-//                  }
-//                  
-//                }
-//                
-//                print("Response String:")
-//        }
+        mapView.delegate = self
+        mapView.zoomLevel = zoomLevelForMiles(10)
+    }
+    
+    func applyConstraints() {
+        sliderView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activateConstraints([
+            sliderView.heightAnchor.constraintEqualToConstant(Styles.SliderHeight),
+            sliderView.leadingAnchor.constraintEqualToAnchor(view.leadingAnchor),
+            sliderView.trailingAnchor.constraintEqualToAnchor(view.trailingAnchor),
+            sliderView.bottomAnchor.constraintEqualToAnchor(bottomLayoutGuide.topAnchor, constant: Styles.SliderBottomMargins)
+        ])
+    }
+}
+
+extension MapViewController: SnapSliderDelegate {
+    
+    private func zoomLevelForMiles(miles: Double) -> Double {
+        let minZoomLevel = 16.0
+        return minZoomLevel - miles / 7.0
+    }
+    
+    func snapSliderView(snapSliderView: SnapSliderView, didSnapToElement element: SnapSliderElementModel) {
+        mapView.setZoomLevel(zoomLevelForMiles(element.value), animated: true)
     }
 }
 

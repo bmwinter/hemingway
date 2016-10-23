@@ -7,7 +7,7 @@
 //
 import Foundation
 
-struct SnapSliderModel {
+struct SnapSliderElementModel {
     /// the label to display for this elemnt of the slider
     let label: String
     
