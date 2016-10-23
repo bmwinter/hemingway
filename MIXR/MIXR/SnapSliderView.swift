@@ -9,7 +9,14 @@
 import UIKit
 
 protocol SnapSliderDelegate: class {
+    func snapSliderView(snapSliderView: SnapSliderView, willSnapToElmement element: SnapSliderElementModel)
     func snapSliderView(snapSliderView: SnapSliderView, didSnapToElement element: SnapSliderElementModel)
+}
+
+// override to make these optional
+extension SnapSliderDelegate {
+    func snapSliderView(snapSliderView: SnapSliderView, willSnapToElmement element: SnapSliderElementModel) { }
+    func snapSliderView(snapSliderView: SnapSliderView, didSnapToElement element: SnapSliderElementModel) { }
 }
 
 class SnapSliderView: UIView {
@@ -130,7 +137,7 @@ private extension SnapSliderView {
     
     func animateToButtonIndex(index: Int) {
         let updateValue = getUpdateValueForIndex(index)
-        
+        self.delegate?.snapSliderView(self, willSnapToElmement: elements[index])
         UIView.animateWithDuration(Styles.AnimationSpeed,
                                    delay: 0.25,
                                    options: .CurveEaseOut,

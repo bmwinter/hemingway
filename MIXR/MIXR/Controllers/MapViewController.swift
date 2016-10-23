@@ -86,19 +86,19 @@ private extension MapViewController {
     }
 }
 
+// MARK: - SnapSliderDelegate Protocol
 extension MapViewController: SnapSliderDelegate {
-    
     private func zoomLevelForMiles(miles: Double) -> Double {
         let minZoomLevel = 16.0
         return minZoomLevel - miles / 7.0
     }
     
-    func snapSliderView(snapSliderView: SnapSliderView, didSnapToElement element: SnapSliderElementModel) {
+    func snapSliderView(snapSliderView: SnapSliderView, willSnapToElmement element: SnapSliderElementModel) {
         mapView.setZoomLevel(zoomLevelForMiles(element.value), animated: true)
     }
 }
 
-// MARK: MGLMapViewDelegate Protocol
+// MARK: - MGLMapViewDelegate Protocol
 extension MapViewController: MGLMapViewDelegate {
   
   func mapView(mapView: MGLMapView, rightCalloutAccessoryViewForAnnotation annotation: MGLAnnotation) -> UIView? {
