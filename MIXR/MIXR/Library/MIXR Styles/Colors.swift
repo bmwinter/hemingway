@@ -30,4 +30,8 @@ extension UIColor {
     class func mixrGreen() -> UIColor {
         return UIColor(r: 127, g: 162, b: 105)
     }
+    
+    class func snapSliderBackgroundViewColor() -> UIColor {
+        return UIColor(r: 158, g: 158, b: 158)
+    }
 }

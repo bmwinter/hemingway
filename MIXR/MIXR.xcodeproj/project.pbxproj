@@ -51,6 +51,10 @@
 		0C91C10D1D98C4FF0059B010 /* String+MixrAddOns.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C91C10C1D98C4FF0059B010 /* String+MixrAddOns.swift */; };
 		0C91C10F1D9A13F30059B010 /* APIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C91C10E1D9A13F30059B010 /* APIManager.swift */; };
 		0C91C1121D9A1FB30059B010 /* APIModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C91C1111D9A1FB30059B010 /* APIModel.swift */; };
+		0CB5998E1DB5D31400474673 /* SnapSliderElementModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CB5998D1DB5D31400474673 /* SnapSliderElementModel.swift */; };
+		0CB599971DB8868E00474673 /* SnapSliderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CB599951DB8868E00474673 /* SnapSliderView.swift */; };
+		0CB599981DB8868E00474673 /* SnapSliderElementView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CB599961DB8868E00474673 /* SnapSliderElementView.swift */; };
+		0CB5999B1DBC3C7E00474673 /* SnapSliderModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CB5999A1DBC3C7E00474673 /* SnapSliderModel.swift */; };
 		0CD828FB1D9A2A140071BC6C /* UITextField+MixrAddOns.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CD828FA1D9A2A140071BC6C /* UITextField+MixrAddOns.swift */; };
 		0CD828FD1DAC8BBD0071BC6C /* MXNavigationBarTrait.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CD828FC1DAC8BBD0071BC6C /* MXNavigationBarTrait.swift */; };
 		0CFFAF091D7521A1004015DA /* SettingsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CFFAF081D7521A1004015DA /* SettingsTableViewCell.swift */; };
@@ -262,6 +266,10 @@
 		0C91C10C1D98C4FF0059B010 /* String+MixrAddOns.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "String+MixrAddOns.swift"; path = "Categories/String+MixrAddOns.swift"; sourceTree = "<group>"; };
 		0C91C10E1D9A13F30059B010 /* APIManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIManager.swift; sourceTree = "<group>"; };
 		0C91C1111D9A1FB30059B010 /* APIModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = APIModel.swift; path = APIModel/APIModel.swift; sourceTree = "<group>"; };
+		0CB5998D1DB5D31400474673 /* SnapSliderElementModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SnapSliderElementModel.swift; sourceTree = "<group>"; };
+		0CB599951DB8868E00474673 /* SnapSliderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SnapSliderView.swift; sourceTree = "<group>"; };
+		0CB599961DB8868E00474673 /* SnapSliderElementView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SnapSliderElementView.swift; sourceTree = "<group>"; };
+		0CB5999A1DBC3C7E00474673 /* SnapSliderModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SnapSliderModel.swift; path = Views/SnapSliderView/SnapSliderModel.swift; sourceTree = "<group>"; };
 		0CD828FA1D9A2A140071BC6C /* UITextField+MixrAddOns.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "UITextField+MixrAddOns.swift"; path = "Categories/UITextField+MixrAddOns.swift"; sourceTree = "<group>"; };
 		0CD828FC1DAC8BBD0071BC6C /* MXNavigationBarTrait.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MXNavigationBarTrait.swift; path = Mixins/MXNavigationBarTrait.swift; sourceTree = "<group>"; };
 		0CFFAF081D7521A1004015DA /* SettingsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SettingsTableViewCell.swift; path = Views/SettingsTableViewCell.swift; sourceTree = "<group>"; };
@@ -457,6 +465,7 @@
 		0C5AC2771D6BFE4B00F19672 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				0CB599991DB8869100474673 /* SnapSliderView */,
 				0C5AC2751D6BFE4400F19672 /* PromotionsTableViewCell.swift */,
 				0CFFAF081D7521A1004015DA /* SettingsTableViewCell.swift */,
 			);
@@ -534,6 +543,16 @@
 				0C91C1111D9A1FB30059B010 /* APIModel.swift */,
 			);
 			name = APIModels;
+			sourceTree = "<group>";
+		};
+		0CB599991DB8869100474673 /* SnapSliderView */ = {
+			isa = PBXGroup;
+			children = (
+				0CB599951DB8868E00474673 /* SnapSliderView.swift */,
+				0CB599961DB8868E00474673 /* SnapSliderElementView.swift */,
+				0CB5999A1DBC3C7E00474673 /* SnapSliderModel.swift */,
+			);
+			name = SnapSliderView;
 			sourceTree = "<group>";
 		};
 		14B036E93F4C01FE0876251F /* Frameworks */ = {
@@ -831,6 +850,7 @@
 				0C64EDED1D48037100DAE12D /* Venue.swift */,
 				0C64EDEF1D48082300DAE12D /* Location.swift */,
 				0C3E0A601D937F9B00EBACE4 /* PromotionModel.swift */,
+				0CB5998D1DB5D31400474673 /* SnapSliderElementModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -1257,6 +1277,7 @@
 				0C64EDE31D47F7D800DAE12D /* SearchViewController.swift in Sources */,
 				0C64EDE81D47F7D800DAE12D /* UserFeedViewController.swift in Sources */,
 				0C64EDD11D47F7D800DAE12D /* ChangePasswordViewController.swift in Sources */,
+				0CB5998E1DB5D31400474673 /* SnapSliderElementModel.swift in Sources */,
 				5C6DF59B1C2FFFEC00F2910B /* Events.swift in Sources */,
 				0C64EDE71D47F7D800DAE12D /* SplashScreenViewController.swift in Sources */,
 				5C520FDD1C54FA9600299990 /* ALCameraView.swift in Sources */,
@@ -1308,6 +1329,7 @@
 				5C520FDC1C54FA9600299990 /* ALImagePickerViewDelegate.swift in Sources */,
 				0C64EDD91D47F7D800DAE12D /* MapNavigationController.swift in Sources */,
 				5C520FD81C54FA9600299990 /* ALCameraViewController.swift in Sources */,
+				0CB599971DB8868E00474673 /* SnapSliderView.swift in Sources */,
 				5C520FDE1C54FA9600299990 /* ALCropOverlay.swift in Sources */,
 				0C3E0A611D937F9B00EBACE4 /* PromotionModel.swift in Sources */,
 				5C520FD51C54FA9600299990 /* ALImageExtensions.swift in Sources */,
@@ -1335,12 +1357,14 @@
 				A3274FFF1CA38DFB00E7E048 /* VenueAnnotation.swift in Sources */,
 				0C64EDE61D47F7D800DAE12D /* SignUpTableViewController.swift in Sources */,
 				156BCCAA1C05E6BF00AB88A6 /* UserFeedCell.swift in Sources */,
+				0CB599981DB8868E00474673 /* SnapSliderElementView.swift in Sources */,
 				15149F9E1C7D8D1400274778 /* NotificationPromotionCell.swift in Sources */,
 				5C520FD31C54FA9600299990 /* ALImageModel.swift in Sources */,
 				0C64EDD51D47F7D800DAE12D /* FollowingViewController.swift in Sources */,
 				5C1F05D71C256B4B0036830D /* SegmentControl.swift in Sources */,
 				5C520FD41C54FA9600299990 /* ALCameraShot.swift in Sources */,
 				0C64EDDC1D47F7D800DAE12D /* NewsFeedTableViewController.swift in Sources */,
+				0CB5999B1DBC3C7E00474673 /* SnapSliderModel.swift in Sources */,
 				0C64EDDB1D47F7D800DAE12D /* VenueFeedNavigationController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1477,7 +1501,7 @@
 					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = MIXR/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.mixrapp.mixr;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1503,7 +1527,7 @@
 					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = MIXR/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.mixrapp.mixr;
 				PRODUCT_NAME = "$(TARGET_NAME)";
