@@ -17,6 +17,9 @@ import UIKit
     @IBOutlet private weak var descriptionLabel: UILabel?
     @IBOutlet private weak var promotionImageView: UIImageView?
     
+    @IBOutlet private weak var dividerView: UIView?
+    @IBOutlet private weak var redeemButton: UIButton?
+    
     var promotionModel: PromotionModel? {
         didSet {
             resetUI()
@@ -26,9 +29,8 @@ import UIKit
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.navigationItem.backBarButtonItem = UIBarButtonItem(title:"", style:.Plain, target:nil, action:nil)
-        
-        self.title = "Promotions"
+        dividerView?.backgroundColor = UIColor.mixrLightGray()
+        redeemButton?.backgroundColor = UIColor.mixrGreen()
         
         promotionContainerView?.layer.borderColor = UIColor.mixrLightGray().CGColor
         promotionContainerView?.layer.borderWidth = 2.0

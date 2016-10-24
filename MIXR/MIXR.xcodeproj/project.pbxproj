@@ -411,7 +411,7 @@
 		5C6DF59C1C3000AE00F2910B /* Specials.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Specials.swift; sourceTree = "<group>"; };
 		5C6E2C491BC90B940036259A /* DatePickerDialog.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DatePickerDialog.swift; sourceTree = "<group>"; };
 		5C92A1431BC5785A00EB6B9E /* User.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = User.storyboard; sourceTree = "<group>"; };
-		5CF4687C1C0E8ABD007F87AA /* PromotionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PromotionViewController.swift; sourceTree = "<group>"; };
+		5CF4687C1C0E8ABD007F87AA /* PromotionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PromotionViewController.swift; path = ../PromotionViewController.swift; sourceTree = "<group>"; };
 		5CF4687D1C0E8ABD007F87AA /* Notifications.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Notifications.swift; sourceTree = "<group>"; };
 		5CF468801C0E8B0C007F87AA /* NotificationCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationCell.swift; sourceTree = "<group>"; };
 		5CF468821C0E8B3B007F87AA /* PromotionsCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PromotionsCell.swift; sourceTree = "<group>"; };
@@ -494,6 +494,7 @@
 				0C64EDC21D47F7D800DAE12D /* PostViewController.swift */,
 				0C64EDC31D47F7D800DAE12D /* ProfileTableViewController.swift */,
 				0C64EDC41D47F7D800DAE12D /* PromotionDetailViewController.swift */,
+				5CF4687C1C0E8ABD007F87AA /* PromotionViewController.swift */,
 				0C64EDC51D47F7D800DAE12D /* RecentPhotoVideoController.swift */,
 				0C64EDC61D47F7D800DAE12D /* SearchViewController.swift */,
 				0C64EDC71D47F7D800DAE12D /* SettingsTableViewController.swift */,
@@ -929,7 +930,6 @@
 				5C218AC11BEA769800F7DA82 /* ChangePassword.swift */,
 				5C218AC31BEA7EA900F7DA82 /* SMSVerification.swift */,
 				5C1F05D31C2561840036830D /* ForgotPassword.swift */,
-				5CF4687C1C0E8ABD007F87AA /* PromotionViewController.swift */,
 				5CF4687D1C0E8ABD007F87AA /* Notifications.swift */,
 				5C4BAE841C674FB7009A6BDC /* RecoverPassword.swift */,
 				5C586DF01C6EE77900169A7E /* VenueSelection.swift */,

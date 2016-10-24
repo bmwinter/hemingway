@@ -191,9 +191,6 @@ extension UIViewController {
     }
 }
 
-extension BaseViewController {
-}
-
 extension BaseViewController: MXNavigationBarTrait {
     func setupNavigationBar() {
         guard let navigationBar = navigationController?.navigationBar else { return }
