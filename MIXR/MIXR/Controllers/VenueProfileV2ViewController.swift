@@ -22,6 +22,8 @@ class VenueProfileV2ViewController: BaseViewController {
     
     @IBOutlet private var borderedContainerViews: [UIView]!
     
+    private var name: String?
+    
     var venueId: String? {
         didSet {
             reloadData()
@@ -48,6 +50,10 @@ class VenueProfileV2ViewController: BaseViewController {
         likesContainerView.userInteractionEnabled = true
         let gestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(VenueProfileV2ViewController.handleLikeButton(_:)))
         likesContainerView.addGestureRecognizer(gestureRecognizer)
+        
+        let imageGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(VenueProfileV2ViewController.handleImageTapped(_:)))
+        venueLogoImageView.userInteractionEnabled = true
+        venueLogoImageView.addGestureRecognizer(imageGestureRecognizer)
     }
     
     override func shouldUseDefaultImage() -> Bool {
@@ -62,6 +68,14 @@ class VenueProfileV2ViewController: BaseViewController {
         } else {
             liked = true
             numberOfLikes += 1
+        }
+    }
+    
+    @objc func handleImageTapped(gestureRecognizer: UITapGestureRecognizer) {
+        if let venueFeedContainerVC = storyboard?.instantiateViewControllerWithIdentifier("VenueNewsFeedContainerViewController") as? VenueNewsFeedContainerViewController, let name = name {
+            venueFeedContainerVC.venueId = venueId
+            venueFeedContainerVC.name = name
+            navigationController?.pushViewController(venueFeedContainerVC, animated: true)
         }
     }
 }
@@ -95,6 +109,7 @@ private extension VenueProfileV2ViewController {
     
     func updateUIForModel(model: Venue) {
         navigationItem.title = model.name
+        name = model.name
         hoursLabel.text = model.operatingHours
         streetAddressLabel.text = model.location?.address
         
