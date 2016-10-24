@@ -108,35 +108,36 @@ class Notifications: UITableViewController {
     // getNotifications used to retrieve the notifications
     */
     
+    // TODO: this function isn't used
     func getNotifications(){
-        let parameters = [
-            "userID": "1"
-        ]
-        
-        let URL =  globalConstants.kAPIURL + globalConstants.kNotificationsAPIEndPoint
-        
-        Alamofire.request(.POST, URL , parameters: parameters, encoding: .JSON)
-            .responseJSON { response in
-                guard let value = response.result.value else {
-                    print("Error: did not receive data")
-                    return
-                }
-                
-                guard response.result.error == nil else {
-                    print("error calling POST")
-                    print(response.result.error)
-                    return
-                }
-                let post = JSON(value)
-                print("The post is: " + post.description)
-        }
+//        let parameters = [
+//            "userID": "1"
+//        ]
+//        
+//        let URL =  globalConstants.kAPIURL + globalConstants.kNotificationsAPIEndPoint
+//        
+//        Alamofire.request(.POST, URL , parameters: parameters, encoding: .JSON)
+//            .responseJSON { response in
+//                guard let value = response.result.value else {
+//                    print("Error: did not receive data")
+//                    return
+//                }
+//                
+//                guard response.result.error == nil else {
+//                    print("error calling POST")
+//                    print(response.result.error)
+//                    return
+//                }
+//                let post = JSON(value)
+//                print("The post is: " + post.description)
+//        }
     }
     
     /*
     // Segment Control Delegate Method
     */
     
-    @IBAction func segmentControlStateChanged(sender: SegmentControl) {
+    func segmentControlStateChanged(sender: SegmentControl) {
         print("Selected segment = \(sender.selectedIndex)")
         
     }

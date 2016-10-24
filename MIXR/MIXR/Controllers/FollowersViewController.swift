@@ -89,106 +89,106 @@ class FollowersViewController: BaseViewController, UITableViewDelegate,UITableVi
         loadFollowingData()
     }
     
-    func loadFollowingData()
-    {
+    func loadFollowingData() {
         self.usersArray.removeAllObjects()
         
-        let appDelegate=AppDelegate() //You create a new instance,not get the exist one
-        appDelegate.startAnimation((self.navigationController?.view)!)
+        APIManager.sharedInstance.getFollowing({ [weak self] (response) in
+            guard let `self` = self else { return }
+            let searchArray = NSMutableArray(array: response.arrayObject ?? [])
+            self.usersArray = self.createDisplayArray(searchArray)
+            self.reloadTable()
+        }, failure: nil)
         
-        var tokenString = "token "
-        if let appToken =  NSUserDefaults.standardUserDefaults().objectForKey("LoginToken") as? String
-        {
-            tokenString +=  appToken
-            
-            let URL =  globalConstants.kAPIURL + globalConstants.kFollowersAPIEndPoint
-            
-            let headers = [
-                "Authorization": tokenString,
-            ]
-            
-            Alamofire.request(.GET, URL , parameters: nil, encoding: .JSON, headers : headers)
-                .responseString { response in
-                    
-                    print("response \(response)")
-                    appDelegate.stopAnimation()
-                    guard let value = response.result.value else
-                    {
-                        print("Error: did not receive data")
-                        self.reloadTable()
-                        
-                        return
-                    }
-                    
-                    guard response.result.error == nil else
-                    {
-                        print("error calling POST on Login")
-                        print(response.result.error)
-                        self.reloadTable()
-                        
-                        return
-                    }
-                    
-                    
-                    let post = JSON(value)
-                    if let string = post.rawString()
-                    {
-                        if (response.response?.statusCode == 400 || response.response?.statusCode == 401)
-                        {
-                            let responseDic:[String:AnyObject]? = self.convertStringToDictionary(string)
-                            print("The Response Error is:   \(response.response?.statusCode)")
-                            
-                            if let val = responseDic?["code"]
-                            {
-                                if val[0].isEqualToString("13")
-                                {
-                                    //print("Equals")
-                                    //self.displayCommonAlert(responseDic?["detail"]?[0] as! String)
-                                    self.displayCommonAlert((responseDic?["detail"] as? NSArray)?[0] as! String)
-
-                                    self.reloadTable()
-                                    
-                                    return
-                                }
-                                // now val is not nil and the Optional has been unwrapped, so use it
-                            }
-                            
-                            if let errorData = responseDic?["detail"]
-                            {
-                                
-                                if let errorMessage = errorData as? String
-                                {
-                                    self.displayCommonAlert(errorMessage)
-                                    
-                                }
-                                else if let errorMessage = errorData as? NSArray
-                                {
-                                    if let errorMessageStr = errorMessage[0] as? String
-                                    {
-                                        self.displayCommonAlert(errorMessageStr)
-                                    }
-                                }
-                                self.reloadTable()
-                                return;
-                            }
-                        }
-                        else if (response.response?.statusCode == 200 || response.response?.statusCode == 201)
-                        {
-                            let responseArray:NSArray? = self.convertStringToArray(string)
-                            if let searchArray = responseArray as? NSMutableArray
-                            {
-                                self.usersArray = self.createDisplayArray(searchArray)
-                            }
-                        }
-                        else
-                        {
-                            
-                        }
-                        
-                        self.reloadTable()
-                    }
-            }
-        }
+//        var tokenString = "token "
+//        if let appToken =  NSUserDefaults.standardUserDefaults().objectForKey("LoginToken") as? String
+//        {
+//            tokenString +=  appToken
+//            
+//            let URL =  globalConstants.kAPIURL + globalConstants.kFollowersAPIEndPoint
+//            
+//            let headers = [
+//                "Authorization": tokenString,
+//            ]
+//            
+//            Alamofire.request(.GET, URL , parameters: nil, encoding: .JSON, headers : headers)
+//                .responseString { response in
+//                    guard let value = response.result.value else
+//                    {
+//                        print("Error: did not receive data")
+//                        self.reloadTable()
+//                        
+//                        return
+//                    }
+//                    
+//                    guard response.result.error == nil else
+//                    {
+//                        print("error calling POST on Login")
+//                        print(response.result.error)
+//                        self.reloadTable()
+//                        
+//                        return
+//                    }
+//                    
+//                    
+//                    let post = JSON(value)
+//                    if let string = post.rawString()
+//                    {
+//                        if (response.response?.statusCode == 400 || response.response?.statusCode == 401)
+//                        {
+//                            let responseDic:[String:AnyObject]? = self.convertStringToDictionary(string)
+//                            print("The Response Error is:   \(response.response?.statusCode)")
+//                            
+//                            if let val = responseDic?["code"]
+//                            {
+//                                if val[0].isEqualToString("13")
+//                                {
+//                                    //print("Equals")
+//                                    //self.displayCommonAlert(responseDic?["detail"]?[0] as! String)
+//                                    self.displayCommonAlert((responseDic?["detail"] as? NSArray)?[0] as! String)
+//
+//                                    self.reloadTable()
+//                                    
+//                                    return
+//                                }
+//                                // now val is not nil and the Optional has been unwrapped, so use it
+//                            }
+//                            
+//                            if let errorData = responseDic?["detail"]
+//                            {
+//                                
+//                                if let errorMessage = errorData as? String
+//                                {
+//                                    self.displayCommonAlert(errorMessage)
+//                                    
+//                                }
+//                                else if let errorMessage = errorData as? NSArray
+//                                {
+//                                    if let errorMessageStr = errorMessage[0] as? String
+//                                    {
+//                                        self.displayCommonAlert(errorMessageStr)
+//                                    }
+//                                }
+//                                self.reloadTable()
+//                                return;
+//                            }
+//                        }
+//                        else if (response.response?.statusCode == 200 || response.response?.statusCode == 201)
+//                        {
+//                            let responseArray:NSArray? = self.convertStringToArray(string)
+//                            if let searchArray = responseArray as? NSMutableArray
+//                            {
+//                                self.usersArray = self.createDisplayArray(searchArray)
+//                            }
+//                        }
+//                        else
+//                        {
+//                            
+//                        }
+//                        
+//                        self.reloadTable()
+//                    }
+//            }
+//        }
     }
     
     func createDisplayArray(inputArray :NSMutableArray)->NSMutableArray
@@ -300,7 +300,9 @@ class FollowersViewController: BaseViewController, UITableViewDelegate,UITableVi
                 // Venu Id
                 NSLog("venue_idStr = \(venue_idStr)")
                 let aVenueProfileViewController : VenueProfileViewController = self.storyboard!.instantiateViewControllerWithIdentifier("VenueProfileViewController") as! VenueProfileViewController
-                appDelegate.selectedVenueId = "\(venue_idStr)"
+                assert(false)
+                // TODO: fix selected venue id
+                AppPersistedStore.sharedInstance.selectedVenueId = "\(venue_idStr)"
                 self.navigationController!.pushViewController(aVenueProfileViewController, animated: true)
             }
             else

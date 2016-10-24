@@ -30,4 +30,20 @@ extension UIColor {
     class func mixrGreen() -> UIColor {
         return UIColor(r: 127, g: 162, b: 105)
     }
+    
+    class func snapSliderBackgroundViewColor() -> UIColor {
+        return UIColor(r: 158, g: 158, b: 158)
+    }
+    
+    class func venueBorderColor() -> UIColor {
+        return UIColor(r: 224, g: 224, b: 224)
+    }
+    
+    class func gradientLightColor() -> UIColor {
+        return UIColor(r: 247, g: 247, b: 247)
+    }
+    
+    class func gradientDarkColor() -> UIColor {
+        return UIColor(r: 233, g: 233, b: 233)
+    }
 }

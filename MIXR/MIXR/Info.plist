@@ -19,7 +19,7 @@
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleVersion</key>
-	<string>1.3.1</string>
+	<string>1.3.4</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>MGLMapboxAccessToken</key>
@@ -29,8 +29,12 @@
 		<key>NSAllowsArbitraryLoads</key>
 		<true/>
 	</dict>
+	<key>NSCameraUsageDescription</key>
+	<string>Record some great times out with MIXR</string>
 	<key>NSLocationAlwaysUsageDescription</key>
 	<string>Enable location to view local bars and restaurants!</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Access is for posting purposes</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>forgotten futurist rg it.tff</string>

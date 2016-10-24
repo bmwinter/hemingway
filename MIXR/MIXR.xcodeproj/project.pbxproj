@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0C3E0A611D937F9B00EBACE4 /* PromotionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C3E0A601D937F9B00EBACE4 /* PromotionModel.swift */; };
 		0C5AC26F1D6BEE9300F19672 /* PromotionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C5AC26E1D6BEE9300F19672 /* PromotionsViewController.swift */; };
 		0C5AC2721D6BF0B200F19672 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C5AC2711D6BF0B200F19672 /* Colors.swift */; };
 		0C5AC2741D6BF0BC00F19672 /* Fonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C5AC2731D6BF0BC00F19672 /* Fonts.swift */; };
@@ -42,6 +43,21 @@
 		0C64EDEC1D47F7D800DAE12D /* VenueProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C64EDCF1D47F7D800DAE12D /* VenueProfileViewController.swift */; };
 		0C64EDEE1D48037100DAE12D /* Venue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C64EDED1D48037100DAE12D /* Venue.swift */; };
 		0C64EDF01D48082300DAE12D /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C64EDEF1D48082300DAE12D /* Location.swift */; };
+		0C8F4FE51D94D6DE00D0F7BC /* UIViewController+MixrAddOns.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C8F4FE41D94D6DE00D0F7BC /* UIViewController+MixrAddOns.swift */; };
+		0C8F4FE81D94DBA800D0F7BC /* SpringIndicatorTrait.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C8F4FE71D94DBA800D0F7BC /* SpringIndicatorTrait.swift */; };
+		0C8F4FEA1D94E39600D0F7BC /* UIImage+MixrAddOns.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C8F4FE91D94E39600D0F7BC /* UIImage+MixrAddOns.swift */; };
+		0C8F4FEF1D94F43E00D0F7BC /* GlobalFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C8F4FEE1D94F43E00D0F7BC /* GlobalFunctions.swift */; };
+		0C8F4FF21D9854BF00D0F7BC /* AppPersistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C8F4FF11D9854BF00D0F7BC /* AppPersistence.swift */; };
+		0C91C10D1D98C4FF0059B010 /* String+MixrAddOns.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C91C10C1D98C4FF0059B010 /* String+MixrAddOns.swift */; };
+		0C91C10F1D9A13F30059B010 /* APIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C91C10E1D9A13F30059B010 /* APIManager.swift */; };
+		0C91C1121D9A1FB30059B010 /* APIModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C91C1111D9A1FB30059B010 /* APIModel.swift */; };
+		0CB5998E1DB5D31400474673 /* SnapSliderElementModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CB5998D1DB5D31400474673 /* SnapSliderElementModel.swift */; };
+		0CB599971DB8868E00474673 /* SnapSliderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CB599951DB8868E00474673 /* SnapSliderView.swift */; };
+		0CB599981DB8868E00474673 /* SnapSliderElementView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CB599961DB8868E00474673 /* SnapSliderElementView.swift */; };
+		0CB5999B1DBC3C7E00474673 /* SnapSliderModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CB5999A1DBC3C7E00474673 /* SnapSliderModel.swift */; };
+		0CB599A61DBD6E7C00474673 /* VenueProfileV2ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CB599A51DBD6E7C00474673 /* VenueProfileV2ViewController.swift */; };
+		0CD828FB1D9A2A140071BC6C /* UITextField+MixrAddOns.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CD828FA1D9A2A140071BC6C /* UITextField+MixrAddOns.swift */; };
+		0CD828FD1DAC8BBD0071BC6C /* MXNavigationBarTrait.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CD828FC1DAC8BBD0071BC6C /* MXNavigationBarTrait.swift */; };
 		0CFFAF091D7521A1004015DA /* SettingsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CFFAF081D7521A1004015DA /* SettingsTableViewCell.swift */; };
 		1502B80D1C16B973003BA39F /* SearchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1502B80C1C16B973003BA39F /* SearchTableViewCell.swift */; };
 		151212F01C53C551001D6C50 /* locationtab.png in Resources */ = {isa = PBXBuildFile; fileRef = 151212E71C53C551001D6C50 /* locationtab.png */; };
@@ -179,7 +195,7 @@
 		5C6DF59D1C3000AE00F2910B /* Specials.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C6DF59C1C3000AE00F2910B /* Specials.swift */; };
 		5C6E2C4A1BC90B940036259A /* DatePickerDialog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C6E2C491BC90B940036259A /* DatePickerDialog.swift */; };
 		5C92A1441BC5785A00EB6B9E /* User.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5C92A1431BC5785A00EB6B9E /* User.storyboard */; };
-		5CF4687E1C0E8ABD007F87AA /* PromotionDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CF4687C1C0E8ABD007F87AA /* PromotionDetail.swift */; };
+		5CF4687E1C0E8ABD007F87AA /* PromotionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CF4687C1C0E8ABD007F87AA /* PromotionViewController.swift */; };
 		5CF4687F1C0E8ABD007F87AA /* Notifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CF4687D1C0E8ABD007F87AA /* Notifications.swift */; };
 		5CF468811C0E8B0C007F87AA /* NotificationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CF468801C0E8B0C007F87AA /* NotificationCell.swift */; };
 		5CF468831C0E8B3B007F87AA /* PromotionsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CF468821C0E8B3B007F87AA /* PromotionsCell.swift */; };
@@ -206,6 +222,7 @@
 
 /* Begin PBXFileReference section */
 		051D90BDBA721D3432D3C2E3 /* Pods_MIXR.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MIXR.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		0C3E0A601D937F9B00EBACE4 /* PromotionModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PromotionModel.swift; sourceTree = "<group>"; };
 		0C5AC26E1D6BEE9300F19672 /* PromotionsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PromotionsViewController.swift; sourceTree = "<group>"; };
 		0C5AC2711D6BF0B200F19672 /* Colors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Colors.swift; path = "MIXR Styles/Colors.swift"; sourceTree = "<group>"; };
 		0C5AC2731D6BF0BC00F19672 /* Fonts.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Fonts.swift; path = "MIXR Styles/Fonts.swift"; sourceTree = "<group>"; };
@@ -242,6 +259,21 @@
 		0C64EDCF1D47F7D800DAE12D /* VenueProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VenueProfileViewController.swift; sourceTree = "<group>"; };
 		0C64EDED1D48037100DAE12D /* Venue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Venue.swift; sourceTree = "<group>"; };
 		0C64EDEF1D48082300DAE12D /* Location.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
+		0C8F4FE41D94D6DE00D0F7BC /* UIViewController+MixrAddOns.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIViewController+MixrAddOns.swift"; sourceTree = "<group>"; };
+		0C8F4FE71D94DBA800D0F7BC /* SpringIndicatorTrait.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SpringIndicatorTrait.swift; path = Mixins/SpringIndicatorTrait.swift; sourceTree = "<group>"; };
+		0C8F4FE91D94E39600D0F7BC /* UIImage+MixrAddOns.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "UIImage+MixrAddOns.swift"; path = "Categories/UIImage+MixrAddOns.swift"; sourceTree = "<group>"; };
+		0C8F4FEE1D94F43E00D0F7BC /* GlobalFunctions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GlobalFunctions.swift; sourceTree = "<group>"; };
+		0C8F4FF11D9854BF00D0F7BC /* AppPersistence.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppPersistence.swift; sourceTree = "<group>"; };
+		0C91C10C1D98C4FF0059B010 /* String+MixrAddOns.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "String+MixrAddOns.swift"; path = "Categories/String+MixrAddOns.swift"; sourceTree = "<group>"; };
+		0C91C10E1D9A13F30059B010 /* APIManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIManager.swift; sourceTree = "<group>"; };
+		0C91C1111D9A1FB30059B010 /* APIModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = APIModel.swift; path = APIModel/APIModel.swift; sourceTree = "<group>"; };
+		0CB5998D1DB5D31400474673 /* SnapSliderElementModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SnapSliderElementModel.swift; sourceTree = "<group>"; };
+		0CB599951DB8868E00474673 /* SnapSliderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SnapSliderView.swift; sourceTree = "<group>"; };
+		0CB599961DB8868E00474673 /* SnapSliderElementView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SnapSliderElementView.swift; sourceTree = "<group>"; };
+		0CB5999A1DBC3C7E00474673 /* SnapSliderModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SnapSliderModel.swift; path = Views/SnapSliderView/SnapSliderModel.swift; sourceTree = "<group>"; };
+		0CB599A51DBD6E7C00474673 /* VenueProfileV2ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VenueProfileV2ViewController.swift; sourceTree = "<group>"; };
+		0CD828FA1D9A2A140071BC6C /* UITextField+MixrAddOns.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "UITextField+MixrAddOns.swift"; path = "Categories/UITextField+MixrAddOns.swift"; sourceTree = "<group>"; };
+		0CD828FC1DAC8BBD0071BC6C /* MXNavigationBarTrait.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MXNavigationBarTrait.swift; path = Mixins/MXNavigationBarTrait.swift; sourceTree = "<group>"; };
 		0CFFAF081D7521A1004015DA /* SettingsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SettingsTableViewCell.swift; path = Views/SettingsTableViewCell.swift; sourceTree = "<group>"; };
 		119CC446741BEC8341A20555 /* Pods_MIXRTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MIXRTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		1502B80C1C16B973003BA39F /* SearchTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchTableViewCell.swift; sourceTree = "<group>"; };
@@ -379,7 +411,7 @@
 		5C6DF59C1C3000AE00F2910B /* Specials.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Specials.swift; sourceTree = "<group>"; };
 		5C6E2C491BC90B940036259A /* DatePickerDialog.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DatePickerDialog.swift; sourceTree = "<group>"; };
 		5C92A1431BC5785A00EB6B9E /* User.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = User.storyboard; sourceTree = "<group>"; };
-		5CF4687C1C0E8ABD007F87AA /* PromotionDetail.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PromotionDetail.swift; sourceTree = "<group>"; };
+		5CF4687C1C0E8ABD007F87AA /* PromotionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PromotionViewController.swift; path = ../PromotionViewController.swift; sourceTree = "<group>"; };
 		5CF4687D1C0E8ABD007F87AA /* Notifications.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Notifications.swift; sourceTree = "<group>"; };
 		5CF468801C0E8B0C007F87AA /* NotificationCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationCell.swift; sourceTree = "<group>"; };
 		5CF468821C0E8B3B007F87AA /* PromotionsCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PromotionsCell.swift; sourceTree = "<group>"; };
@@ -435,6 +467,7 @@
 		0C5AC2771D6BFE4B00F19672 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				0CB599991DB8869100474673 /* SnapSliderView */,
 				0C5AC2751D6BFE4400F19672 /* PromotionsTableViewCell.swift */,
 				0CFFAF081D7521A1004015DA /* SettingsTableViewCell.swift */,
 			);
@@ -461,6 +494,7 @@
 				0C64EDC21D47F7D800DAE12D /* PostViewController.swift */,
 				0C64EDC31D47F7D800DAE12D /* ProfileTableViewController.swift */,
 				0C64EDC41D47F7D800DAE12D /* PromotionDetailViewController.swift */,
+				5CF4687C1C0E8ABD007F87AA /* PromotionViewController.swift */,
 				0C64EDC51D47F7D800DAE12D /* RecentPhotoVideoController.swift */,
 				0C64EDC61D47F7D800DAE12D /* SearchViewController.swift */,
 				0C64EDC71D47F7D800DAE12D /* SettingsTableViewController.swift */,
@@ -472,6 +506,8 @@
 				0C64EDCD1D47F7D800DAE12D /* VenueFeedViewController.swift */,
 				0C64EDCE1D47F7D800DAE12D /* VenueProfileTableViewController.swift */,
 				0C64EDCF1D47F7D800DAE12D /* VenueProfileViewController.swift */,
+				0C8F4FE41D94D6DE00D0F7BC /* UIViewController+MixrAddOns.swift */,
+				0CB599A51DBD6E7C00474673 /* VenueProfileV2ViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -484,6 +520,43 @@
 				0C64EDBE1D47F7D800DAE12D /* VenueFeedNavigationController.swift */,
 			);
 			path = NavigationControllers;
+			sourceTree = "<group>";
+		};
+		0C8F4FE61D94DB6700D0F7BC /* Mixins */ = {
+			isa = PBXGroup;
+			children = (
+				0C8F4FE71D94DBA800D0F7BC /* SpringIndicatorTrait.swift */,
+				0CD828FC1DAC8BBD0071BC6C /* MXNavigationBarTrait.swift */,
+			);
+			name = Mixins;
+			sourceTree = "<group>";
+		};
+		0C8F4FEB1D94E39A00D0F7BC /* Categories */ = {
+			isa = PBXGroup;
+			children = (
+				0C8F4FE91D94E39600D0F7BC /* UIImage+MixrAddOns.swift */,
+				0C91C10C1D98C4FF0059B010 /* String+MixrAddOns.swift */,
+				0CD828FA1D9A2A140071BC6C /* UITextField+MixrAddOns.swift */,
+			);
+			name = Categories;
+			sourceTree = "<group>";
+		};
+		0C91C1101D9A1F800059B010 /* APIModels */ = {
+			isa = PBXGroup;
+			children = (
+				0C91C1111D9A1FB30059B010 /* APIModel.swift */,
+			);
+			name = APIModels;
+			sourceTree = "<group>";
+		};
+		0CB599991DB8869100474673 /* SnapSliderView */ = {
+			isa = PBXGroup;
+			children = (
+				0CB599951DB8868E00474673 /* SnapSliderView.swift */,
+				0CB599961DB8868E00474673 /* SnapSliderElementView.swift */,
+				0CB5999A1DBC3C7E00474673 /* SnapSliderModel.swift */,
+			);
+			name = SnapSliderView;
 			sourceTree = "<group>";
 		};
 		14B036E93F4C01FE0876251F /* Frameworks */ = {
@@ -638,6 +711,7 @@
 			isa = PBXGroup;
 			children = (
 				1552EB321C1C663A00B73831 /* APIConnection.swift */,
+				0C91C10E1D9A13F30059B010 /* APIManager.swift */,
 			);
 			path = APIConnection;
 			sourceTree = "<group>";
@@ -774,10 +848,13 @@
 		5C6DF5991C2FFF6300F2910B /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				0C91C1101D9A1F800059B010 /* APIModels */,
 				5C6DF59A1C2FFFEC00F2910B /* Events.swift */,
 				5C6DF59C1C3000AE00F2910B /* Specials.swift */,
 				0C64EDED1D48037100DAE12D /* Venue.swift */,
 				0C64EDEF1D48082300DAE12D /* Location.swift */,
+				0C3E0A601D937F9B00EBACE4 /* PromotionModel.swift */,
+				0CB5998D1DB5D31400474673 /* SnapSliderElementModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -798,6 +875,8 @@
 				5C6E2C481BC90B940036259A /* DatePicker */,
 				0C5AC2701D6BF08900F19672 /* MIXR Styles */,
 				5C26612E1BD0B4E100413257 /* GlobalConstants.swift */,
+				0C8F4FEE1D94F43E00D0F7BC /* GlobalFunctions.swift */,
+				0C8F4FF11D9854BF00D0F7BC /* AppPersistence.swift */,
 			);
 			path = Library;
 			sourceTree = "<group>";
@@ -834,11 +913,13 @@
 		8061221C1BBF2D7400EFF35E /* MIXR */ = {
 			isa = PBXGroup;
 			children = (
-				0C5AC2771D6BFE4B00F19672 /* Views */,
-				5C6DF5991C2FFF6300F2910B /* Models */,
+				0C8F4FEB1D94E39A00D0F7BC /* Categories */,
+				0C64EDB11D47F7D800DAE12D /* Controllers */,
 				156BCCA81C05E68100AB88A6 /* CustomCell */,
 				5C6E2C471BC90B940036259A /* Library */,
-				0C64EDB11D47F7D800DAE12D /* Controllers */,
+				0C8F4FE61D94DB6700D0F7BC /* Mixins */,
+				5C6DF5991C2FFF6300F2910B /* Models */,
+				0C5AC2771D6BFE4B00F19672 /* Views */,
 				8061221D1BBF2D7400EFF35E /* Supporting Files */,
 				806122281BBF2D7400EFF35E /* Images.xcassets */,
 				8061222A1BBF2D7400EFF35E /* LaunchScreen.xib */,
@@ -849,7 +930,6 @@
 				5C218AC11BEA769800F7DA82 /* ChangePassword.swift */,
 				5C218AC31BEA7EA900F7DA82 /* SMSVerification.swift */,
 				5C1F05D31C2561840036830D /* ForgotPassword.swift */,
-				5CF4687C1C0E8ABD007F87AA /* PromotionDetail.swift */,
 				5CF4687D1C0E8ABD007F87AA /* Notifications.swift */,
 				5C4BAE841C674FB7009A6BDC /* RecoverPassword.swift */,
 				5C586DF01C6EE77900169A7E /* VenueSelection.swift */,
@@ -1200,6 +1280,7 @@
 				0C64EDE31D47F7D800DAE12D /* SearchViewController.swift in Sources */,
 				0C64EDE81D47F7D800DAE12D /* UserFeedViewController.swift in Sources */,
 				0C64EDD11D47F7D800DAE12D /* ChangePasswordViewController.swift in Sources */,
+				0CB5998E1DB5D31400474673 /* SnapSliderElementModel.swift in Sources */,
 				5C6DF59B1C2FFFEC00F2910B /* Events.swift in Sources */,
 				0C64EDE71D47F7D800DAE12D /* SplashScreenViewController.swift in Sources */,
 				5C520FDD1C54FA9600299990 /* ALCameraView.swift in Sources */,
@@ -1209,6 +1290,7 @@
 				5C232CF71C2BA264008D52A1 /* Borderedlabel.swift in Sources */,
 				0C64EDEA1D47F7D800DAE12D /* VenueFeedViewController.swift in Sources */,
 				5C1F05D41C2561840036830D /* ForgotPassword.swift in Sources */,
+				0C91C10F1D9A13F30059B010 /* APIManager.swift in Sources */,
 				0C64EDE11D47F7D800DAE12D /* PromotionDetailViewController.swift in Sources */,
 				0C64EDD01D47F7D800DAE12D /* BaseViewController.swift in Sources */,
 				0C64EDEE1D48037100DAE12D /* Venue.swift in Sources */,
@@ -1218,33 +1300,44 @@
 				154E6E831C7C82F400B00CB4 /* FollowingRequestCell.swift in Sources */,
 				0C64EDDF1D47F7D800DAE12D /* PostViewController.swift in Sources */,
 				0C64EDD61D47F7D800DAE12D /* FullScreenImageViewController.swift in Sources */,
-				5CF4687E1C0E8ABD007F87AA /* PromotionDetail.swift in Sources */,
+				5CF4687E1C0E8ABD007F87AA /* PromotionViewController.swift in Sources */,
 				5C520FE01C54FA9600299990 /* ALPermissionsView.swift in Sources */,
 				0C64EDD71D47F7D800DAE12D /* LoginViewController.swift in Sources */,
 				5C520FE71C54FE4D00299990 /* DOAlertController.swift in Sources */,
 				0C64EDE01D47F7D800DAE12D /* ProfileTableViewController.swift in Sources */,
 				5CF468831C0E8B3B007F87AA /* PromotionsCell.swift in Sources */,
+				0C8F4FEA1D94E39600D0F7BC /* UIImage+MixrAddOns.swift in Sources */,
 				0C5AC2721D6BF0B200F19672 /* Colors.swift in Sources */,
 				0C64EDEC1D47F7D800DAE12D /* VenueProfileViewController.swift in Sources */,
+				0CB599A61DBD6E7C00474673 /* VenueProfileV2ViewController.swift in Sources */,
 				5C6E2C4A1BC90B940036259A /* DatePickerDialog.swift in Sources */,
 				0C64EDD41D47F7D800DAE12D /* FollowersViewController.swift in Sources */,
 				0C5AC2741D6BF0BC00F19672 /* Fonts.swift in Sources */,
+				0CD828FB1D9A2A140071BC6C /* UITextField+MixrAddOns.swift in Sources */,
 				5C586DF11C6EE77900169A7E /* VenueSelection.swift in Sources */,
 				5C520FD71C54FA9600299990 /* ALUtilities.swift in Sources */,
 				1502B80D1C16B973003BA39F /* SearchTableViewCell.swift in Sources */,
+				0C8F4FEF1D94F43E00D0F7BC /* GlobalFunctions.swift in Sources */,
+				0C91C10D1D98C4FF0059B010 /* String+MixrAddOns.swift in Sources */,
 				806122201BBF2D7400EFF35E /* AppDelegate.swift in Sources */,
 				0C64EDD31D47F7D800DAE12D /* FeedPageViewController.swift in Sources */,
 				0C64EDEB1D47F7D800DAE12D /* VenueProfileTableViewController.swift in Sources */,
+				0CD828FD1DAC8BBD0071BC6C /* MXNavigationBarTrait.swift in Sources */,
 				5C6DF59D1C3000AE00F2910B /* Specials.swift in Sources */,
 				0CFFAF091D7521A1004015DA /* SettingsTableViewCell.swift in Sources */,
+				0C8F4FE81D94DBA800D0F7BC /* SpringIndicatorTrait.swift in Sources */,
 				5C218AC21BEA769800F7DA82 /* ChangePassword.swift in Sources */,
+				0C8F4FF21D9854BF00D0F7BC /* AppPersistence.swift in Sources */,
 				5C22FB611BD1314000FF9C98 /* CollectionViewWaterfallLayout.swift in Sources */,
 				5C520FD91C54FA9600299990 /* ALConfirmViewController.swift in Sources */,
 				5C520FDC1C54FA9600299990 /* ALImagePickerViewDelegate.swift in Sources */,
 				0C64EDD91D47F7D800DAE12D /* MapNavigationController.swift in Sources */,
 				5C520FD81C54FA9600299990 /* ALCameraViewController.swift in Sources */,
+				0CB599971DB8868E00474673 /* SnapSliderView.swift in Sources */,
 				5C520FDE1C54FA9600299990 /* ALCropOverlay.swift in Sources */,
+				0C3E0A611D937F9B00EBACE4 /* PromotionModel.swift in Sources */,
 				5C520FD51C54FA9600299990 /* ALImageExtensions.swift in Sources */,
+				0C8F4FE51D94D6DE00D0F7BC /* UIViewController+MixrAddOns.swift in Sources */,
 				0C64EDDE1D47F7D800DAE12D /* PersonalProfileViewController.swift in Sources */,
 				0C64EDE21D47F7D800DAE12D /* RecentPhotoVideoController.swift in Sources */,
 				0C5AC2761D6BFE4400F19672 /* PromotionsTableViewCell.swift in Sources */,
@@ -1255,6 +1348,7 @@
 				0C64EDD21D47F7D800DAE12D /* EditProfilePicViewController.swift in Sources */,
 				5C232CF31C2BA134008D52A1 /* BorderedImageView.swift in Sources */,
 				5C218AC41BEA7EA900F7DA82 /* SMSVerification.swift in Sources */,
+				0C91C1121D9A1FB30059B010 /* APIModel.swift in Sources */,
 				5C520FDF1C54FA9600299990 /* ALImageCell.swift in Sources */,
 				0C64EDE41D47F7D800DAE12D /* SettingsTableViewController.swift in Sources */,
 				5C1CF1731BDBC5CC00B863F6 /* BorderedButton.swift in Sources */,
@@ -1267,12 +1361,14 @@
 				A3274FFF1CA38DFB00E7E048 /* VenueAnnotation.swift in Sources */,
 				0C64EDE61D47F7D800DAE12D /* SignUpTableViewController.swift in Sources */,
 				156BCCAA1C05E6BF00AB88A6 /* UserFeedCell.swift in Sources */,
+				0CB599981DB8868E00474673 /* SnapSliderElementView.swift in Sources */,
 				15149F9E1C7D8D1400274778 /* NotificationPromotionCell.swift in Sources */,
 				5C520FD31C54FA9600299990 /* ALImageModel.swift in Sources */,
 				0C64EDD51D47F7D800DAE12D /* FollowingViewController.swift in Sources */,
 				5C1F05D71C256B4B0036830D /* SegmentControl.swift in Sources */,
 				5C520FD41C54FA9600299990 /* ALCameraShot.swift in Sources */,
 				0C64EDDC1D47F7D800DAE12D /* NewsFeedTableViewController.swift in Sources */,
+				0CB5999B1DBC3C7E00474673 /* SnapSliderModel.swift in Sources */,
 				0C64EDDB1D47F7D800DAE12D /* VenueFeedNavigationController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1401,7 +1497,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: David DeWitt (CS3U62UX6Q)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEFINES_MODULE = YES;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -1409,7 +1505,7 @@
 					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = MIXR/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.mixrapp.mixr;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1427,7 +1523,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: David DeWitt (FDBX6QZ75V)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEFINES_MODULE = YES;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -1435,7 +1531,7 @@
 					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = MIXR/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.mixrapp.mixr;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1463,6 +1559,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.mixr.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 2.3;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MIXR.app/MIXR";
 			};
 			name = Debug;
@@ -1480,6 +1577,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.mixr.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 2.3;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MIXR.app/MIXR";
 			};
 			name = Release;

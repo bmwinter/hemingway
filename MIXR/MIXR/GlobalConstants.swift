@@ -26,7 +26,32 @@ enum APIName : Int
 
 struct globalConstants {
     static let kAPIURL = "http://54.174.249.237/"
+
+    static let kAppName = "MIXR"
     
+    static let kValidEmailError = "Please enter valid email"
+    static let kEmailError = "Please enter email"
+    static let kpasswordError = "Please enter password"
+    static let kfirstnameError = "Please enter firstname"
+    static let klastnameError = "Please enter lastname"
+    static let kconfirmPasswordError = "Please enter confirm password"
+    static let kCountryCodeError = "Please enter country code"
+    static let kPhoneNoError = "Please enter phone No"
+    static let kverificationCodeError = "Please enter verification code"
+    static let kNewPassword = "Please enter new password"
+    static let kpasswordconfirmPasswordError = "Password and confirm password must be same"
+    static let kageRestrictionError = "To use this application, Your age should be greather that 18 years"
+    static let ktermsandConditionError = "Please accept terms & condition!"
+    static let kEnterValidPhoneNumber = "Please enter valid phone number with country code"
+    static let kCurrentPassword = "Please enter current password"
+    
+    
+    static let kTempVideoFileName = "video.mp4"
+    static let kTempImageFileNmae = "image.png"
+    static let kProfilePicName = "profilepic.png"
+    
+    /* URLS relocated to APIConnection Enum
+     
     static let kLoginAPIEndPoint = "login"
     static let kSignUpAPIEndPoint = "register"
     static let kGetVerificationCode = "confirmation"
@@ -72,29 +97,14 @@ struct globalConstants {
     static let kMakeProfilePublicPrivate = "profile/public"
     static let kLikePost = "post/like"
     static let kGetVenuesList = "venue"
-
-    static let kAppName = "MIXR"
-    
-    static let kValidEmailError = "Please enter valid email"
-    static let kEmailError = "Please enter email"
-    static let kpasswordError = "Please enter password"
-    static let kfirstnameError = "Please enter firstname"
-    static let klastnameError = "Please enter lastname"
-    static let kconfirmPasswordError = "Please enter confirm password"
-    static let kCountryCodeError = "Please enter country code"
-    static let kPhoneNoError = "Please enter phone No"
-    static let kverificationCodeError = "Please enter verification code"
-    static let kNewPassword = "Please enter new password"
-    static let kpasswordconfirmPasswordError = "Password and confirm password must be same"
-    static let kageRestrictionError = "To use this application, Your age should be greather that 18 years"
-    static let ktermsandConditionError = "Please accept terms & condition!"
-    static let kEnterValidPhoneNumber = "Please enter valid phone number with country code"
-    static let kCurrentPassword = "Please enter current password"
+    */
     
     
-    static let kTempVideoFileName = "video.mp4"
-    static let kTempImageFileNmae = "image.png"
-    static let kProfilePicName = "profilepic.png"
+    // temp constants kept until media upload is refactored
+    static let kPostVenuePhotoVideo = "post"
+    static let kProfileUpdate = "profile"
+    
+    static let kLoginAPIEndPoint = "login"
     
     /*
     // Method to check wether email is valid or not.
@@ -136,17 +146,5 @@ struct globalConstants {
         }
         return nil
     }
-
-    static func convertStringToDictionary(text:String) -> [String:AnyObject]? {
-        if let data = text.dataUsingEncoding(NSUTF8StringEncoding) {
-            do {
-                return try NSJSONSerialization.JSONObjectWithData(data, options: []) as? [String:AnyObject]
-            } catch let error as NSError {
-                print(error)
-            }
-        }
-        return nil
-    }
-
 }
 

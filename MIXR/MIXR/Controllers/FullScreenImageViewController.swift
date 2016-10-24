@@ -18,9 +18,9 @@ class FullScreenImageViewController: UIViewController {
     var dicData : NSMutableDictionary!
     
     override func viewDidLoad() {
-        self.navigationController?.navigationBarHidden = true
-        self.displayPic()
         super.viewDidLoad()
+        
+        self.displayPic()
         // Do any additional setup after loading the view, typically from a nib.
     }
     

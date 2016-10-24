@@ -46,8 +46,7 @@ extension NSDate {
 
 
 
-class SignUpTableViewController: UIViewController {
-    
+class SignUpTableViewController: BaseViewController {
     
     @IBOutlet weak var firstname: UITextField!
     @IBOutlet weak var lastname: UITextField!
@@ -84,16 +83,14 @@ class SignUpTableViewController: UIViewController {
         // 26
         let width = (self.navigationController?.view.frame.size.width)! - 26.0
         self.firstNameWidth.constant = width/2.0
-        self.lastNameWidth.constant = width/2.0
-        self.navigationController?.navigationBarHidden = true
 //        self.performSignUp()
     }
 
     /*
     //  Check mark button method
     */
-    
-    @IBAction func checkmarkButtonTapped(sender: AnyObject){
+
+    @IBAction func checkmarkButtonTapped(sender: AnyObject) {
         checkmark.selected = !checkmark.selected
     }
     
@@ -186,28 +183,55 @@ class SignUpTableViewController: UIViewController {
     // performLoginAction used to Call the Login API & store logged in user's data in NSUserDefault
     */
     
+    private var phoneNumber: String {
+        return countryCode.textValue + phoneNo.textValue
+    }
+    
+    private var firstName: String {
+        return firstname.textValue
+    }
+    
+    private var lastName: String {
+        return lastname.textValue
+    }
+    
+    private var emailString: String {
+        return email.textValue
+    }
+    
+    private var birthdate: String {
+        switch dob.titleLabel?.text {
+        case .Some(let text):
+            return text
+        case .None:
+            return ""
+        }
+    }
+    
+    private var passwordString: String {
+        return password.textValue
+    }
+    
     func performSignUp(){
         
-        let phoneNumberString = phoneNo.text!.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
+//        let phoneNumberString = phoneNo.text!.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
+//        
+//        let countryCodeString = countryCode.text!.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
+
+//        let parameters = [
+//            "first_name": firstname.text!.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet()),
+//            "last_name": lastname.text!.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet()),
+//            "password": password.text!.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet()),
+//            "email": email.text!.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet()),
+//            "birthdate": dob.titleLabel!.text!.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet()),
+//            "phone_number": countryCodeString + phoneNumberString
+//        ]
         
-        let countryCodeString = countryCode.text!.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
+//        NSUserDefaults.standardUserDefaults().setObject(parameters, forKey: "UserInfo")
+//        NSUserDefaults.standardUserDefaults().synchronize()
 
-        let parameters = [
-            "first_name": firstname.text!.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet()),
-            "last_name": lastname.text!.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet()),
-            "password": password.text!.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet()),
-            "email": email.text!.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet()),
-            "birthdate": dob.titleLabel!.text!.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet()),
-            "phone_number": countryCodeString + phoneNumberString
-        ]
-        
-        NSUserDefaults.standardUserDefaults().setObject(parameters, forKey: "UserInfo")
-        NSUserDefaults.standardUserDefaults().synchronize()
-
-        self.navigationController?.navigationBarHidden = false
-        self.performSegueWithIdentifier("SMSVerification", sender: nil)
-
-        return;
+//        self.navigationController?.navigationBarHidden = false
+//        self.performSegueWithIdentifier("SMSVerification", sender: nil)
         
 //        let parameters = [
 //            "first_name": "test",
@@ -218,49 +242,53 @@ class SignUpTableViewController: UIViewController {
 //            "phone_number": "+919428117839"
 //        ]
 
-        
-        let URL =  globalConstants.kAPIURL + globalConstants.kSignUpAPIEndPoint
-        
-        let appDelegate=AppDelegate() //You create a new instance,not get the exist one
-        appDelegate.startAnimation((self.navigationController?.view)!)
-
-        Alamofire.request(.POST, URL , parameters: parameters, encoding: .JSON)
-            .responseString { response in
+        APIManager.sharedInstance.signUp(firstName: firstName,
+                                         lastName: lastName,
+                                         password: passwordString,
+                                         email: emailString,
+                                         birthdate: birthdate,
+                                         phoneNumber: phoneNumber,
+                                         success: { [weak self] (response) in
+            self?.performSegueWithIdentifier("SMSVerification", sender: nil)
+            }, failure: { (error) in
                 
-                appDelegate.stopAnimation()
-                guard let value = response.result.value else {
-                    print("Error: did not receive data")
-                    return
-                }
-                
-                guard response.result.error == nil else {
-                    print("error calling POST on SignUp")
-                    print(response.result.error)
-                    return
-                }
-                
+        })
 
-                let post = JSON(value)
-                if let string = post.rawString() {
-                    let responseDic:[String:AnyObject]? = self.convertStringToDictionary(string)
-                    
-                    if response.response?.statusCode == 400{
-                        print("The Response Error is:   \(response.response?.statusCode)")
-                        if let errorData = responseDic?["detail"] {
-                            //let errorMessage = errorData[0] as! String
-                            let errorMessage = (errorData as? NSArray)?[0] as! String
-
-                            self.displayCommonAlert(errorMessage)
-                            return;
-                        }
-                    }
-                    
-                    if let tokenData = responseDic?["email"] {
-                        self.navigationController?.navigationBarHidden = false
-                        self.performSegueWithIdentifier("SMSVerification", sender: nil)
-                    }
-                }
-        }
+//        Alamofire.request(.POST, URL , parameters: parameters, encoding: .JSON)
+//            .responseString { response in
+//                guard let value = response.result.value else {
+//                    print("Error: did not receive data")
+//                    return
+//                }
+//                
+//                guard response.result.error == nil else {
+//                    print("error calling POST on SignUp")
+//                    print(response.result.error)
+//                    return
+//                }
+//                
+//
+//                let post = JSON(value)
+//                if let string = post.rawString() {
+//                    let responseDic:[String:AnyObject]? = self.convertStringToDictionary(string)
+//                    
+//                    if response.response?.statusCode == 400 {
+//                        print("The Response Error is:   \(response.response?.statusCode)")
+//                        if let errorData = responseDic?["detail"] {
+//                            //let errorMessage = errorData[0] as! String
+//                            let errorMessage = (errorData as? NSArray)?[0] as! String
+//
+//                            self.displayCommonAlert(errorMessage)
+//                            return;
+//                        }
+//                    }
+//                    
+//                    if let tokenData = responseDic?["email"] {
+//                        self.navigationController?.navigationBarHidden = false
+//                        self.performSegueWithIdentifier("SMSVerification", sender: nil)
+//                    }
+//                }
+//        }
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject!) {
@@ -277,21 +305,6 @@ class SignUpTableViewController: UIViewController {
             
         }
     }
-
-    
-    //MARK: convertStringObject to Dictionary
-    
-    func convertStringToDictionary(text:String) -> [String:AnyObject]? {
-        if let data = text.dataUsingEncoding(NSUTF8StringEncoding) {
-            do {
-                return try NSJSONSerialization.JSONObjectWithData(data, options: []) as? [String:AnyObject]
-            } catch let error as NSError {
-                print(error)
-            }
-        }
-        return nil
-    }
-
     
     /* IBActions */
     @IBAction func datePickerTapped(sender: AnyObject) {
@@ -315,21 +328,6 @@ class SignUpTableViewController: UIViewController {
     
     func compareTwoPassword (password: String, conformPassword : NSString) -> Bool{
         return (password == conformPassword)
-    }
-    
-
-    /*
-    // Common alert method need to be used to display alert, by passing alert string as parameter to it.
-    */
-
-    func displayCommonAlert(alertMesage : NSString){
-        
-        let alertController = UIAlertController (title: globalConstants.kAppName, message: alertMesage as String?, preferredStyle:.Alert)
-        let okayAction: UIAlertAction = UIAlertAction(title: "Ok", style: .Cancel) { action -> Void in
-            //Just dismiss the action sheet
-        }
-        alertController.addAction(okayAction)
-        self.presentViewController(alertController, animated: true, completion: nil)
     }
     
     /*
@@ -367,7 +365,10 @@ class SignUpTableViewController: UIViewController {
         textField.resignFirstResponder()
         return true
     }
-    
+}
 
-    
+extension SignUpTableViewController {
+    override func shouldHideNavigationBar() -> Bool {
+        return true
+    }
 }

@@ -8,21 +8,6 @@
 
 import UIKit
 
-struct PromotionModel {
-    let status: String
-    let timestamp: NSTimeInterval
-    
-    init(object: [String: String]) {
-        status = object["promoters"] ?? ""
-        if let hrString = object["userHr"],
-            let intHr = Int(hrString) {
-            timestamp = NSTimeInterval(intHr)
-        } else {
-            timestamp = NSDate().timeIntervalSince1970 - 60*3
-        }
-    }
-}
-
 class PromotionsViewController: BaseViewController {
     
     private struct Constants {
@@ -38,6 +23,8 @@ class PromotionsViewController: BaseViewController {
     private var promotionsDataSource = [PromotionModel]()
     
     override func viewDidLoad() {
+        super.viewDidLoad()
+        
         tableView?.delegate = self
         tableView?.dataSource = self
         
@@ -113,7 +100,11 @@ extension PromotionsViewController: UITableViewDataSource {
 }
 
 extension PromotionsViewController: UITableViewDelegate {
-//    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-//        return 40
-//    }
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        let promotion = promotionsDataSource[indexPath.row]
+        if let detailVC = storyboard?.instantiateViewControllerWithIdentifier("PromotionViewController") as? PromotionViewController {
+            detailVC.promotionModel = promotion
+            navigationController?.pushViewController(detailVC, animated: true)
+        }
+    }
 }
