@@ -222,6 +222,10 @@ extension BaseViewController: MXNavigationBarTrait {
         return false
     }
     
+    func shouldUseDefaultImage() -> Bool {
+        return true
+    }
+    
     private func barButtonItem(withType type: MXBarButtonType) -> UIBarButtonItem? {
         let button = UIButton(frame: CGRect(x: 0, y: 0, width: 30, height: 30))
         

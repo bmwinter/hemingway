@@ -356,7 +356,7 @@ extension APIConnection {
         
         
         switch response.result {
-        case .Success(let value):
+        case .Success(var value):
             // TODO: check out errors here
             let jsonResponse = JSON.parse(value)
             dispatch_async(dispatch_get_main_queue()) {
