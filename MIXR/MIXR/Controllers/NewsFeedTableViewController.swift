@@ -29,12 +29,14 @@ class NewsFeedTableViewController: UITableViewController, SpringIndicatorTrait {
     var moviePlayer : MPMoviePlayerController?
     
     var springIndicator: SpringIndicator?
+    
+    var venueId: String?
 
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = UIColor.clearColor()
         
-        self.pullToReferesh()
+        setupPullToRefresh()
     }
     
     func playVideoFile() {
@@ -59,7 +61,7 @@ class NewsFeedTableViewController: UITableViewController, SpringIndicatorTrait {
         self.player.view.addGestureRecognizer(tapGestureRecognizer)
     }
     
-    func pullToReferesh() {
+    func setupPullToRefresh() {
         self.refreshControl = UIRefreshControl()
         self.refreshControl!.attributedTitle = NSAttributedString(string: "")//Updating
         self.refreshControl!.addTarget(self, action: #selector(NewsFeedTableViewController.refresh(_:)), forControlEvents: UIControlEvents.ValueChanged)
@@ -105,7 +107,12 @@ class NewsFeedTableViewController: UITableViewController, SpringIndicatorTrait {
             reloadTable()
             
         } else {
-            self.getAllNewsFeed()
+            if venueId == nil {
+                self.getAllNewsFeed()
+            } else {
+                self.getVenueNewsfeed()
+            }
+            
         }
     }
     
@@ -116,6 +123,8 @@ class NewsFeedTableViewController: UITableViewController, SpringIndicatorTrait {
             } else {
                 return .NewsfeedUser
             }
+        } else if venueId != nil {
+            return .NewsfeedVenue
         }
         
         return .NewsfeedAll
@@ -132,6 +141,21 @@ class NewsFeedTableViewController: UITableViewController, SpringIndicatorTrait {
                                                 }
                                                 self?.reloadTable()
         }, failure: { (error) in
+                
+        })
+    }
+    
+    func getVenueNewsfeed() {
+        guard let venueId = venueId else { return }
+        APIManager.sharedInstance.getNewsfeed(forVenueId: venueId,
+                                              success: { [weak self] (response) in
+                                                if let arr = response.arrayObject {
+                                                    self?.feedsArray = NSMutableArray(array: arr)
+                                                } else {
+                                                    self?.feedsArray = []
+                                                }
+                                                self?.reloadTable()
+            }, failure: { (error) in
                 
         })
     }
@@ -284,192 +308,7 @@ class NewsFeedTableViewController: UITableViewController, SpringIndicatorTrait {
                                                 }
                 }, failure: nil)
         }
-        
-        startAnimatingSpringIndicator()
-        
-        let postID = dicFeed["post_id"] as! Int
-        
-        let value = String(postID)
-        var likeValue = "true"
-
-        let userlike = dicFeed["user_likes"] as! Int
-        if userlike == 0 {
-            likeValue = "true"
-        }else{
-            likeValue = "false"
-        }
-        
-        let parameters = [
-            "post_id": value,
-            "like": likeValue]
-        
-        
-//        let parameters = [
-//            "post_id": String(1),
-//            "like": "true"]
-
-//        
-//        let URL =  globalConstants.kAPIURL + globalConstants.kLikePost
-//        
-//        var tokenString = "token "
-//        if let appToken =  NSUserDefaults.standardUserDefaults().objectForKey("LoginToken") as? String
-//        {
-//            tokenString +=  appToken
-//        }
-//        
-//        let headers = [
-//            "Authorization": tokenString,
-//            ]
-//
-//        let manager = Manager.sharedInstance
-//        manager.session.configuration.HTTPAdditionalHeaders = headers
-//
-//        //        Alamofire.Manager.sharedInstance.session.configuration.HTTPAdditionalHeaders?.updateValue("application/json", forKey: "Accept")
-//        
-//        
-//        Alamofire.request(.POST, URL , parameters: parameters, encoding: .JSON)
-//            .responseString { [weak self] response in
-//                guard let `self` = self else { return }
-//                self.stopAnimatingSpringIndicator()
-//                
-//                guard let value = response.result.value else {
-//                    print("Error: did not receive data")
-//                    return
-//                }
-//                
-//                guard response.result.error == nil else {
-//                    print("error calling POST on Login")
-//                    print(response.result.error)
-//                    return
-//                }
-//                
-//                
-//                let post = JSON(value)
-//                if let string = post.rawString() {
-//                    let responseDic:[String:AnyObject]? = self.convertStringToDictionary(string)
-//                    
-//                    if response.response?.statusCode == 400{
-//                        print("The Response Error is:   \(response.response?.statusCode)")
-//                        
-//                        if let val = responseDic?["code"] {
-//                            if val[0].isEqualToString("13") {
-//                                //                                print("Equals")
-//                                //self.displayCommonAlert(responseDic?["detail"]?[0] as! String)
-//                                self.displayCommonAlert((responseDic?["detail"] as? NSArray)?[0] as! String)
-//                                
-//                                return
-//                            }
-//                            // now val is not nil and the Optional has been unwrapped, so use it
-//                        }
-//                        
-//                        if let errorData = responseDic?["detail"] {
-//                            
-//                            let errorMessage = (errorData as? NSArray)?[0] as! String
-//                            self.displayCommonAlert(errorMessage)
-//                            return;
-//                        }
-//                    }
-//                    
-//                    if (responseDic?["post_id"]) != nil {
-//                        let dicFeed = self.feedsArray.objectAtIndex(tag).mutableCopy()
-//                        var likeCount = dicFeed["likes"] as! Int
-//                        
-//                        let userlike = dicFeed["user_likes"] as! Int
-//                        if userlike == 0 {
-//                            likeCount = likeCount + 1;
-//                            dicFeed.setValue(1, forKey: "user_likes")
-//                        }else{
-//                            likeCount = likeCount - 1;
-//                            dicFeed.setValue(0, forKey: "user_likes")
-//                        }
-//
-//                        dicFeed.setValue(likeCount, forKey: "likes")
-//                        
-//                        self.feedsArray.replaceObjectAtIndex(tag, withObject: dicFeed.mutableCopy())
-//                        
-//                        self.reloadTable()
-//                    }
-//                }
-//        }
     }
-    
-    //MARK: - APIConnection Delegate -
-    /*
-    func connectionFailedForAction(action: Int, andWithResponse result: Dictionary <String, JSON>!, method : String)
-    {
-        switch action
-        {
-        case APIName.Venues.rawValue:
-            if ( result != nil)
-            {
-                DLog("\(result)")
-            }
-            
-        default:
-            DLog("Nothing")
-        }
-    }
-    
-    func connectionDidFinishedErrorResponceForAction(action: Int, andWithResponse result: Dictionary <String, JSON>!, method : String)
-    {
-        switch action
-        {
-        case APIName.Venues.rawValue:
-            if ( result != nil)
-            {
-                DLog("\(result)")
-                
-            }
-            
-        default:
-            DLog("Nothing")
-        }
-        
-    }
-    
-    func connectionDidFinishedForAction(action: Int, andWithResponse result:Dictionary <String, JSON>!, method : String)
-    {
-        switch action
-        {
-        case APIName.Venues.rawValue:
-            
-            if ( result != nil)
-            {
-                DLog("\(result)")
-                
-                if(feedcount == 0)
-                {
-//                    feedsArray = result["data"]!.arrayValue
-                    feedcount = feedsArray.count
-                }
-                else
-                {
-                    if(feedsArray.count > 0)
-                    {
-                        var newData : Array<JSON> = result["data"]!.arrayValue
-                        
-                        for (var cnt = 0; cnt < newData.count ; cnt++)
-                        {
-//                            feedsArray.append(newData[cnt])
-                        }
-                        
-                        feedcount = feedsArray.count
-                    }
-                }
-                reloadTable()
-            }
-            DLog("Venue")
-            
-        default:
-            DLog("Nothing")
-        }
-    }
-    
-    func connectionDidUpdateAPIProgress(action: Int,bytesWritten: Int64, totalBytesWritten: Int64 ,totalBytesExpectedToWrite: Int64)
-    {
-        
-    }
-    */
 }
 
 // MARK: - Table view data source

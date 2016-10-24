@@ -56,6 +56,7 @@
 		0CB599981DB8868E00474673 /* SnapSliderElementView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CB599961DB8868E00474673 /* SnapSliderElementView.swift */; };
 		0CB5999B1DBC3C7E00474673 /* SnapSliderModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CB5999A1DBC3C7E00474673 /* SnapSliderModel.swift */; };
 		0CB599A61DBD6E7C00474673 /* VenueProfileV2ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CB599A51DBD6E7C00474673 /* VenueProfileV2ViewController.swift */; };
+		0CB599A81DBDB6BD00474673 /* VenueNewsFeedContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CB599A71DBDB6BD00474673 /* VenueNewsFeedContainerViewController.swift */; };
 		0CD828FB1D9A2A140071BC6C /* UITextField+MixrAddOns.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CD828FA1D9A2A140071BC6C /* UITextField+MixrAddOns.swift */; };
 		0CD828FD1DAC8BBD0071BC6C /* MXNavigationBarTrait.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CD828FC1DAC8BBD0071BC6C /* MXNavigationBarTrait.swift */; };
 		0CFFAF091D7521A1004015DA /* SettingsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CFFAF081D7521A1004015DA /* SettingsTableViewCell.swift */; };
@@ -272,6 +273,7 @@
 		0CB599961DB8868E00474673 /* SnapSliderElementView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SnapSliderElementView.swift; sourceTree = "<group>"; };
 		0CB5999A1DBC3C7E00474673 /* SnapSliderModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SnapSliderModel.swift; path = Views/SnapSliderView/SnapSliderModel.swift; sourceTree = "<group>"; };
 		0CB599A51DBD6E7C00474673 /* VenueProfileV2ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VenueProfileV2ViewController.swift; sourceTree = "<group>"; };
+		0CB599A71DBDB6BD00474673 /* VenueNewsFeedContainerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VenueNewsFeedContainerViewController.swift; sourceTree = "<group>"; };
 		0CD828FA1D9A2A140071BC6C /* UITextField+MixrAddOns.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "UITextField+MixrAddOns.swift"; path = "Categories/UITextField+MixrAddOns.swift"; sourceTree = "<group>"; };
 		0CD828FC1DAC8BBD0071BC6C /* MXNavigationBarTrait.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MXNavigationBarTrait.swift; path = Mixins/MXNavigationBarTrait.swift; sourceTree = "<group>"; };
 		0CFFAF081D7521A1004015DA /* SettingsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SettingsTableViewCell.swift; path = Views/SettingsTableViewCell.swift; sourceTree = "<group>"; };
@@ -508,6 +510,7 @@
 				0C64EDCF1D47F7D800DAE12D /* VenueProfileViewController.swift */,
 				0C8F4FE41D94D6DE00D0F7BC /* UIViewController+MixrAddOns.swift */,
 				0CB599A51DBD6E7C00474673 /* VenueProfileV2ViewController.swift */,
+				0CB599A71DBDB6BD00474673 /* VenueNewsFeedContainerViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -1324,6 +1327,7 @@
 				0C64EDEB1D47F7D800DAE12D /* VenueProfileTableViewController.swift in Sources */,
 				0CD828FD1DAC8BBD0071BC6C /* MXNavigationBarTrait.swift in Sources */,
 				5C6DF59D1C3000AE00F2910B /* Specials.swift in Sources */,
+				0CB599A81DBDB6BD00474673 /* VenueNewsFeedContainerViewController.swift in Sources */,
 				0CFFAF091D7521A1004015DA /* SettingsTableViewCell.swift in Sources */,
 				0C8F4FE81D94DBA800D0F7BC /* SpringIndicatorTrait.swift in Sources */,
 				5C218AC21BEA769800F7DA82 /* ChangePassword.swift in Sources */,
