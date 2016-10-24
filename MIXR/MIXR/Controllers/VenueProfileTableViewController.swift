@@ -48,7 +48,7 @@ class VenueProfileTableViewController: UITableViewController, UIGestureRecognize
     
     @IBOutlet weak var venueNameBtn: BorderedButton!
     
-    var venueId: String = ""
+    var venueId: String = "0"
 
     override func viewDidLoad()
     {

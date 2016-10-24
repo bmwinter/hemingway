@@ -134,86 +134,6 @@ class NewsFeedTableViewController: UITableViewController, SpringIndicatorTrait {
         }, failure: { (error) in
                 
         })
-        
-//        var urlString = ""
-//        
-//        if self.parentViewController!.isKindOfClass(VenueFeedViewController){
-//            urlString = globalConstants.kAPIURL + globalConstants.kAllNewsFeed
-//        }else if self.parentViewController!.isKindOfClass(PostViewController){
-//            let controller = self.parentViewController as! PostViewController
-//            if(controller.isUserProfile){
-//                urlString = globalConstants.kAPIURL + globalConstants.kNewsfeedMyAPIEndPoint
-//            }else{
-//                urlString = globalConstants.kAPIURL + globalConstants.kNewsfeedUserAPIEndPoint
-//            }
-//        }
-//        else{
-//            urlString = globalConstants.kAPIURL + globalConstants.kAllNewsFeed
-//        }
-//        
-//        startAnimatingSpringIndicator()
-//
-//        let URL =  urlString
-//        
-//        var tokenString = "token "
-//        if let appToken =  NSUserDefaults.standardUserDefaults().objectForKey("LoginToken") as? String {
-//            tokenString +=  appToken
-//            
-//            let headers = [
-//                "Authorization": tokenString,
-//                ]
-//
-//            Alamofire.request(.GET, URL , parameters: nil, encoding: .JSON, headers: headers)
-//            .responseString { [weak self] response in
-//                guard let `self` = self else { return }
-//                
-//                self.stopAnimatingSpringIndicator()
-//                
-//                guard let value = response.result.value else {
-//                    print("Error: did not receive data")
-//                    return
-//                }
-//                
-//                guard response.result.error == nil else {
-//                    print("error calling POST on Login")
-//                    print(response.result.error)
-//                    return
-//                }
-//                
-//                
-//                let post = JSON.parse(value)
-//                if let string = post.rawString() {
-//                    
-//                    if response.response?.statusCode == 400{
-//                        let responseDic:[String:AnyObject]? = self.convertStringToDictionary(string)
-//                        print("The Response Error is:   \(response.response?.statusCode)")
-//                        
-//                        if let val = responseDic?["code"] {
-//                            if val[0].isEqualToString("13") {
-//                                //                                print("Equals")
-//                                self.displayCommonAlert((responseDic?["detail"] as? NSArray)?[0] as! String)
-//                                return
-//                            }
-//                            // now val is not nil and the Optional has been unwrapped, so use it
-//                        }
-//                        
-//                        if let errorData = responseDic?["detail"] {
-//                            
-//                            let errorMessage = errorData.objectAtIndex(0) as! String
-//                            //let errorMessage = errorData[0] as! String
-//                            self.displayCommonAlert(errorMessage)
-//                            return;
-//                        }
-//                    }else{
-//                        if let searchArray = post.arrayObject
-//                        {
-//                            self.feedsArray = searchArray as! NSMutableArray
-//                            self.reloadTable()
-//                        }
-//                    }
-//                }
-//            }
-//        }
     }
     
     func reloadTable()
@@ -317,12 +237,13 @@ class NewsFeedTableViewController: UITableViewController, SpringIndicatorTrait {
         let feedTag = feedBtn.superview!.tag
         let dicPost : NSDictionary = self.feedsArray[feedTag] as! NSDictionary
 
-        let aVenueProfileViewController : VenueProfileViewController = self.storyboard!.instantiateViewControllerWithIdentifier("VenueProfileViewController") as! VenueProfileViewController
-        AppPersistedStore.sharedInstance.selectedVenueId = String(dicPost["venue_id"])
-        
-        self.navigationController!.pushViewController(aVenueProfileViewController, animated: true)
-        return
-
+//        let aVenueProfileViewController : VenueProfileViewController = self.storyboard!.instantiateViewControllerWithIdentifier("VenueProfileViewController") as! VenueProfileViewController
+        if let venueProfileViewController = self.storyboard?.instantiateViewControllerWithIdentifier("VenueProfileV2ViewController") as? VenueProfileV2ViewController,
+          let venueIdInt = dicPost["venue_id"] as? Int {
+            AppPersistedStore.sharedInstance.selectedVenueId = String(venueIdInt)
+            venueProfileViewController.venueId = String(venueIdInt)
+            self.navigationController!.pushViewController(venueProfileViewController, animated: true)
+        }
     }
     
     func gestureRecognizer(gestureRecognizer: UIGestureRecognizer, shouldBeRequiredToFailByGestureRecognizer otherGestureRecognizer: UIGestureRecognizer) -> Bool {
