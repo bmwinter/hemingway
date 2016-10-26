@@ -19,14 +19,29 @@
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleVersion</key>
-	<string>1</string>
+	<string>1.4</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>MGLMapboxAccessToken</key>
+	<string>pk.eyJ1IjoibWl4cmFwcCIsImEiOiJjaW01Z2R6NGgwMW1hdWZtNjFkeDBvNm10In0.yTy8dOKb_egm2VoTeMVggA</string>
 	<key>NSAppTransportSecurity</key>
 	<dict>
 		<key>NSAllowsArbitraryLoads</key>
 		<true/>
 	</dict>
+	<key>NSCameraUsageDescription</key>
+	<string>Record some great times out with MIXR</string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>Enable location to view local bars and restaurants!</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Access is for posting purposes</string>
+	<key>UIAppFonts</key>
+	<array>
+		<string>forgotten futurist rg it.tff</string>
+		<string>forgotten futurist rg.ttf</string>
+		<string>forgotten futurist bd it.ttf</string>
+		<string>forgotten futurist bd.ttf</string>
+	</array>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>

@@ -7,11 +7,27 @@ platform :ios, '8.0'
 use_frameworks!
 
 target 'MIXR' do
-pod 'Alamofire', '~> 3.0.0-beta.3'
-pod 'IQKeyboardManagerSwift', '~> 3.3'
+    pod 'Alamofire', '~> 3.5.1'
+    pod 'IQKeyboardManagerSwift', '~> 3.3'
+    pod 'SwiftyJSON', '~> 2.4.0'
+    pod 'Agrume', '~> 2.7'
+    pod 'BTNavigationDropdownMenu', :git => 'https://github.com/PhamBaTho/BTNavigationDropdownMenu.git', :branch => 'swift-2.3'
+    pod 'SpringIndicator', '~> 1.2.1'
+    pod 'AlamofireImage'
+    pod 'Mapbox-iOS-SDK', '~> 3.3.3'
+    pod 'Player'
+    pod 'NSDateMinimalTimeAgo'
+
+    post_install do |installer|
+        installer.pods_project.targets.each do |target|
+            target.build_configurations.each do |config|
+                config.build_settings['SWIFT_VERSION'] = '2.3'
+            end
+        end
+    end
 end
 
 target 'MIXRTests' do
-
+    
 end
 

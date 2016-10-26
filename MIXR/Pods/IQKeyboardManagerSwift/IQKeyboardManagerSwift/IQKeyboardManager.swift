@@ -133,6 +133,21 @@ public class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
     public var shouldToolbarUsesTextFieldTintColor = false
     
     /**
+    This is used for toolbar.tintColor when textfield.keyboardAppearance is UIKeyboardAppearanceDefault. If shouldToolbarUsesTextFieldTintColor is YES then this property is ignored. Default is nil and uses black color.
+    */
+    public var toolbarTintColor : UIColor?
+
+    /**
+     Toolbar done button icon, If nothing is provided then check toolbarDoneBarButtonItemText to draw done button.
+     */
+    public var toolbarDoneBarButtonItemImage : UIImage?
+    
+    /**
+     Toolbar done button text, If nothing is provided then system default 'UIBarButtonSystemItemDone' will be used.
+     */
+    public var toolbarDoneBarButtonItemText : String?
+
+    /**
     If YES, then it add the textField's placeholder text on IQToolbar. Default is YES.
     */
     public var shouldShowTextFieldPlaceholder = true
@@ -333,7 +348,7 @@ public class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
     }
     
     /**	previousAction. */
-    internal func previousAction (segmentedControl : AnyObject?) {
+    internal func previousAction (barButton : UIBarButtonItem?) {
         
         //If user wants to play input Click sound.
         if shouldPlayInputClicks == true {
@@ -355,7 +370,7 @@ public class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
     }
     
     /**	nextAction. */
-    internal func nextAction (segmentedControl : AnyObject?) {
+    internal func nextAction (barButton : UIBarButtonItem?) {
         
         //If user wants to play input Click sound.
         if shouldPlayInputClicks == true {
@@ -424,6 +439,7 @@ public class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
     /**
     Restore scrollViewContentOffset when resigning from scrollView. Default is NO.
     */
+    @available(*, deprecated, message="Please use IQUIScrollView+Additions category instead. This property will be removed from here in future release.")
     public var shouldRestoreScrollViewContentOffset = false
 
     
@@ -462,7 +478,12 @@ public class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
     
     @param disabledClass Class in which library should not adjust view to show textField.
     */
+    @available(*, deprecated, message="This method is replaced with disableDistanceHandlingInViewControllerClass: method to adopt more graceful method name. Some developers confuses with this method name. This method will be removed in upcoming release.")
     public func disableInViewControllerClass(disabledClass : AnyClass) {
+        disableDistanceHandlingInViewControllerClass(disabledClass)
+    }
+    
+    public func disableDistanceHandlingInViewControllerClass(disabledClass : AnyClass) {
         _disabledClasses.insert(NSStringFromClass(disabledClass))
     }
     
@@ -471,17 +492,20 @@ public class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
     
     @param disabledClass Class in which library should re-enable adjust view to show textField.
     */
+    @available(*, deprecated, message="This method is replaced with removeDisableDistanceHandlingInViewControllerClass: method to adopt more graceful method name. Some developers confuses with this method name. This method will be removed in upcoming release.")
     public func removeDisableInViewControllerClass(disabledClass : AnyClass) {
+        removeDisableDistanceHandlingInViewControllerClass(disabledClass)
+    }
+    
+    public func removeDisableDistanceHandlingInViewControllerClass(disabledClass : AnyClass) {
         _disabledClasses.remove(NSStringFromClass(disabledClass))
     }
     
     /**
-    Returns YES if ViewController class is disabled for library, otherwise returns NO.
-    
-    @param disabledClass Class which is to check for it's disability.
-    */
-    public func isDisableInViewControllerClass(disabledClass : AnyClass) -> Bool {
-        return _disabledClasses.contains(NSStringFromClass(disabledClass))
+     Returns All disabled classes registered with disableInViewControllerClass.
+     */
+    public func disabledInViewControllerClassesString() -> Set<String> {
+        return _disabledClasses
     }
     
     /**
@@ -507,8 +531,8 @@ public class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
     
     @param toolbarDisabledClass Class which is to check for toolbar disability.
     */
-    public func isDisableToolbarInViewControllerClass(toolbarDisabledClass : AnyClass) -> Bool {
-        return _disabledToolbarClasses.contains(NSStringFromClass(toolbarDisabledClass))
+    public func disabledToolbarInViewControllerClassesString() -> Set<String> {
+        return _disabledToolbarClasses
     }
     
     /**
@@ -534,8 +558,8 @@ public class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
     
     @param toolbarPreviousNextConsideredClass Class which is to check for previous next consideration
     */
-    public func isConsiderToolbarPreviousNextInViewClass(toolbarPreviousNextConsideredClass : AnyClass) -> Bool {
-        return _toolbarPreviousNextConsideredClass.contains(NSStringFromClass(toolbarPreviousNextConsideredClass))
+    public func consideredToolbarPreviousNextViewClassesString() -> Set<String> {
+        return _toolbarPreviousNextConsideredClass
     }
 
 
@@ -596,11 +620,6 @@ public class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
     
     /*******************************************/
     
-    /** Default toolbar tintColor to be used within the project. Default is black. */
-    private var         _defaultToolbarTintColor = UIColor.blackColor()
-
-    /*******************************************/
-    
     /** Set of restricted classes for library */
     private var         _disabledClasses  = Set<String>()
     
@@ -655,17 +674,24 @@ public class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
 
         //Creating gesture for @shouldResignOnTouchOutside. (Enhancement ID: #14)
         _tapGesture = UITapGestureRecognizer(target: self, action: "tapRecognized:")
+        _tapGesture.cancelsTouchesInView = false
         _tapGesture.delegate = self
         _tapGesture.enabled = shouldResignOnTouchOutside
         
-        disableInViewControllerClass(UITableViewController)
+        disableDistanceHandlingInViewControllerClass(UITableViewController)
         considerToolbarPreviousNextInViewClass(UITableView)
         considerToolbarPreviousNextInViewClass(UICollectionView)
+        
+        //Workaround to load all appearance proxies at startup
+        let barButtonItem2 = IQTitleBarButtonItem()
+        barButtonItem2.title = ""
+        let toolbar = IQToolbar()
+        toolbar.title = ""
     }
     
     /** Override +load method to enable KeyboardManager when class loader load IQKeyboardManager. Enabling when app starts (No need to write any code) */
-    /** It doesn't work on Swift 1.2 */
-//    override class func load() {
+    /** It doesn't work from Swift 1.2 */
+//    override public class func load() {
 //        super.load()
 //        
 //        //Enabling IQKeyboardManager.
@@ -891,7 +917,7 @@ public class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
                     lastScrollView.scrollIndicatorInsets = self._startingScrollIndicatorInsets
                     }) { (animated:Bool) -> Void in }
                 
-                if shouldRestoreScrollViewContentOffset == true {
+                if lastScrollView.shouldRestoreScrollViewContentOffset == true {
                     lastScrollView.setContentOffset(_startingContentOffset, animated: true)
                 }
                 
@@ -909,7 +935,7 @@ public class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
                     lastScrollView.scrollIndicatorInsets = self._startingScrollIndicatorInsets
                     }) { (animated:Bool) -> Void in }
                 
-                if shouldRestoreScrollViewContentOffset == true {
+                if lastScrollView.shouldRestoreScrollViewContentOffset == true {
                     lastScrollView.setContentOffset(_startingContentOffset, animated: true)
                 }
 
@@ -1389,7 +1415,7 @@ public class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
                 lastScrollView.contentInset = self._startingContentInsets
                 lastScrollView.scrollIndicatorInsets = self._startingScrollIndicatorInsets
                 
-                if self.shouldRestoreScrollViewContentOffset == true {
+                if lastScrollView.shouldRestoreScrollViewContentOffset == true {
                     lastScrollView.contentOffset = self._startingContentOffset
                 }
                 
@@ -1397,9 +1423,9 @@ public class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
 
                 // TODO: restore scrollView state
                 // This is temporary solution. Have to implement the save and restore scrollView state
-                var superScrollView = lastScrollView
-                
-                while let scrollView = superScrollView.superviewOfClassType(UIScrollView) as? UIScrollView {
+                var superScrollView : UIScrollView? = lastScrollView
+
+                while let scrollView = superScrollView {
 
                     let contentSize = CGSizeMake(max(scrollView.contentSize.width, CGRectGetWidth(scrollView.frame)), max(scrollView.contentSize.height, CGRectGetHeight(scrollView.frame)))
                     
@@ -1411,7 +1437,7 @@ public class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
                         self._IQShowLog("Restoring \(scrollView._IQDescription()) contentOffset to : \(self._startingContentOffset)")
                     }
                     
-                    superScrollView = scrollView
+                    superScrollView = scrollView.superviewOfClassType(UIScrollView) as? UIScrollView
                 }
                 }) { (finished) -> Void in }
         }
@@ -1779,8 +1805,18 @@ public class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
                 //setInputAccessoryView: check   (Bug ID: #307)
                 if textField.respondsToSelector(Selector("setInputAccessoryView:")) && (textField.inputAccessoryView == nil || textField.inputAccessoryView?.tag == IQKeyboardManager.kIQPreviousNextButtonToolbarTag) {
                     
-                    //Now adding textField placeholder text as title of IQToolbar  (Enhancement ID: #27)
-                    textField.addDoneOnKeyboardWithTarget(self, action: "doneAction:", shouldShowPlaceholder: shouldShowTextFieldPlaceholder)
+                    //Supporting Custom Done button image (Enhancement ID: #366)
+                    if let doneBarButtonItemImage = toolbarDoneBarButtonItemImage {
+                            textField.addRightButtonOnKeyboardWithImage(doneBarButtonItemImage, target: self, action: "doneAction:", shouldShowPlaceholder: shouldShowTextFieldPlaceholder)
+                    }
+                    //Supporting Custom Done button text (Enhancement ID: #209, #411, Bug ID: #376)
+                    else if let doneBarButtonItemText = toolbarDoneBarButtonItemText {
+                        textField.addRightButtonOnKeyboardWithText(doneBarButtonItemText, target: self, action: "doneAction:", shouldShowPlaceholder: shouldShowTextFieldPlaceholder)
+                    } else {
+                        //Now adding textField placeholder text as title of IQToolbar  (Enhancement ID: #27)
+                        textField.addDoneOnKeyboardWithTarget(self, action: "doneAction:", shouldShowPlaceholder: shouldShowTextFieldPlaceholder)
+                    }
+
                     textField.inputAccessoryView?.tag = IQKeyboardManager.kIQDoneButtonToolbarTag //  (Bug ID: #78)
                 }
                 
@@ -1799,7 +1835,15 @@ public class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
                             toolbar.tintColor = UIColor.whiteColor()
                         default:
                             toolbar.barStyle = UIBarStyle.Default
-                            toolbar.tintColor = shouldToolbarUsesTextFieldTintColor ? _textField.tintColor : _defaultToolbarTintColor
+                            
+                            //Setting toolbar tintColor //  (Enhancement ID: #30)
+                            if shouldToolbarUsesTextFieldTintColor {
+                                toolbar.tintColor = _textField.tintColor
+                            } else if let tintColor = toolbarTintColor {
+                                toolbar.tintColor = tintColor
+                            } else {
+                                toolbar.tintColor = UIColor.blackColor()
+                            }
                         }
                     } else if let _textView = textField as? UITextView {
 
@@ -1811,7 +1855,14 @@ public class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
                             toolbar.tintColor = UIColor.whiteColor()
                         default:
                             toolbar.barStyle = UIBarStyle.Default
-                            toolbar.tintColor = shouldToolbarUsesTextFieldTintColor ? _textView.tintColor : _defaultToolbarTintColor
+                            
+                            if shouldToolbarUsesTextFieldTintColor {
+                                toolbar.tintColor = _textView.tintColor
+                            } else if let tintColor = toolbarTintColor {
+                                toolbar.tintColor = tintColor
+                            } else {
+                                toolbar.tintColor = UIColor.blackColor()
+                            }
                         }
                     }
 
@@ -1852,8 +1903,18 @@ public class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
                     //setInputAccessoryView: check   (Bug ID: #307)
                     if textField.respondsToSelector(Selector("setInputAccessoryView:")) && (textField.inputAccessoryView == nil || textField.inputAccessoryView?.tag == IQKeyboardManager.kIQDoneButtonToolbarTag) {
                         
-                        //Now adding textField placeholder text as title of IQToolbar  (Enhancement ID: #27)
-                        textField.addPreviousNextDoneOnKeyboardWithTarget(self, previousAction: "previousAction:", nextAction: "nextAction:", doneAction: "doneAction:", shouldShowPlaceholder: shouldShowTextFieldPlaceholder)
+                        //Supporting Custom Done button image (Enhancement ID: #366)
+                        if let doneBarButtonItemImage = toolbarDoneBarButtonItemImage {
+                            textField.addPreviousNextRightOnKeyboardWithTarget(self, rightButtonImage: doneBarButtonItemImage, previousAction: "previousAction:", nextAction: "nextAction:", rightButtonAction: "doneAction:", shouldShowPlaceholder: shouldShowTextFieldPlaceholder)
+                        }
+                        //Supporting Custom Done button text (Enhancement ID: #209, #411, Bug ID: #376)
+                        else if let doneBarButtonItemText = toolbarDoneBarButtonItemText {
+                            textField.addPreviousNextRightOnKeyboardWithTarget(self, rightButtonTitle: doneBarButtonItemText, previousAction: "previousAction:", nextAction: "nextAction:", rightButtonAction: "doneAction:", shouldShowPlaceholder: shouldShowTextFieldPlaceholder)
+                        } else {
+                            //Now adding textField placeholder text as title of IQToolbar  (Enhancement ID: #27)
+                            textField.addPreviousNextDoneOnKeyboardWithTarget(self, previousAction: "previousAction:", nextAction: "nextAction:", doneAction: "doneAction:", shouldShowPlaceholder: shouldShowTextFieldPlaceholder)
+                        }
+
                         textField.inputAccessoryView?.tag = IQKeyboardManager.kIQPreviousNextButtonToolbarTag //  (Bug ID: #78)
                    }
                     
@@ -1872,7 +1933,14 @@ public class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
                                 toolbar.tintColor = UIColor.whiteColor()
                             default:
                                 toolbar.barStyle = UIBarStyle.Default
-                                toolbar.tintColor = shouldToolbarUsesTextFieldTintColor ? _textField.tintColor : _defaultToolbarTintColor
+
+                                if shouldToolbarUsesTextFieldTintColor {
+                                    toolbar.tintColor = _textField.tintColor
+                                } else if let tintColor = toolbarTintColor {
+                                    toolbar.tintColor = tintColor
+                                } else {
+                                    toolbar.tintColor = UIColor.blackColor()
+                                }
                             }
                         } else if let _textView = textField as? UITextView {
                             
@@ -1884,7 +1952,14 @@ public class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
                                 toolbar.tintColor = UIColor.whiteColor()
                             default:
                                 toolbar.barStyle = UIBarStyle.Default
-                                toolbar.tintColor = shouldToolbarUsesTextFieldTintColor ? _textView.tintColor : _defaultToolbarTintColor
+
+                                if shouldToolbarUsesTextFieldTintColor {
+                                    toolbar.tintColor = _textView.tintColor
+                                } else if let tintColor = toolbarTintColor {
+                                    toolbar.tintColor = tintColor
+                                } else {
+                                    toolbar.tintColor = UIColor.blackColor()
+                                }
                             }
                         }
                         
