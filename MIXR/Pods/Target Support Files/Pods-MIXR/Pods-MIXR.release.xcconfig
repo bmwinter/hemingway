@@ -1,8 +1,11 @@
 EMBEDDED_CONTENT_CONTAINS_SWIFT = YES
+FRAMEWORK_SEARCH_PATHS = $(inherited) "$PODS_CONFIGURATION_BUILD_DIR/Agrume" "$PODS_CONFIGURATION_BUILD_DIR/Alamofire" "$PODS_CONFIGURATION_BUILD_DIR/AlamofireImage" "$PODS_CONFIGURATION_BUILD_DIR/BTNavigationDropdownMenu" "$PODS_CONFIGURATION_BUILD_DIR/IQKeyboardManagerSwift" "$PODS_CONFIGURATION_BUILD_DIR/NSDateMinimalTimeAgo" "$PODS_CONFIGURATION_BUILD_DIR/Player" "$PODS_CONFIGURATION_BUILD_DIR/SpringIndicator" "$PODS_CONFIGURATION_BUILD_DIR/SwiftyJSON" "${PODS_ROOT}/Mapbox-iOS-SDK/dynamic"
 GCC_PREPROCESSOR_DEFINITIONS = $(inherited) COCOAPODS=1
+HEADER_SEARCH_PATHS = $(inherited) "${PODS_ROOT}/Headers/Public" "${PODS_ROOT}/Headers/Public/Mapbox-iOS-SDK"
 LD_RUNPATH_SEARCH_PATHS = $(inherited) '@executable_path/Frameworks' '@loader_path/Frameworks'
-OTHER_CFLAGS = $(inherited) -iquote "$CONFIGURATION_BUILD_DIR/Alamofire.framework/Headers" -iquote "$CONFIGURATION_BUILD_DIR/IQKeyboardManagerSwift.framework/Headers"
-OTHER_LDFLAGS = $(inherited) -framework "Alamofire" -framework "IQKeyboardManagerSwift"
+OTHER_CFLAGS = $(inherited) -iquote "$PODS_CONFIGURATION_BUILD_DIR/Agrume/Agrume.framework/Headers" -iquote "$PODS_CONFIGURATION_BUILD_DIR/Alamofire/Alamofire.framework/Headers" -iquote "$PODS_CONFIGURATION_BUILD_DIR/AlamofireImage/AlamofireImage.framework/Headers" -iquote "$PODS_CONFIGURATION_BUILD_DIR/BTNavigationDropdownMenu/BTNavigationDropdownMenu.framework/Headers" -iquote "$PODS_CONFIGURATION_BUILD_DIR/IQKeyboardManagerSwift/IQKeyboardManagerSwift.framework/Headers" -iquote "$PODS_CONFIGURATION_BUILD_DIR/NSDateMinimalTimeAgo/NSDateMinimalTimeAgo.framework/Headers" -iquote "$PODS_CONFIGURATION_BUILD_DIR/Player/Player.framework/Headers" -iquote "$PODS_CONFIGURATION_BUILD_DIR/SpringIndicator/SpringIndicator.framework/Headers" -iquote "$PODS_CONFIGURATION_BUILD_DIR/SwiftyJSON/SwiftyJSON.framework/Headers" -isystem "${PODS_ROOT}/Headers/Public" -isystem "${PODS_ROOT}/Headers/Public/Mapbox-iOS-SDK"
+OTHER_LDFLAGS = $(inherited) -framework "Agrume" -framework "Alamofire" -framework "AlamofireImage" -framework "BTNavigationDropdownMenu" -framework "IQKeyboardManagerSwift" -framework "Mapbox" -framework "NSDateMinimalTimeAgo" -framework "Player" -framework "SpringIndicator" -framework "SwiftyJSON"
 OTHER_SWIFT_FLAGS = $(inherited) "-D" "COCOAPODS"
-PODS_FRAMEWORK_BUILD_PATH = $(BUILD_DIR)/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)/Pods-MIXR
+PODS_BUILD_DIR = $BUILD_DIR
+PODS_CONFIGURATION_BUILD_DIR = $PODS_BUILD_DIR/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)
 PODS_ROOT = ${SRCROOT}/Pods
