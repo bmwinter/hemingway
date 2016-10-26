@@ -122,49 +122,6 @@ class RecoverPassword: UITableViewController, SpringIndicatorTrait {
                                                                             self?.navigationController?.popToRootViewControllerAnimated(true)
                                                                         }
             }, failure: nil)
-        
-//        let parameters = [
-//            "phone_number": self.phoneNo.text!.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet()),
-//            "code":self.verificationCode.text!.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet()),
-//            "password":self.newPassword.text!.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
-//        ]
-        
-//        let URL =  globalConstants.kAPIURL + globalConstants.kPasswordRecoverChange
-//
-//        Alamofire.request(.POST, URL , parameters: parameters, encoding: .JSON)
-//            .responseString { response in
-//                
-//                guard let value = response.result.value else {
-//                    print("Error: did not receive data")
-//                    return
-//                }
-//                
-//                guard response.result.error == nil else {
-//                    print("error calling POST")
-//                    print(response.result.error)
-//                    return
-//                }
-//                
-//
-//                let post = JSON(value)
-//                if let string = post.rawString() {
-//                    let responseDic:[String:AnyObject]? = self.convertStringToDictionary(string)
-//                    
-//                    if response.response?.statusCode == 400{
-//                        print("The Response Error is:   \(response.response?.statusCode)")
-//                        if let errorData = responseDic?["detail"] {
-//                            //let errorMessage = errorData[0] as! String
-//                            let errorMessage = (errorData as? NSArray)?[0] as! String
-//                            self.displayCommonAlert(errorMessage)
-//                            return;
-//                        }
-//                    }
-//                    
-//                    if let tokenData = responseDic?["confirmation"] {
-//                        self.navigationController?.popToRootViewControllerAnimated(true)
-//                    }
-//                }
-//        }
     }
 
     /*

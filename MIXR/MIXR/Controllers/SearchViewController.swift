@@ -96,17 +96,6 @@ class SearchViewController: BaseViewController, SpringIndicatorTrait {
         {
             tokenString +=  appToken
             
-            //Alamofire.Manager.sharedInstance.session.configuration.HTTPAdditionalHeaders?.updateValue(tokenString, forKey: "authorization")
-           
-//            let headers = [
-//                "Authorization": tokenString,
-//            ]
-//            
-//            let parameters = [
-//                "query": self.searchBarObj.text!//.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet()),
-//            ]
-//            let URL =  globalConstants.kAPIURL + globalConstants.kSearchAPIEndPoint
-            
             APIManager.sharedInstance.search(withQuery: query,
                                              success: { (jsonResponse) in
                                                 let tempArray = NSMutableArray(array: jsonResponse.arrayObject ?? [])
@@ -116,87 +105,6 @@ class SearchViewController: BaseViewController, SpringIndicatorTrait {
                 }, failure: { (error) in
                     
             })
-            //Alamofire.Manager.sharedInstance.session.configuration.HTTPAdditionalHeaders?.updateValue("application/json", forKey: "Accept")
-            
-//            Alamofire.request(.POST, URL , parameters: parameters, encoding: .JSON, headers : headers)
-//                .responseString { [unowned self] response in
-//                    
-//                    self.usersArray.removeAllObjects()
-//                    self.searchingArray .removeAllObjects()
-//                    
-//                    self.stopAnimatingSpringIndicator()
-//                    guard let value = response.result.value else
-//                    {
-//                        print("Error: did not receive data")
-//                        self.reloadTable()
-//                        
-//                        return
-//                    }
-//                    
-//                    guard response.result.error == nil else
-//                    {
-//                        print("error calling POST on Login")
-//                        print(response.result.error)
-//                        self.reloadTable()
-//                        
-//                        return
-//                    }
-//                    
-//                    
-//                    let jsonResponse = JSON.parse(value)
-//                    if let statusCode = response.response?.statusCode {
-//                        switch statusCode {
-//                        case 400:
-//                            let responseDic:[String:AnyObject]? = jsonResponse.dictionaryObject
-//                            print("The Response Error is:   \(response.response?.statusCode)")
-//                            
-//                            if let val = responseDic?["code"]
-//                            {
-//                                if val[0].isEqualToString("13")
-//                                {
-//                                    //print("Equals")
-//                                    //self.displayCommonAlert(responseDic?["detail"]?[0] as! String)
-//                                    self.reloadTable()
-//                                    
-//                                    return
-//                                }
-//                                // now val is not nil and the Optional has been unwrapped, so use it
-//                            }
-//                            
-//                            if let errorData = responseDic?["detail"]
-//                            {
-//                                
-//                                if errorData is String
-//                                {
-//                                    //self.displayCommonAlert(errorMessage)
-//                                    
-//                                }
-//                                else if errorData is NSArray
-//                                {
-//                                    if (errorData as? NSArray)?[0] is String
-//                                    {
-//                                        //self.displayCommonAlert(errorMessageStr)
-//                                    }
-//                                }
-//                                self.reloadTable()
-//                                
-//                                return;
-//                            }
-//                        case 200, 201:
-//                            // TODO: refactor this to stop using NSMutableArray
-//                            let tempArray = NSMutableArray(array: jsonResponse.arrayObject ?? [])
-//                            self.usersArray = NSMutableArray(array: self.createDisplayArray(tempArray))
-//                            self.feedcount = self.usersArray.count
-//                            self.searchingArray = self.usersArray
-//                            
-//                        default:
-//                            return
-//                            
-//                        }
-//                        
-//                        self.reloadTable()
-//                    }
-//            }
         }
     }
     

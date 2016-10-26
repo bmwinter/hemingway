@@ -224,61 +224,6 @@ class LoginViewController: BaseViewController {
                                                             self?.loadTabar()
                 }, failure: nil)
         }
-        
-//        let URL =  globalConstants.kAPIURL + globalConstants.kLoginAPIEndPoint
-//        
-//        Alamofire.Manager.sharedInstance.session.configuration.HTTPAdditionalHeaders?.updateValue("application/json", forKey: "Accept")
-//        
-//        
-//        Alamofire.request(.POST, URL , parameters: parameters, encoding: .JSON)
-//            .responseString { response in
-//                
-//                guard let value = response.result.value else {
-//                    print("Error: did not receive data")
-//                    return
-//                }
-//                
-//                guard response.result.error == nil else {
-//                    print("error calling POST on Login")
-//                    print(response.result.error)
-//                    return
-//                }
-//                
-//                
-//                let post = JSON(value)
-//                if let string = post.rawString() {
-//                    let responseDic:[String:AnyObject]? = self.convertStringToDictionary(string)
-//                    
-//                    if response.response?.statusCode == 400{
-//                        print("The Response Error is:   \(response.response?.statusCode)")
-//                        
-//                        if let val = responseDic?["code"] {
-//                            if val[0].isEqualToString("13") {
-//                                //                                print("Equals")
-//                                //self.displayCommonAlert(responseDic?["detail"]?[0] as! String)
-//                                self.displayCommonAlert((responseDic?["detail"] as? NSArray)?[0] as! String)
-//
-//                                return
-//                            }
-//                            // now val is not nil and the Optional has been unwrapped, so use it
-//                        }
-//                        
-//                        if let errorData = responseDic?["detail"] {
-//                            
-//                            let errorMessage = (errorData as? NSArray)?[0] as! String
-//                            self.displayCommonAlert(errorMessage)
-//                            return;
-//                        }
-//                    }
-//                    
-//                    if let tokenData = responseDic?["token"] {
-//                        let tokenString = tokenData as! String
-//                        NSUserDefaults.standardUserDefaults().setObject(tokenString, forKey: "LoginToken")
-//                        print(tokenString)
-//                        self.loadTabar()
-//                    }
-//                }
-//        }
     }
 }
 

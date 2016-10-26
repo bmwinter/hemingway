@@ -253,42 +253,6 @@ class SignUpTableViewController: BaseViewController {
             }, failure: { (error) in
                 
         })
-
-//        Alamofire.request(.POST, URL , parameters: parameters, encoding: .JSON)
-//            .responseString { response in
-//                guard let value = response.result.value else {
-//                    print("Error: did not receive data")
-//                    return
-//                }
-//                
-//                guard response.result.error == nil else {
-//                    print("error calling POST on SignUp")
-//                    print(response.result.error)
-//                    return
-//                }
-//                
-//
-//                let post = JSON(value)
-//                if let string = post.rawString() {
-//                    let responseDic:[String:AnyObject]? = self.convertStringToDictionary(string)
-//                    
-//                    if response.response?.statusCode == 400 {
-//                        print("The Response Error is:   \(response.response?.statusCode)")
-//                        if let errorData = responseDic?["detail"] {
-//                            //let errorMessage = errorData[0] as! String
-//                            let errorMessage = (errorData as? NSArray)?[0] as! String
-//
-//                            self.displayCommonAlert(errorMessage)
-//                            return;
-//                        }
-//                    }
-//                    
-//                    if let tokenData = responseDic?["email"] {
-//                        self.navigationController?.navigationBarHidden = false
-//                        self.performSegueWithIdentifier("SMSVerification", sender: nil)
-//                    }
-//                }
-//        }
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject!) {
